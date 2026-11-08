@@ -1,0 +1,68 @@
+[
+ {
+  "corporatie": "Alliantie",
+  "wie": "Sociale huurders van de Alliantie én van andere corporaties in het werkgebied (o.a. Amsterdam)",
+  "voorJou": "ja",
+  "voorwaarden": "Zelfstandige sociale huurwoning leeg achterlaten · bod minimaal de vraagprijs (anders vervalt voorrang) · niet onder getaxeerde marktwaarde, die hoger kan zijn dan de vraagprijs · zelfbewoning, 2 jaar anti-speculatie",
+  "periode": "Tot de uiterste inschrijfdatum per woning (staat in de advertentie)",
+  "hoe": "Aanmelden voor de woning-alert, woonsituatie opgeven bij bezichtiging, voorrang melden bij je bod. Meerdere huurders: hoogste bod in de voorrangscategorie wint.",
+  "kanaal": "Eigen site + Funda (makelaar o.a. KRK)",
+  "url": "https://www.de-alliantie.nl/ik-zoek/reageren/voorrang-huurders/",
+  "zekerheid": "Bevestigd op site"
+ },
+ {
+  "corporatie": "Rochdale",
+  "wie": "Huurders van Rochdale",
+  "voorJou": "nee",
+  "voorwaarden": "Zelfbewoning; verkoop- en verhuurbeperking in de akte",
+  "periode": "Voorrang tot een vaste datum per woning; na 10 werkdagen niet verkocht → ook niet-huurders",
+  "hoe": "Reageren via de makelaar en melden dat je Rochdale-huurder bent",
+  "kanaal": "Van der Linden Makelaardij (mva.nl) + Funda",
+  "url": "https://mva.nl/koop/woningen/vreelandplein-20",
+  "zekerheid": "Uit advertentietekst"
+ },
+ {
+  "corporatie": "Stadgenoot",
+  "wie": "Huurders van Stadgenoot met een vast huurcontract die hun woning leeg achterlaten",
+  "voorJou": "nee",
+  "voorwaarden": "Minimaal de vraagprijs bieden, en het bod mag maximaal € 15.000 onder het hoogste bod liggen",
+  "periode": "Per woning, binnen de biedtermijn",
+  "hoe": "Bieden via ikzoek.stadgenoot.nl; aanbodmail is aangevraagd",
+  "kanaal": "ikzoek.stadgenoot.nl + aanbodmail",
+  "url": "https://www.stadgenoot.nl/aanbod/beschikbare-woningen/kopen",
+  "zekerheid": "Site Stadgenoot"
+ },
+ {
+  "corporatie": "Ymere",
+  "wie": "Sociale huurders van Ymere",
+  "voorJou": "nee",
+  "voorwaarden": "Zelfbewoning minimaal 3 jaar · anti-speculatiebeding 3 jaar",
+  "periode": "Niet vermeld; vraag de makelaar",
+  "hoe": "Via de makelaar (o.a. Van der Linden)",
+  "kanaal": "Funda + makelaar",
+  "url": "https://www.funda.nl/detail/koop/amsterdam/appartement-gibraltarstraat-72-2/43399781/",
+  "zekerheid": "Uit advertentietekst"
+ },
+ {
+  "corporatie": "Eigen Haard",
+  "wie": "Huurders van Eigen Haard; in eerder beleid ook sociale huurders van andere corporaties in de Stadsregio",
+  "voorJou": "mogelijk",
+  "voorwaarden": "Zelfbewoningsplicht en anti-speculatiebeding",
+  "periode": "Niet gevonden",
+  "hoe": "Navragen bij Eigen Haard",
+  "kanaal": "Funda",
+  "url": "https://www.eigenhaard.nl",
+  "zekerheid": "Oudere bron, niet actueel bevestigd"
+ },
+ {
+  "corporatie": "Lieven de Key",
+  "wie": "Huurders van een zelfstandige sociale huurwoning bij een corporatie in Amsterdam of Diemen. Bij appartementen gaan De Key-huurders voor op huurders van andere corporaties; bij gezinswoningen niet.",
+  "voorJou": "ja",
+  "voorwaarden": "Sociale huurwoning leeg achterlaten · bezichtiging bijwonen · min. 2 jaar zelf bewonen · verklaring hypotheekverstrekker bij je bod · verhuurdersverklaring · huur opzeggen (max. 2 maanden overlap) · geen ander vastgoed, geen huurachterstand, onderhuur of overlast · beste bod wint, niet per se het hoogste",
+  "periode": "Appartementen (tot NHG-grens): eerste 2 weken na aanbieding · gezinswoningen: eerste 4 weken · geen passend bod in die periode → voorrang vervalt",
+  "hoe": "Reageren via Funda of vindjeplekbijdekey.nl; voorrang geldt automatisch voor wie voldoet",
+  "kanaal": "vindjeplekbijdekey.nl + Funda",
+  "url": "https://www.lievendekey.nl/kopen-met-voorrang",
+  "zekerheid": "Bevestigd op site"
+ }
+]

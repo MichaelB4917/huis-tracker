@@ -1,0 +1,74 @@
+[
+ {
+  "id": "alliantie",
+  "naam": "Alliantie",
+  "soort": "Corporatie",
+  "status": "werkt",
+  "werkt": "Alle pagina's van het aanbod (nu 45 woningen) worden dagelijks opgehaald, met detailpagina.",
+  "todo": "Woning-alert: het formulier vraagt nog je woonsituatie (blijft er iemand in je huurwoning wonen?). Even zelf afronden.",
+  "url": "https://ik-zoek.de-alliantie.nl/aanbod/aanmelden/"
+ },
+ {
+  "id": "dekey",
+  "naam": "Lieven de Key",
+  "soort": "Corporatie",
+  "status": "werkt",
+  "werkt": "Aanbod wordt dagelijks van vindjeplekbijdekey.nl gehaald.",
+  "todo": "De site noemt de einddatum van de voorrang niet; die wordt geschat (14 of 28 dagen na plaatsing).",
+  "url": "https://www.vindjeplekbijdekey.nl"
+ },
+ {
+  "id": "stadgenoot",
+  "naam": "Stadgenoot",
+  "soort": "Corporatie",
+  "status": "werkt",
+  "werkt": "Aanbodmail loopt; de eerste mail bevatte het hele aanbod (19 woningen), die staan nu in het overzicht met locatie.",
+  "todo": "Voorrang geldt alleen voor huurders van Stadgenoot. Energielabel, bouwjaar en VvE staan niet in de mail.",
+  "url": "https://ikzoek.stadgenoot.nl/kopen"
+ },
+ {
+  "id": "rochdale",
+  "naam": "Rochdale",
+  "soort": "Corporatie",
+  "status": "werkt niet",
+  "werkt": "Verkoopt via makelaars (mva) en Funda; valt onder de Funda-zoekopdracht.",
+  "todo": "Funda-zoekopdracht en Gmail staan klaar; wacht op de eerste Funda-mail en controleer dan of de corporatie herkend wordt.",
+  "url": "https://www.rochdale.nl"
+ },
+ {
+  "id": "ymere",
+  "naam": "Ymere",
+  "soort": "Corporatie",
+  "status": "werkt niet",
+  "werkt": "Verkoopt via makelaars en Funda; valt onder de Funda-zoekopdracht.",
+  "todo": "Funda-zoekopdracht en Gmail staan klaar; wacht op de eerste Funda-mail en controleer dan of de corporatie herkend wordt.",
+  "url": "https://www.ymere.nl"
+ },
+ {
+  "id": "eigenhaard",
+  "naam": "Eigen Haard",
+  "soort": "Corporatie",
+  "status": "werkt niet",
+  "werkt": "Geen eigen koopaanbod gevonden.",
+  "todo": "Uitzoeken of en waar Eigen Haard woningen verkoopt (waarschijnlijk via Funda).",
+  "url": "https://www.eigenhaard.nl"
+ },
+ {
+  "id": "funda",
+  "naam": "Funda-zoekopdracht",
+  "soort": "Kanaal",
+  "status": "werkt",
+  "werkt": "Aangemaakt: koop, Amsterdam, tot € 1.000.000, dagelijkse mail naar het nieuwe adres.",
+  "todo": "",
+  "url": "https://www.funda.nl/account/"
+ },
+ {
+  "id": "gmail",
+  "naam": "Gmail-koppeling",
+  "soort": "Kanaal",
+  "status": "werkt",
+  "werkt": "Gekoppeld met het nieuwe adres. De dagelijkse taak leest de alert-mails.",
+  "todo": "",
+  "url": "https://claude.ai/settings/connectors"
+ }
+]
