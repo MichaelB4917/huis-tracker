@@ -716,7 +716,8 @@
   "lat": 52.35077293,
   "lon": 4.93984873,
   "eerstGezien": "2026-11-08",
-  "gezienOp": "2026-11-08"
+  "gezienOp": "2026-11-08",
+  "basis": true
  },
  {
   "id": "kinkerstraat-293-a",
@@ -1596,7 +1597,7 @@
   "bouwjaar": 2008,
   "servicekosten": 145.91,
   "erfpacht": "Canon afgekocht t/m 15-12-2058",
-  "deadline": "2026-11-22",
+  "deadline": "",
   "id": "kerdijkhof-100-1067mn",
   "adres": "Kerdijkhof 100",
   "plaats": "Amsterdam",
@@ -1611,11 +1612,12 @@
   "voorJou": "ja",
   "url": "https://www.vindjeplekbijdekey.nl/kopen/amsterdam/kerdijkhof-100-1067mn",
   "bron": "vindjeplekbijdekey.nl",
-  "voorrangSpec": "Sociale huurders in Amsterdam/Diemen (ook andere corporaties); De Key-huurders gaan voor · eerste 2 weken na aanbieding · beste bod (prijs én voorwaarden) · deadline geschat vanaf eerste keer gezien",
+  "voorrangSpec": "Sociale huurders in Amsterdam/Diemen (ook andere corporaties); De Key-huurders gaan voor · eerste 2 weken na aanbieding · beste bod (prijs én voorwaarden)",
   "lat": 52.37982892,
   "lon": 4.8010037,
   "eerstGezien": "2026-11-08",
-  "gezienOp": "2026-11-08"
+  "gezienOp": "2026-11-08",
+  "basis": true
  },
  {
   "postcode": "1067 MN",
@@ -1625,7 +1627,7 @@
   "bouwjaar": 2008,
   "servicekosten": 258.9,
   "erfpacht": "Canon afgekocht t/m 15-12-2058",
-  "deadline": "2026-11-22",
+  "deadline": "",
   "id": "kerdijkhof-50-1067mn",
   "adres": "Kerdijkhof 50",
   "plaats": "Amsterdam",
@@ -1640,11 +1642,12 @@
   "voorJou": "ja",
   "url": "https://www.vindjeplekbijdekey.nl/kopen/amsterdam/kerdijkhof-50-1067mn",
   "bron": "vindjeplekbijdekey.nl",
-  "voorrangSpec": "Sociale huurders in Amsterdam/Diemen (ook andere corporaties); De Key-huurders gaan voor · eerste 2 weken na aanbieding · beste bod (prijs én voorwaarden) · deadline geschat vanaf eerste keer gezien",
+  "voorrangSpec": "Sociale huurders in Amsterdam/Diemen (ook andere corporaties); De Key-huurders gaan voor · eerste 2 weken na aanbieding · beste bod (prijs én voorwaarden)",
   "lat": 52.37985783,
   "lon": 4.80093553,
   "eerstGezien": "2026-11-08",
-  "gezienOp": "2026-11-08"
+  "gezienOp": "2026-11-08",
+  "basis": true
  },
  {
   "id": "kleine-wittenburgerstraat-2-e-1018lv",
@@ -1924,7 +1927,7 @@
   "bouwjaar": 1982,
   "servicekosten": 229.71,
   "erfpacht": "Canon afgekocht t/m 01-10-2051",
-  "deadline": "2026-11-22",
+  "deadline": "",
   "id": "schelluinenstraat-64-1107jk",
   "adres": "Schelluinenstraat 64",
   "plaats": "Amsterdam",
@@ -1939,11 +1942,12 @@
   "voorJou": "ja",
   "url": "https://www.vindjeplekbijdekey.nl/kopen/amsterdam/schelluinenstraat-64-1107jk",
   "bron": "vindjeplekbijdekey.nl",
-  "voorrangSpec": "Sociale huurders in Amsterdam/Diemen (ook andere corporaties); De Key-huurders gaan voor · eerste 2 weken na aanbieding · beste bod (prijs én voorwaarden) · deadline geschat vanaf eerste keer gezien",
+  "voorrangSpec": "Sociale huurders in Amsterdam/Diemen (ook andere corporaties); De Key-huurders gaan voor · eerste 2 weken na aanbieding · beste bod (prijs én voorwaarden)",
   "lat": 52.29371138,
   "lon": 4.98016158,
   "eerstGezien": "2026-11-08",
-  "gezienOp": "2026-11-08"
+  "gezienOp": "2026-11-08",
+  "basis": true
  },
  {
   "id": "soesterberghof-36-1107gn",
