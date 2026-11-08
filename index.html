@@ -74,9 +74,18 @@
   .num { text-align: right; white-space: nowrap; }
   .nowrap { white-space: nowrap; }
   .sub { color: var(--muted); font-size: 12px; margin-top: 2px; }
+  table.compact { font-size: 12.5px; }
   table.compact .sub { display: none; }
-  table.compact td { padding-top: 5px; padding-bottom: 5px; white-space: nowrap; }
-  table.compact td.spec { white-space: normal; }
+  table.compact td { padding: 3px 8px; white-space: nowrap; line-height: 1.35; }
+  table.compact td.spec { white-space: nowrap; max-width: 16rem; overflow: hidden; text-overflow: ellipsis; }
+  table.compact .badge { padding: 0 6px; font-size: 11px; }
+  table.compact .star { font-size: 14px; }
+  .star { background: none; border: 0; padding: 0 4px 0 0; cursor: pointer; font-size: 16px; line-height: 1; color: var(--muted); opacity: .45; vertical-align: -1px; }
+  .star.on { color: #e0a100; opacity: 1; }
+  .star:hover { opacity: 1; }
+  .btn[aria-pressed="true"] { background: var(--fg); color: var(--bg); border-color: var(--fg); }
+  #regelsTbl th, #regelsTbl td { vertical-align: top; }
+  #regelsTbl { table-layout: fixed; min-width: 60rem; } #regelsTbl .w-m { width: 15%; } #regelsTbl .w-l { width: 25%; } #regelsTbl th:nth-child(2) { width: 6rem; } #regelsTbl td { font-size: 13px; line-height: 1.5; } #regelsTbl td:first-child .sub { font-weight: 400; }
   .adres { font-weight: 600; text-decoration: none; }
   .adres:hover { text-decoration: underline; }
   tr.isnew td:first-child { box-shadow: inset 3px 0 0 var(--new); }
@@ -161,6 +170,7 @@
           <h4>Kolommen</h4>
           <div id="colboxes"></div>
         </div></details>
+      <button class="btn" id="favbtn" aria-pressed="false">★ Favorieten <span id="favn"></span></button>
       <button class="btn" id="reset">Wissen</button>
       <input type="search" class="search f" data-f="q" placeholder="Zoek op straat, wijk of type">
     </div>
@@ -192,7 +202,7 @@
 
   <section data-page="regels" hidden>
     <p class="muted" style="margin-top:0">"Voor jou" gaat uit van een sociale huurwoning bij Lieven de Key. De advertentie is altijd leidend.</p>
-    <div class="scroll"><table><thead><tr><th>Corporatie</th><th>Voor jou</th><th>Wie krijgt voorrang</th><th>Hoe lang</th><th>Voorwaarden</th><th>Hoe claim je het</th><th>Waar geadverteerd</th><th>Bron</th></tr></thead><tbody id="regels"></tbody></table></div>
+    <div class="scroll"><table id="regelsTbl"><thead><tr><th class="w-m">Corporatie</th><th>Voor jou</th><th class="w-l">Wie krijgt voorrang</th><th class="w-l">Voorwaarden</th><th class="w-m">Hoe lang</th><th class="w-m">Hoe claim je het</th></tr></thead><tbody id="regels"></tbody></table></div>
   </section>
 
   <section data-page="bronnen" hidden>
@@ -216,6 +226,10 @@ const weekAgo = new Date(Date.now() - 7 * 864e5).toISOString().slice(0, 10);
 const corpOrder = ['Alliantie', 'Lieven de Key', 'Stadgenoot', 'Rochdale', 'Ymere', 'Eigen Haard'];
 const corpColor = (c) => `var(--c${Math.max(0, corpOrder.indexOf(c) < 0 ? 5 : corpOrder.indexOf(c))})`;
 const corpHex = (c) => getComputedStyle(document.documentElement).getPropertyValue(`--c${corpOrder.indexOf(c) < 0 ? 5 : corpOrder.indexOf(c)}`).trim();
+const EERSTE = '2026-11-08';
+const onlineSinds = (w) => w.onlineSinds ? nlDate(w.onlineSinds) : w.basis ? 'vóór ' + nlShort(EERSTE) : nlDate(w.eerstGezien);
+let favs = new Set(); try { favs = new Set(JSON.parse(store.get('favs') || '[]')); } catch (e) {}
+let favOnly = false;
 const isNew = (w) => !w.basis && !!w.eerstGezien && w.eerstGezien >= weekAgo;
 const median = (a) => { const s = [...a].sort((x, y) => x - y), m = s.length >> 1; return s.length % 2 ? s[m] : (s[m - 1] + s[m]) / 2; };
 
@@ -248,7 +262,7 @@ const statusTone = (s) => s === 'beschikbaar' ? 't-ok' : s === 'onder bod' ? 't-
 // Kolommen
 const COLS = [['adres', 'Adres', true], ['stadsdeel', 'Stadsdeel', true], ['corporatie', 'Corporatie', true], ['prijs', 'Prijs', true, 'num'], ['m2', 'm²', true, 'num'],
   ['ppm', '€/m²', true, 'num'], ['kamers', 'Kamers', true, 'num'], ['type', 'Type', false], ['energielabel', 'Label', true], ['bouwjaar', 'Bouwjaar', false, 'num'],
-  ['servicekosten', 'VvE/mnd', true, 'num'], ['erfpacht', 'Erfpacht', false], ['voorrang', 'Voorrang', true], ['voorrangSpec', 'Voorrangsregel', false], ['status', 'Status', true], ['maps', 'Maps', false]];
+  ['servicekosten', 'VvE/mnd', true, 'num'], ['erfpacht', 'Erfpacht', false], ['online', 'Online sinds', true, 'nowrap'], ['voorrang', 'Voorrang', true], ['voorrangSpec', 'Voorrangsregel', false], ['status', 'Status', true], ['maps', 'Maps', false]];
 let colState = {}; try { colState = JSON.parse(store.get('cols') || '{}'); } catch (e) {}
 const colOn = (k) => k === 'adres' || (k in colState ? colState[k] : COLS.find((c) => c[0] === k)[2]);
 const colStyle = document.createElement('style'); document.head.append(colStyle);
@@ -270,6 +284,7 @@ const filters = () => Object.fromEntries($$('.f').map((e) => [e.dataset.f, e.typ
 $$('.f').forEach((e) => e.addEventListener(e.tagName === 'INPUT' && e.type !== 'checkbox' ? 'input' : 'change', () => render()));
 $$('[data-all]').forEach((b) => b.onclick = () => { sel[b.dataset.all] = null; render(); });
 $$('[data-none]').forEach((b) => b.onclick = () => { sel[b.dataset.none] = new Set(); render(); });
+$('#favbtn').onclick = () => { favOnly = !favOnly; render(); };
 $('#reset').onclick = () => { $$('.f').forEach((e) => e.type === 'checkbox' ? e.checked = e.dataset.f === 'verbergVerkocht' : e.tagName === 'SELECT' ? e.selectedIndex = 0 : e.value = ''); sel.corporatie = sel.stadsdeel = sel.type = null; render(); };
 
 const visible = () => {
@@ -282,6 +297,7 @@ const visible = () => {
     if (f.maxPpm && ppm > +f.maxPpm) return false;
     if (f.minKamers && w.kamers < +f.minKamers) return false;
     for (const k of ['corporatie', 'stadsdeel', 'type']) if (sel[k] && !sel[k].has(w[k] || 'Onbekend')) return false;
+    if (favOnly && !favs.has(w.id)) return false;
     if (f.voorJou && w.voorJou === 'nee') return false;
     if (f.voorrangActief && !voorrang(w).active) return false;
     if (f.nieuw && !isNew(w)) return false;
@@ -344,6 +360,8 @@ const drawMap = (rows) => {
 
 const render = () => {
   markActive();
+  $('#favn').textContent = favs.size ? '(' + favs.size + ')' : '';
+  $('#favbtn').setAttribute('aria-pressed', String(favOnly));
   ['corporatie', 'stadsdeel', 'type'].forEach(ddList);
   const rows = visible();
   $('#ntitle').textContent = rows.length + (rows.length === 1 ? ' woning' : ' woningen') + (rows.length < W.length ? ' van ' + W.length : '');
@@ -354,7 +372,9 @@ const render = () => {
     const cell = (k, ...kids) => { const c = el('td', 'c-' + k); c.append(...kids.filter((x) => x != null && x !== '')); return c; };
     const num = (k, v) => { const c = cell(k, v); c.classList.add('num'); return c; };
     const a = el('a', 'adres', w.adres); a.href = w.url; a.target = '_blank'; a.rel = 'noopener';
-    const cA = cell('adres', a); if (isNew(w)) cA.append(' ', badge('t-new', 'Nieuw')); cA.append(el('div', 'sub', [w.postcode, w.type].filter(Boolean).join(' · ')));
+    const st = el('button', 'star' + (favs.has(w.id) ? ' on' : ''), favs.has(w.id) ? '★' : '☆'); st.title = 'Favoriet'; st.setAttribute('aria-label', 'Favoriet');
+    st.onclick = () => { favs.has(w.id) ? favs.delete(w.id) : favs.add(w.id); store.set('favs', JSON.stringify([...favs])); render(); };
+    const cA = cell('adres', st, a); if (isNew(w)) cA.append(' ', badge('t-new', 'Nieuw')); cA.append(el('div', 'sub', [w.postcode, w.type].filter(Boolean).join(' · ')));
     const cS = cell('stadsdeel', w.stadsdeel || '—'); if (w.wijk) cS.append(el('div', 'sub', w.wijk));
     const d = el('span', 'cd'); d.style.background = corpColor(w.corporatie); const cC = cell('corporatie', d, w.corporatie); cC.classList.add('nowrap');
     const v = voorrang(w); const cV = cell('voorrang', badge(v.cls, v.text));
@@ -363,7 +383,7 @@ const render = () => {
     const m = el('a', null, 'maps'); m.href = 'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent(w.adres + ', ' + (w.plaats || 'Amsterdam')); m.target = '_blank';
     tr.append(cA, cS, cC, num('prijs', eur.format(w.prijs)), num('m2', String(w.m2)), num('ppm', eur.format(Math.round(w.prijs / w.m2))), num('kamers', String(w.kamers)),
       cell('type', w.type), cell('energielabel', w.energielabel || ''), num('bouwjaar', w.bouwjaar ? String(w.bouwjaar) : ''),
-      num('servicekosten', w.servicekosten !== '' && w.servicekosten != null ? eur2.format(w.servicekosten) : ''), cE, cV, cSp, cell('status', badge(statusTone(w.status), w.status)), cell('maps', m));
+      num('servicekosten', w.servicekosten !== '' && w.servicekosten != null ? eur2.format(w.servicekosten) : ''), cE, cell('online', onlineSinds(w)), cV, cSp, cell('status', badge(statusTone(w.status), w.status)), cell('maps', m));
     return tr;
   }));
   drawMap(rows);
@@ -385,8 +405,8 @@ const renderStatic = () => {
   const order = {ja: 0, mogelijk: 1, onbekend: 2, nee: 3};
   $('#regels').replaceChildren(...R.slice().sort((a, b) => (order[a.voorJou] ?? 2) - (order[b.voorJou] ?? 2)).map((r) => {
     const tr = el('tr'); const c0 = el('td', 'nowrap'); const d = el('span', 'cd'); d.style.background = corpColor(r.corporatie); c0.append(d, r.corporatie); c0.style.fontWeight = 600;
-    const c1 = el('td'); c1.append(badge(tone(r.voorJou), r.voorJou)); const a = el('a', null, r.zekerheid); a.href = r.url; a.target = '_blank'; const c7 = el('td'); c7.append(a);
-    tr.append(c0, c1, el('td', null, r.wie), el('td', null, r.periode), el('td', null, r.voorwaarden), el('td', null, r.hoe), el('td', null, r.kanaal), c7); return tr; }));
+    const c1 = el('td'); c1.append(badge(tone(r.voorJou), r.voorJou)); const a = el('a', null, 'Bron: ' + r.zekerheid); a.href = r.url; a.target = '_blank'; c0.append(el('div', 'sub', r.kanaal)); const sb = el('div', 'sub'); sb.append(a); c0.append(sb); c0.style.whiteSpace = 'normal';
+    tr.append(c0, c1, el('td', null, r.wie), el('td', null, r.voorwaarden), el('td', null, r.periode), el('td', null, r.hoe)); return tr; }));
   const st = (s) => s === 'werkt' ? ['var(--ok)', '✓', 't-ok'] : s === 'deels' ? ['var(--warn)', '!', 't-warn'] : ['var(--bad)', '✕', 't-bad'];
   const bo = {'werkt niet': 0, deels: 1, werkt: 2};
   $('#bronnen').replaceChildren(...B.slice().sort((a, b) => (bo[a.status] ?? 0) - (bo[b.status] ?? 0)).map((r) => {
