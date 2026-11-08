@@ -218,7 +218,8 @@ def main():
                     except Exception: pass
             else:
                 w = dict(postcode="", stadsdeel="", wijk=extra.get("_wijk", ""), energielabel="", bouwjaar="", servicekosten="",
-                         erfpacht="", deadline="", **r)
+                         erfpacht="", deadline="")
+                w.update({k: v for k, v in r.items() if v != "" or k not in w})
                 w.setdefault("voorrangSpec", "")
                 if corp == "Lieven de Key":
                     try: dekey_details(w)
