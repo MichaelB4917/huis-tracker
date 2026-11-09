@@ -246,6 +246,11 @@
   .card { border-radius: var(--r); padding: 14px; margin-bottom: 14px; }
   #map { height: 340px; border-radius: var(--rc); }
   .legend { margin-top: 10px; gap: 6px 16px; }
+  /* Kaart schuift mee naar rechts zodra je er voorbij scrollt (alleen brede schermen) */
+  #mapdock { position: fixed; top: 16px; bottom: 16px; z-index: 30; background: var(--panel); border: 1px solid var(--line); border-radius: var(--r); box-shadow: var(--shadow); padding: 8px; animation: dockin .18s ease-out; }
+  #mapdock #map { height: 100%; }
+  @keyframes dockin { from { opacity: 0; transform: translateX(12px); } to { opacity: 1; transform: none; } }
+  body.mapdock #rows, body.mapdock #tabelwrap, body.mapdock #statsblok, body.mapdock .foot { margin-right: calc(var(--dockw) + 16px); }
   details.statsblok > summary { list-style: none; } details.statsblok > summary::-webkit-details-marker { display: none; }
   details.statsblok > summary::before { content: "▸ "; } details.statsblok[open] > summary::before { content: "▾ "; }
 
@@ -550,7 +555,7 @@ $$('[data-theme-btn]').forEach((b) => b.onclick = () => { themePref = b.dataset.
 mq.addEventListener('change', applyTheme); applyTheme();
 
 // Tabs
-const showTab = (n) => { $$('[data-page]').forEach((s) => s.hidden = s.dataset.page !== n); $('[data-page-bar]').hidden = n !== 'woningen'; $$('[data-tab]').forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.tab === n))); if (n === 'woningen' && map) setTimeout(() => map.invalidateSize(), 50); };
+const showTab = (n) => { $$('[data-page]').forEach((s) => s.hidden = s.dataset.page !== n); $('[data-page-bar]').hidden = n !== 'woningen'; $$('[data-tab]').forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.tab === n))); if (n === 'woningen' && map) setTimeout(() => map.invalidateSize(), 50); dockSoon(); };
 $$('[data-tab]').forEach((b) => b.onclick = () => { showTab(b.dataset.tab); history.replaceState(null, '', '#' + b.dataset.tab); });
 
 let W = [], R = [], B = [], META = {};
@@ -600,7 +605,7 @@ const applyDensity = () => { $('#rows').hidden = density !== 'overzicht'; $('#ta
 $$('[data-density]').forEach((b) => b.onclick = () => { density = b.dataset.density; store.set('weergave', density); applyDensity(); });
 applyDensity();
 
-$$('.sec').forEach((c) => c.onchange = () => { $('#' + c.dataset.sec).hidden = !c.checked; if (c.dataset.sec === 'kaartblok') $('#kaartbtn').setAttribute('aria-pressed', String(c.checked)); if (c.checked && map) map.invalidateSize(); });
+$$('.sec').forEach((c) => c.onchange = () => { $('#' + c.dataset.sec).hidden = !c.checked; if (c.dataset.sec === 'kaartblok') $('#kaartbtn').setAttribute('aria-pressed', String(c.checked)); if (c.checked && map) map.invalidateSize(); dockSoon(); });
 $$('details.tdd').forEach((d) => d.addEventListener('toggle', () => { if (d.open) $$('details.tdd').forEach((o) => o !== d && (o.open = false)); }));
 if (innerWidth < 900) $('.sidewrap').open = false;
 $('#kaartbtn').onclick = () => { const c = $('.sec[data-sec="kaartblok"]'); c.checked = !c.checked; c.onchange(); };
@@ -701,6 +706,35 @@ const hl = (id, on) => {
   document.querySelectorAll(`[data-wid="${CSS.escape(id)}"]`).forEach((e) => e.classList.toggle('hl', on));
 };
 const hoverLink = (node, id) => { node.dataset.wid = id; node.addEventListener('mouseenter', () => hl(id, true)); node.addEventListener('mouseleave', () => hl(id, false)); };
+// Kaart meeschuiven: boven de lijst zolang hij in beeld is, daarna als kolom rechts
+let docked = false;
+const dockCheck = () => {
+  if (!map) return;
+  const blok = $('#kaartblok'), col = blok.parentElement;
+  const want = innerWidth >= 1100 && !blok.hidden && !blok.closest('[data-page]').hidden && blok.getBoundingClientRect().bottom < 0;
+  if (want === docked) { if (docked) placeDock(); return; }
+  docked = want;
+  const m = $('#map');
+  if (docked) {
+    const ph = el('div'); ph.id = 'mapph'; ph.style.height = m.offsetHeight + 'px'; m.before(ph);
+    const d = el('div'); d.id = 'mapdock'; d.append(m); document.body.append(d);
+    document.body.classList.add('mapdock'); placeDock();
+  } else {
+    $('#mapph').replaceWith(m); $('#mapdock').remove(); document.body.classList.remove('mapdock');
+  }
+  map.invalidateSize();
+};
+const placeDock = () => {
+  const d = $('#mapdock'); if (!d) return;
+  const r = $('#kaartblok').parentElement.getBoundingClientRect();
+  const w = Math.round(Math.min(460, Math.max(320, r.width * 0.38)));
+  document.body.style.setProperty('--dockw', w + 'px');
+  d.style.width = w + 'px'; d.style.right = Math.round(innerWidth - r.right) + 'px';
+  map.invalidateSize();
+};
+let dockRaf = 0;
+const dockSoon = () => { if (!dockRaf) dockRaf = requestAnimationFrame(() => { dockRaf = 0; dockCheck(); }); };
+addEventListener('scroll', dockSoon, {passive: true}); addEventListener('resize', dockSoon);
 const initMap = () => {
   map = L.map('map', {scrollWheelZoom: true, zoomControl: true}).setView([52.37, 4.9], 11);
   L.tileLayer('https://service.pdok.nl/brt/achtergrondkaart/wmts/v2_0/grijs/EPSG:3857/{z}/{x}/{y}.png', {
