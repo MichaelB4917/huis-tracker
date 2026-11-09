@@ -79,6 +79,14 @@ def erfpacht_kort(t):
     return ""
 
 
+LABEL_RX = re.compile(r"(?i:\be[a-z]{4,9}label)\s*:?\s*(?:is\s*)?([A-G]\+*)(?![A-Za-z])")  # ook typo's als 'Enegrielabel'
+
+
+def label_uit(t):
+    m = LABEL_RX.search(t)
+    return m[1] if m else ""
+
+
 def num(s):
     s = (s or "").strip().replace(".", "").replace(",", ".").rstrip(".")
     try:
@@ -122,7 +130,7 @@ def alliantie():
             id=o["slug"], adres=o["adres"], plaats="Amsterdam", corporatie="Alliantie",
             prijs=int(g(r"Vraagprijs\s*\n\s*€\s*([\d.]+)").replace(".", "") or 0),
             m2=o["m2"], kamers=o["kamers"], type=o["type"], tuin="ja" if "Tuin" in o["labels"] else "nee",
-            energielabel=g(r"[Ee]nergielabel\s*:?\s*([A-G]\+*)\b"), bouwjaar=int(bj) if bj else "",
+            energielabel=label_uit(t), bouwjaar=int(bj) if bj else "",
             servicekosten=num(g(r"[Ss]ervicekosten[^€\n]{0,40}€\s*([\d.,]+)")), erfpacht=erfpacht_kort(t),
             status=status, voorrangLabel="ja" if any("Voorrang" in l for l in o["labels"]) else "nee",
             voorJou="ja", deadline=dl, voorrangSpec=SPEC_ALLIANTIE,
@@ -176,7 +184,7 @@ def dekey_details(w):
     bj = g(r"Bouwjaar\s*\n\s*(\d{4})")
     w["bouwjaar"] = int(bj) if bj else w.get("bouwjaar", "")
     w["servicekosten"] = num(g(r"Bijdrage VvE\s*\n\s*€\s*([\d.,]+)")) or w.get("servicekosten", "")
-    w["energielabel"] = g(r"[Ee]nergielabel\s*:?\s*([A-G]\+*)\b") or w.get("energielabel", "")
+    w["energielabel"] = label_uit(t) or w.get("energielabel", "")
     w["erfpacht"] = erfpacht_kort(t) or w.get("erfpacht", "")
 
 
@@ -190,7 +198,7 @@ def details_uit_tekst(t):
     kamers = g(r"(\d+)[- ]?kamer") or str(WOORDEN.get(g(r"\b(een|twee|drie|vier|vijf|zes)[- ]?kamer").lower(), ""))
     bj = g(r"[Bb]ouwjaar[:\s]*\n?\s*(\d{4})")
     return dict(m2=int(m2) if m2 else "", kamers=int(kamers) if kamers else "", bouwjaar=int(bj) if bj else "",
-                energielabel=g(r"[Ee]nergielabel[:\s]*([A-G]\+*)\b").upper(),
+                energielabel=label_uit(t),
                 servicekosten=num(g(r"(?:[Ss]ervicekosten|VvE[- ]bijdrage|bijdrage VvE)[^€\n]{0,60}€\s*([\d.,]+)")),
                 erfpacht=erfpacht_kort(t))
 

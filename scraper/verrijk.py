@@ -14,6 +14,9 @@ import re
 import time
 
 import requests
+from bs4 import BeautifulSoup
+
+from update import MAANDEN, details_uit_tekst, label_uit, text_of
 
 ROOT = pathlib.Path(__file__).resolve().parents[1]
 D = ROOT / "data"
@@ -218,6 +221,48 @@ def ep_label(W):
     log(f"energielabel: {gevonden} labels gevonden via EP-Online")
 
 
+# ---------- 3b. Stadgenoot-details (de aanbodmail heeft geen label/bouwjaar; de detailpagina wel) ----------
+def stadgenoot_details(W):
+    n = 0
+    for w in W:
+        if w.get("corporatie") != "Stadgenoot" or "stadgenoot.nl/detail" not in w.get("url", "") or w.get("sgDetail"):
+            continue
+        try:
+            r = requests.get(w["url"], headers=UA, timeout=30)
+            r.raise_for_status()
+        except Exception as e:
+            log("stadgenoot detail mislukt:", w["adres"], e)
+            continue
+        s = BeautifulSoup(r.text, "html.parser")
+        kv = {}
+        for dl in s.select("dl"):
+            for dt in dl.select("dt"):
+                dd = dt.find_next_sibling("dd")
+                if dd:
+                    img = dd.select_one("img[alt]")
+                    kv[dt.get_text(" ", strip=True).rstrip(":").lower()] = img["alt"] if img else dd.get_text(" ", strip=True)
+        t = text_of(r.text)
+        d = details_uit_tekst(t)
+        lbl = kv.get("energielabel", "") or label_uit(t)
+        if re.fullmatch(r"[A-G]\+*", lbl or ""):
+            w["energielabel"], w["labelBron"] = lbl, "advertentie"
+        for k in ("bouwjaar", "servicekosten", "erfpacht"):
+            if not w.get(k) and d.get(k) != "":
+                w[k] = d[k]
+        for key, val in kv.items():
+            if "bouwjaar" in key and not w.get("bouwjaar") and re.search(r"\d{4}", val):
+                w["bouwjaar"] = int(re.search(r"\d{4}", val)[0])
+        m = re.search(r"sluitingsdatum[^.]{0,60}?(\d{1,2}) (\w+)(?: (\d{4}))?", t, re.I)
+        if m and m[2].lower() in MAANDEN:
+            mnd = MAANDEN[m[2].lower()]
+            jaar = int(m[3]) if m[3] else (int(TODAY[:4]) + (1 if mnd < int(TODAY[5:7]) - 2 else 0))
+            w["deadline"] = f"{jaar}-{mnd:02d}-{int(m[1]):02d}"
+        w["sgDetail"] = TODAY
+        n += 1
+        time.sleep(0.5)
+    log(f"stadgenoot: {n} detailpagina's gelezen")
+
+
 # ---------- 4. Funderingsindicatie (KCAF, per postcode) ----------
 def fundering(W):
     url = "https://api.pdok.nl/rvo/indicatieve-aandachtsgebieden-funderingsproblematiek/ogc/v1/collections/indgebfunderingsproblematiek/items"
@@ -246,7 +291,7 @@ def fundering(W):
 
 def main():
     W = json.loads((D / "woningen.json").read_text())
-    for naam, fn in (("historie", historie), ("buurt-WOZ", buurt_woz), ("energielabel", ep_label), ("fundering", fundering)):
+    for naam, fn in (("historie", historie), ("buurt-WOZ", buurt_woz), ("stadgenoot", stadgenoot_details), ("energielabel", ep_label), ("fundering", fundering)):
         t = time.time()
         try:
             fn(W)
