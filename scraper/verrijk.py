@@ -263,6 +263,52 @@ def stadgenoot_details(W):
     log(f"stadgenoot: {n} detailpagina's gelezen")
 
 
+# ---------- 3c. Eerste foto (alleen de link naar de foto op de site van de corporatie, niets gekopieerd) ----------
+def foto_klein(u):
+    u = re.sub(r"([?&])width=\d+", r"\g<1>width=480", u)
+    u = re.sub(r"([?&])height=\d+", r"\g<1>height=320", u)
+    u = re.sub(r"/Crop/([^/]+)/\d+/\d+", r"/Crop/\1/480/320", u)
+    return u
+
+
+def fotos(W):
+    from urllib.parse import urljoin
+    n, start = 0, time.time()
+    for w in W:
+        if w.get("foto") or w.get("fotoGezocht") == TODAY[:7] or not w.get("url") or "funda.nl" in w["url"]:
+            continue
+        if time.time() - start > 240:
+            log("foto's: tijdslimiet, rest volgende keer")
+            break
+        w["fotoGezocht"] = TODAY[:7]
+        try:
+            r = requests.get(w["url"], headers=UA, timeout=30)
+            r.raise_for_status()
+        except Exception as e:
+            log("foto ophalen mislukt:", w["adres"], e)
+            continue
+        s = BeautifulSoup(r.text, "html.parser")
+        src = ""
+        for sel in ('meta[property="og:image"]', 'meta[name="og:image"]', 'meta[name="twitter:image"]'):
+            m = s.select_one(sel)
+            if m and m.get("content"):
+                src = m["content"]
+                break
+        if not src:
+            for img in s.select("img[src]"):
+                c = img["src"]
+                if re.search(r"logo|icon|sprite|\.svg|avatar|placeholder|energielabel", c, re.I):
+                    continue
+                if re.search(r"\.(jpe?g|png|webp)|/Crop/|/media/|image", c, re.I):
+                    src = c
+                    break
+        if src:
+            w["foto"] = foto_klein(urljoin(w["url"], src))
+            n += 1
+        time.sleep(0.3)
+    log(f"foto's: {n} gevonden, {sum(1 for w in W if w.get('foto'))} van {len(W)} woningen met foto")
+
+
 # ---------- 4. Funderingsindicatie (KCAF, per postcode) ----------
 def fundering(W):
     url = "https://api.pdok.nl/rvo/indicatieve-aandachtsgebieden-funderingsproblematiek/ogc/v1/collections/indgebfunderingsproblematiek/items"
@@ -291,7 +337,7 @@ def fundering(W):
 
 def main():
     W = json.loads((D / "woningen.json").read_text())
-    for naam, fn in (("historie", historie), ("buurt-WOZ", buurt_woz), ("stadgenoot", stadgenoot_details), ("energielabel", ep_label), ("fundering", fundering)):
+    for naam, fn in (("historie", historie), ("buurt-WOZ", buurt_woz), ("stadgenoot", stadgenoot_details), ("fotos", fotos), ("energielabel", ep_label), ("fundering", fundering)):
         t = time.time()
         try:
             fn(W)
