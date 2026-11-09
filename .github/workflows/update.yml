@@ -1,10 +1,6 @@
 name: Woningen bijwerken
 on:
-  schedule:
-    - cron: "17 5 * * *"   # dagelijks rond 06:17/07:17 Amsterdamse tijd
   workflow_dispatch: {}
-permissions:
-  contents: write
 jobs:
   update:
     runs-on: ubuntu-latest
@@ -14,19 +10,4 @@ jobs:
         with:
           python-version: "3.12"
       - run: pip install requests beautifulsoup4
-      - run: python scraper/update.py
-      - name: Verrijken (historie, buurt-WOZ, energielabel, fundering)
-        run: python scraper/verrijk.py
-        continue-on-error: true
-        timeout-minutes: 12
-        env:
-          EP_ONLINE_KEY: ${{ secrets.EP_ONLINE_KEY }}
-          AMS_API_KEY: ${{ secrets.AMS_API_KEY }}
-      - name: Commit als er iets veranderd is
-        run: |
-          git config user.name "huis-tracker bot"
-          git config user.email "actions@users.noreply.github.com"
-          git add data
-          git diff --cached --quiet || git commit -m "Woningen bijgewerkt $(date -u +%F)"
-          git pull --rebase origin main
-          git push
+      - run: python scraper/probe.py
