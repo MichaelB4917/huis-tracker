@@ -85,6 +85,14 @@
   .star:hover { opacity: 1; }
   .btn[aria-pressed="true"] { background: var(--fg); color: var(--bg); border-color: var(--fg); }
   #regelsTbl th, #regelsTbl td { vertical-align: top; }
+  .tree .row { display: flex; align-items: center; gap: 4px; }
+  .tree .tg { background: none; border: 0; cursor: pointer; color: var(--muted); width: 18px; padding: 0; font-size: 11px; }
+  .tree .kids { padding-left: 22px; border-left: 1px solid var(--line); margin-left: 8px; }
+  .tree .kids .check { font-size: 12.5px; padding: 2px 0; }
+  tr.seen .adres { font-weight: 500; color: color-mix(in srgb, var(--fg) 70%, var(--muted)); }
+  .syncbox input { width: 100%; }
+  .syncstat { font-size: 12px; margin: 4px 0 8px; }
+  .syncstat.ok { color: var(--ok); } .syncstat.bad { color: var(--bad); }
   #regelsTbl { table-layout: fixed; min-width: 60rem; } #regelsTbl .w-m { width: 15%; } #regelsTbl .w-l { width: 25%; } #regelsTbl th:nth-child(2) { width: 6rem; } #regelsTbl td { font-size: 13px; line-height: 1.5; } #regelsTbl td:first-child .sub { font-weight: 400; }
   .adres { font-weight: 600; text-decoration: none; }
   .adres:hover { text-decoration: underline; }
@@ -169,7 +177,14 @@
           <label class="check"><input type="checkbox" class="sec" data-sec="grid" checked> Kaart en prijs per m²</label>
           <h4>Kolommen</h4>
           <div id="colboxes"></div>
+          <h4>Favorieten delen</h4>
+          <div class="syncbox">
+            <div class="syncstat" id="syncstat"></div>
+            <label class="field">GitHub-sleutel (alleen op dit apparaat bewaard)<input type="password" id="tokenin" placeholder="github_pat_…" autocomplete="off"></label>
+            <button class="mini" id="tokensave">Opslaan</button><button class="mini" id="tokendel">Sleutel verwijderen</button>
+          </div>
         </div></details>
+      <button class="btn" id="voorbtn" aria-pressed="false" title="Alleen woningen waar jij voorrang kunt krijgen">✓ Voorrang voor mij</button>
       <button class="btn" id="favbtn" aria-pressed="false">★ Favorieten <span id="favn"></span></button>
       <button class="btn" id="reset">Wissen</button>
       <input type="search" class="search f" data-f="q" placeholder="Zoek op straat, wijk of type">
@@ -229,6 +244,48 @@ const corpHex = (c) => getComputedStyle(document.documentElement).getPropertyVal
 const EERSTE = '2026-11-08';
 const onlineSinds = (w) => w.onlineSinds ? nlDate(w.onlineSinds) : w.basis ? 'vóór ' + nlShort(EERSTE) : nlDate(w.eerstGezien);
 let favs = new Set(); try { favs = new Set(JSON.parse(store.get('favs') || '[]')); } catch (e) {}
+let gezien = new Set(); try { gezien = new Set(JSON.parse(store.get('gezien') || '[]')); } catch (e) {}
+// Delen via GitHub: data/gebruiker.json in de repo; schrijven met een persoonlijke sleutel per apparaat
+const REPO = 'MichaelB4917/huis-tracker', SYNC_PATH = 'data/gebruiker.json';
+let token = store.get('gh-token') || '', syncSha = null, syncTimer = null, syncMsg = '';
+const b64 = (str) => btoa(unescape(encodeURIComponent(str)));
+const unb64 = (str) => decodeURIComponent(escape(atob(str.replace(/\n/g, ''))));
+const ghHeaders = () => ({Authorization: 'Bearer ' + token, Accept: 'application/vnd.github+json'});
+const setSync = (msg, cls) => { syncMsg = msg; const e = document.getElementById('syncstat'); if (e) { e.textContent = msg; e.className = 'syncstat ' + (cls || ''); } };
+const saveLocal = () => { store.set('favs', JSON.stringify([...favs])); store.set('gezien', JSON.stringify([...gezien])); };
+async function loadShared() {
+  try {
+    let j;
+    if (token) {
+      const r = await fetch(`https://api.github.com/repos/${REPO}/contents/${SYNC_PATH}`, {headers: ghHeaders(), cache: 'no-store'});
+      if (r.status === 404) { setSync('Gekoppeld. Nog geen gedeelde favorieten.', 'ok'); return; }
+      if (!r.ok) { setSync('Sleutel werkt niet (' + r.status + '). Favorieten blijven op dit apparaat.', 'bad'); return; }
+      const x = await r.json(); syncSha = x.sha; j = JSON.parse(unb64(x.content));
+      setSync('Gekoppeld: favorieten worden gedeeld tussen apparaten.', 'ok');
+    } else {
+      const r = await fetch('data/gebruiker.json', {cache: 'no-cache'}); if (!r.ok) { setSync('Niet gekoppeld: favorieten staan alleen op dit apparaat.'); return; }
+      j = await r.json(); setSync('Alleen lezen: gedeelde favorieten zichtbaar. Voeg een sleutel toe om te wijzigen.');
+    }
+    favs = new Set(token ? j.favorieten || [] : [...(j.favorieten || []), ...favs]);
+    gezien = new Set([...(j.gezien || []), ...gezien]);
+    saveLocal();
+  } catch (e) { setSync('Kon gedeelde favorieten niet laden.', 'bad'); }
+}
+async function pushShared() {
+  if (!token) return;
+  try {
+    const cur = await fetch(`https://api.github.com/repos/${REPO}/contents/${SYNC_PATH}`, {headers: ghHeaders(), cache: 'no-store'});
+    if (cur.ok) syncSha = (await cur.json()).sha; else if (cur.status === 404) syncSha = null;
+    const body = {message: 'Favorieten bijgewerkt', content: b64(JSON.stringify({favorieten: [...favs], gezien: [...gezien]}, null, 1)),
+      committer: {name: 'huis-tracker', email: 'huis-tracker@users.noreply.github.com'}};
+    if (syncSha) body.sha = syncSha;
+    const r = await fetch(`https://api.github.com/repos/${REPO}/contents/${SYNC_PATH}`, {method: 'PUT', headers: ghHeaders(), body: JSON.stringify(body)});
+    if (!r.ok) throw new Error(r.status);
+    syncSha = (await r.json()).content.sha; setSync('Opgeslagen en gedeeld.', 'ok');
+  } catch (e) { setSync('Opslaan mislukt (' + e.message + '). Staat wel op dit apparaat.', 'bad'); }
+}
+const changed = () => { saveLocal(); clearTimeout(syncTimer); syncTimer = setTimeout(pushShared, 1500); };
+const markSeen = (id) => { if (!gezien.has(id)) { gezien.add(id); changed(); } };
 let favOnly = false;
 const isNew = (w) => !w.basis && !!w.eerstGezien && w.eerstGezien >= weekAgo;
 const median = (a) => { const s = [...a].sort((x, y) => x - y), m = s.length >> 1; return s.length % 2 ? s[m] : (s[m - 1] + s[m]) / 2; };
@@ -248,7 +305,9 @@ const showTab = (n) => { $$('[data-page]').forEach((s) => s.hidden = s.dataset.p
 $$('[data-tab]').forEach((b) => b.onclick = () => { showTab(b.dataset.tab); history.replaceState(null, '', '#' + b.dataset.tab); });
 
 let W = [], R = [], B = [], META = {};
-const sel = {corporatie: null, stadsdeel: null, type: null};
+const sel = {corporatie: null, buurt: null, type: null};
+const bkey = (w) => (w.stadsdeel || 'Onbekend') + '|' + (w.wijk || 'Overig');
+const open = new Set();
 
 const voorrang = (w) => {
   if (w.voorJou === 'nee') return {cls: 't-neutral', text: 'niet voor jou', active: false};
@@ -278,14 +337,18 @@ applyDensity();
 
 $$('.sec').forEach((c) => c.onchange = () => { $('#' + c.dataset.sec).hidden = !c.checked; if (c.checked && map) map.invalidateSize(); });
 $$('details.dd').forEach((d) => d.addEventListener('toggle', () => { if (d.open) $$('details.dd').forEach((o) => o !== d && (o.open = false)); }));
-document.addEventListener('click', (e) => { if (!e.target.closest('details.dd')) $$('details.dd').forEach((o) => o.open = false); });
+document.addEventListener('click', (e) => { if (e.target.isConnected && !e.target.closest('details.dd')) $$('details.dd').forEach((o) => o.open = false); });
 
 const filters = () => Object.fromEntries($$('.f').map((e) => [e.dataset.f, e.type === 'checkbox' ? e.checked : e.value]));
 $$('.f').forEach((e) => e.addEventListener(e.tagName === 'INPUT' && e.type !== 'checkbox' ? 'input' : 'change', () => render()));
-$$('[data-all]').forEach((b) => b.onclick = () => { sel[b.dataset.all] = null; render(); });
-$$('[data-none]').forEach((b) => b.onclick = () => { sel[b.dataset.none] = new Set(); render(); });
+const selKey = (k) => k === 'stadsdeel' ? 'buurt' : k;
+$$('[data-all]').forEach((b) => b.onclick = () => { sel[selKey(b.dataset.all)] = null; render(); });
+$$('[data-none]').forEach((b) => b.onclick = () => { sel[selKey(b.dataset.none)] = new Set(); render(); });
 $('#favbtn').onclick = () => { favOnly = !favOnly; render(); };
-$('#reset').onclick = () => { $$('.f').forEach((e) => e.type === 'checkbox' ? e.checked = e.dataset.f === 'verbergVerkocht' : e.tagName === 'SELECT' ? e.selectedIndex = 0 : e.value = ''); sel.corporatie = sel.stadsdeel = sel.type = null; render(); };
+$('#reset').onclick = () => { $$('.f').forEach((e) => e.type === 'checkbox' ? e.checked = e.dataset.f === 'verbergVerkocht' : e.tagName === 'SELECT' ? e.selectedIndex = 0 : e.value = ''); sel.corporatie = sel.buurt = sel.type = null; favOnly = false; render(); };
+$('#voorbtn').onclick = () => { const c = $('.f[data-f="voorJou"]'); c.checked = !c.checked; render(); };
+$('#tokensave').onclick = async () => { const v = $('#tokenin').value.trim(); if (!v) return; token = v; store.set('gh-token', v); $('#tokenin').value = ''; setSync('Koppelen…'); const local = new Set(favs); await loadShared(); if (!syncSha) { favs = new Set([...favs, ...local]); } else { favs = new Set([...favs, ...local]); } changed(); render(); };
+$('#tokendel').onclick = () => { token = ''; store.set('gh-token', ''); setSync('Sleutel verwijderd. Favorieten staan alleen op dit apparaat.'); };
 
 const visible = () => {
   const f = filters(), q = (f.q || '').toLowerCase().trim();
@@ -296,7 +359,8 @@ const visible = () => {
     if (f.minM2 && w.m2 < +f.minM2) return false;
     if (f.maxPpm && ppm > +f.maxPpm) return false;
     if (f.minKamers && w.kamers < +f.minKamers) return false;
-    for (const k of ['corporatie', 'stadsdeel', 'type']) if (sel[k] && !sel[k].has(w[k] || 'Onbekend')) return false;
+    for (const k of ['corporatie', 'type']) if (sel[k] && !sel[k].has(w[k] || 'Onbekend')) return false;
+    if (sel.buurt && !sel.buurt.has(bkey(w))) return false;
     if (favOnly && !favs.has(w.id)) return false;
     if (f.voorJou && w.voorJou === 'nee') return false;
     if (f.voorrangActief && !voorrang(w).active) return false;
@@ -327,11 +391,34 @@ const ddList = (field) => {
   });
 };
 
+const buurtTree = () => {
+  const box = $('[data-list="stadsdeel"]'); box.replaceChildren(); box.className = 'tree';
+  const groups = {}; W.forEach((w) => { const sd = w.stadsdeel || 'Onbekend', b = w.wijk || 'Overig'; ((groups[sd] ||= {})[b] = (groups[sd][b] || 0) + 1); });
+  const allKeys = []; Object.entries(groups).forEach(([sd, bs]) => Object.keys(bs).forEach((b) => allKeys.push(sd + '|' + b)));
+  const isOn = (k) => !sel.buurt || sel.buurt.has(k);
+  const setKeys = (keys, on) => { const cur = sel.buurt ? new Set(sel.buurt) : new Set(allKeys); keys.forEach((k) => on ? cur.add(k) : cur.delete(k)); sel.buurt = cur.size === allKeys.length ? null : cur; render(); };
+  Object.keys(groups).sort().forEach((sd) => {
+    const keys = Object.keys(groups[sd]).map((b) => sd + '|' + b); const n = keys.filter(isOn).length;
+    const total = Object.values(groups[sd]).reduce((a, b) => a + b, 0);
+    const row = el('div', 'row'); const tg = el('button', 'tg', open.has(sd) ? '▾' : '▸'); tg.type = 'button'; tg.title = 'Buurten tonen';
+    tg.onclick = (e) => { e.preventDefault(); open.has(sd) ? open.delete(sd) : open.add(sd); buurtTree(); };
+    const lab = el('label', 'check'); lab.style.flex = '1'; const cb = el('input'); cb.type = 'checkbox'; cb.checked = n === keys.length; cb.indeterminate = n > 0 && n < keys.length;
+    cb.onchange = () => setKeys(keys, cb.checked); lab.append(cb, sd, el('span', 'n', total)); row.append(tg, lab); box.append(row);
+    if (open.has(sd)) {
+      const kids = el('div', 'kids');
+      Object.keys(groups[sd]).sort().forEach((b) => { const k = sd + '|' + b; const l = el('label', 'check'); const c = el('input'); c.type = 'checkbox'; c.checked = isOn(k); c.onchange = () => setKeys([k], c.checked); l.append(c, b, el('span', 'n', groups[sd][b])); kids.append(l); });
+      box.append(kids);
+    }
+  });
+};
+
 const markActive = () => {
   const f = filters();
   const n = {prijs: ['maxPrijs', 'maxPpm', 'minM2', 'minKamers'].filter((k) => f[k]).length,
     meer: ['voorJou', 'voorrangActief', 'nieuw', 'verbergBod', 'tuin', 'goedLabel', 'erfpachtAfgekocht'].filter((k) => f[k]).length + (f.verbergVerkocht ? 0 : 1)};
-  for (const k of ['corporatie', 'stadsdeel', 'type']) n[k] = sel[k] ? sel[k].size : 0;
+  for (const k of ['corporatie', 'type']) n[k] = sel[k] ? sel[k].size : 0;
+  n.stadsdeel = sel.buurt ? new Set([...sel.buurt].map((k) => k.split('|')[0])).size : 0;
+  $('#voorbtn').setAttribute('aria-pressed', String(f.voorJou));
   $$('details.dd[data-dd]').forEach((d) => { const c = n[d.dataset.dd] || 0; d.classList.toggle('on', c > 0); const s = $('.cnt', d); if (s) s.textContent = c ? c : ''; });
 };
 
@@ -343,6 +430,7 @@ const initMap = () => {
     maxZoom: 19, attribution: 'Kaart: <a href="https://www.pdok.nl">PDOK</a> © Kadaster'}).addTo(map);
   layer = L.layerGroup().addTo(map);
 };
+document.addEventListener('click', (e) => { const f = e.target.closest('[data-fav]'); if (!f) return; e.preventDefault(); const id = f.dataset.fav; favs.has(id) ? favs.delete(id) : favs.add(id); f.textContent = favs.has(id) ? '★ Favoriet' : '☆ Favoriet maken'; changed(); $('#favn').textContent = favs.size ? '(' + favs.size + ')' : ''; });
 const drawMap = (rows) => {
   if (!map) return;
   layer.clearLayers();
@@ -351,8 +439,10 @@ const drawMap = (rows) => {
     const v = voorrang(w);
     if (isNew(w)) L.circleMarker([w.lat, w.lon], {radius: 11, color: '#2f6fdb', weight: 2, fill: false, interactive: false}).addTo(layer);
     if (v.active) L.circleMarker([w.lat, w.lon], {radius: 8.5, color: '#1a1a1a', weight: 1.5, fill: false, interactive: false}).addTo(layer);
-    L.circleMarker([w.lat, w.lon], {radius: 6, color: '#fff', weight: 1.5, fillColor: corpHex(w.corporatie), fillOpacity: 1})
-      .bindPopup(`<b>${w.adres}</b>${isNew(w) ? ' <span style="color:#2f6fdb">· nieuw</span>' : ''}<br>${w.corporatie} · ${w.stadsdeel}${w.wijk ? ' · ' + w.wijk : ''}<br>${eur.format(w.prijs)} · ${w.m2} m² · ${eur.format(Math.round(w.prijs / w.m2))}/m²<br>Voorrang: ${v.text} · ${w.status}<br><a href="${w.url}" target="_blank" rel="noopener">Advertentie openen →</a>`)
+    const seen = gezien.has(w.id);
+    L.circleMarker([w.lat, w.lon], {radius: 6, color: seen ? '#9a9a9a' : '#fff', weight: 1.5, fillColor: corpHex(w.corporatie), fillOpacity: seen ? 0.3 : 1})
+      .on('popupopen', () => markSeen(w.id)).on('popupclose', () => drawMap(visible()))
+      .bindPopup(`<b>${w.adres}</b>${isNew(w) ? ' <span style="color:#2f6fdb">· nieuw</span>' : ''}<br>${w.corporatie} · ${w.stadsdeel}${w.wijk ? ' · ' + w.wijk : ''}<br>${eur.format(w.prijs)} · ${w.m2} m² · ${eur.format(Math.round(w.prijs / w.m2))}/m²<br>Voorrang: ${v.text} · ${w.status}<br><a href="${w.url}" target="_blank" rel="noopener">Advertentie openen →</a><br><a href="#" data-fav="${w.id}">${favs.has(w.id) ? '★ Favoriet' : '☆ Favoriet maken'}</a>`)
       .addTo(layer);
   });
   $('#legend').replaceChildren(...[...new Set(W.map((w) => w.corporatie))].sort().map((c) => { const s = el('span'); const i = el('i'); i.style.background = corpColor(c); s.append(i, c); return s; }));
@@ -362,7 +452,7 @@ const render = () => {
   markActive();
   $('#favn').textContent = favs.size ? '(' + favs.size + ')' : '';
   $('#favbtn').setAttribute('aria-pressed', String(favOnly));
-  ['corporatie', 'stadsdeel', 'type'].forEach(ddList);
+  ['corporatie', 'type'].forEach(ddList); buurtTree();
   const rows = visible();
   $('#ntitle').textContent = rows.length + (rows.length === 1 ? ' woning' : ' woningen') + (rows.length < W.length ? ' van ' + W.length : '');
   const tb = $('#tabel tbody');
@@ -373,7 +463,9 @@ const render = () => {
     const num = (k, v) => { const c = cell(k, v); c.classList.add('num'); return c; };
     const a = el('a', 'adres', w.adres); a.href = w.url; a.target = '_blank'; a.rel = 'noopener';
     const st = el('button', 'star' + (favs.has(w.id) ? ' on' : ''), favs.has(w.id) ? '★' : '☆'); st.title = 'Favoriet'; st.setAttribute('aria-label', 'Favoriet');
-    st.onclick = () => { favs.has(w.id) ? favs.delete(w.id) : favs.add(w.id); store.set('favs', JSON.stringify([...favs])); render(); };
+    st.onclick = () => { favs.has(w.id) ? favs.delete(w.id) : favs.add(w.id); changed(); render(); };
+    a.addEventListener('click', () => markSeen(w.id));
+    if (gezien.has(w.id)) tr.classList.add('seen');
     const cA = cell('adres', st, a); if (isNew(w)) cA.append(' ', badge('t-new', 'Nieuw')); cA.append(el('div', 'sub', [w.postcode, w.type].filter(Boolean).join(' · ')));
     const cS = cell('stadsdeel', w.stadsdeel || '—'); if (w.wijk) cS.append(el('div', 'sub', w.wijk));
     const d = el('span', 'cd'); d.style.background = corpColor(w.corporatie); const cC = cell('corporatie', d, w.corporatie); cC.classList.add('nowrap');
@@ -428,6 +520,7 @@ Promise.all(['woningen', 'regels', 'bronnen', 'meta'].map((n) => fetch('data/' +
   .then(([w, r, b, m]) => {
     W = w; R = r; B = b; META = m;
     initMap(); renderStatic(); render();
+    loadShared().then(render);
     const h = location.hash.slice(1); if (['regels', 'bronnen'].includes(h)) showTab(h);
   });
 </script>
