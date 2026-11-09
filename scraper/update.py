@@ -180,6 +180,118 @@ def dekey_details(w):
     w["erfpacht"] = erfpacht_kort(t) or w.get("erfpacht", "")
 
 
+WOORDEN = {"een": 1, "twee": 2, "drie": 3, "vier": 4, "vijf": 5, "zes": 6}
+
+
+def details_uit_tekst(t):
+    """Algemene velden uit de tekst van een advertentie."""
+    g = lambda rx: (re.search(rx, t, re.I) or [None, ""])[1].strip()
+    m2 = g(r"[Ww]oonoppervlakte[^\d\n]{0,20}(\d+)[,.]?\d*\s*m") or g(r"[Tt]otale oppervlakte\s*\n?\s*(\d+)")
+    kamers = g(r"(\d+)[- ]?kamer") or str(WOORDEN.get(g(r"\b(een|twee|drie|vier|vijf|zes)[- ]?kamer").lower(), ""))
+    bj = g(r"[Bb]ouwjaar[:\s]*\n?\s*(\d{4})")
+    return dict(m2=int(m2) if m2 else "", kamers=int(kamers) if kamers else "", bouwjaar=int(bj) if bj else "",
+                energielabel=g(r"[Ee]nergielabel[:\s]*([A-G]\+*)\b").upper(),
+                servicekosten=num(g(r"(?:[Ss]ervicekosten|VvE[- ]bijdrage|bijdrage VvE)[^€\n]{0,60}€\s*([\d.,]+)")),
+                erfpacht=erfpacht_kort(t))
+
+
+# ---------- Rochdale (eigen aanbodpagina) ----------
+SPEC_ROCHDALE = "Voorrang voor huurders van Rochdale (zie advertentie) · eigen hoofdbewoning (of kind vanaf 18), verkoop- en verhuurbeperking in de akte"
+
+
+def rochdale():
+    base = "https://www.rochdale.nl"
+    seen, out = set(), []
+    for p in range(0, 30):
+        s = BeautifulSoup(get(f"{base}/aanbod/?view=list&page={p}&size=10&sorting=published-&advertisementType=sale"), "html.parser")
+        cards = s.select("article.card")
+        nieuw = 0
+        for c in cards:
+            a = c.select_one('a[href*="/advertentie/detail/"]')
+            if not a:
+                continue
+            href = a["href"].split("?")[0]
+            if href in seen:
+                continue
+            seen.add(href)
+            nieuw += 1
+            small = re.sub(r"\s+", " ", c.select_one("small").get_text(" ") if c.select_one("small") else "")
+            if "AMSTERDAM" not in small.upper() or "Koop" not in small:
+                continue
+            pc = (re.search(r"(\d{4} ?[A-Z]{2})", small) or [None, ""])[1]
+            adres = re.sub(r",\s*AMSTERDAM$", "", (c.select_one("p").get_text(strip=True) if c.select_one("p") else a.get_text(strip=True)), flags=re.I)
+            prijs = int(re.sub(r"\D", "", (c.select_one("a.button").get_text() if c.select_one("a.button") else "")) or 0)
+            lab = c.get_text(" ").lower()
+            status = "verkocht o.v.b." if "verkocht" in lab else "onder bod" if "onder bod" in lab or "optie" in lab else "beschikbaar"
+            w = dict(id="rd-" + href.rstrip("/").split("/")[-1][:8], adres=adres.replace(" -", "-"), plaats="Amsterdam",
+                     postcode=pc[:4] + " " + pc[-2:] if pc else "", corporatie="Rochdale", prijs=prijs, status=status,
+                     voorrangLabel="ja", voorJou="nee", voorrangSpec=SPEC_ROCHDALE, url=base + href, bron="rochdale.nl")
+            try:
+                t = text_of(get(base + href))
+                d = details_uit_tekst(t)
+                w.update({k: v for k, v in d.items() if v != ""})
+                w["type"] = (re.search(r"(appartement|bovenwoning|benedenwoning|maisonnette|eengezinswoning|tussenwoning|hoekwoning|portiekwoning|galerijflat|portiekflat)", t, re.I) or [None, ""])[1].capitalize()
+                w["tuin"] = "ja" if re.search(r"\btuin\b", t, re.I) else "nee"
+                time.sleep(0.5)
+            except Exception:
+                pass
+            out.append(w)
+        if not nieuw:
+            break
+    return out
+
+
+# ---------- Eigen Haard (eigen aanbodpagina) ----------
+def eigenhaard():
+    base = "https://www.eigenhaard.nl"
+    zoek = "/te-koop/zoek?&regions=&prijs_min=0&prijs_max=1000000&straal=0&woningtype=-1&bouwvorm=-1&oppervlakte=-1&kamers=-1&view=List"
+    seen, out = set(), []
+    for p in range(1, 15):
+        s = BeautifulSoup(get(base + zoek + (f"&page={p}" if p > 1 else "")), "html.parser")
+        nieuw = 0
+        for a in s.select('a[href^="/te-koop/"]'):
+            href = a["href"]
+            if not re.match(r"/te-koop/\d+-", href) or href in seen or not a.select_one("h3"):
+                continue
+            seen.add(href)
+            nieuw += 1
+            info = a.select_one("p").get_text("\n", strip=True) if a.select_one("p") else ""
+            if not info.lower().startswith("amsterdam"):
+                continue
+            m = re.search(r"(\d+)\s*m\s*2?\s*\|\s*(\d+) kamers?\s*\|\s*(\w+)", info.replace("\n", " "))
+            labels = " ".join(x.get_text(strip=True).lower() for x in a.select(".label"))
+            prijs = int(re.sub(r"\D", "", a.select_one(".extra-large").get_text() if a.select_one(".extra-large") else "") or 0)
+            w = dict(id="eh-" + href.split("/")[-1], adres=a.select_one("h3").get_text(strip=True), plaats="Amsterdam",
+                     corporatie="Eigen Haard", prijs=prijs, m2=int(m[1]) if m else "", kamers=int(m[2]) if m else "",
+                     type=(m[3] if m else "").capitalize(),
+                     status="verkocht o.v.b." if "verkocht" in labels else "onder bod" if "bod" in labels or "optie" in labels else "beschikbaar",
+                     voorrangLabel="ja", voorJou="mogelijk", url=base + href, bron="eigenhaard.nl")
+            try:
+                t = text_of(get(base + href))
+                d = details_uit_tekst(t)
+                w.update({k: v for k, v in d.items() if v != "" and k not in ("m2", "kamers")})
+                spec = ["Eerst voor huurders van Eigen Haard"]
+                r = re.search(r"gereserveerd voor verkoop aan huurders van Eigen Haard tot (\d{1,2}) (\w+) (\d{4})", t, re.I)
+                if r and r[2].lower() in MAANDEN:
+                    w["deadline"] = f"{r[3]}-{MAANDEN[r[2].lower()]:02d}-{int(r[1]):02d}"
+                    spec[0] += f" (tot {int(r[1])} {r[2].lower()})"
+                spec.append("sociale huurders van andere corporaties in de regio kunnen ook voorrang krijgen (vragen bij bezichtiging)")
+                if re.search(r"koopgarant", t, re.I):
+                    spec.append("Koopgarant: korting met terugkoopregeling, waardeontwikkeling gedeeld")
+                ink = re.search(r"maximaal bruto jaarinkomen[^€]{0,40}€\s*([\d.]+)", t, re.I)
+                if ink:
+                    spec.append(f"max. bruto jaarinkomen € {ink[1].rstrip('.')}")
+                w["voorrangSpec"] = " · ".join(spec)
+                w["tuin"] = "ja" if re.search(r"\btuin\b", t, re.I) else "nee"
+                time.sleep(0.5)
+            except Exception:
+                w["voorrangSpec"] = "Eerst voor huurders van Eigen Haard; andere sociale huurders mogelijk voorrang"
+            out.append(w)
+        if not nieuw:
+            break
+    return out
+
+
 # ---------- PDOK ----------
 def geocode(adres, postcode=""):
     q = f"{adres} {postcode} Amsterdam".strip()
@@ -198,9 +310,12 @@ def main():
     by_id = {w["id"]: w for w in oud}
     nieuw_lijst, fouten = [], []
     gescraped = {}
-    for naam, fn in (("Alliantie", alliantie), ("Lieven de Key", dekey)):
+    for naam, fn in (("Alliantie", alliantie), ("Lieven de Key", dekey), ("Rochdale", rochdale), ("Eigen Haard", eigenhaard)):
         try:
-            gescraped[naam] = fn()
+            rows = fn()
+            if not rows:
+                raise RuntimeError("geen woningen gevonden (site veranderd?)")
+            gescraped[naam] = rows
         except Exception as e:  # bron tijdelijk stuk: bestaande woningen laten staan
             fouten.append(f"{naam}: {e}")
     resultaat = [w for w in oud if w["corporatie"] not in gescraped]
