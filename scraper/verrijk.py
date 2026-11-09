@@ -290,7 +290,10 @@ def fotos(W):
             continue
         s = BeautifulSoup(r.text, "html.parser")
         src = ""
-        for sel in ('meta[property="og:image"]', 'meta[name="og:image"]', 'meta[name="twitter:image"]'):
+        eigen = s.select_one('img[src*="property_image"], img[data-src*="property_image"]')  # Eigen Haard: woningfoto
+        if eigen:
+            src = eigen.get("src") or eigen.get("data-src")
+        for sel in (() if src else ('meta[property="og:image"]', 'meta[name="og:image"]', 'meta[name="twitter:image"]')):
             m = s.select_one(sel)
             if m and m.get("content") and not re.search(r"logo|icon|default", m["content"], re.I):
                 src = m["content"]
@@ -307,6 +310,12 @@ def fotos(W):
             w["foto"] = foto_klein(urljoin(w["url"], src))
             n += 1
         time.sleep(0.3)
+    # Dezelfde foto bij veel woningen is een algemene sitefoto, geen woningfoto
+    from collections import Counter
+    vaak = {u for u, k in Counter(w.get("foto") for w in W if w.get("foto")).items() if k > 2}
+    for w in W:
+        if w.get("foto") in vaak:
+            w.pop("foto")
     log(f"foto's: {n} gevonden, {sum(1 for w in W if w.get('foto'))} van {len(W)} woningen met foto")
 
 
