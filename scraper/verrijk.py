@@ -109,13 +109,24 @@ def bbga_alle(var, jaar):
     return out
 
 
-def buurt_van(lat, lon):
-    j = jget(f"{AMS}/gebieden/buurten/", {"geometrie[contains]": f"{lat},{lon}", "_format": "json", "_fields": "code,naam,eindGeldigheid,volgnummer"}, AMS_H)
-    bs = [b for b in (j or {}).get("_embedded", {}).get("buurten", []) if not b.get("eindGeldigheid")]
-    if not bs:
-        return None
-    b = max(bs, key=lambda b: b.get("volgnummer") or 0)
-    return b["code"], b["naam"]
+def buurten_cbs():
+    """Alle actuele Amsterdamse buurten: {CBS-buurtcode: (Amsterdamse code, naam)}."""
+    out, url, params = {}, f"{AMS}/gebieden/buurten/", {"_format": "json", "_pageSize": 2000, "_fields": "code,naam,cbsCode,eindGeldigheid"}
+    while url:
+        j = jget(url, params, AMS_H)
+        for b in j["_embedded"]["buurten"]:
+            if not b.get("eindGeldigheid") and b.get("cbsCode"):
+                out[b["cbsCode"]] = (b["code"], b["naam"])
+        url, params = (j.get("_links", {}).get("next") or {}).get("href"), None
+    return out
+
+
+def cbs_buurt(w):
+    """CBS-buurtcode van een adres via de PDOK Locatieserver."""
+    q = f"{w['adres']} {w.get('postcode', '')} Amsterdam".strip()
+    j = jget("https://api.pdok.nl/bzk/locatieserver/search/v3_1/free", {"q": q, "fq": "type:adres", "rows": 1, "fl": "buurtcode"})
+    docs = (j or {}).get("response", {}).get("docs", [])
+    return docs[0].get("buurtcode", "") if docs else ""
 
 
 def buurt_woz(W):
@@ -136,13 +147,14 @@ def buurt_woz(W):
             n += 1
         B["_bijgewerkt"] = TODAY
         log(f"buurt-WOZ: {n} gebieden met WOZ/m²-schatting (WOZ-jaar {max((j for j, _ in woz.values()), default='?')})")
-    nieuw, start = 0, time.time()
+    nieuw, start, cbs = 0, time.time(), None
     for w in W:
-        if not w.get("lat") or not w.get("lon"):
-            continue
         if not w.get("buurtcode") and time.time() - start < 240:
             try:
-                r = buurt_van(w["lat"], w["lon"])
+                if cbs is None:
+                    cbs = buurten_cbs()
+                    log(f"buurt-WOZ: {len(cbs)} Amsterdamse buurten met CBS-code")
+                r = cbs.get(cbs_buurt(w))
             except Exception as e:
                 log("buurt opzoeken mislukt:", w["adres"], e)
                 continue
@@ -150,8 +162,7 @@ def buurt_woz(W):
                 continue
             w["buurtcode"], w["buurt"] = r
             nieuw += 1
-            time.sleep(0.2)
-        b = B.get(w["buurtcode"])
+        b = B.get(w.get("buurtcode", ""))
         if b and b.get("wozM2"):
             w["buurtWozM2"], w["buurtWozJaar"] = b["wozM2"], b["jaar"]
     save("buurten.json", B)
