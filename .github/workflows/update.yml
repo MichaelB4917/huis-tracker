@@ -15,6 +15,12 @@ jobs:
           python-version: "3.12"
       - run: pip install requests beautifulsoup4
       - run: python scraper/update.py
+      - name: Verrijken (historie, buurt-WOZ, energielabel, fundering)
+        run: python scraper/verrijk.py
+        continue-on-error: true
+        env:
+          EP_ONLINE_KEY: ${{ secrets.EP_ONLINE_KEY }}
+          AMS_API_KEY: ${{ secrets.AMS_API_KEY }}
       - name: Commit als er iets veranderd is
         run: |
           git config user.name "huis-tracker bot"
