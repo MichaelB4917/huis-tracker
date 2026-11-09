@@ -6,138 +6,180 @@
 <title>Corporatiewoningen te koop · Amsterdam</title>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
 <style>
-  :root { --bg: #fbfaf8; --panel: #ffffff; --fg: #1d1d1b; --muted: #6f6c66; --line: #e7e4de; --soft: #f3f1ec;
-          --ok: #2f8a4c; --warn: #b8741a; --bad: #c2412d; --new: #2f6fdb; --shadow: 0 8px 24px rgb(0 0 0 / .10); --r: 10px;
-          --c0: #2f6fdb; --c1: #e07a2e; --c2: #1aa189; --c3: #9b5bd4; --c4: #c2412d; --c5: #6b7c2e; color-scheme: light; }
-  :root[data-theme="dark"] { --bg: #18181a; --panel: #212124; --fg: #ecebe8; --muted: #a09d97; --line: #34343a; --soft: #2a2a2e;
-          --ok: #5cc27e; --warn: #e3a54d; --bad: #f07a63; --new: #7aa7ff; --shadow: 0 8px 24px rgb(0 0 0 / .45); color-scheme: dark; }
+  /* Rustige makelaarssite-stijl: wit, oranje accent, blauwe links */
+  :root { --bg: #ffffff; --page: #f4f4f4; --panel: #ffffff; --fg: #333333; --muted: #6b6b6b; --line: #dddddd; --soft: #f4f4f4;
+          --accent: #f7a100; --accent-ink: #1f1f1f; --link: #0071b3; --head: #f7a100; --head-ink: #ffffff;
+          --ok: #2f8a4c; --warn: #b8741a; --bad: #c2412d; --new: #0071b3; --shadow: 0 6px 20px rgb(0 0 0 / .12); --r: 6px;
+          --c0: #0071b3; --c1: #e07a2e; --c2: #1aa189; --c3: #9b5bd4; --c4: #c2412d; --c5: #6b7c2e; color-scheme: light; }
+  :root[data-theme="dark"] { --bg: #18191b; --page: #111214; --panel: #1f2023; --fg: #ececec; --muted: #a3a3a3; --line: #34353a; --soft: #26272b;
+          --accent: #f7a100; --link: #6cb6ff; --head: #2a2b2f; --head-ink: #ffffff; --ok: #5cc27e; --warn: #e3a54d; --bad: #f07a63; --new: #6cb6ff;
+          --shadow: 0 6px 20px rgb(0 0 0 / .45); color-scheme: dark; }
   * { box-sizing: border-box; }
-  body { margin: 0; background: var(--bg); color: var(--fg); font: 14px/1.45 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; }
-  .wrap { max-width: 84rem; margin: 0 auto; padding: 20px 16px 40px; }
-  h1 { font: 400 28px/1.2 Georgia, "Times New Roman", serif; margin: 0; }
-  h2 { font-size: 16px; font-weight: 600; margin: 0; }
-  a { color: inherit; }
+  body { margin: 0; background: var(--page); color: var(--fg); font: 14px/1.45 "Helvetica Neue", Arial, system-ui, sans-serif; }
+  a { color: var(--link); text-decoration: none; } a:hover { text-decoration: underline; }
+  h1, h2 { margin: 0; } h2 { font-size: 16px; font-weight: 700; }
   .muted { color: var(--muted); }
-  .head { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-start; gap: 10px 24px; margin-bottom: 14px; }
-  .head p { margin: 4px 0 0; color: var(--muted); }
-  .head p b { color: var(--fg); }
-  .head p .nw { color: var(--new); font-weight: 600; }
-  .headr { display: flex; flex-wrap: wrap; gap: 8px; }
-  .seg { display: inline-flex; gap: 2px; padding: 3px; border-radius: 999px; background: var(--soft); border: 1px solid var(--line); }
-  .seg button { background: none; border: 0; border-radius: 999px; padding: 5px 12px; font: inherit; font-size: 13px; color: var(--muted); cursor: pointer; display: inline-flex; align-items: center; gap: 6px; }
-  .seg button[aria-pressed="true"] { background: var(--panel); color: var(--fg); box-shadow: 0 1px 2px rgb(0 0 0 / .12); }
-  .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--bad); display: inline-block; }
-  .alert { display: flex; align-items: center; gap: 10px; width: 100%; text-align: left; font: inherit; color: var(--fg); cursor: pointer;
-           border: 1px solid color-mix(in srgb, var(--bad) 35%, transparent); background: color-mix(in srgb, var(--bad) 8%, var(--panel));
-           border-radius: var(--r); padding: 9px 14px; margin-bottom: 14px; }
-  .alert .go { margin-left: auto; color: var(--muted); white-space: nowrap; }
-  .stats { display: flex; flex-wrap: wrap; background: var(--panel); border: 1px solid var(--line); border-radius: var(--r); margin-bottom: 14px; }
-  .stat { flex: 1 1 9rem; padding: 10px 16px; border-right: 1px solid var(--line); }
-  .stat:last-child { border-right: 0; }
-  .stat .lbl { color: var(--muted); font-size: 12px; }
-  .stat .val { font-size: 20px; font-weight: 600; font-variant-numeric: tabular-nums; }
-  .toolbar { position: sticky; top: 0; z-index: 1000; display: flex; flex-wrap: wrap; gap: 8px; align-items: center; background: var(--bg); padding: 10px 0; margin-bottom: 12px; border-bottom: 1px solid var(--line); }
-  .search { order: 99; flex: 1 1 18rem; min-width: 0; font: inherit; padding: 7px 14px; border: 1px solid var(--line); border-radius: 999px; background: var(--panel); color: var(--fg); }
-  details.dd { position: relative; }
-  details.dd > summary, .btn, .sort { list-style: none; cursor: pointer; font: inherit; font-size: 13px; padding: 6px 12px; border: 1px solid var(--line); border-radius: 999px; background: var(--panel); color: var(--fg); white-space: nowrap; display: inline-flex; gap: 6px; align-items: center; }
-  details.dd > summary::-webkit-details-marker { display: none; }
-  details.dd > summary::after { content: ""; width: 6px; height: 6px; border-right: 1.5px solid var(--muted); border-bottom: 1.5px solid var(--muted); transform: rotate(45deg) translateY(-2px); margin-left: 2px; }
-  details.dd.on > summary { border-color: var(--fg); }
-  .cnt:not(:empty) { background: var(--fg); color: var(--bg); border-radius: 999px; padding: 0 6px; font-size: 11px; }
-  .panel { position: absolute; top: calc(100% + 6px); left: 0; z-index: 1001; min-width: 15rem; max-height: 26rem; overflow: auto; background: var(--panel); border: 1px solid var(--line); border-radius: var(--r); box-shadow: var(--shadow); padding: 12px; }
-  .panel h4 { margin: 10px 0 4px; font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: .04em; color: var(--muted); }
+  [hidden] { display: none !important; }
+
+  /* Bovenbalk */
+  .topbar { background: var(--head); color: var(--head-ink); }
+  .topbar .in { max-width: 88rem; margin: 0 auto; padding: 10px 16px; display: flex; flex-wrap: wrap; align-items: center; gap: 8px 22px; }
+  .brand { font-size: 19px; font-weight: 800; letter-spacing: -.01em; color: var(--head-ink); display: flex; align-items: center; gap: 8px; }
+  .brand .logo { width: 26px; height: 26px; border-radius: 6px; background: var(--head-ink); color: var(--head); display: grid; place-items: center; font-size: 15px; }
+  :root[data-theme="dark"] .brand .logo { background: var(--accent); color: #1f1f1f; }
+  .nav { display: flex; gap: 4px; }
+  .nav button { background: none; border: 0; color: var(--head-ink); font: inherit; font-weight: 600; padding: 6px 10px; border-radius: 4px; cursor: pointer; opacity: .85; display: inline-flex; align-items: center; gap: 6px; }
+  .nav button[aria-pressed="true"] { opacity: 1; background: rgb(255 255 255 / .22); }
+  .themes { margin-left: auto; display: flex; gap: 2px; }
+  .themes button { background: none; border: 1px solid rgb(255 255 255 / .55); color: var(--head-ink); font: inherit; font-size: 12px; padding: 3px 8px; cursor: pointer; }
+  .themes button:first-child { border-radius: 4px 0 0 4px; } .themes button:last-child { border-radius: 0 4px 4px 0; }
+  .themes button[aria-pressed="true"] { background: var(--head-ink); color: var(--head); }
+  :root[data-theme="dark"] .themes button[aria-pressed="true"] { color: #1f1f1f; }
+  .dot { width: 7px; height: 7px; border-radius: 50%; background: #c2412d; display: inline-block; box-shadow: 0 0 0 2px #fff; }
+
+  /* Zoekbalk */
+  .searchbar { background: var(--bg); border-bottom: 1px solid var(--line); }
+  .searchbar .in { max-width: 88rem; margin: 0 auto; padding: 14px 16px; display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
+  .search { flex: 1 1 20rem; min-width: 0; font: inherit; font-size: 15px; padding: 11px 14px; border: 1px solid #c8c8c8; border-radius: var(--r); background: var(--bg); color: var(--fg); }
+  .search:focus { outline: 2px solid var(--accent); outline-offset: -1px; }
+  #kop { color: var(--muted); font-size: 13px; }
+  #kop b { color: var(--fg); } #kop .nw { color: var(--new); font-weight: 700; }
+
+  .wrap { max-width: 88rem; margin: 0 auto; padding: 16px 16px 40px; }
+  .alert, .reminder { display: flex; align-items: center; gap: 10px; width: 100%; text-align: left; font: inherit; color: var(--fg); border-radius: var(--r); padding: 9px 14px; margin-bottom: 12px; }
+  .alert { cursor: pointer; border: 1px solid color-mix(in srgb, var(--bad) 35%, transparent); background: color-mix(in srgb, var(--bad) 7%, var(--panel)); }
+  .alert .go { margin-left: auto; color: var(--link); white-space: nowrap; }
+  .reminder { border: 1px solid color-mix(in srgb, var(--new) 35%, transparent); background: color-mix(in srgb, var(--new) 7%, var(--panel)); }
+  .reminder button { margin-left: auto; }
+
+  /* Twee kolommen: filters links, resultaten rechts */
+  .layout { display: grid; grid-template-columns: 17rem minmax(0, 1fr); gap: 20px; align-items: start; }
+  @media (max-width: 900px) { .layout { grid-template-columns: minmax(0, 1fr); } }
+  .sidewrap > summary { display: none; }
+  @media (max-width: 900px) {
+    .sidewrap > summary { display: flex; list-style: none; cursor: pointer; font-weight: 700; padding: 10px 14px; border: 1px solid var(--line); border-radius: var(--r); background: var(--panel); justify-content: space-between; }
+    .sidewrap > summary::-webkit-details-marker { display: none; }
+    .sidewrap > summary::after { content: "▾"; color: var(--muted); }
+    .sidewrap[open] > summary { margin-bottom: 8px; }
+  }
+  .side { background: var(--panel); border: 1px solid var(--line); border-radius: var(--r); }
+  .side h3 { font-size: 15px; margin: 0; padding: 12px 14px; border-bottom: 1px solid var(--line); display: flex; justify-content: space-between; align-items: center; }
+  .side details.dd { border-bottom: 1px solid var(--line); }
+  .side details.dd:last-child { border-bottom: 0; }
+  .side details.dd > summary { list-style: none; cursor: pointer; padding: 11px 14px; font-weight: 700; display: flex; align-items: center; gap: 6px; }
+  .side details.dd > summary::-webkit-details-marker { display: none; }
+  .side details.dd > summary::after { content: ""; margin-left: auto; width: 7px; height: 7px; border-right: 2px solid var(--muted); border-bottom: 2px solid var(--muted); transform: rotate(45deg); transition: transform .15s; }
+  .side details.dd[open] > summary::after { transform: rotate(-135deg); }
+  .side .panel { padding: 0 14px 12px; }
+  .cnt:not(:empty) { background: var(--accent); color: var(--accent-ink); border-radius: 999px; padding: 0 7px; font-size: 11px; font-weight: 700; }
+  .panel h4 { margin: 10px 0 4px; font-size: 12px; font-weight: 700; color: var(--muted); }
   .panel h4:first-child { margin-top: 0; }
   .field { display: flex; flex-direction: column; gap: 3px; font-size: 12px; color: var(--muted); margin-bottom: 8px; }
-  .field input, .field select { font: inherit; font-size: 14px; padding: 6px 10px; border: 1px solid var(--line); border-radius: 8px; background: var(--panel); color: var(--fg); }
-  .check { display: flex; gap: 8px; align-items: center; font-size: 13px; padding: 3px 0; white-space: nowrap; cursor: pointer; }
-  .check .n { margin-left: auto; color: var(--muted); }
-  .mini { font: inherit; font-size: 12px; background: none; border: 0; padding: 0; color: var(--muted); text-decoration: underline; cursor: pointer; margin-right: 12px; }
-  .grid { display: grid; grid-template-columns: minmax(0, 3fr) minmax(0, 2fr); gap: 12px; margin-bottom: 18px; }
-  @media (max-width: 900px) { .grid { grid-template-columns: minmax(0, 1fr); } }
-  .card { background: var(--panel); border: 1px solid var(--line); border-radius: var(--r); padding: 14px; }
-  .card .note { color: var(--muted); font-size: 12px; margin: 2px 0 10px; }
-  #map { height: 340px; border-radius: 8px; border: 1px solid var(--line); }
-  .legend { display: flex; flex-wrap: wrap; gap: 6px 14px; font-size: 12px; color: var(--muted); margin-top: 8px; }
-  .legend i { width: 10px; height: 10px; border-radius: 50%; display: inline-block; margin-right: 6px; vertical-align: -1px; }
-  .bars .row { margin-bottom: 10px; font-size: 12px; }
-  .bars .row div:first-child { display: flex; justify-content: space-between; }
-  .bars .track { height: 8px; border-radius: 4px; background: var(--soft); margin-top: 4px; }
-  .bars .fill { height: 8px; border-radius: 4px; background: var(--fg); opacity: .75; }
-  .reshead { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 8px; margin-bottom: 10px; }
-  .scroll { overflow: auto; max-height: 78vh; background: var(--panel); border: 1px solid var(--line); border-radius: var(--r); }
-  table { width: 100%; border-collapse: collapse; font-size: 13px; font-variant-numeric: tabular-nums; }
-  th { position: sticky; top: 0; z-index: 1; background: var(--soft); text-align: left; font-weight: 600; font-size: 12px; color: var(--muted); padding: 8px 10px; border-bottom: 1px solid var(--line); white-space: nowrap; }
-  th.sortable { cursor: pointer; }
-  td { padding: 10px; border-bottom: 1px solid var(--line); vertical-align: top; }
-  tbody tr:last-child td { border-bottom: 0; }
-  tbody tr:hover td { background: color-mix(in srgb, var(--fg) 4%, transparent); }
-  .num { text-align: right; white-space: nowrap; }
-  .nowrap { white-space: nowrap; }
-  .sub { color: var(--muted); font-size: 12px; margin-top: 2px; }
-  table.compact { font-size: 12.5px; }
-  table.compact .sub { display: none; }
-  table.compact td { padding: 3px 8px; white-space: nowrap; line-height: 1.35; }
-  table.compact td.spec { white-space: nowrap; max-width: 16rem; overflow: hidden; text-overflow: ellipsis; }
-  table.compact .badge { padding: 0 6px; font-size: 11px; }
-  table.compact .star { font-size: 14px; }
-  .star { background: none; border: 0; padding: 0 4px 0 0; cursor: pointer; font-size: 16px; line-height: 1; color: var(--muted); opacity: .45; vertical-align: -1px; }
-  .star.on { color: #e0a100; opacity: 1; }
-  .star:hover { opacity: 1; }
-  .btn[aria-pressed="true"] { background: var(--fg); color: var(--bg); border-color: var(--fg); }
-  #regelsTbl th, #regelsTbl td { vertical-align: top; }
+  .field input, .field select { font: inherit; font-size: 14px; padding: 8px 10px; border: 1px solid #c8c8c8; border-radius: 4px; background: var(--bg); color: var(--fg); }
+  .check { display: flex; gap: 8px; align-items: center; font-size: 14px; padding: 4px 0; cursor: pointer; }
+  .check input { accent-color: var(--accent); width: 16px; height: 16px; }
+  .check .n { margin-left: auto; color: var(--muted); font-size: 12px; }
+  .mini { font: inherit; font-size: 13px; background: none; border: 0; padding: 0; color: var(--link); cursor: pointer; margin-right: 12px; }
+  .mini:hover { text-decoration: underline; }
   .tree .row { display: flex; align-items: center; gap: 4px; }
   .tree .tg { background: none; border: 0; cursor: pointer; color: var(--muted); width: 18px; padding: 0; font-size: 11px; }
   .tree .kids { padding-left: 22px; border-left: 1px solid var(--line); margin-left: 8px; }
-  .tree .kids .check { font-size: 12.5px; padding: 2px 0; }
-  tr.seen .adres { font-weight: 500; color: color-mix(in srgb, var(--fg) 70%, var(--muted)); }
-  .syncbox input { width: 100%; }
-  .syncbox { white-space: normal; } #syncpanel { max-width: 40rem; }
-  .steps { margin: 4px 0 10px; padding-left: 18px; font-size: 12.5px; line-height: 1.45; }
-  .steps li { margin-bottom: 4px; }
-  .reminder { display: flex; align-items: center; gap: 10px; border: 1px solid color-mix(in srgb, var(--new) 35%, transparent); background: color-mix(in srgb, var(--new) 8%, var(--panel)); border-radius: var(--r); padding: 9px 14px; margin-bottom: 14px; }
-  .reminder button { margin-left: auto; }
-  .syncstat { font-size: 12px; margin: 4px 0 8px; }
-  .syncstat.ok { color: var(--ok); } .syncstat.bad { color: var(--bad); }
-  #regelsTbl { table-layout: fixed; min-width: 60rem; } #regelsTbl .w-m { width: 15%; } #regelsTbl .w-l { width: 25%; } #regelsTbl th:nth-child(2) { width: 6rem; } #regelsTbl td { font-size: 13px; line-height: 1.5; } #regelsTbl td:first-child .sub { font-weight: 400; }
-  .adres { font-weight: 600; text-decoration: none; }
-  .adres:hover { text-decoration: underline; }
-  tr.isnew td:first-child { box-shadow: inset 3px 0 0 var(--new); }
-  tr.dim td { opacity: .6; }
-  .spec { min-width: 14rem; max-width: 26rem; font-size: 12px; color: var(--muted); }
+  .tree .kids .check { font-size: 13px; padding: 2px 0; }
+
+  /* Resultatenkop */
+  .reshead { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 10px; margin-bottom: 10px; }
+  .reshead h2 { font-size: 20px; margin-right: auto; }
+  .btn, .sort, .tdd > summary { cursor: pointer; font: inherit; font-size: 13px; padding: 7px 12px; border: 1px solid #c8c8c8; border-radius: 4px; background: var(--bg); color: var(--fg); white-space: nowrap; display: inline-flex; gap: 6px; align-items: center; }
+  .btn:hover, .tdd > summary:hover { border-color: var(--fg); }
+  .btn[aria-pressed="true"] { background: var(--accent); border-color: var(--accent); color: var(--accent-ink); font-weight: 700; }
+  .tdd { position: relative; }
+  .tdd > summary { list-style: none; } .tdd > summary::-webkit-details-marker { display: none; }
+  .tdd .panel { position: absolute; top: calc(100% + 6px); right: 0; z-index: 1001; min-width: 15rem; max-height: 26rem; overflow: auto; background: var(--panel); border: 1px solid var(--line); border-radius: var(--r); box-shadow: var(--shadow); padding: 12px; }
+  .seg { display: inline-flex; border: 1px solid #c8c8c8; border-radius: 4px; overflow: hidden; }
+  .seg button { background: var(--bg); border: 0; padding: 7px 11px; font: inherit; font-size: 13px; color: var(--fg); cursor: pointer; }
+  .seg button + button { border-left: 1px solid #c8c8c8; }
+  .seg button[aria-pressed="true"] { background: var(--fg); color: var(--bg); }
+
+  .stats { display: flex; flex-wrap: wrap; background: var(--panel); border: 1px solid var(--line); border-radius: var(--r); margin-bottom: 12px; }
+  .stat { flex: 1 1 8rem; padding: 8px 14px; border-right: 1px solid var(--line); }
+  .stat:last-child { border-right: 0; }
+  .stat .lbl { color: var(--muted); font-size: 12px; }
+  .stat .val { font-size: 18px; font-weight: 700; font-variant-numeric: tabular-nums; }
+  .card { background: var(--panel); border: 1px solid var(--line); border-radius: var(--r); padding: 12px; margin-bottom: 12px; }
+  .card .note { color: var(--muted); font-size: 12px; margin: 2px 0 8px; }
+  #map { height: 320px; border-radius: 4px; }
+  .legend { display: flex; flex-wrap: wrap; gap: 6px 14px; font-size: 12px; color: var(--muted); margin-top: 8px; }
+  .legend i { width: 10px; height: 10px; border-radius: 50%; display: inline-block; margin-right: 6px; vertical-align: -1px; }
+  details.statsblok > summary { cursor: pointer; font-weight: 700; color: var(--link); padding: 4px 0; }
+  .bars { margin-top: 10px; max-width: 34rem; }
+  .bars .row { margin-bottom: 8px; font-size: 12px; }
+  .bars .row div:first-child { display: flex; justify-content: space-between; }
+  .bars .track { height: 6px; border-radius: 3px; background: var(--soft); margin-top: 3px; }
+  .bars .fill { height: 6px; border-radius: 3px; background: var(--accent); }
+
+  /* Lijst */
+  .scroll { overflow: auto; max-height: 80vh; background: var(--panel); border: 1px solid var(--line); border-radius: var(--r); }
+  table { width: 100%; border-collapse: collapse; font-size: 14px; font-variant-numeric: tabular-nums; }
+  th { position: sticky; top: 0; z-index: 1; background: var(--panel); text-align: left; font-weight: 700; font-size: 12px; color: var(--muted); padding: 10px; border-bottom: 2px solid var(--line); white-space: nowrap; }
+  td { padding: 12px 10px; border-bottom: 1px solid var(--line); vertical-align: top; }
+  tbody tr:last-child td { border-bottom: 0; }
+  tbody tr:hover td { background: color-mix(in srgb, var(--accent) 6%, transparent); }
+  .num { text-align: right; white-space: nowrap; }
+  .nowrap { white-space: nowrap; }
+  .sub { color: var(--muted); font-size: 12.5px; margin-top: 2px; }
+  #tabel .c-prijs { font-weight: 700; }
+  #tabel td.c-adres { min-width: 15rem; } #tabel td.c-online, #tabel td.c-voorrang, #tabel td.c-status, #tabel td.c-energielabel { white-space: nowrap; }
+  .adres { font-weight: 700; color: var(--link); font-size: 15px; }
+  tr.seen .adres { color: color-mix(in srgb, var(--link) 55%, var(--muted)); font-weight: 600; }
+  tr.isnew td:first-child { box-shadow: inset 3px 0 0 var(--accent); }
+  tr.dim td { opacity: .55; }
+  table.compact { font-size: 13px; }
+  table.compact .sub { display: none; }
+  table.compact td { padding: 4px 8px; white-space: nowrap; line-height: 1.35; }
+  table.compact .adres { font-size: 13px; }
+  table.compact td.spec { white-space: nowrap; max-width: 16rem; overflow: hidden; text-overflow: ellipsis; }
+  table.compact .badge { padding: 0 6px; font-size: 11px; }
+  table.compact .star { font-size: 14px; }
+  .spec { min-width: 14rem; max-width: 26rem; font-size: 12.5px; color: var(--muted); }
   .cd { display: inline-block; width: 8px; height: 8px; border-radius: 50%; margin-right: 6px; vertical-align: 1px; }
-  .badge { display: inline-flex; align-items: center; gap: 4px; padding: 1px 8px; border-radius: 999px; font-size: 12px; font-weight: 500; white-space: nowrap;
-           color: var(--tone, var(--muted)); background: color-mix(in srgb, var(--tone, var(--muted)) 14%, transparent); }
+  .badge { display: inline-flex; align-items: center; gap: 4px; padding: 1px 8px; border-radius: 3px; font-size: 12px; font-weight: 700; white-space: nowrap;
+           color: var(--tone, var(--muted)); background: color-mix(in srgb, var(--tone, var(--muted)) 13%, transparent); }
+  .badge.t-new { background: var(--accent); color: var(--accent-ink); }
   .t-ok { --tone: var(--ok); } .t-warn { --tone: var(--warn); } .t-bad { --tone: var(--bad); } .t-neutral { --tone: var(--muted); } .t-new { --tone: var(--new); }
+  .star { background: none; border: 0; padding: 0 4px 0 0; cursor: pointer; font-size: 17px; line-height: 1; color: var(--muted); opacity: .5; vertical-align: -1px; }
+  .star.on { color: var(--accent); opacity: 1; } .star:hover { opacity: 1; }
   .ico { width: 22px; height: 22px; border-radius: 50%; display: inline-grid; place-items: center; font-size: 12px; font-weight: 700; color: #fff; background: var(--tone); }
   .todo { color: var(--tone); }
   .progress { height: 6px; border-radius: 999px; background: color-mix(in srgb, var(--bad) 20%, transparent); overflow: hidden; margin: 8px 0 14px; max-width: 28rem; }
   .progress i { display: block; height: 100%; background: var(--ok); }
   .foot { color: var(--muted); font-size: 12px; margin-top: 12px; }
-  [hidden] { display: none !important; }
-  .leaflet-popup-content { font: 13px/1.4 system-ui, sans-serif; }
+  #regelsTbl th, #regelsTbl td { vertical-align: top; }
+  #regelsTbl { table-layout: fixed; min-width: 60rem; } #regelsTbl .w-m { width: 15%; } #regelsTbl .w-l { width: 25%; } #regelsTbl th:nth-child(2) { width: 6rem; } #regelsTbl td { font-size: 13.5px; line-height: 1.5; } #regelsTbl td:first-child .sub { font-weight: 400; }
+  .syncbox input { width: 100%; } .syncbox { white-space: normal; } #syncpanel { max-width: 40rem; }
+  .steps { margin: 4px 0 10px; padding-left: 18px; font-size: 13px; line-height: 1.45; } .steps li { margin-bottom: 4px; }
+  .syncstat { font-size: 12px; margin: 4px 0 8px; } .syncstat.ok { color: var(--ok); } .syncstat.bad { color: var(--bad); }
+  .leaflet-popup-content { font: 13px/1.4 "Helvetica Neue", Arial, sans-serif; }
   .leaflet-container { background: #f2f2f2; }
 </style>
 </head>
 <body>
+<header class="topbar"><div class="in">
+  <div class="brand"><span class="logo">⌂</span>Corporatiewoningen</div>
+  <nav class="nav" role="tablist">
+    <button data-tab="woningen" aria-pressed="true">Koopwoningen</button>
+    <button data-tab="regels" aria-pressed="false">Voorrangsregels</button>
+    <button data-tab="bronnen" aria-pressed="false">Bronnen <span id="tabdot"></span></button>
+  </nav>
+  <div class="themes" aria-label="Thema">
+    <button data-theme-btn="light">Licht</button><button data-theme-btn="dark">Donker</button><button data-theme-btn="system">Systeem</button>
+  </div>
+</div></header>
+<div class="searchbar" data-page-bar><div class="in">
+  <input type="search" class="search f" data-f="q" placeholder="Zoek op straat, buurt, postcode of type in Amsterdam">
+  <span id="kop">Laden…</span>
+</div></div>
+
 <div class="wrap">
-  <header class="head">
-    <div>
-      <h1>Corporatiewoningen te koop</h1>
-      <p id="kop">Laden…</p>
-    </div>
-    <div class="headr">
-      <div class="seg" role="tablist">
-        <button data-tab="woningen" aria-pressed="true">Woningen</button>
-        <button data-tab="regels" aria-pressed="false">Voorrangsregels</button>
-        <button data-tab="bronnen" aria-pressed="false">Bronnen <span id="tabdot"></span></button>
-      </div>
-      <div class="seg" aria-label="Thema">
-        <button data-theme-btn="light">☀︎ Licht</button>
-        <button data-theme-btn="dark">☾ Donker</button>
-        <button data-theme-btn="system">Systeem</button>
-      </div>
-    </div>
-  </header>
   <div id="alert"></div>
   <div class="reminder" id="syncreminder" hidden>★ Favorieten delen tussen apparaten is nog niet ingesteld op dit apparaat. <button class="mini" id="syncopen">Zo doe je het →</button></div>
   <div class="card syncbox" id="syncpanel" hidden style="margin-bottom:14px"><h2>Favorieten delen tussen apparaten</h2>
@@ -156,19 +198,22 @@
   </div>
 
   <section data-page="woningen">
-    <div class="stats" id="stats"></div>
-    <div class="toolbar">
-      <details class="dd" data-dd="prijs"><summary>Prijs &amp; grootte <span class="cnt"></span></summary>
+    <div class="layout">
+      <details class="sidewrap" open>
+        <summary>Filters <span class="cnt" id="filtcnt"></span></summary>
+        <aside class="side">
+          <h3>Filters <button class="mini" id="reset" style="margin:0">Wis alles</button></h3>
+          <details class="dd side" open data-dd="prijs"><summary>Prijs &amp; oppervlakte <span class="cnt"></span></summary>
         <div class="panel">
           <label class="field">Max. vraagprijs (€)<input type="number" class="f" data-f="maxPrijs" step="10000" min="0" placeholder="Geen maximum"></label>
           <label class="field">Max. prijs per m² (€)<input type="number" class="f" data-f="maxPpm" step="250" min="0" placeholder="Geen maximum"></label>
           <label class="field">Min. woonoppervlak (m²)<input type="number" class="f" data-f="minM2" step="5" min="0" placeholder="Geen minimum"></label>
           <label class="field">Min. kamers<select class="f" data-f="minKamers"><option value="">Alle</option><option value="2">2+</option><option value="3">3+</option><option value="4">4+</option></select></label>
         </div></details>
-      <details class="dd" data-dd="corporatie"><summary>Corporatie <span class="cnt"></span></summary><div class="panel"><div><button class="mini" data-all="corporatie">Alle</button><button class="mini" data-none="corporatie">Geen</button></div><div data-list="corporatie"></div></div></details>
-      <details class="dd" data-dd="stadsdeel"><summary>Stadsdeel <span class="cnt"></span></summary><div class="panel"><div><button class="mini" data-all="stadsdeel">Alle</button><button class="mini" data-none="stadsdeel">Geen</button></div><div data-list="stadsdeel"></div></div></details>
-      <details class="dd" data-dd="type"><summary>Type <span class="cnt"></span></summary><div class="panel"><div><button class="mini" data-all="type">Alle</button><button class="mini" data-none="type">Geen</button></div><div data-list="type"></div></div></details>
-      <details class="dd" data-dd="meer"><summary>Meer <span class="cnt"></span></summary>
+          <details class="dd side" open data-dd="corporatie"><summary>Corporatie <span class="cnt"></span></summary><div class="panel"><div><button class="mini" data-all="corporatie">Alle</button><button class="mini" data-none="corporatie">Geen</button></div><div data-list="corporatie"></div></div></details>
+          <details class="dd side" open data-dd="stadsdeel"><summary>Stadsdeel <span class="cnt"></span></summary><div class="panel"><div><button class="mini" data-all="stadsdeel">Alle</button><button class="mini" data-none="stadsdeel">Geen</button></div><div data-list="stadsdeel"></div></div></details>
+          <details class="dd side" data-dd="type"><summary>Type <span class="cnt"></span></summary><div class="panel"><div><button class="mini" data-all="type">Alle</button><button class="mini" data-none="type">Geen</button></div><div data-list="type"></div></div></details>
+          <details class="dd side" open data-dd="meer"><summary>Voorrang, status &amp; woning <span class="cnt"></span></summary>
         <div class="panel">
           <h4>Voorrang</h4>
           <label class="check"><input type="checkbox" class="f" data-f="voorJou"> Alleen waar ik voorrang kan krijgen</label>
@@ -182,7 +227,12 @@
           <label class="check"><input type="checkbox" class="f" data-f="goedLabel"> Energielabel A–C</label>
           <label class="check"><input type="checkbox" class="f" data-f="erfpachtAfgekocht"> Erfpacht afgekocht</label>
         </div></details>
-      <select class="sort f" data-f="sort" aria-label="Sorteren">
+        </aside>
+      </details>
+      <div>
+        <div class="reshead">
+          <h2 id="ntitle">Woningen</h2>
+          <select class="sort f" data-f="sort" aria-label="Sorteren">
         <option value="nieuw">Nieuwste eerst</option>
         <option value="prijs-asc">Prijs laag–hoog</option>
         <option value="prijs-desc">Prijs hoog–laag</option>
@@ -190,45 +240,35 @@
         <option value="m2-desc">Grootste eerst</option>
         <option value="deadline-asc">Voorrang loopt eerst af</option>
       </select>
-      <details class="dd" data-dd="weergave"><summary>Weergave</summary>
+          <button class="btn" id="voorbtn" aria-pressed="false" title="Alleen woningen waar jij voorrang kunt krijgen">✓ Voorrang voor mij</button>
+          <button class="btn" id="favbtn" aria-pressed="false">★ Favorieten <span id="favn"></span></button>
+          <button class="btn" id="kaartbtn" aria-pressed="true">Kaart</button>
+          <div class="seg"><button data-density="compact">Compact</button><button data-density="ruim">Details</button></div>
+          <details class="dd tdd" data-dd="weergave"><summary>Weergave ▾</summary>
         <div class="panel">
           <h4>Onderdelen</h4>
           <label class="check"><input type="checkbox" class="sec" data-sec="stats" checked> Kerncijfers</label>
-          <label class="check"><input type="checkbox" class="sec" data-sec="grid" checked> Kaart en prijs per m²</label>
+          <label class="check"><input type="checkbox" class="sec" data-sec="kaartblok" checked> Kaart</label>
           <h4>Kolommen</h4>
           <div id="colboxes"></div>
           <h4>Favorieten delen</h4>
           <button class="mini" id="syncopen2">Instellen of sleutel wijzigen</button>
         </div></details>
-      <button class="btn" id="voorbtn" aria-pressed="false" title="Alleen woningen waar jij voorrang kunt krijgen">✓ Voorrang voor mij</button>
-      <button class="btn" id="favbtn" aria-pressed="false">★ Favorieten <span id="favn"></span></button>
-      <button class="btn" id="reset">Wissen</button>
-      <input type="search" class="search f" data-f="q" placeholder="Zoek op straat, wijk of type">
-    </div>
-
-    <div class="grid" id="grid">
-      <div class="card">
-        <h2>Kaart</h2>
-        <p class="note">Klik op een stip voor details. Blauwe ring = nieuw, zwarte ring = voorrang loopt nu.</p>
-        <div id="map"></div>
-        <div class="legend" id="legend"></div>
-      </div>
-      <div class="card">
-        <h2>Prijs per m²</h2>
-        <p class="note">Mediaan per stadsdeel, alle woningen (aantal tussen haakjes).</p>
-        <div class="bars" id="bars"></div>
+        </div>
+        <div class="stats" id="stats"></div>
+        <div class="card" id="kaartblok">
+          <div id="map"></div>
+          <div class="legend" id="legend"></div>
+        </div>
+        <div class="scroll"><table id="tabel"><thead><tr id="thead"></tr></thead><tbody></tbody></table></div>
+        <details class="statsblok card" id="statsblok" style="margin-top:12px">
+          <summary>Prijs per m² per stadsdeel</summary>
+          <p class="note">Mediaan per stadsdeel, alle woningen (aantal tussen haakjes).</p>
+          <div class="bars" id="bars"></div>
+        </details>
+        <p class="foot">Vraagprijzen kosten koper. Bronnen: ik-zoek.de-alliantie.nl, vindjeplekbijdekey.nl en de aanbodmail van Stadgenoot. Kaart: PDOK BRT-Achtergrondkaart (© Kadaster). Oranje streep en label = nieuw in de afgelopen 7 dagen; dof = al bekeken. <span id="meta"></span></p>
       </div>
     </div>
-
-    <div class="reshead">
-      <h2 id="ntitle">Woningen</h2>
-      <div class="seg">
-        <button data-density="compact">Compact</button>
-        <button data-density="ruim">Met details</button>
-      </div>
-    </div>
-    <div class="scroll"><table id="tabel"><thead><tr id="thead"></tr></thead><tbody></tbody></table></div>
-    <p class="foot">Vraagprijzen kosten koper. Bronnen: ik-zoek.de-alliantie.nl, vindjeplekbijdekey.nl en de aanbodmail van Stadgenoot. Kaart: PDOK BRT-Achtergrondkaart (© Kadaster). Blauwe streep en label = nieuw in de afgelopen 7 dagen. <span id="meta"></span></p>
   </section>
 
   <section data-page="regels" hidden>
@@ -318,7 +358,7 @@ $$('[data-theme-btn]').forEach((b) => b.onclick = () => { themePref = b.dataset.
 mq.addEventListener('change', applyTheme); applyTheme();
 
 // Tabs
-const showTab = (n) => { $$('[data-page]').forEach((s) => s.hidden = s.dataset.page !== n); $$('[data-tab]').forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.tab === n))); if (n === 'woningen' && map) setTimeout(() => map.invalidateSize(), 50); };
+const showTab = (n) => { $$('[data-page]').forEach((s) => s.hidden = s.dataset.page !== n); $('[data-page-bar]').hidden = n !== 'woningen'; $$('[data-tab]').forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.tab === n))); if (n === 'woningen' && map) setTimeout(() => map.invalidateSize(), 50); };
 $$('[data-tab]').forEach((b) => b.onclick = () => { showTab(b.dataset.tab); history.replaceState(null, '', '#' + b.dataset.tab); });
 
 let W = [], R = [], B = [], META = {};
@@ -352,9 +392,11 @@ const applyDensity = () => { $('#tabel').classList.toggle('compact', density ===
 $$('[data-density]').forEach((b) => b.onclick = () => { density = b.dataset.density; store.set('density', density); applyDensity(); });
 applyDensity();
 
-$$('.sec').forEach((c) => c.onchange = () => { $('#' + c.dataset.sec).hidden = !c.checked; if (c.checked && map) map.invalidateSize(); });
-$$('details.dd').forEach((d) => d.addEventListener('toggle', () => { if (d.open) $$('details.dd').forEach((o) => o !== d && (o.open = false)); }));
-document.addEventListener('click', (e) => { if (e.target.isConnected && !e.target.closest('details.dd')) $$('details.dd').forEach((o) => o.open = false); });
+$$('.sec').forEach((c) => c.onchange = () => { $('#' + c.dataset.sec).hidden = !c.checked; if (c.dataset.sec === 'kaartblok') $('#kaartbtn').setAttribute('aria-pressed', String(c.checked)); if (c.checked && map) map.invalidateSize(); });
+$$('details.tdd').forEach((d) => d.addEventListener('toggle', () => { if (d.open) $$('details.tdd').forEach((o) => o !== d && (o.open = false)); }));
+if (innerWidth < 900) $('.sidewrap').open = false;
+$('#kaartbtn').onclick = () => { const c = $('.sec[data-sec="kaartblok"]'); c.checked = !c.checked; c.onchange(); };
+document.addEventListener('click', (e) => { if (e.target.isConnected && !e.target.closest('details.tdd')) $$('details.tdd').forEach((o) => o.open = false); });
 
 const filters = () => Object.fromEntries($$('.f').map((e) => [e.dataset.f, e.type === 'checkbox' ? e.checked : e.value]));
 $$('.f').forEach((e) => e.addEventListener(e.tagName === 'INPUT' && e.type !== 'checkbox' ? 'input' : 'change', () => render()));
@@ -436,6 +478,7 @@ const markActive = () => {
   for (const k of ['corporatie', 'type']) n[k] = sel[k] ? sel[k].size : 0;
   n.stadsdeel = sel.buurt ? new Set([...sel.buurt].map((k) => k.split('|')[0])).size : 0;
   $('#voorbtn').setAttribute('aria-pressed', String(f.voorJou));
+  const tot = Object.entries(n).filter(([k]) => k !== 'weergave').reduce((a, [, v]) => a + (v ? 1 : 0), 0); const fc = document.getElementById('filtcnt'); if (fc) fc.textContent = tot || '';
   $$('details.dd[data-dd]').forEach((d) => { const c = n[d.dataset.dd] || 0; d.classList.toggle('on', c > 0); const s = $('.cnt', d); if (s) s.textContent = c ? c : ''; });
 };
 
@@ -454,12 +497,12 @@ const drawMap = (rows) => {
   const pts = rows.filter((w) => w.lat && w.lon);
   pts.forEach((w) => {
     const v = voorrang(w);
-    if (isNew(w)) L.circleMarker([w.lat, w.lon], {radius: 11, color: '#2f6fdb', weight: 2, fill: false, interactive: false}).addTo(layer);
+    if (isNew(w)) L.circleMarker([w.lat, w.lon], {radius: 11, color: '#f7a100', weight: 2, fill: false, interactive: false}).addTo(layer);
     if (v.active) L.circleMarker([w.lat, w.lon], {radius: 8.5, color: '#1a1a1a', weight: 1.5, fill: false, interactive: false}).addTo(layer);
     const seen = gezien.has(w.id);
     L.circleMarker([w.lat, w.lon], {radius: 6, color: seen ? '#9a9a9a' : '#fff', weight: 1.5, fillColor: corpHex(w.corporatie), fillOpacity: seen ? 0.3 : 1})
       .on('popupopen', () => markSeen(w.id)).on('popupclose', () => drawMap(visible()))
-      .bindPopup(`<b>${w.adres}</b>${isNew(w) ? ' <span style="color:#2f6fdb">· nieuw</span>' : ''}<br>${w.corporatie} · ${w.stadsdeel}${w.wijk ? ' · ' + w.wijk : ''}<br>${eur.format(w.prijs)} · ${w.m2} m² · ${eur.format(Math.round(w.prijs / w.m2))}/m²<br>Voorrang: ${v.text} · ${w.status}<br><a href="${w.url}" target="_blank" rel="noopener">Advertentie openen →</a><br><a href="#" data-fav="${w.id}">${favs.has(w.id) ? '★ Favoriet' : '☆ Favoriet maken'}</a>`)
+      .bindPopup(`<b>${w.adres}</b>${isNew(w) ? ' <span style="color:#f7a100">· nieuw</span>' : ''}<br>${w.corporatie} · ${w.stadsdeel}${w.wijk ? ' · ' + w.wijk : ''}<br>${eur.format(w.prijs)} · ${w.m2} m² · ${eur.format(Math.round(w.prijs / w.m2))}/m²<br>Voorrang: ${v.text} · ${w.status}<br><a href="${w.url}" target="_blank" rel="noopener">Advertentie openen →</a><br><a href="#" data-fav="${w.id}">${favs.has(w.id) ? '★ Favoriet' : '☆ Favoriet maken'}</a>`)
       .addTo(layer);
   });
   $('#legend').replaceChildren(...[...new Set(W.map((w) => w.corporatie))].sort().map((c) => { const s = el('span'); const i = el('i'); i.style.background = corpColor(c); s.append(i, c); return s; }));
@@ -538,7 +581,7 @@ Promise.all(['woningen', 'regels', 'bronnen', 'meta'].map((n) => fetch('data/' +
     W = w; R = r; B = b; META = m;
     initMap(); renderStatic(); render();
     loadShared().then(render); showReminder();
-    const openSync = (e) => { e.stopPropagation(); $$('details.dd').forEach((o) => o.open = false); $('#syncpanel').hidden = false; $('#syncpanel').scrollIntoView({block: 'start'}); };
+    const openSync = (e) => { e.stopPropagation(); $$('details.tdd').forEach((o) => o.open = false); $('#syncpanel').hidden = false; $('#syncpanel').scrollIntoView({block: 'start'}); };
     $('#syncopen').onclick = openSync; $('#syncopen2').onclick = openSync; $('#syncclose').onclick = () => $('#syncpanel').hidden = true;
     const h = location.hash.slice(1); if (['regels', 'bronnen'].includes(h)) showTab(h);
   });
