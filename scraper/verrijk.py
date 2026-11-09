@@ -30,10 +30,10 @@ def log(*a):
     print(s, flush=True)
 
 
-def jget(url, params=None, headers=UA, tries=3):
+def jget(url, params=None, headers=UA, tries=2):
     for i in range(tries):
         try:
-            r = requests.get(url, params=params, headers=headers, timeout=30)
+            r = requests.get(url, params=params, headers=headers, timeout=(10, 40))
             if r.status_code == 404:
                 return None
             r.raise_for_status()
@@ -85,11 +85,20 @@ def historie(W):
 KLASSEN = {"WOPP0040": 32, "WOPP4060": 50, "WOPP6080": 70, "WOPP80100": 90, "WOPP100PLUS": 125}
 
 
-def bbga_alle(var):
-    """Alle kerncijfers van één indicator voor het meest recente jaar: {gebiedcode: (jaar, waarde)}."""
-    out, url, params = {}, f"{AMS}/bbga/kerncijfers/", {"indicatorDefinitie.variabele": var, "_pageSize": 5000, "_format": "json"}
-    while url:
+def laatste_jaar(var):
+    j = jget(f"{AMS}/bbga/kerncijfers/", {"indicatorDefinitie.variabele": var, "gebiedcode15": "AD05", "_format": "json"}, AMS_H)
+    return max(k["jaar"] for k in j["_embedded"]["kerncijfers"] if k.get("waarde") is not None)
+
+
+def bbga_alle(var, jaar):
+    """Alle kerncijfers van één indicator voor één jaar: {gebiedcode: (jaar, waarde)}."""
+    out, url, params = {}, f"{AMS}/bbga/kerncijfers/", {"indicatorDefinitie.variabele": var, "jaar": jaar, "_pageSize": 1000, "_format": "json"}
+    pages = 0
+    while url and pages < 20:
+        pages += 1
+        t = time.time()
         j = jget(url, params, AMS_H)
+        log(f"  bbga {var} {jaar} pagina {pages}: {len(j['_embedded']['kerncijfers'])} records, {time.time() - t:.1f}s")
         for k in j["_embedded"]["kerncijfers"]:
             if k.get("waarde") is None:
                 continue
@@ -113,8 +122,10 @@ def buurt_woz(W):
     B = load("buurten.json", {})
     # buurtcijfers maandelijks verversen (komen jaarlijks uit)
     if not B.get("_bijgewerkt") or B["_bijgewerkt"][:7] != TODAY[:7]:
-        woz = bbga_alle("WWOZ_GEM")
-        klassen = {v: bbga_alle(v) for v in KLASSEN}
+        jaar = laatste_jaar("WWOZ_GEM")
+        woz = bbga_alle("WWOZ_GEM", jaar)
+        kj = laatste_jaar("WOPP0040")
+        klassen = {v: bbga_alle(v, kj) for v in KLASSEN}
         n = 0
         for code, (jaar, w) in woz.items():
             tot = sum(klassen[v].get(code, (0, 0))[1] for v in KLASSEN)
@@ -125,11 +136,11 @@ def buurt_woz(W):
             n += 1
         B["_bijgewerkt"] = TODAY
         log(f"buurt-WOZ: {n} gebieden met WOZ/m²-schatting (WOZ-jaar {max((j for j, _ in woz.values()), default='?')})")
-    nieuw = 0
+    nieuw, start = 0, time.time()
     for w in W:
         if not w.get("lat") or not w.get("lon"):
             continue
-        if not w.get("buurtcode"):
+        if not w.get("buurtcode") and time.time() - start < 240:
             try:
                 r = buurt_van(w["lat"], w["lon"])
             except Exception as e:
@@ -199,8 +210,11 @@ def ep_label(W):
 # ---------- 4. Funderingsindicatie (KCAF, per postcode) ----------
 def fundering(W):
     url = "https://api.pdok.nl/rvo/indicatieve-aandachtsgebieden-funderingsproblematiek/ogc/v1/collections/indgebfunderingsproblematiek/items"
-    n = 0
+    n, start = 0, time.time()
     for w in W:
+        if time.time() - start > 180:
+            log("fundering: tijdslimiet, rest volgende keer")
+            break
         pc = (w.get("postcode") or "").replace(" ", "").upper()
         if not re.fullmatch(r"\d{4}[A-Z]{2}", pc) or w.get("funderingPc") == pc:
             continue
@@ -222,8 +236,10 @@ def fundering(W):
 def main():
     W = json.loads((D / "woningen.json").read_text())
     for naam, fn in (("historie", historie), ("buurt-WOZ", buurt_woz), ("energielabel", ep_label), ("fundering", fundering)):
+        t = time.time()
         try:
             fn(W)
+            log(f"{naam}: klaar in {time.time() - t:.0f}s")
         except Exception as e:
             log(f"{naam} mislukt: {e}")
     (D / "woningen.json").write_text(json.dumps(W, ensure_ascii=False, indent=1))

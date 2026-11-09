@@ -18,6 +18,7 @@ jobs:
       - name: Verrijken (historie, buurt-WOZ, energielabel, fundering)
         run: python scraper/verrijk.py
         continue-on-error: true
+        timeout-minutes: 12
         env:
           EP_ONLINE_KEY: ${{ secrets.EP_ONLINE_KEY }}
           AMS_API_KEY: ${{ secrets.AMS_API_KEY }}
