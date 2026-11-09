@@ -311,6 +311,9 @@
   .wrow:last-child { border-bottom: 0; }
   .wrow:hover { background: color-mix(in srgb, var(--accent) 5%, transparent); }
   .wrow.isnew { box-shadow: inset 3px 0 0 var(--accent); }
+  .wrow.hasfoto { grid-template-columns: 120px minmax(0, 1fr) auto; }
+  .r-foto { width: 120px; height: 80px; border-radius: 6px; object-fit: cover; background: var(--line); display: block; }
+  #detail .d-foto { width: 100%; max-height: 260px; object-fit: cover; border-radius: 8px; margin: 0 0 14px; display: block; background: var(--line); }
   .wrow.dim { opacity: .55; }
   .wrow.hl { background: color-mix(in srgb, var(--accent) 14%, transparent); box-shadow: inset 3px 0 0 var(--accent); opacity: 1; }
   tr.hl td { background: color-mix(in srgb, var(--accent) 14%, transparent) !important; }
@@ -353,6 +356,8 @@
   .elabel.sm { min-width: 24px; height: 18px; font-size: 11px; padding: 0 5px; }
   @media (max-width: 760px) {
     .wrow { grid-template-columns: minmax(0, 1fr); padding: 14px; gap: 6px; }
+    .wrow.hasfoto { grid-template-columns: 76px minmax(0, 1fr); } .wrow.hasfoto .r-side { grid-column: 1 / -1; }
+    .r-foto { width: 76px; height: 57px; }
     .r-top .adres { font-size: 16px; }
     .wrow .sub, .r-facts { margin-left: 25px; }
     .r-facts { gap: 4px 12px; font-size: 13.5px; margin-top: 8px; }
@@ -838,7 +843,7 @@ const drawMap = (rows) => {
     const mk = L.circleMarker([w.lat, w.lon], base); mk.base = base; markers.set(w.id, mk);
     mk.on('mouseover', () => hl(w.id, true)).on('mouseout', () => hl(w.id, false))
       .on('popupopen', () => markSeen(w.id)).on('popupclose', () => drawMap(visible()))
-      .bindPopup(`<b>${w.adres}</b>${isNew(w) ? ' <span style="color:#f7a100">· nieuw</span>' : ''}<br>${w.corporatie} · ${w.stadsdeel}${w.wijk ? ' · ' + w.wijk : ''}<br>${eur.format(w.prijs)} · ${w.m2} m² · ${eur.format(Math.round(w.prijs / w.m2))}/m²<br>Voorrang: ${v.text} · ${w.status}<br><a href="${w.url}" target="_blank" rel="noopener">Advertentie openen →</a><br><a href="#" data-detail="${w.id}">Details en maandlasten →</a><br><a href="#" data-fav="${w.id}">${favs.has(w.id) ? '★ Favoriet' : '☆ Favoriet maken'}</a>`)
+      .bindPopup(`${w.foto ? `<img src="${w.foto}" alt="" referrerpolicy="no-referrer" onerror="this.remove()" style="width:200px;height:120px;object-fit:cover;border-radius:4px;display:block;margin-bottom:6px">` : ''}<b>${w.adres}</b>${isNew(w) ? ' <span style="color:#f7a100">· nieuw</span>' : ''}<br>${w.corporatie} · ${w.stadsdeel}${w.wijk ? ' · ' + w.wijk : ''}<br>${eur.format(w.prijs)} · ${w.m2} m² · ${eur.format(Math.round(w.prijs / w.m2))}/m²<br>Voorrang: ${v.text} · ${w.status}<br><a href="${w.url}" target="_blank" rel="noopener">Advertentie openen →</a><br><a href="#" data-detail="${w.id}">Details en maandlasten →</a><br><a href="#" data-fav="${w.id}">${favs.has(w.id) ? '★ Favoriet' : '☆ Favoriet maken'}</a>`)
       .addTo(layer);
   });
   $('#legend').replaceChildren(...[...new Set(W.map((w) => w.corporatie))].sort().map((c) => { const s = el('span'); const i = el('i'); i.style.background = corpColor(c); s.append(i, c); return s; }));
@@ -903,6 +908,7 @@ const render = () => {
     const ml = el('div', 'r-ppm', '≈ ' + eur.format(maandlast(w)) + ' p/m · online ' + onlineSinds(w)); ml.title = 'Bruto hypotheek' + (vve(w) ? ' + VvE' : '') + ' bij ' + fin.rente + '% en ' + fin.jaren + ' jaar. Aanpassen in de details.';
     side.append(el('div', 'r-prijs', eur.format(w.prijs)), ppm, ml, bad);
     r.addEventListener('click', (e) => { if (!e.target.closest('a, button')) openDetail(w); });
+    if (w.foto) { const im = el('img', 'r-foto'); im.src = w.foto; im.alt = ''; im.loading = 'lazy'; im.referrerPolicy = 'no-referrer'; im.onerror = () => { im.remove(); r.classList.remove('hasfoto'); }; r.classList.add('hasfoto'); r.append(im); }
     r.append(main, side);
     return r;
   }));
@@ -966,6 +972,7 @@ const openDetail = (w) => {
   const kv = el('div', 'kv'); kv.append(...[kvItem('Vraagprijs', eur.format(w.prijs)), kvItem('Per m²', eur.format(Math.round(w.prijs / w.m2))), kvItem('Woonoppervlak', w.m2 + ' m²'), kvItem('Kamers', String(w.kamers)), kvItem('Type', w.type),
     kvItem('Bouwjaar', w.bouwjaar ? String(w.bouwjaar) : ''), kvItem('Energielabel', lbl), kvItem('VvE', typeof w.servicekosten === 'number' ? eur2.format(w.servicekosten) + ' p/m' : ''), kvItem('Erfpacht', w.erfpacht), kvItem('Tuin', w.tuin === 'ja' ? 'ja' : ''),
     kvItem('Online sinds', onlineSinds(w)), kvItem('Bron', w.bron), kvItem('Deadline', w.deadline ? nlDate(w.deadline) : '')].filter(Boolean));
+  if (w.foto) { const im = el('img', 'd-foto'); im.src = w.foto; im.alt = 'Foto van ' + w.adres; im.referrerPolicy = 'no-referrer'; im.onerror = () => im.remove(); B.append(im); }
   B.append(h, sub, bads, links, kv);
   if (w.voorrangSpec) B.append(el('p', 'note', w.voorrangSpec));
   // Onze voortgang (gedeeld via de lijst)

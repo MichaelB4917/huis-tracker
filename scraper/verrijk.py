@@ -268,6 +268,7 @@ def foto_klein(u):
     u = re.sub(r"([?&])width=\d+", r"\g<1>width=480", u)
     u = re.sub(r"([?&])height=\d+", r"\g<1>height=320", u)
     u = re.sub(r"/Crop/([^/]+)/\d+/\d+", r"/Crop/\1/480/320", u)
+    u = re.sub(r"([?&])h=\d+", r"\g<1>h=320", u)
     return u
 
 
@@ -291,7 +292,7 @@ def fotos(W):
         src = ""
         for sel in ('meta[property="og:image"]', 'meta[name="og:image"]', 'meta[name="twitter:image"]'):
             m = s.select_one(sel)
-            if m and m.get("content"):
+            if m and m.get("content") and not re.search(r"logo|icon|default", m["content"], re.I):
                 src = m["content"]
                 break
         if not src:
