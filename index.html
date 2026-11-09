@@ -324,6 +324,27 @@
   .r-side { text-align: right; display: flex; flex-direction: column; align-items: flex-end; gap: 4px; }
   .r-prijs { font-size: 21px; font-weight: 800; letter-spacing: -.01em; white-space: nowrap; }
   .r-ppm { font-size: 12.5px; color: var(--muted); white-space: nowrap; }
+  .ast { font-size: 10px; vertical-align: super; line-height: 0; margin-left: 1px; cursor: help; }
+  .r-buurt.lo { color: var(--ok); } .r-buurt.hi { color: var(--bad); }
+  .wrow { cursor: pointer; } #tabel tbody tr { cursor: pointer; }
+  /* Detailweergave */
+  #detail .box { max-width: 44rem; max-height: calc(100vh - 32px); overflow-y: auto; padding: 22px 24px; position: relative; }
+  #detail .x { position: absolute; top: 12px; right: 14px; font-size: 22px; line-height: 1; opacity: .6; } #detail .x:hover { opacity: 1; }
+  #detail h2 { font-size: 21px; margin: 0 28px 2px 0; }
+  #detail h3 { font-size: 14px; margin: 20px 0 8px; padding-top: 14px; border-top: 1px solid var(--line); }
+  #detail .links { display: flex; flex-wrap: wrap; gap: 6px 16px; margin: 10px 0 0; font-size: 14px; }
+  #detail .kv { display: grid; grid-template-columns: repeat(auto-fill, minmax(10.5rem, 1fr)); gap: 10px 18px; margin-top: 14px; }
+  #detail .kv div > span { display: block; font-size: 12px; color: var(--muted); }
+  #detail .kv div > b { font-weight: 600; }
+  #detail .calc { display: grid; grid-template-columns: repeat(auto-fill, minmax(8.5rem, 1fr)); gap: 8px 12px; }
+  #detail .calc label { font-size: 12px; color: var(--muted); } #detail .calc input { width: 100%; margin-top: 3px; }
+  #detail .sum { margin-top: 12px; font-size: 14px; display: grid; gap: 3px; }
+  #detail .sum .tot { font-size: 18px; font-weight: 700; }
+  #detail .hist { list-style: none; padding: 0; margin: 0; font-size: 13.5px; display: grid; gap: 4px; }
+  #detail .hist li { display: flex; gap: 12px; } #detail .hist li span:first-child { color: var(--muted); min-width: 5.5rem; }
+  #detail .r-badges { justify-content: flex-start; }
+  #detail .note { font-size: 12px; color: var(--muted); margin: 8px 0 0; }
+  @media (max-width: 760px) { #detail .box { padding: 18px 16px; } }
   .r-badges { display: flex; gap: 6px; flex-wrap: wrap; justify-content: flex-end; margin-top: 4px; }
   .elabel { display: inline-grid; place-items: center; min-width: 28px; height: 22px; padding: 0 6px; border-radius: 4px; font-size: 12.5px; font-weight: 800; color: #fff; }
   .l-A { background: #1a9641; } .l-B { background: #52b151; } .l-C { background: #a6d96a; color: #1f1f1f; } .l-D { background: #f2d33a; color: #1f1f1f; }
@@ -458,8 +479,9 @@
           <summary>Prijs per m² per stadsdeel</summary>
           <p class="note">Mediaan per stadsdeel, alle woningen (aantal tussen haakjes).</p>
           <div class="bars" id="bars"></div>
+          <div id="tempo" style="margin-top:14px;font-size:13.5px"></div>
         </details>
-        <p class="foot">Vraagprijzen kosten koper. Bronnen: ik-zoek.de-alliantie.nl, vindjeplekbijdekey.nl en de aanbodmail van Stadgenoot. Kaart: PDOK BRT-Achtergrondkaart (© Kadaster). Oranje streep en label = nieuw in de afgelopen 7 dagen; dof = al bekeken. <span id="meta"></span></p>
+        <p class="foot">Vraagprijzen kosten koper. Bronnen: ik-zoek.de-alliantie.nl, vindjeplekbijdekey.nl en de aanbodmail van Stadgenoot. Kaart: PDOK BRT-Achtergrondkaart (© Kadaster). Oranje streep en label = nieuw in de afgelopen 7 dagen; dof = al bekeken.<br>* Vergelijking met de buurt gaat over de gemiddelde WOZ-waarde per m² (schatting op basis van open data van de gemeente Amsterdam), niet over verkoopprijzen. Maandlasten zijn bruto en indicatief. <span id="meta"></span></p>
       </div>
     </div>
   </section>
@@ -467,6 +489,17 @@
   <section data-page="regels" hidden>
     <p class="muted" style="margin-top:0" id="regelsintro"></p>
     <div class="scroll"><table id="regelsTbl"><thead><tr><th class="w-m">Corporatie</th><th>Voor jou</th><th class="w-l">Wie krijgt voorrang</th><th class="w-l">Voorwaarden</th><th class="w-m">Hoe lang</th><th class="w-m">Hoe claim je het</th></tr></thead><tbody id="regels"></tbody></table></div>
+    <div class="card uitleg" style="margin-top:16px">
+      <h2 style="font-size:18px;margin:0 0 6px">Na de koop: zelfbewoning en anti-speculatie</h2>
+      <p style="margin:0 0 6px">Corporaties verkopen hun woningen alleen aan mensen die er zelf gaan wonen. Dat leggen ze vast in de koopakte:</p>
+      <ul style="margin:0 0 10px;padding-left:20px;line-height:1.55">
+        <li><b>Zelfbewoningsplicht</b>: je moet er zelf (met je huishouden) gaan wonen en mag de woning niet verhuren. Bij de meeste corporaties geldt dit een paar jaar, bij Eigen Haard voor altijd (kettingbeding: ook elke volgende eigenaar).</li>
+        <li><b>Anti-speculatiebeding</b>: verkoop je de woning binnen een paar jaar door, dan betaal je een boete of draag je de winst af aan de corporatie. Zo kun je niet snel winst maken op een woning die je met voorrang kocht.</li>
+        <li><b>Opkoopbescherming Amsterdam</b> (geldt voor iedereen, niet alleen bij corporaties): is de WOZ-waarde bij levering € 637.000 of lager (grens 2026), dan mag je de woning de eerste 4 jaar niet verhuren, behalve met vergunning (bijv. aan ouders of kinderen). Boete bij overtreding: € 21.750.</li>
+      </ul>
+      <div class="scroll"><table id="koopTbl"><thead><tr><th>Corporatie</th><th>Zelfbewoning</th><th>Anti-speculatie</th><th>Boete</th></tr></thead><tbody id="koopvw"></tbody></table></div>
+      <p class="note" style="margin-top:8px">Uitgezocht op 9 november 2026 uit de sites en voorwaarden van de corporaties. De koopakte en de brochure van de woning zijn altijd leidend.</p>
+    </div>
   </section>
 
   <section data-page="bronnen" hidden>
@@ -484,6 +517,7 @@
     <div style="display:flex;gap:10px;align-items:center;margin-top:14px"><button class="primary" id="profsave">Opslaan</button><button class="mini" id="profskip">Later</button></div>
   </div>
 </div>
+<div class="modal" id="detail" hidden><div class="box" role="dialog" aria-labelledby="dtitel"><button class="x" id="dclose" aria-label="Sluiten">×</button><div id="dbody"></div></div></div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
 <script>
 const store = { get: (k) => { try { return localStorage.getItem(k); } catch (e) { return null; } }, set: (k, v) => { try { localStorage.setItem(k, v); } catch (e) {} } };
@@ -512,7 +546,7 @@ let lijstId = qId || store.get('lijst') || '', lijstNaam = store.get('lijstnaam'
 const setSync = (msg, cls) => { const e = document.getElementById('syncstat'); if (e) { e.textContent = msg; e.className = 'syncstat ' + (cls || ''); } };
 const saveLocal = () => { store.set('favs', JSON.stringify([...favs])); store.set('gezien', JSON.stringify([...gezien])); };
 const shareUrl = () => location.origin + location.pathname + '?lijst=' + lijstId;
-const lijstData = () => ({naam: lijstNaam, favorieten: [...favs], gezien: [...gezien], profiel});
+const lijstData = () => ({naam: lijstNaam, favorieten: [...favs], gezien: [...gezien], profiel, fin});
 const showLijst = () => {
   const has = !!(lijstId && SUPA_URL); $('#lijstnone').hidden = has; $('#lijstsome').hidden = !has;
   if (has) { $('#lijsttitel').textContent = lijstNaam || 'je lijst'; $('#lijstshare').value = shareUrl(); }
@@ -527,6 +561,7 @@ async function loadShared() {
     store.set('lijst', lijstId); lijstNaam = j.naam || ''; store.set('lijstnaam', lijstNaam);
     favs = new Set(j.favorieten || []); gezien = new Set([...(j.gezien || []), ...gezien]);
     if (j.profiel) { profiel = j.profiel; store.set('profiel', JSON.stringify(profiel)); }
+    if (j.fin) { fin = Object.assign(fin, j.fin); store.set('fin', JSON.stringify(fin)); }
     saveLocal(); setSync('Gedeeld: wijzigingen gaan direct naar iedereen met de link.', 'ok');
     if (qId) history.replaceState(null, '', location.pathname + location.hash);
   } catch (e) { setSync('Kon de lijst niet laden. Favorieten staan in deze browser.', 'bad'); }
@@ -564,6 +599,15 @@ const open = new Set();
 
 const CORPS = ['Lieven de Key', 'Alliantie', 'Stadgenoot', 'Rochdale', 'Ymere', 'Eigen Haard', 'Andere corporatie', 'Geen sociale huurwoning'];
 let profiel = null; try { profiel = JSON.parse(store.get('profiel') || 'null'); } catch (e) {}
+// Maandlasten: aannames instelbaar in de detailweergave (bewaard in browser en gedeelde lijst)
+let fin = {rente: 4.0, jaren: 30, eigen: 0, huur: ''}; try { fin = Object.assign(fin, JSON.parse(store.get('fin') || '{}')); } catch (e) {}
+const hypotheek = (w) => { const L = Math.max(0, (w.prijs || 0) - (+fin.eigen || 0)), r = (+fin.rente || 0) / 1200, n = (+fin.jaren || 30) * 12; return r ? L * r / (1 - Math.pow(1 + r, -n)) : L / n; };
+const vve = (w) => typeof w.servicekosten === 'number' ? w.servicekosten : 0;
+const maandlast = (w) => Math.round(hypotheek(w) + vve(w));
+// Vergelijking met de buurt: gemiddelde WOZ-waarde per m² (schatting), dus géén verkoopprijzen
+const WOZ_UITLEG = 'Vergeleken met de gemiddelde WOZ-waarde per m² van de buurt (schatting), niet met verkoopprijzen. Woningen worden in Amsterdam vaak boven de WOZ-waarde verkocht.';
+const buurtDiff = (w) => w.buurtWozM2 && w.m2 ? Math.round((w.prijs / w.m2 / w.buurtWozM2 - 1) * 100) : null;
+const buurtNode = (w) => { const d = buurtDiff(w); if (d == null) return null; const s = el('span', 'r-buurt ' + (d <= -5 ? 'lo' : d >= 5 ? 'hi' : ''), d === 0 ? 'gelijk aan buurt' : Math.abs(d) + '% ' + (d < 0 ? 'onder' : 'boven') + ' buurt'); const a = el('span', 'ast', '*'); a.title = WOZ_UITLEG; s.append(a); return s; };
 const regelVan = (corp) => (R.find((r) => r.corporatie === corp) || {}).regel;
 // Voor jou: ja / nee / mogelijk, berekend uit je corporatie en de regel van de verkopende corporatie
 const voorJouCorp = (corp) => {
@@ -767,7 +811,7 @@ const drawMap = (rows) => {
     const mk = L.circleMarker([w.lat, w.lon], base); mk.base = base; markers.set(w.id, mk);
     mk.on('mouseover', () => hl(w.id, true)).on('mouseout', () => hl(w.id, false))
       .on('popupopen', () => markSeen(w.id)).on('popupclose', () => drawMap(visible()))
-      .bindPopup(`<b>${w.adres}</b>${isNew(w) ? ' <span style="color:#f7a100">· nieuw</span>' : ''}<br>${w.corporatie} · ${w.stadsdeel}${w.wijk ? ' · ' + w.wijk : ''}<br>${eur.format(w.prijs)} · ${w.m2} m² · ${eur.format(Math.round(w.prijs / w.m2))}/m²<br>Voorrang: ${v.text} · ${w.status}<br><a href="${w.url}" target="_blank" rel="noopener">Advertentie openen →</a><br><a href="#" data-fav="${w.id}">${favs.has(w.id) ? '★ Favoriet' : '☆ Favoriet maken'}</a>`)
+      .bindPopup(`<b>${w.adres}</b>${isNew(w) ? ' <span style="color:#f7a100">· nieuw</span>' : ''}<br>${w.corporatie} · ${w.stadsdeel}${w.wijk ? ' · ' + w.wijk : ''}<br>${eur.format(w.prijs)} · ${w.m2} m² · ${eur.format(Math.round(w.prijs / w.m2))}/m²<br>Voorrang: ${v.text} · ${w.status}<br><a href="${w.url}" target="_blank" rel="noopener">Advertentie openen →</a><br><a href="#" data-detail="${w.id}">Details en maandlasten →</a><br><a href="#" data-fav="${w.id}">${favs.has(w.id) ? '★ Favoriet' : '☆ Favoriet maken'}</a>`)
       .addTo(layer);
   });
   $('#legend').replaceChildren(...[...new Set(W.map((w) => w.corporatie))].sort().map((c) => { const s = el('span'); const i = el('i'); i.style.background = corpColor(c); s.append(i, c); return s; }));
@@ -783,7 +827,7 @@ const render = () => {
   const tb = $('#tabel tbody');
   if (!rows.length) { const tr = el('tr'); const c = el('td', 'muted', 'Geen woningen met deze filters.'); c.colSpan = COLS.length; tr.append(c); tb.replaceChildren(tr); }
   else tb.replaceChildren(...rows.map((w) => {
-    const tr = el('tr'); hoverLink(tr, w.id); if (isNew(w)) tr.classList.add('isnew'); if (w.status === 'verkocht o.v.b.') tr.classList.add('dim');
+    const tr = el('tr'); hoverLink(tr, w.id); tr.addEventListener('click', (e) => { if (!e.target.closest('a, button')) openDetail(w); }); if (isNew(w)) tr.classList.add('isnew'); if (w.status === 'verkocht o.v.b.') tr.classList.add('dim');
     const cell = (k, ...kids) => { const c = el('td', 'c-' + k); c.append(...kids.filter((x) => x != null && x !== '')); return c; };
     const sfx = (c, t) => { c.dataset.sfx = t; return c; };
     const num = (k, v) => { const c = cell(k, v); c.classList.add('num'); return c; };
@@ -826,7 +870,10 @@ const render = () => {
     const side = el('div', 'r-side');
     const v = voorrang(w);
     const bad = el('div', 'r-badges'); bad.append(badge(v.cls, v.text === 'ja' ? 'voorrang' : v.text === 'checken' ? 'voorrang checken' : v.text.startsWith('tot') ? 'voorrang ' + v.text : v.text), badge(statusTone(w.status), w.status));
-    side.append(el('div', 'r-prijs', eur.format(w.prijs)), el('div', 'r-ppm', eur.format(Math.round(w.prijs / w.m2)) + ' per m² · online ' + onlineSinds(w)), bad);
+    const ppm = el('div', 'r-ppm', eur.format(Math.round(w.prijs / w.m2)) + ' per m²'); const bn = buurtNode(w); if (bn) ppm.append(' · ', bn);
+    const ml = el('div', 'r-ppm', '≈ ' + eur.format(maandlast(w)) + ' p/m · online ' + onlineSinds(w)); ml.title = 'Bruto hypotheek' + (vve(w) ? ' + VvE' : '') + ' bij ' + fin.rente + '% en ' + fin.jaren + ' jaar. Aanpassen in de details.';
+    side.append(el('div', 'r-prijs', eur.format(w.prijs)), ppm, ml, bad);
+    r.addEventListener('click', (e) => { if (!e.target.closest('a, button')) openDetail(w); });
     r.append(main, side);
     return r;
   }));
@@ -851,6 +898,8 @@ const renderStatic = () => {
     const tr = el('tr'); const c0 = el('td', 'nowrap'); const d = el('span', 'cd'); d.style.background = corpColor(r.corporatie); c0.append(d, r.corporatie); c0.style.fontWeight = 600;
     const c1 = el('td'); const vj = voorJouCorp(r.corporatie) || r.voorJou; c1.append(badge(tone(vj), vj)); const a = el('a', null, 'Bron: ' + r.zekerheid); a.href = r.url; a.target = '_blank'; c0.append(el('div', 'sub', r.kanaal)); const sb = el('div', 'sub'); sb.append(a); c0.append(sb); c0.style.whiteSpace = 'normal';
     tr.append(c0, c1, el('td', null, r.wie), el('td', null, r.voorwaarden), el('td', null, r.periode), el('td', null, r.hoe)); return tr; }));
+  $('#koopvw').replaceChildren(...R.filter((r) => r.zelfbewoning).map((r) => { const tr = el('tr'); const c0 = el('td', 'nowrap'); const d = el('span', 'cd'); d.style.background = corpColor(r.corporatie); c0.append(d, r.corporatie); c0.style.fontWeight = 600; const sb = el('div', 'sub'); sb.append(link('Bron', r.koopBron)); c0.append(sb);
+    tr.append(c0, el('td', null, r.zelfbewoning), el('td', null, r.antispeculatie), el('td', null, r.boete)); return tr; }));
   const st = (s) => s === 'werkt' ? ['var(--ok)', '✓', 't-ok'] : s === 'deels' ? ['var(--warn)', '!', 't-warn'] : ['var(--bad)', '✕', 't-bad'];
   const bo = {'werkt niet': 0, deels: 1, werkt: 2};
   $('#bronnen').replaceChildren(...B.slice().sort((a, b) => (bo[a.status] ?? 0) - (bo[b.status] ?? 0)).map((r) => {
@@ -868,6 +917,97 @@ const renderStatic = () => {
   if (META.fouten && META.fouten.length) $('#meta').textContent = 'Laatste update had problemen: ' + META.fouten.join('; ');
 };
 
+// Detailweergave (klik op tegel, tabelrij of 'Details' in de kaart)
+let HIST = null;
+const loadHist = () => HIST ? Promise.resolve(HIST) : fetch('data/historie.json', {cache: 'no-cache'}).then((r) => r.ok ? r.json() : {}).catch(() => ({})).then((h) => HIST = h);
+const kvItem = (l, v) => { if (v == null || v === '') return null; const d = el('div'); d.append(el('span', null, l)); const b = el('b'); b.append(v); d.append(b); return d; };
+const link = (t, href) => { const a = el('a', null, t); a.href = href; a.target = '_blank'; a.rel = 'noopener'; return a; };
+let detailW = null;
+const openDetail = (w) => {
+  detailW = w; markSeen(w.id);
+  const B = $('#dbody'); B.replaceChildren();
+  const h = el('h2', null, w.adres); h.id = 'dtitel';
+  const dot = el('span', 'cd'); dot.style.background = corpColor(w.corporatie);
+  const sub = el('div', 'sub'); sub.append([w.postcode, w.buurt || w.wijk, w.stadsdeel].filter(Boolean).join(' · ') + ' · ', dot, w.corporatie);
+  const v = voorrang(w);
+  const bads = el('div', 'r-badges'); bads.style.marginTop = '8px'; bads.append(badge(v.cls, 'voorrang: ' + v.text), ' ', badge(statusTone(w.status), w.status), ...(isNew(w) ? [' ', badge('t-new', 'Nieuw')] : []));
+  const fav = el('button', 'mini', favs.has(w.id) ? '★ Favoriet' : '☆ Favoriet maken'); fav.onclick = () => { favs.has(w.id) ? favs.delete(w.id) : favs.add(w.id); fav.textContent = favs.has(w.id) ? '★ Favoriet' : '☆ Favoriet maken'; changed(); render(); };
+  const links = el('div', 'links'); links.append(link('Advertentie openen →', w.url), link('Google Maps', 'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent(w.adres + ', ' + (w.plaats || 'Amsterdam'))), link('WOZ-waarde opzoeken', 'https://www.wozwaardeloket.nl/'), fav);
+  const lbl = w.energielabel ? (() => { const x = el('span'); x.append(el('span', 'elabel sm l-' + w.energielabel[0], w.energielabel)); if (w.labelBron) x.append(' ', el('span', 'muted', '(' + w.labelBron + (w.labelGeldigTot ? ', geldig t/m ' + nlDate(w.labelGeldigTot) : '') + ')')); return x; })() : 'onbekend';
+  const kv = el('div', 'kv'); kv.append(...[kvItem('Vraagprijs', eur.format(w.prijs)), kvItem('Per m²', eur.format(Math.round(w.prijs / w.m2))), kvItem('Woonoppervlak', w.m2 + ' m²'), kvItem('Kamers', String(w.kamers)), kvItem('Type', w.type),
+    kvItem('Bouwjaar', w.bouwjaar ? String(w.bouwjaar) : ''), kvItem('Energielabel', lbl), kvItem('VvE', typeof w.servicekosten === 'number' ? eur2.format(w.servicekosten) + ' p/m' : ''), kvItem('Erfpacht', w.erfpacht), kvItem('Tuin', w.tuin === 'ja' ? 'ja' : ''),
+    kvItem('Online sinds', onlineSinds(w)), kvItem('Deadline', w.deadline ? nlDate(w.deadline) : '')].filter(Boolean));
+  B.append(h, sub, bads, links, kv);
+  if (w.voorrangSpec) B.append(el('p', 'note', w.voorrangSpec));
+  // Buurt
+  B.append(el('h3', null, 'Vergeleken met de buurt'));
+  const d = buurtDiff(w);
+  if (d != null) {
+    const p = el('p'); p.style.margin = 0;
+    p.append('Buurt ', el('b', null, w.buurt || '—'), ': gemiddelde WOZ-waarde ≈ ', el('b', null, eur.format(w.buurtWozM2) + ' per m²'), ' (WOZ ' + (w.buurtWozJaar || '') + '). Deze woning: ' + eur.format(Math.round(w.prijs / w.m2)) + ' per m², ');
+    p.append(buurtNode(w), '.'); B.append(p, el('p', 'note', '* ' + WOZ_UITLEG + ' Het gemiddelde oppervlak per buurt is geschat uit oppervlakteklassen. Opknapkosten zitten niet in de vraagprijs.'));
+  } else B.append(el('p', 'note', 'Nog geen buurtwaarde bekend voor deze woning (wordt bij de dagelijkse update opgehaald).'));
+  // Maandlasten
+  B.append(el('h3', null, 'Maandlasten (indicatie)'));
+  const calc = el('div', 'calc');
+  const inp = (key, label, step, suffix) => { const l = el('label', null, label + (suffix ? ' (' + suffix + ')' : '')); const i = el('input'); i.type = 'number'; i.step = step; i.min = 0; i.value = fin[key]; i.placeholder = key === 'huur' ? 'bijv. 750' : ''; i.oninput = () => { fin[key] = i.value === '' ? '' : +i.value; store.set('fin', JSON.stringify(fin)); upd(); changed(); }; l.append(i); return l; };
+  calc.append(inp('rente', 'Hypotheekrente', '0.05', '%'), inp('jaren', 'Looptijd', '1', 'jaar'), inp('eigen', 'Eigen geld', '1000', '€'), inp('huur', 'Huidige huur', '10', '€ p/m'));
+  const sum = el('div', 'sum');
+  const upd = () => {
+    const hy = Math.round(hypotheek(w)), tot = maandlast(w);
+    const rows = [el('div', null, 'Hypotheek (annuïteit, bruto): ' + eur.format(hy) + ' p/m')];
+    if (vve(w)) rows.push(el('div', null, 'VvE: ' + eur2.format(vve(w)) + ' p/m'));
+    const t = el('div', 'tot', '≈ ' + eur.format(tot) + ' per maand'); rows.push(t);
+    if (fin.huur) { const dif = tot - fin.huur; rows.push(el('div', null, (dif >= 0 ? eur.format(dif) + ' meer' : eur.format(-dif) + ' minder') + ' dan je huidige huur')); }
+    sum.replaceChildren(...rows);
+  };
+  upd();
+  const notes = ['Bruto, dus zonder hypotheekrenteaftrek. Kosten koper (overdrachtsbelasting, notaris, taxatie) en opknapkosten betaal je meestal uit eigen geld.'];
+  if (w.erfpacht && !/afgekocht|eigen grond/i.test(w.erfpacht)) notes.push('Let op: erfpacht is mogelijk niet afgekocht; de canon komt hier nog bij.');
+  else if (!w.erfpacht) notes.push('Erfpacht onbekend; check de advertentie.');
+  if (!vve(w) && w.type && !/woning$|huis/i.test(w.type)) notes.push('VvE-bijdrage onbekend.');
+  B.append(calc, sum, el('p', 'note', notes.join(' ')));
+  // Koopvoorwaarden
+  const kr = R.find((r) => r.corporatie === w.corporatie);
+  B.append(el('h3', null, 'Na de koop'));
+  if (kr && kr.zelfbewoning) {
+    const kv2 = el('div', 'kv'); kv2.style.marginTop = 0; kv2.append(...[kvItem('Zelfbewoningsplicht', kr.zelfbewoning), kvItem('Anti-speculatiebeding', kr.antispeculatie), kvItem('Boete', kr.boete)].filter(Boolean)); B.append(kv2);
+  }
+  const ok = el('p', 'note'); ok.append(w.prijs <= 637000 ? 'Opkoopbescherming: bij deze vraagprijs valt de woning waarschijnlijk onder de WOZ-grens van € 637.000, dus de eerste 4 jaar niet verhuren. ' : 'Opkoopbescherming geldt alleen als de WOZ-waarde ≤ € 637.000 is (grens 2026). ', link('Uitleg bij Voorrangsregels', '#regels')); B.append(ok);
+  ok.querySelector('a').removeAttribute('target'); ok.querySelector('a').onclick = (e) => { e.preventDefault(); closeDetail(); showTab('regels'); scrollTo(0, 0); };
+  // Fundering
+  B.append(el('h3', null, 'Fundering (indicatie per postcode)'));
+  if (w.fundering) {
+    const p = el('p'); p.style.margin = 0; p.append(el('b', null, w.fundering), w.funderingVoor1970 ? ' · ' + Math.round(+w.funderingVoor1970) + '% van de panden in deze postcode is van vóór 1970' : '', w.funderingBodem ? ' · bodem: ' + w.funderingBodem : '');
+    B.append(p, el('p', 'note', 'Bron: Klimaateffectatlas / KCAF. Zegt iets over het gebied, niet over deze woning. Vraag bij interesse naar funderingsonderzoek of -herstel (VvE, gemeente, brochure).'));
+  } else B.append(el('p', 'note', w.funderingPc ? 'Geen indicatie gevonden voor deze postcode.' : 'Nog niet opgehaald (gebeurt bij de dagelijkse update).'));
+  // Historie
+  B.append(el('h3', null, 'Historie'));
+  const hl = el('ul', 'hist'); hl.append(el('li', 'muted', 'Laden…')); B.append(hl);
+  loadHist().then((H) => {
+    if (detailW !== w) return;
+    const e = H[w.id];
+    if (!e) { hl.replaceChildren(el('li', 'muted', 'Nog geen historie (wordt sinds 9 nov bijgehouden).')); return; }
+    const items = e.log.map((x) => { const li = el('li'); li.append(el('span', null, nlDate(x.d)), el('span', null, x.status + (x.prijs ? ' · ' + eur.format(x.prijs) : ''))); return li; });
+    const f = el('li'); f.append(el('span', null, nlDate(e.eerstGezien)), el('span', null, 'eerst gezien')); if (e.eerstGezien < e.log[0].d) items.unshift(f);
+    hl.replaceChildren(...items);
+  });
+  $('#detail').hidden = false; $('#detail .box').scrollTop = 0;
+};
+const closeDetail = () => { $('#detail').hidden = true; detailW = null; };
+$('#dclose').onclick = closeDetail;
+$('#detail').addEventListener('click', (e) => { if (e.target.id === 'detail') closeDetail(); });
+document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && !$('#detail').hidden) closeDetail(); });
+document.addEventListener('click', (e) => { const a = e.target.closest('[data-detail]'); if (!a) return; e.preventDefault(); const w = W.find((x) => x.id === a.dataset.detail); if (w) { map.closePopup(); openDetail(w); } });
+// Tijd tot verkocht o.v.b. per corporatie (uit de historie)
+const verkoopTempo = () => loadHist().then((H) => {
+  const per = {};
+  Object.values(H).forEach((e) => { const v = e.log.find((x) => /verkocht|offline/.test(x.status)); if (!v || !e.eerstGezien || e.eerstGezien < '2026-11-09') return; const dagen = Math.round((new Date(v.d) - new Date(e.eerstGezien)) / 864e5); (per[e.corporatie] ||= []).push(dagen); });
+  const box = $('#tempo'); if (!box) return;
+  const ks = Object.keys(per);
+  box.replaceChildren(el('h4', null, 'Tijd tot verkocht o.v.b. of offline'), ...(ks.length ? ks.sort().map((c) => el('div', null, c + ': gemiddeld ' + Math.round(per[c].reduce((a, b) => a + b, 0) / per[c].length) + ' dagen (' + per[c].length + ' woningen)')) : [el('p', 'note', 'Wordt bijgehouden sinds 9 november 2026. Zodra woningen verkocht worden, verschijnt hier per corporatie hoe snel dat gaat.')]));
+});
+
 const profLabel = () => { $('#profbtn').textContent = profiel ? 'Ik huur bij: ' + profiel.corp + ' ✎' : 'Kies je corporatie ✎';
   $('#regelsintro').textContent = (profiel ? '"Voor jou" gaat uit van: ' + profiel.corp + (profiel.corp !== 'Geen sociale huurwoning' ? (profiel.zelfstandig ? ', zelfstandige sociale huurwoning in Amsterdam/Diemen' : ', geen zelfstandige sociale huurwoning in Amsterdam/Diemen') : '') + '. ' : 'Kies bovenin je corporatie om te zien waar jij voorrang hebt. ') + 'De advertentie is altijd leidend.'; };
 const openProf = () => {
@@ -880,7 +1020,7 @@ $('#profsave').onclick = () => { const c = $('#profopts input:checked'); if (!c)
 Promise.all(['woningen', 'regels', 'bronnen', 'meta'].map((n) => fetch('data/' + n + '.json', {cache: 'no-cache'}).then((r) => r.ok ? r.json() : (n === 'meta' ? {} : [])).catch(() => n === 'meta' ? {} : [])))
   .then(([w, r, b, m]) => {
     W = w; R = r; B = b; META = m;
-    initMap(); profLabel(); renderStatic(); render();
+    initMap(); profLabel(); renderStatic(); render(); verkoopTempo();
     loadShared().then(() => { profLabel(); renderStatic(); render(); if (!profiel) openProf(); });
     const openSync = (e) => { e.stopPropagation(); $$('details.tdd').forEach((o) => o.open = false); $('#syncpanel').hidden = false; $('#syncpanel').scrollIntoView({block: 'start'}); };
     $('#syncopen').onclick = openSync; $('#syncopen2').onclick = openSync; $('#syncclose').onclick = () => $('#syncpanel').hidden = true;

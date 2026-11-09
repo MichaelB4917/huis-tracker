@@ -9,7 +9,11 @@
   "kanaal": "Eigen site + Funda (makelaar o.a. KRK)",
   "url": "https://www.de-alliantie.nl/ik-zoek/reageren/voorrang-huurders/",
   "zekerheid": "Bevestigd op site",
-  "regel": "alle-sociaal"
+  "regel": "alle-sociaal",
+  "zelfbewoning": "Ja, minimaal 2 jaar zelf wonen (hoofdverblijf)",
+  "antispeculatie": "2 jaar: niet verkopen of verhuren na levering",
+  "boete": "Niet gevonden op de site",
+  "koopBron": "https://www.de-alliantie.nl/ik-zoek/wat-we-bieden/de-spelregels/koopwoning/"
  },
  {
   "corporatie": "Rochdale",
@@ -21,7 +25,11 @@
   "kanaal": "Van der Linden Makelaardij (mva.nl) + Funda",
   "url": "https://mva.nl/koop/woningen/vreelandplein-20",
   "zekerheid": "Uit advertentietekst",
-  "regel": "eigen"
+  "regel": "eigen",
+  "zelfbewoning": "Waarschijnlijk ja (niet bevestigd)",
+  "antispeculatie": "Niet gevonden",
+  "boete": "Niet gevonden",
+  "koopBron": "https://www.rochdale.nl/woning-zoeken/koop/koopvoorrang-voor-huurders/"
  },
  {
   "corporatie": "Stadgenoot",
@@ -33,7 +41,11 @@
   "kanaal": "ikzoek.stadgenoot.nl + aanbodmail",
   "url": "https://www.stadgenoot.nl/aanbod/beschikbare-woningen/kopen",
   "zekerheid": "Site Stadgenoot",
-  "regel": "eigen"
+  "regel": "eigen",
+  "zelfbewoning": "Ja, minimaal 2 jaar; bewoning door kinderen of ouders mag ook",
+  "antispeculatie": "2 jaar: niet verkopen of verhuren na levering (ontheffing mogelijk bij onvoorziene omstandigheden)",
+  "boete": "€ 100.000 (volgens voorwaarden uit 2018; actuele versie niet gevonden)",
+  "koopBron": "https://www.stadgenoot.nl/aanbod/beschikbare-woningen/koopwoningen/informatie-over-koopwoningen"
  },
  {
   "corporatie": "Ymere",
@@ -45,7 +57,11 @@
   "kanaal": "Funda + makelaar",
   "url": "https://www.funda.nl/detail/koop/amsterdam/appartement-gibraltarstraat-72-2/43399781/",
   "zekerheid": "Uit advertentietekst",
-  "regel": "eigen"
+  "regel": "eigen",
+  "zelfbewoning": "Ja, alleen voor zelfbewoning (of ouders voor kinderen); duur niet gevonden",
+  "antispeculatie": "3 jaar",
+  "boete": "Niet gevonden; staat per woning in de advertentie",
+  "koopBron": "https://www.ymere.nl/ik-zoek/een-woning-van-ons-kopen/een-woning-van-ons-kopen-met-voorrang/"
  },
  {
   "corporatie": "Eigen Haard",
@@ -57,7 +73,11 @@
   "kanaal": "Funda",
   "url": "https://www.eigenhaard.nl",
   "zekerheid": "Oudere bron, niet actueel bevestigd",
-  "regel": "mogelijk"
+  "regel": "mogelijk",
+  "zelfbewoning": "Ja, met kettingbeding: nooit verhuren, geldt ook voor elke volgende eigenaar",
+  "antispeculatie": "36 maanden: bij verkoop binnen die tijd draag je de meerwaarde af",
+  "boete": "€ 100.000 bij overtreden zelfbewoningsplicht",
+  "koopBron": "https://www.eigenhaard.nl/te-koop/voorrang-op-een-koopwoning/"
  },
  {
   "corporatie": "Lieven de Key",
@@ -69,6 +89,10 @@
   "kanaal": "vindjeplekbijdekey.nl + Funda",
   "url": "https://www.lievendekey.nl/kopen-met-voorrang",
   "zekerheid": "Bevestigd op site",
-  "regel": "alle-sociaal"
+  "regel": "alle-sociaal",
+  "zelfbewoning": "Ja, minimaal 2 jaar; ouders mogen kopen voor hun kind",
+  "antispeculatie": "2 jaar",
+  "boete": "Niet gevonden (staat waarschijnlijk in de brochure)",
+  "koopBron": "https://www.lievendekey.nl/kopen-met-voorrang"
  }
 ]
