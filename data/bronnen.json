@@ -30,28 +30,28 @@
   "id": "rochdale",
   "naam": "Rochdale",
   "soort": "Corporatie",
-  "status": "werkt niet",
-  "werkt": "Verkoopt via makelaars (mva) en Funda; valt onder de Funda-zoekopdracht.",
-  "todo": "Funda-zoekopdracht en Gmail staan klaar; wacht op de eerste Funda-mail en controleer dan of de corporatie herkend wordt.",
-  "url": "https://www.rochdale.nl"
+  "status": "werkt",
+  "werkt": "Aanbod wordt dagelijks van rochdale.nl/aanbod gehaald (alleen Amsterdam), met detailpagina.",
+  "todo": "Voorrang alleen voor huurders van Rochdale.",
+  "url": "https://www.rochdale.nl/aanbod-koopwoningen/"
  },
  {
   "id": "ymere",
   "naam": "Ymere",
   "soort": "Corporatie",
   "status": "werkt niet",
-  "werkt": "Verkoopt via makelaars en Funda; valt onder de Funda-zoekopdracht.",
-  "todo": "Funda-zoekopdracht en Gmail staan klaar; wacht op de eerste Funda-mail en controleer dan of de corporatie herkend wordt.",
+  "werkt": "Ymere verkoopt alleen via Funda (geen eigen aanbodpagina); komt binnen via de Funda-mail zodra er een Ymere-woning in staat.",
+  "todo": "Wacht op een Funda-mail met een Ymere-woning.",
   "url": "https://www.ymere.nl"
  },
  {
   "id": "eigenhaard",
   "naam": "Eigen Haard",
   "soort": "Corporatie",
-  "status": "werkt niet",
-  "werkt": "Geen eigen koopaanbod gevonden.",
-  "todo": "Uitzoeken of en waar Eigen Haard woningen verkoopt (waarschijnlijk via Funda).",
-  "url": "https://www.eigenhaard.nl"
+  "status": "werkt",
+  "werkt": "Aanbod wordt dagelijks van eigenhaard.nl/te-koop gehaald (alleen Amsterdam), met detailpagina.",
+  "todo": "Eerst voor huurders van Eigen Haard (tot de datum in de advertentie); sociale huurders van andere corporaties kunnen ook voorrang krijgen, vraag ernaar bij de bezichtiging. Let op Koopgarant en inkomensgrenzen.",
+  "url": "https://www.eigenhaard.nl/te-koop/"
  },
  {
   "id": "funda",
