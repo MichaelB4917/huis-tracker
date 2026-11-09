@@ -14,8 +14,8 @@
 <meta property="og:image:height" content="630">
 <meta property="og:locale" content="nl_NL">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="theme-color" content="#0b5cad">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='15' fill='%23F5A300'/%3E%3Cpath d='M14 30 32 15l18 15' fill='none' stroke='%230A3E75' stroke-width='5.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3Crect x='20' y='32' width='24' height='18' rx='3' fill='%230A3E75'/%3E%3Crect x='28.5' y='39' width='7' height='11' rx='1.5' fill='%23F5A300'/%3E%3C/svg%3E">
+<meta name="theme-color" content="#ffffff">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect x='1' y='1' width='62' height='62' rx='15' fill='%23FFFFFF' stroke='%23DCE4EE' stroke-width='2'/%3E%3Cpath d='M13 30 32 14l19 16' fill='none' stroke='%230B63C4' stroke-width='6' stroke-linecap='round' stroke-linejoin='round'/%3E%3Crect x='20' y='32' width='24' height='19' rx='3' fill='%23F7A100'/%3E%3Crect x='28.5' y='39' width='7' height='12' rx='1.5' fill='%23FFFFFF'/%3E%3C/svg%3E">
 <link rel="apple-touch-icon" href="icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700;800&family=Quicksand:wght@700&display=swap">
@@ -383,10 +383,10 @@
   }
 
   /* ---------- Huisstijl: tussen DAK-blauw (sociaal) en koop-oranje in ---------- */
-  :root { --brand: #0b5cad; --brand-deep: #0a3e75; --accent: #f5a300; --accent-ink: #1b1b1b; --link: #0b63c4; --head: #0b5cad; --head-ink: #ffffff;
+  :root { --brand: #0b63c4; --brand-deep: #0a4a94; --accent: #f7a100; --accent-ink: #1b1b1b; --link: #0b63c4; --head: #ffffff; --head-ink: #1f2933;
           --page: #f3f5f8; --bg: #ffffff; --panel: #ffffff; --fg: #1f2933; --muted: #5d6977; --line: #e1e6ec; --soft: #eef2f7; --new: #0b63c4;
           --tint: #e8f0fa; }
-  :root[data-theme="dark"] { --brand: #3b8be0; --brand-deep: #0e2a47; --head: #0e2a47; --page: #0e1318; --bg: #151b22; --panel: #171d24; --fg: #e8edf2;
+  :root[data-theme="dark"] { --brand: #7db7ff; --brand-deep: #0e2a47; --head: #151b22; --head-ink: #e8edf2; --page: #0e1318; --bg: #151b22; --panel: #171d24; --fg: #e8edf2;
           --muted: #9ba8b6; --line: #2a3440; --soft: #1e2630; --link: #7db7ff; --new: #7db7ff; --tint: #1b2a3a; }
   body { font: 15px/1.5 "Figtree", system-ui, -apple-system, "Segoe UI", sans-serif; letter-spacing: .005em; }
   .leaflet-popup-content { font: 13.5px/1.45 "Figtree", system-ui, sans-serif; }
@@ -401,14 +401,45 @@
   .wrow .adres { font-weight: 700; }
   .sub, .note { color: var(--muted); }
   /* Plaatsvervanger als een woning geen foto heeft: het logo, omgekeerd */
-  .nofoto { background: var(--tint) url("data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 64 64%27%3E%3Cpath d=%27M14 30 32 15l18 15%27 fill=%27none%27 stroke=%27%230b5cad%27 stroke-width=%275%27 stroke-linecap=%27round%27 stroke-linejoin=%27round%27 opacity=%27.55%27/%3E%3Crect x=%2720%27 y=%2732%27 width=%2724%27 height=%2718%27 rx=%273%27 fill=%27%230b5cad%27 opacity=%27.55%27/%3E%3Crect x=%2728.5%27 y=%2739%27 width=%277%27 height=%2711%27 rx=%271.5%27 fill=%27%23e8f0fa%27/%3E%3C/svg%3E") center / 40% no-repeat; }
+  .nofoto { background: var(--tint) url("data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 64 64%27%3E%3Cpath d=%27M13 30 32 14l19 16%27 fill=%27none%27 stroke=%27%230B63C4%27 stroke-width=%275%27 stroke-linecap=%27round%27 stroke-linejoin=%27round%27 opacity=%27.45%27/%3E%3Crect x=%2720%27 y=%2732%27 width=%2724%27 height=%2719%27 rx=%273%27 fill=%27%23F7A100%27 opacity=%27.5%27/%3E%3Crect x=%2728.5%27 y=%2739%27 width=%277%27 height=%2712%27 rx=%271.5%27 fill=%27%23E8F0FA%27/%3E%3C/svg%3E") center / 40% no-repeat; }
   #detail .d-foto.nofoto { height: 160px; background-size: 72px; }
   body.mapdock .wrow.hasfoto { grid-template-columns: 92px minmax(0, 1fr) auto; gap: 8px 16px; } body.mapdock .r-foto { width: 92px; height: 69px; }
+  /* Optie 3: lichte bovenbalk, DAK-blauw en Funda-oranje gelijk verdeeld */
+  .topbar { background: var(--head); color: var(--head-ink); border-bottom: 1px solid var(--line); box-shadow: none; }
+  .brand { color: var(--fg); } .brand .logo { box-shadow: none; }
+  .brand .tag { background: var(--tint) !important; color: var(--brand) !important; }
+  .nav button { color: var(--fg); opacity: .8; } .nav button:hover { background: var(--soft); opacity: 1; }
+  .nav button[aria-pressed="true"] { background: var(--tint); color: var(--brand); opacity: 1; }
+  .navn:not(:empty) { background: var(--accent); color: var(--accent-ink); font-weight: 700; }
+  .profbtn { background: var(--soft); color: var(--fg); border: 1px solid var(--line); } .profbtn:hover { background: var(--tint); }
+  .themes { background: var(--soft); border: 1px solid var(--line); } .themes button { color: var(--muted); }
+  .themes button[aria-pressed="true"] { background: var(--panel); color: var(--fg); box-shadow: 0 1px 2px rgb(0 0 0 / .12); }
+  #tabdot .dot { box-shadow: 0 0 0 2px var(--head); }
+  /* Rustiger tegels: grotere foto, ster op de foto, feiten op één regel */
+  .wrow.hasfoto { grid-template-columns: 168px minmax(0, 1fr) auto; gap: 8px 22px; align-items: start; }
+  .r-fotowrap { position: relative; } .r-fotowrap .r-foto { width: 168px; height: 112px; border-radius: 8px; }
+  .r-fotowrap .star { position: absolute; top: 6px; right: 6px; width: 30px; height: 30px; padding: 0; border-radius: 999px; display: grid; place-items: center;
+    background: rgb(255 255 255 / .94); box-shadow: 0 1px 3px rgb(0 0 0 / .2); opacity: 1; color: #5d6977; font-size: 16px; }
+  .r-fotowrap .star.on { color: var(--accent); }
+  .wrow.hasfoto .sub, .wrow.hasfoto .r-facts { margin-left: 0; }
+  .wrow .r-top .adres { font-size: 17px; }
+  .wrow .r-facts { gap: 4px 0; font-size: 13.5px; color: var(--fg); margin-top: 8px; }
+  .r-extra { font-size: 13px; color: var(--muted); margin-top: 4px; }
+  .wrow .r-facts { flex-wrap: nowrap; align-items: center; } .wrow .r-facts > span:not(.elabel) { min-width: 0; }
+  .wrow .r-facts .elabel { margin-right: 10px; }
+  .wrow.isnew { box-shadow: inset 3px 0 0 var(--accent); }
+  .r-ppm { font-size: 12.5px; }
+  body.mapdock .wrow.hasfoto { grid-template-columns: 112px minmax(0, 1fr) auto; gap: 8px 16px; } body.mapdock .r-fotowrap .r-foto { width: 112px; height: 80px; }
+  @media (max-width: 760px) {
+    .wrow.hasfoto { grid-template-columns: 104px minmax(0, 1fr); gap: 6px 12px; } .wrow.hasfoto .r-side { grid-column: 1 / -1; }
+    .r-fotowrap .r-foto { width: 104px; height: 78px; } .r-fotowrap .star { width: 26px; height: 26px; font-size: 14px; top: 4px; right: 4px; }
+    .wrow.hasfoto .sub, .wrow.hasfoto .r-facts { margin-left: 0; }
+  }
 </style>
 </head>
 <body>
 <header class="topbar"><div class="in">
-  <div class="brand"><svg class='logo' aria-hidden='true' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><rect width='64' height='64' rx='15' fill='#F5A300'/><path d='M14 30 32 15l18 15' fill='none' stroke='#0A3E75' stroke-width='5.5' stroke-linecap='round' stroke-linejoin='round'/><rect x='20' y='32' width='24' height='18' rx='3' fill='#0A3E75'/><rect x='28.5' y='39' width='7' height='11' rx='1.5' fill='#F5A300'/></svg>Corporatiewoningen <span class="tag">Amsterdam</span></div>
+  <div class="brand"><svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64' class='logo' aria-hidden='true'><rect x='1' y='1' width='62' height='62' rx='15' fill='#FFFFFF' stroke='#DCE4EE' stroke-width='2'/><path d='M13 30 32 14l19 16' fill='none' stroke='#0B63C4' stroke-width='6' stroke-linecap='round' stroke-linejoin='round'/><rect x='20' y='32' width='24' height='19' rx='3' fill='#F7A100'/><rect x='28.5' y='39' width='7' height='12' rx='1.5' fill='#FFFFFF'/></svg>Corporatiewoningen <span class="tag">Amsterdam</span></div>
   <nav class="nav" role="tablist">
     <button data-tab="woningen" aria-pressed="true">Koopwoningen</button>
     <button data-tab="lijst" aria-pressed="false">★ Onze lijst <span id="lijstn" class="navn"></span></button>
@@ -940,10 +971,10 @@ const render = () => {
     const sub = el('div', 'sub'); sub.append([w.postcode, [w.stadsdeel, w.wijk].filter(Boolean).join(', ')].filter(Boolean).join(' · ') + ' · ', d, w.corporatie);
     const facts = el('div', 'r-facts');
     const lbl = el('span', 'elabel' + (w.energielabel ? ' l-' + w.energielabel[0] : ' l-none'), w.energielabel || '?'); lbl.title = w.energielabel ? 'Energielabel ' + w.energielabel : 'Energielabel onbekend';
-    facts.append(lbl, el('span', null, w.m2 + ' m²'), el('span', null, w.kamers + (w.kamers === 1 ? ' kamer' : ' kamers')), el('span', null, w.type || ''),
-      ...(w.servicekosten !== '' && w.servicekosten != null ? [el('span', null, 'VvE ' + eur.format(w.servicekosten) + ' p/m')] : []),
-      ...(w.erfpacht ? [el('span', null, (/t\/m \d\d-\d\d-(\d{4})/.test(w.erfpacht) ? 'Erfpacht afgekocht t/m ' + w.erfpacht.match(/(\d{4})$/)[1] : w.erfpacht))] : []));
-    main.append(top, sub, facts);
+    facts.append(lbl, el('span', null, [w.m2 ? w.m2 + ' m²' : '', w.kamers ? w.kamers + (w.kamers === 1 ? ' kamer' : ' kamers') : '', w.type || ''].filter(Boolean).join(' · ')));
+    const extra = [w.servicekosten !== '' && w.servicekosten != null ? 'VvE ' + eur.format(w.servicekosten) + ' p/m' : '', w.erfpacht ? (/t\/m \d\d-\d\d-(\d{4})/.test(w.erfpacht) ? 'Erfpacht afgekocht t/m ' + w.erfpacht.match(/(\d{4})$/)[1] : w.erfpacht) : ''].filter(Boolean).join(' · ');
+    const fx = el('div', 'r-extra', extra);
+    main.append(top, sub, facts); if (extra) main.append(fx);
     const side = el('div', 'r-side');
     const v = voorrang(w);
     const bad = el('div', 'r-badges'); const vgs = (VG[w.id] || {}).status; if (vgs) bad.append(badge(vgTone(vgs), vgs));
@@ -954,8 +985,9 @@ const render = () => {
     side.append(el('div', 'r-prijs', eur.format(w.prijs)), ppm, ml, bad);
     r.addEventListener('click', (e) => { if (!e.target.closest('a, button')) openDetail(w); });
     { const ph = () => { const d = el('div', 'r-foto nofoto'); d.setAttribute('aria-hidden', 'true'); return d; };
-      if (w.foto) { const im = el('img', 'r-foto'); im.src = w.foto; im.alt = ''; im.loading = 'lazy'; im.referrerPolicy = 'no-referrer'; im.onerror = () => im.replaceWith(ph()); r.append(im); } else r.append(ph());
-      r.classList.add('hasfoto'); }
+      const fw = el('div', 'r-fotowrap');
+      if (w.foto) { const im = el('img', 'r-foto'); im.src = w.foto; im.alt = ''; im.loading = 'lazy'; im.referrerPolicy = 'no-referrer'; im.onerror = () => im.replaceWith(ph()); fw.append(im); } else fw.append(ph());
+      fw.append(st); r.append(fw); r.classList.add('hasfoto'); }
     r.append(main, side);
     return r;
   }));
