@@ -91,6 +91,11 @@
   .tree .kids .check { font-size: 12.5px; padding: 2px 0; }
   tr.seen .adres { font-weight: 500; color: color-mix(in srgb, var(--fg) 70%, var(--muted)); }
   .syncbox input { width: 100%; }
+  .syncbox { white-space: normal; } #syncpanel { max-width: 40rem; }
+  .steps { margin: 4px 0 10px; padding-left: 18px; font-size: 12.5px; line-height: 1.45; }
+  .steps li { margin-bottom: 4px; }
+  .reminder { display: flex; align-items: center; gap: 10px; border: 1px solid color-mix(in srgb, var(--new) 35%, transparent); background: color-mix(in srgb, var(--new) 8%, var(--panel)); border-radius: var(--r); padding: 9px 14px; margin-bottom: 14px; }
+  .reminder button { margin-left: auto; }
   .syncstat { font-size: 12px; margin: 4px 0 8px; }
   .syncstat.ok { color: var(--ok); } .syncstat.bad { color: var(--bad); }
   #regelsTbl { table-layout: fixed; min-width: 60rem; } #regelsTbl .w-m { width: 15%; } #regelsTbl .w-l { width: 25%; } #regelsTbl th:nth-child(2) { width: 6rem; } #regelsTbl td { font-size: 13px; line-height: 1.5; } #regelsTbl td:first-child .sub { font-weight: 400; }
@@ -134,6 +139,21 @@
     </div>
   </header>
   <div id="alert"></div>
+  <div class="reminder" id="syncreminder" hidden>★ Favorieten delen tussen apparaten is nog niet ingesteld op dit apparaat. <button class="mini" id="syncopen">Zo doe je het →</button></div>
+  <div class="card syncbox" id="syncpanel" hidden style="margin-bottom:14px"><h2>Favorieten delen tussen apparaten</h2>
+            <div class="syncstat" id="syncstat"></div>
+            <ol class="steps">
+              <li>Open <a href="https://github.com/settings/personal-access-tokens/new?name=huis-tracker%20favorieten&amp;description=Favorieten%20opslaan%20vanaf%20de%20site&amp;target_name=MichaelB4917&amp;expires_in=366&amp;contents=write" target="_blank" rel="noopener">deze GitHub-pagina</a> (naam en rechten zijn al ingevuld) en bevestig dat jij het bent.</li>
+              <li>Repository access: <b>Only select repositories</b> → <b>huis-tracker</b>.</li>
+              <li>Repository permissions: <b>Contents</b> → <b>Read and write</b>.</li>
+              <li>Klik <b>Generate token</b> en kopieer de sleutel (begint met github_pat_).</li>
+              <li>Plak hem hieronder en klik <b>Opslaan</b>. Herhaal stap 5 op elk apparaat (zelfde sleutel mag).</li>
+            </ol>
+            <label class="field">GitHub-sleutel (alleen op dit apparaat bewaard)<input type="password" id="tokenin" placeholder="github_pat_…" autocomplete="off"></label>
+            <button class="mini" id="tokensave">Opslaan</button><button class="mini" id="tokendel">Sleutel verwijderen</button>
+          
+    <button class="mini" id="syncclose">Sluiten</button>
+  </div>
 
   <section data-page="woningen">
     <div class="stats" id="stats"></div>
@@ -178,11 +198,7 @@
           <h4>Kolommen</h4>
           <div id="colboxes"></div>
           <h4>Favorieten delen</h4>
-          <div class="syncbox">
-            <div class="syncstat" id="syncstat"></div>
-            <label class="field">GitHub-sleutel (alleen op dit apparaat bewaard)<input type="password" id="tokenin" placeholder="github_pat_…" autocomplete="off"></label>
-            <button class="mini" id="tokensave">Opslaan</button><button class="mini" id="tokendel">Sleutel verwijderen</button>
-          </div>
+          <button class="mini" id="syncopen2">Instellen of sleutel wijzigen</button>
         </div></details>
       <button class="btn" id="voorbtn" aria-pressed="false" title="Alleen woningen waar jij voorrang kunt krijgen">✓ Voorrang voor mij</button>
       <button class="btn" id="favbtn" aria-pressed="false">★ Favorieten <span id="favn"></span></button>
@@ -284,6 +300,7 @@ async function pushShared() {
     syncSha = (await r.json()).content.sha; setSync('Opgeslagen en gedeeld.', 'ok');
   } catch (e) { setSync('Opslaan mislukt (' + e.message + '). Staat wel op dit apparaat.', 'bad'); }
 }
+const showReminder = () => { const r = document.getElementById('syncreminder'); if (r) r.hidden = !!token; };
 const changed = () => { saveLocal(); clearTimeout(syncTimer); syncTimer = setTimeout(pushShared, 1500); };
 const markSeen = (id) => { if (!gezien.has(id)) { gezien.add(id); changed(); } };
 let favOnly = false;
@@ -347,8 +364,8 @@ $$('[data-none]').forEach((b) => b.onclick = () => { sel[selKey(b.dataset.none)]
 $('#favbtn').onclick = () => { favOnly = !favOnly; render(); };
 $('#reset').onclick = () => { $$('.f').forEach((e) => e.type === 'checkbox' ? e.checked = e.dataset.f === 'verbergVerkocht' : e.tagName === 'SELECT' ? e.selectedIndex = 0 : e.value = ''); sel.corporatie = sel.buurt = sel.type = null; favOnly = false; render(); };
 $('#voorbtn').onclick = () => { const c = $('.f[data-f="voorJou"]'); c.checked = !c.checked; render(); };
-$('#tokensave').onclick = async () => { const v = $('#tokenin').value.trim(); if (!v) return; token = v; store.set('gh-token', v); $('#tokenin').value = ''; setSync('Koppelen…'); const local = new Set(favs); await loadShared(); if (!syncSha) { favs = new Set([...favs, ...local]); } else { favs = new Set([...favs, ...local]); } changed(); render(); };
-$('#tokendel').onclick = () => { token = ''; store.set('gh-token', ''); setSync('Sleutel verwijderd. Favorieten staan alleen op dit apparaat.'); };
+$('#tokensave').onclick = async () => { const v = $('#tokenin').value.trim(); if (!v) return; token = v; store.set('gh-token', v); $('#tokenin').value = ''; setSync('Koppelen…'); showReminder(); const local = new Set(favs); await loadShared(); if (!syncSha) { favs = new Set([...favs, ...local]); } else { favs = new Set([...favs, ...local]); } changed(); render(); };
+$('#tokendel').onclick = () => { token = ''; store.set('gh-token', ''); setSync('Sleutel verwijderd. Favorieten staan alleen op dit apparaat.'); showReminder(); };
 
 const visible = () => {
   const f = filters(), q = (f.q || '').toLowerCase().trim();
@@ -520,7 +537,9 @@ Promise.all(['woningen', 'regels', 'bronnen', 'meta'].map((n) => fetch('data/' +
   .then(([w, r, b, m]) => {
     W = w; R = r; B = b; META = m;
     initMap(); renderStatic(); render();
-    loadShared().then(render);
+    loadShared().then(render); showReminder();
+    const openSync = (e) => { e.stopPropagation(); $$('details.dd').forEach((o) => o.open = false); $('#syncpanel').hidden = false; $('#syncpanel').scrollIntoView({block: 'start'}); };
+    $('#syncopen').onclick = openSync; $('#syncopen2').onclick = openSync; $('#syncclose').onclick = () => $('#syncpanel').hidden = true;
     const h = location.hash.slice(1); if (['regels', 'bronnen'].includes(h)) showTab(h);
   });
 </script>
