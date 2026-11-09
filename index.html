@@ -308,6 +308,8 @@
   .wrow:hover { background: color-mix(in srgb, var(--accent) 5%, transparent); }
   .wrow.isnew { box-shadow: inset 3px 0 0 var(--accent); }
   .wrow.dim { opacity: .55; }
+  .wrow.hl { background: color-mix(in srgb, var(--accent) 14%, transparent); box-shadow: inset 3px 0 0 var(--accent); opacity: 1; }
+  tr.hl td { background: color-mix(in srgb, var(--accent) 14%, transparent) !important; }
   .wrow.empty { display: block; color: var(--muted); }
   .r-top { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
   .r-top .adres { font-size: 17px; }
@@ -691,7 +693,14 @@ const markActive = () => {
 };
 
 // Kaart (PDOK)
-let map, layer;
+let map, layer, markers = new Map();
+// Hover-koppeling tussen lijst/tabel en kaart
+const hl = (id, on) => {
+  const m = markers.get(id);
+  if (m) { if (on) { m.setStyle({radius: 10, weight: 3, color: '#1a1a1a', fillOpacity: 1}); m.bringToFront(); } else m.setStyle(m.base); }
+  document.querySelectorAll(`[data-wid="${CSS.escape(id)}"]`).forEach((e) => e.classList.toggle('hl', on));
+};
+const hoverLink = (node, id) => { node.dataset.wid = id; node.addEventListener('mouseenter', () => hl(id, true)); node.addEventListener('mouseleave', () => hl(id, false)); };
 const initMap = () => {
   map = L.map('map', {scrollWheelZoom: true, zoomControl: true}).setView([52.37, 4.9], 11);
   L.tileLayer('https://service.pdok.nl/brt/achtergrondkaart/wmts/v2_0/grijs/EPSG:3857/{z}/{x}/{y}.png', {
@@ -701,14 +710,16 @@ const initMap = () => {
 document.addEventListener('click', (e) => { const f = e.target.closest('[data-fav]'); if (!f) return; e.preventDefault(); const id = f.dataset.fav; favs.has(id) ? favs.delete(id) : favs.add(id); f.textContent = favs.has(id) ? '★ Favoriet' : '☆ Favoriet maken'; changed(); $('#favn').textContent = favs.size ? '(' + favs.size + ')' : ''; });
 const drawMap = (rows) => {
   if (!map) return;
-  layer.clearLayers();
+  layer.clearLayers(); markers.clear();
   const pts = rows.filter((w) => w.lat && w.lon);
   pts.forEach((w) => {
     const v = voorrang(w);
     if (isNew(w)) L.circleMarker([w.lat, w.lon], {radius: 11, color: '#f7a100', weight: 2, fill: false, interactive: false}).addTo(layer);
     if (v.active) L.circleMarker([w.lat, w.lon], {radius: 8.5, color: '#1a1a1a', weight: 1.5, fill: false, interactive: false}).addTo(layer);
     const seen = gezien.has(w.id);
-    L.circleMarker([w.lat, w.lon], {radius: 6, color: seen ? '#9a9a9a' : '#fff', weight: 1.5, fillColor: corpHex(w.corporatie), fillOpacity: seen ? 0.3 : 1})
+    const base = {radius: 6, color: seen ? '#9a9a9a' : '#fff', weight: 1.5, fillColor: corpHex(w.corporatie), fillOpacity: seen ? 0.3 : 1};
+    const mk = L.circleMarker([w.lat, w.lon], base); mk.base = base; markers.set(w.id, mk);
+    mk.on('mouseover', () => hl(w.id, true)).on('mouseout', () => hl(w.id, false))
       .on('popupopen', () => markSeen(w.id)).on('popupclose', () => drawMap(visible()))
       .bindPopup(`<b>${w.adres}</b>${isNew(w) ? ' <span style="color:#f7a100">· nieuw</span>' : ''}<br>${w.corporatie} · ${w.stadsdeel}${w.wijk ? ' · ' + w.wijk : ''}<br>${eur.format(w.prijs)} · ${w.m2} m² · ${eur.format(Math.round(w.prijs / w.m2))}/m²<br>Voorrang: ${v.text} · ${w.status}<br><a href="${w.url}" target="_blank" rel="noopener">Advertentie openen →</a><br><a href="#" data-fav="${w.id}">${favs.has(w.id) ? '★ Favoriet' : '☆ Favoriet maken'}</a>`)
       .addTo(layer);
@@ -726,7 +737,7 @@ const render = () => {
   const tb = $('#tabel tbody');
   if (!rows.length) { const tr = el('tr'); const c = el('td', 'muted', 'Geen woningen met deze filters.'); c.colSpan = COLS.length; tr.append(c); tb.replaceChildren(tr); }
   else tb.replaceChildren(...rows.map((w) => {
-    const tr = el('tr'); if (isNew(w)) tr.classList.add('isnew'); if (w.status === 'verkocht o.v.b.') tr.classList.add('dim');
+    const tr = el('tr'); hoverLink(tr, w.id); if (isNew(w)) tr.classList.add('isnew'); if (w.status === 'verkocht o.v.b.') tr.classList.add('dim');
     const cell = (k, ...kids) => { const c = el('td', 'c-' + k); c.append(...kids.filter((x) => x != null && x !== '')); return c; };
     const sfx = (c, t) => { c.dataset.sfx = t; return c; };
     const num = (k, v) => { const c = cell(k, v); c.classList.add('num'); return c; };
@@ -751,7 +762,7 @@ const render = () => {
   const RB = $('#rows');
   if (!rows.length) RB.replaceChildren(el('div', 'wrow empty', 'Geen woningen met deze filters.'));
   else RB.replaceChildren(...rows.map((w) => {
-    const r = el('article', 'wrow'); if (isNew(w)) r.classList.add('isnew'); if (gezien.has(w.id)) r.classList.add('seen'); if (w.status === 'verkocht o.v.b.') r.classList.add('dim');
+    const r = el('article', 'wrow'); hoverLink(r, w.id); if (isNew(w)) r.classList.add('isnew'); if (gezien.has(w.id)) r.classList.add('seen'); if (w.status === 'verkocht o.v.b.') r.classList.add('dim');
     const main = el('div', 'r-main');
     const top = el('div', 'r-top');
     const st = el('button', 'star' + (favs.has(w.id) ? ' on' : ''), favs.has(w.id) ? '★' : '☆'); st.title = 'Favoriet'; st.setAttribute('aria-label', 'Favoriet');
