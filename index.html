@@ -337,7 +337,8 @@
   #detail .kv div > span { display: block; font-size: 12px; color: var(--muted); }
   #detail .kv div > b { font-weight: 600; }
   #detail .calc { display: grid; grid-template-columns: repeat(auto-fill, minmax(8.5rem, 1fr)); gap: 8px 12px; }
-  #detail .calc label { font-size: 12px; color: var(--muted); } #detail .calc input { width: 100%; margin-top: 3px; }
+  #detail .calc label { font-size: 12px; color: var(--muted); } #detail .calc input, #detail .calc select { width: 100%; margin-top: 3px; }
+  #detail .calc label.check { display: flex; gap: 8px; align-items: center; font-size: 13px; color: var(--fg); } #detail .calc label.check input { width: auto; margin: 0; }
   #detail .sum { margin-top: 12px; font-size: 14px; display: grid; gap: 3px; }
   #detail .sum .tot { font-size: 18px; font-weight: 700; }
   #detail .hist { list-style: none; padding: 0; margin: 0; font-size: 13.5px; display: grid; gap: 4px; }
@@ -435,6 +436,10 @@
           <h4>Woning</h4>
           <label class="check sw"><input type="checkbox" class="f" data-f="tuin"> Met tuin</label>
           <label class="check sw"><input type="checkbox" class="f" data-f="goedLabel"> Energielabel A–C</label>
+          <label class="check sw"><input type="checkbox" class="f" data-f="budget"> Past in ons budget</label>
+          <h4>Onze voortgang</h4>
+          <label class="check sw"><input type="checkbox" class="f" data-f="metVoortgang"> Alleen met voortgang</label>
+          <label class="check sw"><input type="checkbox" class="f" data-f="verbergAfgevallen"> Verberg afgewezen / niet voor ons</label>
           <label class="check sw"><input type="checkbox" class="f" data-f="erfpachtAfgekocht"> Erfpacht afgekocht</label>
         </div></details>
         </aside>
@@ -544,9 +549,14 @@ const supa = (fn, body) => fetch(`${SUPA_URL}/rest/v1/rpc/${fn}`, {method: 'POST
 const qId = new URLSearchParams(location.search).get('lijst');
 let lijstId = qId || store.get('lijst') || '', lijstNaam = store.get('lijstnaam') || '', syncTimer = null;
 const setSync = (msg, cls) => { const e = document.getElementById('syncstat'); if (e) { e.textContent = msg; e.className = 'syncstat ' + (cls || ''); } };
-const saveLocal = () => { store.set('favs', JSON.stringify([...favs])); store.set('gezien', JSON.stringify([...gezien])); };
+const saveLocal = () => { store.set('favs', JSON.stringify([...favs])); store.set('gezien', JSON.stringify([...gezien])); store.set('voortgang', JSON.stringify(VG)); };
 const shareUrl = () => location.origin + location.pathname + '?lijst=' + lijstId;
-const lijstData = () => ({naam: lijstNaam, favorieten: [...favs], gezien: [...gezien], profiel, fin});
+const lijstData = () => ({naam: lijstNaam, favorieten: [...favs], gezien: [...gezien], profiel, fin, voortgang: VG});
+// Voortgang per woning (status, bod, bezichtiging, notitie, opknapbudget); per woning de nieuwste versie winnen
+let VG = {}; try { VG = JSON.parse(store.get('voortgang') || '{}'); } catch (e) {}
+const mergeVG = (a, b) => { const o = {...a}; for (const [k, v] of Object.entries(b || {})) if (!o[k] || (v.t || 0) > (o[k].t || 0)) o[k] = v; return o; };
+const VSTATUS = ['', 'interessant', 'bezichtiging gepland', 'bezichtigd', 'bod gedaan', 'afgewezen', 'niet voor ons', 'gekocht!'];
+const vgTone = (s) => s === 'gekocht!' ? 't-ok' : s === 'bod gedaan' ? 't-new' : /afgewezen|niet voor ons/.test(s) ? 't-neutral' : 't-warn';
 const showLijst = () => {
   const has = !!(lijstId && SUPA_URL); $('#lijstnone').hidden = has; $('#lijstsome').hidden = !has;
   if (has) { $('#lijsttitel').textContent = lijstNaam || 'je lijst'; $('#lijstshare').value = shareUrl(); }
@@ -562,6 +572,7 @@ async function loadShared() {
     favs = new Set(j.favorieten || []); gezien = new Set([...(j.gezien || []), ...gezien]);
     if (j.profiel) { profiel = j.profiel; store.set('profiel', JSON.stringify(profiel)); }
     if (j.fin) { fin = Object.assign(fin, j.fin); store.set('fin', JSON.stringify(fin)); }
+    VG = mergeVG(VG, j.voortgang);
     saveLocal(); setSync('Gedeeld: wijzigingen gaan direct naar iedereen met de link.', 'ok');
     if (qId) history.replaceState(null, '', location.pathname + location.hash);
   } catch (e) { setSync('Kon de lijst niet laden. Favorieten staan in deze browser.', 'bad'); }
@@ -569,7 +580,8 @@ async function loadShared() {
 }
 async function pushShared() {
   if (!SUPA_URL || !lijstId) return;
-  try { await supa('lijst_save', {p_id: lijstId, p_data: lijstData()}); setSync('Opgeslagen en gedeeld.', 'ok'); }
+  try { const cur = await supa('lijst_get', {p_id: lijstId}).catch(() => null); if (cur && cur.voortgang) { VG = mergeVG(VG, cur.voortgang); saveLocal(); }
+    await supa('lijst_save', {p_id: lijstId, p_data: lijstData()}); setSync('Opgeslagen en gedeeld.', 'ok'); }
   catch (e) { setSync('Opslaan mislukt. Staat wel in deze browser.', 'bad'); }
 }
 const changed = () => { saveLocal(); clearTimeout(syncTimer); syncTimer = setTimeout(pushShared, 1500); };
@@ -600,10 +612,21 @@ const open = new Set();
 const CORPS = ['Lieven de Key', 'Alliantie', 'Stadgenoot', 'Rochdale', 'Ymere', 'Eigen Haard', 'Andere corporatie', 'Geen sociale huurwoning'];
 let profiel = null; try { profiel = JSON.parse(store.get('profiel') || 'null'); } catch (e) {}
 // Maandlasten: aannames instelbaar in de detailweergave (bewaard in browser en gedeelde lijst)
-let fin = {rente: 4.0, jaren: 30, eigen: 0, huur: ''}; try { fin = Object.assign(fin, JSON.parse(store.get('fin') || '{}')); } catch (e) {}
-const hypotheek = (w) => { const L = Math.max(0, (w.prijs || 0) - (+fin.eigen || 0)), r = (+fin.rente || 0) / 1200, n = (+fin.jaren || 30) * 12; return r ? L * r / (1 - Math.pow(1 + r, -n)) : L / n; };
+let fin = {rente: 4.0, jaren: 30, eigen: 0, huur: '', maxHyp: '', starter: false, bijkomend: 5000}; try { fin = Object.assign(fin, JSON.parse(store.get('fin') || '{}')); } catch (e) {}
+const hypotheek = (w) => { const L = Math.max(0, Math.min((w.prijs || 0) - Math.max(0, (+fin.eigen || 0) - kk(w) - opknap(w)), fin.maxHyp ? +fin.maxHyp : Infinity)), r = (+fin.rente || 0) / 1200, n = (+fin.jaren || 30) * 12; return r ? L * r / (1 - Math.pow(1 + r, -n)) : L / n; };
 const vve = (w) => typeof w.servicekosten === 'number' ? w.servicekosten : 0;
 const maandlast = (w) => Math.round(hypotheek(w) + vve(w));
+// Kosten koper en opknappen (indicatie). Overdrachtsbelasting 2026: 2% bij eigen bewoning, 0% met startersvrijstelling (18-35 jaar, eenmalig, marktwaarde t/m € 555.000)
+const overdracht = (w) => fin.starter && w.prijs <= 555000 ? 0 : Math.round(w.prijs * 0.02);
+const kk = (w) => overdracht(w) + (+fin.bijkomend || 0);
+const OPK = {A: 100, B: 150, C: 300, D: 450, E: 600, F: 700, G: 800};
+const opknapM2 = (w) => OPK[(w.energielabel || '')[0]] ?? 450;
+const opknap = (w) => VG[w.id] && VG[w.id].opknap !== '' && VG[w.id].opknap != null ? +VG[w.id].opknap : Math.round(w.m2 * opknapM2(w) / 1000) * 1000;
+const totaal = (w) => w.prijs + kk(w) + opknap(w);
+// Past in budget: maximaal te lenen = min(max hypotheek, vraagprijs); de rest (incl. kosten koper en opknappen) uit eigen geld
+const lening = (w) => Math.min(fin.maxHyp ? +fin.maxHyp : w.prijs, w.prijs);
+const eigenNodig = (w) => Math.max(0, totaal(w) - lening(w));
+const pastBudget = (w) => !fin.maxHyp || (+fin.eigen || 0) >= eigenNodig(w);
 // Vergelijking met de buurt: gemiddelde WOZ-waarde per m² (schatting), dus géén verkoopprijzen
 const WOZ_UITLEG = 'Vergeleken met de gemiddelde WOZ-waarde per m² van de buurt (schatting), niet met verkoopprijzen. Woningen worden in Amsterdam vaak boven de WOZ-waarde verkocht.';
 const buurtDiff = (w) => w.buurtWozM2 && w.m2 ? Math.round((w.prijs / w.m2 / w.buurtWozM2 - 1) * 100) : null;
@@ -687,6 +710,10 @@ const visible = () => {
     if (f.tuin && w.tuin !== 'ja') return false;
     if (f.goedLabel && !['A++++', 'A+++', 'A++', 'A+', 'A', 'B', 'C'].includes(w.energielabel)) return false;
     if (f.erfpachtAfgekocht && !/afgekocht|eigen grond/i.test(w.erfpacht || '')) return false;
+    if (f.budget && !pastBudget(w)) return false;
+    const vs = (VG[w.id] || {}).status || '';
+    if (f.metVoortgang && !vs) return false;
+    if (f.verbergAfgevallen && /afgewezen|niet voor ons/.test(vs)) return false;
     return true;
   });
   const later = (w) => (w.deadline && w.deadline >= today ? w.deadline : '9999');
@@ -869,7 +896,9 @@ const render = () => {
     main.append(top, sub, facts);
     const side = el('div', 'r-side');
     const v = voorrang(w);
-    const bad = el('div', 'r-badges'); bad.append(badge(v.cls, v.text === 'ja' ? 'voorrang' : v.text === 'checken' ? 'voorrang checken' : v.text.startsWith('tot') ? 'voorrang ' + v.text : v.text), badge(statusTone(w.status), w.status));
+    const bad = el('div', 'r-badges'); const vgs = (VG[w.id] || {}).status; if (vgs) bad.append(badge(vgTone(vgs), vgs));
+    if (fin.maxHyp && !pastBudget(w)) bad.append(badge('t-neutral', 'boven budget'));
+    bad.append(badge(v.cls, v.text === 'ja' ? 'voorrang' : v.text === 'checken' ? 'voorrang checken' : v.text.startsWith('tot') ? 'voorrang ' + v.text : v.text), badge(statusTone(w.status), w.status));
     const ppm = el('div', 'r-ppm', eur.format(Math.round(w.prijs / w.m2)) + ' per m²'); const bn = buurtNode(w); if (bn) ppm.append(' · ', bn);
     const ml = el('div', 'r-ppm', '≈ ' + eur.format(maandlast(w)) + ' p/m · online ' + onlineSinds(w)); ml.title = 'Bruto hypotheek' + (vve(w) ? ' + VvE' : '') + ' bij ' + fin.rente + '% en ' + fin.jaren + ' jaar. Aanpassen in de details.';
     side.append(el('div', 'r-prijs', eur.format(w.prijs)), ppm, ml, bad);
@@ -939,6 +968,17 @@ const openDetail = (w) => {
     kvItem('Online sinds', onlineSinds(w)), kvItem('Deadline', w.deadline ? nlDate(w.deadline) : '')].filter(Boolean));
   B.append(h, sub, bads, links, kv);
   if (w.voorrangSpec) B.append(el('p', 'note', w.voorrangSpec));
+  // Onze voortgang (gedeeld via de lijst)
+  B.append(el('h3', null, 'Onze voortgang'));
+  const vg = VG[w.id] || {};
+  const setVG = (k, val) => { VG[w.id] = Object.assign({}, VG[w.id] || {}, {[k]: val, t: Date.now()}); changed(); render(); upd(); };
+  const vbox = el('div', 'calc');
+  const sl = el('label', null, 'Status'); const se = el('select'); VSTATUS.forEach((o) => { const op = el('option', null, o || '—'); op.value = o; op.selected = (vg.status || '') === o; se.append(op); }); se.onchange = () => setVG('status', se.value); sl.append(se);
+  const fld = (k, label, type, ph) => { const l = el('label', null, label); const i = el('input'); i.type = type; i.value = vg[k] ?? ''; if (ph) i.placeholder = ph; i.onchange = () => setVG(k, type === 'number' ? (i.value === '' ? '' : +i.value) : i.value); l.append(i); return l; };
+  vbox.append(sl, fld('bezichtiging', 'Bezichtiging', 'date'), fld('bod', 'Ons bod (€)', 'number'), fld('opknap', 'Opknapbudget (€)', 'number', 'schatting: ' + eur.format(Math.round(w.m2 * opknapM2(w) / 1000) * 1000)));
+  const nl = el('label', null, 'Notities'); nl.style.display = 'block'; nl.style.marginTop = '8px'; nl.style.fontSize = '12px'; nl.style.color = 'var(--muted)';
+  const ta = el('textarea'); ta.rows = 3; ta.style.width = '100%'; ta.style.marginTop = '3px'; ta.value = vg.notitie || ''; ta.placeholder = 'Bijv. indruk bezichtiging, vragen voor de makelaar, VvE-stukken…'; ta.onchange = () => setVG('notitie', ta.value); nl.append(ta);
+  B.append(vbox, nl, el('p', 'note', lijstId ? 'Wordt gedeeld via jullie lijst.' : 'Staat alleen in deze browser. Maak een lijst om dit met je partner te delen.'));
   // Buurt
   B.append(el('h3', null, 'Vergeleken met de buurt'));
   const d = buurtDiff(w);
@@ -950,8 +990,10 @@ const openDetail = (w) => {
   // Maandlasten
   B.append(el('h3', null, 'Maandlasten (indicatie)'));
   const calc = el('div', 'calc');
-  const inp = (key, label, step, suffix) => { const l = el('label', null, label + (suffix ? ' (' + suffix + ')' : '')); const i = el('input'); i.type = 'number'; i.step = step; i.min = 0; i.value = fin[key]; i.placeholder = key === 'huur' ? 'bijv. 750' : ''; i.oninput = () => { fin[key] = i.value === '' ? '' : +i.value; store.set('fin', JSON.stringify(fin)); upd(); changed(); }; l.append(i); return l; };
-  calc.append(inp('rente', 'Hypotheekrente', '0.05', '%'), inp('jaren', 'Looptijd', '1', 'jaar'), inp('eigen', 'Eigen geld', '1000', '€'), inp('huur', 'Huidige huur', '10', '€ p/m'));
+  const inp = (key, label, step, suffix) => { const l = el('label', null, label + (suffix ? ' (' + suffix + ')' : '')); const i = el('input'); i.type = 'number'; i.step = step; i.min = 0; i.value = fin[key]; i.placeholder = key === 'huur' ? 'bijv. 750' : ''; i.oninput = () => { fin[key] = i.value === '' ? '' : +i.value; store.set('fin', JSON.stringify(fin)); upd(); changed(); clearTimeout(window._rt); window._rt = setTimeout(render, 400); }; l.append(i); return l; };
+  calc.append(inp('rente', 'Hypotheekrente', '0.05', '%'), inp('jaren', 'Looptijd', '1', 'jaar'), inp('eigen', 'Eigen geld', '1000', '€'), inp('huur', 'Huidige huur', '10', '€ p/m'),
+    inp('maxHyp', 'Max. hypotheek', '1000', '€'), inp('bijkomend', 'Notaris, taxatie, advies', '500', '€'));
+  const stl = el('label', 'check'); stl.style.gridColumn = '1 / -1'; const stc = el('input'); stc.type = 'checkbox'; stc.checked = !!fin.starter; stc.onchange = () => { fin.starter = stc.checked; store.set('fin', JSON.stringify(fin)); upd(); changed(); render(); }; stl.append(stc, ' Startersvrijstelling (18–35 jaar, eerste keer; geen overdrachtsbelasting t/m € 555.000)'); calc.append(stl);
   const sum = el('div', 'sum');
   const upd = () => {
     const hy = Math.round(hypotheek(w)), tot = maandlast(w);
@@ -959,10 +1001,15 @@ const openDetail = (w) => {
     if (vve(w)) rows.push(el('div', null, 'VvE: ' + eur2.format(vve(w)) + ' p/m'));
     const t = el('div', 'tot', '≈ ' + eur.format(tot) + ' per maand'); rows.push(t);
     if (fin.huur) { const dif = tot - fin.huur; rows.push(el('div', null, (dif >= 0 ? eur.format(dif) + ' meer' : eur.format(-dif) + ' minder') + ' dan je huidige huur')); }
+    const k = el('div'); k.style.marginTop = '10px';
+    k.append(el('div', null, 'Vraagprijs ' + eur.format(w.prijs) + ' + overdrachtsbelasting ' + eur.format(overdracht(w)) + ' + bijkomend ' + eur.format(+fin.bijkomend || 0) + ' + opknappen ' + eur.format(opknap(w))));
+    k.append(el('div', 'tot', 'Totaal ≈ ' + eur.format(totaal(w))));
+    if (fin.maxHyp) { const en = eigenNodig(w); const ok = pastBudget(w); const d = el('div', null, 'Eigen geld nodig: ' + eur.format(en) + (ok ? ' · past in jullie budget' : ' · ' + eur.format(en - (+fin.eigen || 0)) + ' tekort')); d.style.color = ok ? 'var(--ok)' : 'var(--bad)'; k.append(d); }
+    rows.push(k);
     sum.replaceChildren(...rows);
   };
   upd();
-  const notes = ['Bruto, dus zonder hypotheekrenteaftrek. Kosten koper (overdrachtsbelasting, notaris, taxatie) en opknapkosten betaal je meestal uit eigen geld.'];
+  const notes = ['Bruto, dus zonder hypotheekrenteaftrek. Kosten koper en opknappen kun je niet meefinancieren in de hypotheek; die gaan van je eigen geld af. Opknapbudget is een grove schatting per m² op basis van het energielabel (pas aan bij Onze voortgang). Je max. hypotheek reken je uit bij een bank of adviseur.'];
   if (w.erfpacht && !/afgekocht|eigen grond/i.test(w.erfpacht)) notes.push('Let op: erfpacht is mogelijk niet afgekocht; de canon komt hier nog bij.');
   else if (!w.erfpacht) notes.push('Erfpacht onbekend; check de advertentie.');
   if (!vve(w) && w.type && !/woning$|huis/i.test(w.type)) notes.push('VvE-bijdrage onbekend.');
