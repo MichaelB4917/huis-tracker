@@ -8,7 +8,8 @@
   "hoe": "Aanmelden voor de woning-alert, woonsituatie opgeven bij bezichtiging, voorrang melden bij je bod. Meerdere huurders: hoogste bod in de voorrangscategorie wint.",
   "kanaal": "Eigen site + Funda (makelaar o.a. KRK)",
   "url": "https://www.de-alliantie.nl/ik-zoek/reageren/voorrang-huurders/",
-  "zekerheid": "Bevestigd op site"
+  "zekerheid": "Bevestigd op site",
+  "regel": "alle-sociaal"
  },
  {
   "corporatie": "Rochdale",
@@ -19,7 +20,8 @@
   "hoe": "Reageren via de makelaar en melden dat je Rochdale-huurder bent",
   "kanaal": "Van der Linden Makelaardij (mva.nl) + Funda",
   "url": "https://mva.nl/koop/woningen/vreelandplein-20",
-  "zekerheid": "Uit advertentietekst"
+  "zekerheid": "Uit advertentietekst",
+  "regel": "eigen"
  },
  {
   "corporatie": "Stadgenoot",
@@ -30,7 +32,8 @@
   "hoe": "Bieden via ikzoek.stadgenoot.nl; aanbodmail is aangevraagd",
   "kanaal": "ikzoek.stadgenoot.nl + aanbodmail",
   "url": "https://www.stadgenoot.nl/aanbod/beschikbare-woningen/kopen",
-  "zekerheid": "Site Stadgenoot"
+  "zekerheid": "Site Stadgenoot",
+  "regel": "eigen"
  },
  {
   "corporatie": "Ymere",
@@ -41,7 +44,8 @@
   "hoe": "Via de makelaar (o.a. Van der Linden)",
   "kanaal": "Funda + makelaar",
   "url": "https://www.funda.nl/detail/koop/amsterdam/appartement-gibraltarstraat-72-2/43399781/",
-  "zekerheid": "Uit advertentietekst"
+  "zekerheid": "Uit advertentietekst",
+  "regel": "eigen"
  },
  {
   "corporatie": "Eigen Haard",
@@ -52,7 +56,8 @@
   "hoe": "Navragen bij Eigen Haard",
   "kanaal": "Funda",
   "url": "https://www.eigenhaard.nl",
-  "zekerheid": "Oudere bron, niet actueel bevestigd"
+  "zekerheid": "Oudere bron, niet actueel bevestigd",
+  "regel": "mogelijk"
  },
  {
   "corporatie": "Lieven de Key",
@@ -63,6 +68,7 @@
   "hoe": "Reageren via Funda of vindjeplekbijdekey.nl; voorrang geldt automatisch voor wie voldoet",
   "kanaal": "vindjeplekbijdekey.nl + Funda",
   "url": "https://www.lievendekey.nl/kopen-met-voorrang",
-  "zekerheid": "Bevestigd op site"
+  "zekerheid": "Bevestigd op site",
+  "regel": "alle-sociaal"
  }
 ]

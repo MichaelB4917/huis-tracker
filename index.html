@@ -158,6 +158,15 @@
   .syncbox input { width: 100%; } .syncbox { white-space: normal; } #syncpanel { max-width: 40rem; }
   .steps { margin: 4px 0 10px; padding-left: 18px; font-size: 13px; line-height: 1.45; } .steps li { margin-bottom: 4px; }
   .syncstat { font-size: 12px; margin: 4px 0 8px; } .syncstat.ok { color: var(--ok); } .syncstat.bad { color: var(--bad); }
+  .modal { position: fixed; inset: 0; z-index: 3000; background: rgb(0 0 0 / .45); display: grid; place-items: center; padding: 16px; }
+  .modal .box { background: var(--panel); color: var(--fg); border-radius: 8px; max-width: 30rem; width: 100%; padding: 20px; box-shadow: var(--shadow); }
+  .modal h2 { font-size: 19px; margin-bottom: 6px; }
+  .modal .opts { display: grid; gap: 6px; margin: 12px 0; }
+  .modal .opt { display: flex; gap: 10px; align-items: center; padding: 9px 12px; border: 1px solid var(--line); border-radius: 6px; cursor: pointer; font-size: 14px; }
+  .modal .opt:has(input:checked) { border-color: var(--accent); background: color-mix(in srgb, var(--accent) 10%, transparent); }
+  .modal .opt input { accent-color: var(--accent); }
+  .primary { background: var(--accent); color: var(--accent-ink); border: 0; border-radius: 4px; padding: 10px 16px; font: inherit; font-weight: 700; cursor: pointer; }
+  .profbtn { background: rgb(255 255 255 / .2); border: 0; color: var(--head-ink); font: inherit; font-size: 13px; padding: 5px 10px; border-radius: 4px; cursor: pointer; }
   .leaflet-popup-content { font: 13px/1.4 "Helvetica Neue", Arial, sans-serif; }
   .leaflet-container { background: #f2f2f2; }
 </style>
@@ -170,6 +179,7 @@
     <button data-tab="regels" aria-pressed="false">Voorrangsregels</button>
     <button data-tab="bronnen" aria-pressed="false">Bronnen <span id="tabdot"></span></button>
   </nav>
+  <button class="profbtn" id="profbtn" title="Mijn situatie aanpassen">Ik huur bij: …</button>
   <div class="themes" aria-label="Thema">
     <button data-theme-btn="light">Licht</button><button data-theme-btn="dark">Donker</button><button data-theme-btn="system">Systeem</button>
   </div>
@@ -272,7 +282,7 @@
   </section>
 
   <section data-page="regels" hidden>
-    <p class="muted" style="margin-top:0">"Voor jou" gaat uit van een sociale huurwoning bij Lieven de Key. De advertentie is altijd leidend.</p>
+    <p class="muted" style="margin-top:0" id="regelsintro"></p>
     <div class="scroll"><table id="regelsTbl"><thead><tr><th class="w-m">Corporatie</th><th>Voor jou</th><th class="w-l">Wie krijgt voorrang</th><th class="w-l">Voorwaarden</th><th class="w-m">Hoe lang</th><th class="w-m">Hoe claim je het</th></tr></thead><tbody id="regels"></tbody></table></div>
   </section>
 
@@ -282,6 +292,15 @@
   </section>
 </div>
 
+<div class="modal" id="profmodal" hidden>
+  <div class="box" role="dialog" aria-labelledby="proft">
+    <h2 id="proft">Bij welke corporatie huur je?</h2>
+    <p class="muted" style="margin:0">Daarmee bepaalt de site bij elke woning of jij voorrang kunt krijgen. Wordt alleen in deze browser bewaard.</p>
+    <div class="opts" id="profopts"></div>
+    <label class="check"><input type="checkbox" id="profzelf" checked> Het is een zelfstandige sociale huurwoning in Amsterdam of Diemen</label>
+    <div style="display:flex;gap:10px;align-items:center;margin-top:14px"><button class="primary" id="profsave">Opslaan</button><button class="mini" id="profskip">Later</button></div>
+  </div>
+</div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
 <script>
 const store = { get: (k) => { try { return localStorage.getItem(k); } catch (e) { return null; } }, set: (k, v) => { try { localStorage.setItem(k, v); } catch (e) {} } };
@@ -366,8 +385,24 @@ const sel = {corporatie: null, buurt: null, type: null};
 const bkey = (w) => (w.stadsdeel || 'Onbekend') + '|' + (w.wijk || 'Overig');
 const open = new Set();
 
+const CORPS = ['Lieven de Key', 'Alliantie', 'Stadgenoot', 'Rochdale', 'Ymere', 'Eigen Haard', 'Andere corporatie', 'Geen sociale huurwoning'];
+let profiel = null; try { profiel = JSON.parse(store.get('profiel') || 'null'); } catch (e) {}
+const regelVan = (corp) => (R.find((r) => r.corporatie === corp) || {}).regel;
+// Voor jou: ja / nee / mogelijk, berekend uit je corporatie en de regel van de verkopende corporatie
+const voorJouCorp = (corp) => {
+  if (!profiel) return null;
+  const regel = regelVan(corp);
+  const sociaal = profiel.corp !== 'Geen sociale huurwoning';
+  if (!sociaal) return 'nee';
+  if (profiel.corp === corp) return 'ja';
+  if (regel === 'alle-sociaal') return profiel.zelfstandig ? 'ja' : 'mogelijk';
+  if (regel === 'eigen') return 'nee';
+  if (regel === 'mogelijk') return 'mogelijk';
+  return 'mogelijk';
+};
+const voorJou = (w) => voorJouCorp(w.corporatie) || w.voorJou || 'onbekend';
 const voorrang = (w) => {
-  if (w.voorJou === 'nee') return {cls: 't-neutral', text: 'niet voor jou', active: false};
+  if (voorJou(w) === 'nee') return {cls: 't-neutral', text: 'niet voor jou', active: false};
   if (w.deadline && w.deadline >= today) return {cls: 't-ok', text: 'tot ' + nlShort(w.deadline), active: true};
   if (w.deadline) return {cls: 't-bad', text: 'verlopen', active: false};
   if (w.voorrangLabel === 'ja') return {cls: 't-ok', text: 'ja', active: true};
@@ -421,7 +456,7 @@ const visible = () => {
     for (const k of ['corporatie', 'type']) if (sel[k] && !sel[k].has(w[k] || 'Onbekend')) return false;
     if (sel.buurt && !sel.buurt.has(bkey(w))) return false;
     if (favOnly && !favs.has(w.id)) return false;
-    if (f.voorJou && w.voorJou === 'nee') return false;
+    if (f.voorJou && voorJou(w) === 'nee') return false;
     if (f.voorrangActief && !voorrang(w).active) return false;
     if (f.nieuw && !isNew(w)) return false;
     if (f.verbergVerkocht && w.status === 'verkocht o.v.b.') return false;
@@ -547,7 +582,7 @@ const renderStatic = () => {
   const last = META.bijgewerkt ? META.bijgewerkt.slice(0, 10) : W.map((w) => w.gezienOp).sort().at(-1);
   $('#kop').replaceChildren(el('b', null, besch.length), ' beschikbaar van ', el('b', null, W.length), ' in Amsterdam · ', ...(nNew ? [el('span', 'nw', nNew + ' nieuw'), ' · '] : []), 'bijgewerkt ' + nlDate(last));
   const stat = (l, v) => { const s = el('div', 'stat'); s.append(el('div', 'lbl', l), el('div', 'val', v)); return s; };
-  $('#stats').replaceChildren(stat('Beschikbaar', besch.length), stat('Met voorrang voor jou', besch.filter((w) => w.voorJou !== 'nee').length), stat('Nieuw (7 dagen)', nNew),
+  $('#stats').replaceChildren(stat('Beschikbaar', besch.length), stat('Met voorrang voor jou', besch.filter((w) => voorJou(w) !== 'nee').length), stat('Nieuw (7 dagen)', nNew),
     stat('Laagste vraagprijs', eur.format(Math.min(...besch.map((w) => w.prijs)))), stat('Mediaan per m²', eur.format(Math.round(median(W.map((w) => w.prijs / w.m2))))));
   const groups = {}; W.forEach((w) => (groups[w.stadsdeel || 'Onbekend'] ||= []).push(w.prijs / w.m2));
   const rows = Object.entries(groups).map(([s, a]) => [s, Math.round(median(a)), a.length]).sort((a, b) => b[1] - a[1]);
@@ -555,9 +590,9 @@ const renderStatic = () => {
   $('#bars').replaceChildren(...rows.map(([s, v, n]) => { const r = el('div', 'row'); const t = el('div'); t.append(el('span', null, s), el('span', 'muted', eur.format(v) + ' (' + n + ')')); const tr = el('div', 'track'); const f = el('div', 'fill'); f.style.width = (100 * v / mx) + '%'; tr.append(f); r.append(t, tr); return r; }));
   const tone = (v) => v === 'ja' ? 't-ok' : v === 'nee' ? 't-bad' : 't-warn';
   const order = {ja: 0, mogelijk: 1, onbekend: 2, nee: 3};
-  $('#regels').replaceChildren(...R.slice().sort((a, b) => (order[a.voorJou] ?? 2) - (order[b.voorJou] ?? 2)).map((r) => {
+  $('#regels').replaceChildren(...R.slice().sort((a, b) => (order[voorJouCorp(a.corporatie) || a.voorJou] ?? 2) - (order[voorJouCorp(b.corporatie) || b.voorJou] ?? 2)).map((r) => {
     const tr = el('tr'); const c0 = el('td', 'nowrap'); const d = el('span', 'cd'); d.style.background = corpColor(r.corporatie); c0.append(d, r.corporatie); c0.style.fontWeight = 600;
-    const c1 = el('td'); c1.append(badge(tone(r.voorJou), r.voorJou)); const a = el('a', null, 'Bron: ' + r.zekerheid); a.href = r.url; a.target = '_blank'; c0.append(el('div', 'sub', r.kanaal)); const sb = el('div', 'sub'); sb.append(a); c0.append(sb); c0.style.whiteSpace = 'normal';
+    const c1 = el('td'); const vj = voorJouCorp(r.corporatie) || r.voorJou; c1.append(badge(tone(vj), vj)); const a = el('a', null, 'Bron: ' + r.zekerheid); a.href = r.url; a.target = '_blank'; c0.append(el('div', 'sub', r.kanaal)); const sb = el('div', 'sub'); sb.append(a); c0.append(sb); c0.style.whiteSpace = 'normal';
     tr.append(c0, c1, el('td', null, r.wie), el('td', null, r.voorwaarden), el('td', null, r.periode), el('td', null, r.hoe)); return tr; }));
   const st = (s) => s === 'werkt' ? ['var(--ok)', '✓', 't-ok'] : s === 'deels' ? ['var(--warn)', '!', 't-warn'] : ['var(--bad)', '✕', 't-bad'];
   const bo = {'werkt niet': 0, deels: 1, werkt: 2};
@@ -576,10 +611,20 @@ const renderStatic = () => {
   if (META.fouten && META.fouten.length) $('#meta').textContent = 'Laatste update had problemen: ' + META.fouten.join('; ');
 };
 
+const profLabel = () => { $('#profbtn').textContent = profiel ? 'Ik huur bij: ' + profiel.corp + ' ✎' : 'Kies je corporatie ✎';
+  $('#regelsintro').textContent = (profiel ? '"Voor jou" gaat uit van: ' + profiel.corp + (profiel.corp !== 'Geen sociale huurwoning' ? (profiel.zelfstandig ? ', zelfstandige sociale huurwoning in Amsterdam/Diemen' : ', geen zelfstandige sociale huurwoning in Amsterdam/Diemen') : '') + '. ' : 'Kies bovenin je corporatie om te zien waar jij voorrang hebt. ') + 'De advertentie is altijd leidend.'; };
+const openProf = () => {
+  const box = $('#profopts'); box.replaceChildren(...CORPS.map((c) => { const l = el('label', 'opt'); const i = el('input'); i.type = 'radio'; i.name = 'corp'; i.value = c; i.checked = profiel ? profiel.corp === c : false; l.append(i, c); return l; }));
+  $('#profzelf').checked = profiel ? profiel.zelfstandig !== false : true; $('#profmodal').hidden = false;
+};
+$('#profbtn').onclick = openProf;
+$('#profskip').onclick = () => { $('#profmodal').hidden = true; };
+$('#profsave').onclick = () => { const c = $('#profopts input:checked'); if (!c) return; profiel = {corp: c.value, zelfstandig: $('#profzelf').checked}; store.set('profiel', JSON.stringify(profiel)); $('#profmodal').hidden = true; profLabel(); renderStatic(); render(); };
 Promise.all(['woningen', 'regels', 'bronnen', 'meta'].map((n) => fetch('data/' + n + '.json', {cache: 'no-cache'}).then((r) => r.ok ? r.json() : (n === 'meta' ? {} : [])).catch(() => n === 'meta' ? {} : [])))
   .then(([w, r, b, m]) => {
     W = w; R = r; B = b; META = m;
-    initMap(); renderStatic(); render();
+    initMap(); profLabel(); renderStatic(); render();
+    if (!profiel) openProf();
     loadShared().then(render); showReminder();
     const openSync = (e) => { e.stopPropagation(); $$('details.tdd').forEach((o) => o.open = false); $('#syncpanel').hidden = false; $('#syncpanel').scrollIntoView({block: 'start'}); };
     $('#syncopen').onclick = openSync; $('#syncopen2').onclick = openSync; $('#syncclose').onclick = () => $('#syncpanel').hidden = true;
