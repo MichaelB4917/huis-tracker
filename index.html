@@ -965,7 +965,7 @@ const openDetail = (w) => {
   const lbl = w.energielabel ? (() => { const x = el('span'); x.append(el('span', 'elabel sm l-' + w.energielabel[0], w.energielabel)); if (w.labelBron) x.append(' ', el('span', 'muted', '(' + w.labelBron + (w.labelGeldigTot ? ', geldig t/m ' + nlDate(w.labelGeldigTot) : '') + ')')); return x; })() : 'onbekend';
   const kv = el('div', 'kv'); kv.append(...[kvItem('Vraagprijs', eur.format(w.prijs)), kvItem('Per m²', eur.format(Math.round(w.prijs / w.m2))), kvItem('Woonoppervlak', w.m2 + ' m²'), kvItem('Kamers', String(w.kamers)), kvItem('Type', w.type),
     kvItem('Bouwjaar', w.bouwjaar ? String(w.bouwjaar) : ''), kvItem('Energielabel', lbl), kvItem('VvE', typeof w.servicekosten === 'number' ? eur2.format(w.servicekosten) + ' p/m' : ''), kvItem('Erfpacht', w.erfpacht), kvItem('Tuin', w.tuin === 'ja' ? 'ja' : ''),
-    kvItem('Online sinds', onlineSinds(w)), kvItem('Deadline', w.deadline ? nlDate(w.deadline) : '')].filter(Boolean));
+    kvItem('Online sinds', onlineSinds(w)), kvItem('Bron', w.bron), kvItem('Deadline', w.deadline ? nlDate(w.deadline) : '')].filter(Boolean));
   B.append(h, sub, bads, links, kv);
   if (w.voorrangSpec) B.append(el('p', 'note', w.voorrangSpec));
   // Onze voortgang (gedeeld via de lijst)

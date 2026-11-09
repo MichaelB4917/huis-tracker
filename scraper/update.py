@@ -294,6 +294,13 @@ def eigenhaard():
     return out
 
 
+def adres_sleutel(adres):
+    """'Eerste Constantijn Huygensstraat 54 F' en '1e Constantijn Huygensstraat 54-f' -> zelfde sleutel."""
+    a = adres.lower().replace("eerste ", "1e ").replace("tweede ", "2e ").replace("derde ", "3e ")
+    a = re.sub(r"\b(huis|hs|h)\b$", "h", a)
+    return re.sub(r"[^a-z0-9]", "", a)
+
+
 # ---------- PDOK ----------
 def geocode(adres, postcode=""):
     q = f"{adres} {postcode} Amsterdam".strip()
@@ -320,7 +327,10 @@ def main():
             gescraped[naam] = rows
         except Exception as e:  # bron tijdelijk stuk: bestaande woningen laten staan
             fouten.append(f"{naam}: {e}")
-    resultaat = [w for w in oud if w["corporatie"] not in gescraped]
+    # Woningen uit de Funda-mail blijven staan, tenzij dezelfde woning ook op de eigen site van de corporatie staat
+    gescraped_adressen = {adres_sleutel(r["adres"]) for rows in gescraped.values() for r in rows}
+    resultaat = [w for w in oud if w["corporatie"] not in gescraped
+                 or (str(w.get("bron", "")).lower().startswith("funda") and adres_sleutel(w["adres"]) not in gescraped_adressen)]
     for corp, rows in gescraped.items():
         for r in rows:
             w = by_id.get(r["id"])
