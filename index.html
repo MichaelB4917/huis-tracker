@@ -498,7 +498,7 @@ const onlineSinds = (w) => w.onlineSinds ? nlShort(w.onlineSinds) : w.basis ? '<
 let favs = new Set(); try { favs = new Set(JSON.parse(store.get('favs') || '[]')); } catch (e) {}
 let gezien = new Set(); try { gezien = new Set(JSON.parse(store.get('gezien') || '[]')); } catch (e) {}
 // Delen via Supabase: elke lijst is één rij, alleen bereikbaar met de geheime lijst-id (via RPC-functies)
-const SUPA_URL = '', SUPA_KEY = '';   // in te vullen: Project URL en anon/publishable key
+const SUPA_URL = 'https://ztqofbjfivatfkggevwu.supabase.co', SUPA_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inp0cW9mYmpmaXZhdGZrZ2dldnd1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjI5NDExNTAsImV4cCI6MjA3ODUxNzE1MH0.weJYQmPT-miaiGkdU82nYbWz4WSDENgu4nwFK7V_NjQ';   // in te vullen: Project URL en anon/publishable key
 const supa = (fn, body) => fetch(`${SUPA_URL}/rest/v1/rpc/${fn}`, {method: 'POST', headers: {apikey: SUPA_KEY, Authorization: 'Bearer ' + SUPA_KEY, 'Content-Type': 'application/json'}, body: JSON.stringify(body)})
   .then((r) => { if (!r.ok) throw new Error(r.status); return r.status === 204 ? null : r.json(); });
 const qId = new URLSearchParams(location.search).get('lijst');
