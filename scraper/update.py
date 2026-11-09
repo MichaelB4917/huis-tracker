@@ -62,21 +62,27 @@ def stadsdeel_uit_postcode(pc):
 
 
 def erfpacht_kort(t):
-    m = re.search(r"[^.\n;]*(erfpacht|canon|eigen grond)[^.\n;]*", t, re.I)
-    if not m:
+    zinnen = [m.group(0) for m in re.finditer(r"[^.\n;]*(erfpacht|canon|eigen grond)[^.\n;]*(?:[.;][^.\n;]*){0,1}", t, re.I)][:4]
+    if not zinnen:
         return ""
-    s = m.group(0)
-    if re.search(r"eigen grond", s, re.I):
+    alles = " ".join(zinnen)
+    if re.search(r"\beigen grond\b", alles, re.I) and not re.search(r"geen eigen grond", alles, re.I):
         return "Eigen grond"
-    d = re.search(r"(\d{1,2})[-/](\d{1,2})[-/](\d{4})", s)
-    if d:
-        return f"Canon afgekocht t/m {int(d[1]):02d}-{int(d[2]):02d}-{d[3]}"
-    d = re.search(r"(\d{1,2}) (\w+) (\d{4})", s)
-    if d and d[2].lower() in MAANDEN:
-        return f"Canon afgekocht t/m {int(d[1]):02d}-{MAANDEN[d[2].lower()]:02d}-{d[3]}"
-    if re.search(r"voortdurend|jaarlijks", s, re.I):
+    if re.search(r"eeuwigdurend afgekocht", alles, re.I):
+        return "Canon eeuwigdurend afgekocht"
+    eind = []
+    datum = r"(\d{1,2})[-/ ](\d{1,2}|[a-z]+)[-/ ](\d{4})"
+    for m in re.finditer(r"(?:t/m|t\.m\.|tot en met|tot|afgekocht tot|einde)\s+(?:\w+\s+){0,2}" + datum, alles, re.I):
+        mnd = int(m[2]) if m[2].isdigit() else MAANDEN.get(m[2].lower())
+        if mnd:
+            eind.append((int(m[3]), mnd, int(m[1])))
+    if eind:
+        j, mnd, d = max(eind)
+        if j >= dt.date.today().year:
+            return f"Canon afgekocht t/m {d:02d}-{mnd:02d}-{j}"
+    if re.search(r"voortdurend|jaarlijks|canon bedraagt|canon van", alles, re.I):
         return "Voortdurende erfpacht"
-    return ""
+    return "Erfpacht (zie advertentie)"
 
 
 LABEL_RX = re.compile(r"(?i:\be[a-z]{4,9}label)\s*:?\s*(?:is\s*)?([A-G]\+*)(?![A-Za-z])")  # ook typo's als 'Enegrielabel'
@@ -88,7 +94,10 @@ def label_uit(t):
 
 
 def num(s):
-    s = (s or "").strip().replace(".", "").replace(",", ".").rstrip(".")
+    s = (s or "").strip().rstrip(".")
+    if re.fullmatch(r"\d+\.\d{1,2}", s):  # 232.61 = punt als decimaalteken
+        return float(s)
+    s = s.replace(".", "").replace(",", ".")
     try:
         return float(s)
     except ValueError:
