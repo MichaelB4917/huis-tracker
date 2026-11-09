@@ -191,19 +191,21 @@
 
 <div class="wrap">
   <div id="alert"></div>
-  <div class="reminder" id="syncreminder" hidden>★ Favorieten delen tussen apparaten is nog niet ingesteld op dit apparaat. <button class="mini" id="syncopen">Zo doe je het →</button></div>
-  <div class="card syncbox" id="syncpanel" hidden style="margin-bottom:14px"><h2>Favorieten delen tussen apparaten</h2>
-            <div class="syncstat" id="syncstat"></div>
-            <ol class="steps">
-              <li>Open <a href="https://github.com/settings/personal-access-tokens/new?name=huis-tracker%20favorieten&amp;description=Favorieten%20opslaan%20vanaf%20de%20site&amp;target_name=MichaelB4917&amp;expires_in=366&amp;contents=write" target="_blank" rel="noopener">deze GitHub-pagina</a> (naam en rechten zijn al ingevuld) en bevestig dat jij het bent.</li>
-              <li>Repository access: <b>Only select repositories</b> → <b>huis-tracker</b>.</li>
-              <li>Repository permissions: <b>Contents</b> → <b>Read and write</b>.</li>
-              <li>Klik <b>Generate token</b> en kopieer de sleutel (begint met github_pat_).</li>
-              <li>Plak hem hieronder en klik <b>Opslaan</b>. Herhaal stap 5 op elk apparaat (zelfde sleutel mag).</li>
-            </ol>
-            <label class="field">GitHub-sleutel (alleen op dit apparaat bewaard)<input type="password" id="tokenin" placeholder="github_pat_…" autocomplete="off"></label>
-            <button class="mini" id="tokensave">Opslaan</button><button class="mini" id="tokendel">Sleutel verwijderen</button>
-          
+  <div class="reminder" id="syncreminder" hidden>★ Je favorieten staan alleen in deze browser. Maak een lijst om ze te delen met je partner en op al je apparaten. <button class="mini" id="syncopen">Lijst maken →</button></div>
+  <div class="card syncbox" id="syncpanel" hidden style="margin-bottom:14px"><h2>Jouw lijst</h2>
+    <div class="syncstat" id="syncstat"></div>
+    <div id="lijstnone">
+      <p class="muted" style="margin:4px 0 10px">Een lijst bewaart je favorieten, wat je al bekeken hebt en je corporatie. Deel de link met je partner: jullie zien en bewerken dan dezelfde lijst, op elk apparaat. Iemand anders met de site ziet jouw lijst niet.</p>
+      <label class="field">Naam van de lijst<input id="lijstnaam" placeholder="bijv. Michael &amp; Maartje"></label>
+      <button class="primary" id="lijstnew">Nieuwe lijst maken</button>
+      <p class="muted" style="margin:12px 0 4px">Heb je al een link gekregen? Open die gewoon, of plak hem hier:</p>
+      <label class="field"><input id="lijstlink" placeholder="https://…?lijst=…"></label><button class="mini" id="lijstjoin">Openen</button>
+    </div>
+    <div id="lijstsome" hidden>
+      <p style="margin:4px 0 8px">Gekoppeld aan <b id="lijsttitel"></b>. Deel deze link met wie mee mag kijken en bewerken:</p>
+      <label class="field"><input id="lijstshare" readonly></label>
+      <button class="primary" id="lijstcopy">Link kopiëren</button> <button class="mini" id="lijstleave">Ontkoppelen op dit apparaat</button>
+    </div>
     <button class="mini" id="syncclose">Sluiten</button>
   </div>
 
@@ -261,8 +263,8 @@
           <label class="check"><input type="checkbox" class="sec" data-sec="kaartblok" checked> Kaart</label>
           <h4>Kolommen</h4>
           <div id="colboxes"></div>
-          <h4>Favorieten delen</h4>
-          <button class="mini" id="syncopen2">Instellen of sleutel wijzigen</button>
+          <h4>Gedeelde lijst</h4>
+          <button class="mini" id="syncopen2">Lijst maken of delen</button>
         </div></details>
         </div>
         <div class="stats" id="stats"></div>
@@ -295,7 +297,7 @@
 <div class="modal" id="profmodal" hidden>
   <div class="box" role="dialog" aria-labelledby="proft">
     <h2 id="proft">Bij welke corporatie huur je?</h2>
-    <p class="muted" style="margin:0">Daarmee bepaalt de site bij elke woning of jij voorrang kunt krijgen. Wordt alleen in deze browser bewaard.</p>
+    <p class="muted" style="margin:0">Daarmee bepaalt de site bij elke woning of jij voorrang kunt krijgen. Wordt bewaard in deze browser en in je gedeelde lijst.</p>
     <div class="opts" id="profopts"></div>
     <label class="check"><input type="checkbox" id="profzelf" checked> Het is een zelfstandige sociale huurwoning in Amsterdam of Diemen</label>
     <div style="display:flex;gap:10px;align-items:center;margin-top:14px"><button class="primary" id="profsave">Opslaan</button><button class="mini" id="profskip">Later</button></div>
@@ -320,46 +322,40 @@ const EERSTE = '2026-11-08';
 const onlineSinds = (w) => w.onlineSinds ? nlDate(w.onlineSinds) : w.basis ? 'vóór ' + nlShort(EERSTE) : nlDate(w.eerstGezien);
 let favs = new Set(); try { favs = new Set(JSON.parse(store.get('favs') || '[]')); } catch (e) {}
 let gezien = new Set(); try { gezien = new Set(JSON.parse(store.get('gezien') || '[]')); } catch (e) {}
-// Delen via GitHub: data/gebruiker.json in de repo; schrijven met een persoonlijke sleutel per apparaat
-const REPO = 'MichaelB4917/huis-tracker', SYNC_PATH = 'data/gebruiker.json';
-let token = store.get('gh-token') || '', syncSha = null, syncTimer = null, syncMsg = '';
-const b64 = (str) => btoa(unescape(encodeURIComponent(str)));
-const unb64 = (str) => decodeURIComponent(escape(atob(str.replace(/\n/g, ''))));
-const ghHeaders = () => ({Authorization: 'Bearer ' + token, Accept: 'application/vnd.github+json'});
-const setSync = (msg, cls) => { syncMsg = msg; const e = document.getElementById('syncstat'); if (e) { e.textContent = msg; e.className = 'syncstat ' + (cls || ''); } };
+// Delen via Supabase: elke lijst is één rij, alleen bereikbaar met de geheime lijst-id (via RPC-functies)
+const SUPA_URL = '', SUPA_KEY = '';   // in te vullen: Project URL en anon/publishable key
+const supa = (fn, body) => fetch(`${SUPA_URL}/rest/v1/rpc/${fn}`, {method: 'POST', headers: {apikey: SUPA_KEY, Authorization: 'Bearer ' + SUPA_KEY, 'Content-Type': 'application/json'}, body: JSON.stringify(body)})
+  .then((r) => { if (!r.ok) throw new Error(r.status); return r.status === 204 ? null : r.json(); });
+const qId = new URLSearchParams(location.search).get('lijst');
+let lijstId = qId || store.get('lijst') || '', lijstNaam = store.get('lijstnaam') || '', syncTimer = null;
+const setSync = (msg, cls) => { const e = document.getElementById('syncstat'); if (e) { e.textContent = msg; e.className = 'syncstat ' + (cls || ''); } };
 const saveLocal = () => { store.set('favs', JSON.stringify([...favs])); store.set('gezien', JSON.stringify([...gezien])); };
+const shareUrl = () => location.origin + location.pathname + '?lijst=' + lijstId;
+const lijstData = () => ({naam: lijstNaam, favorieten: [...favs], gezien: [...gezien], profiel});
+const showLijst = () => {
+  const has = !!(lijstId && SUPA_URL); $('#lijstnone').hidden = has; $('#lijstsome').hidden = !has;
+  if (has) { $('#lijsttitel').textContent = lijstNaam || 'je lijst'; $('#lijstshare').value = shareUrl(); }
+  const r = document.getElementById('syncreminder'); if (r) r.hidden = has || !SUPA_URL;
+  if (!SUPA_URL) setSync('Delen is nog niet ingesteld (database ontbreekt). Favorieten staan in deze browser.');
+};
 async function loadShared() {
+  if (!SUPA_URL || !lijstId) { showLijst(); return; }
   try {
-    let j;
-    if (token) {
-      const r = await fetch(`https://api.github.com/repos/${REPO}/contents/${SYNC_PATH}`, {headers: ghHeaders(), cache: 'no-store'});
-      if (r.status === 404) { setSync('Gekoppeld. Nog geen gedeelde favorieten.', 'ok'); return; }
-      if (!r.ok) { setSync('Sleutel werkt niet (' + r.status + '). Favorieten blijven op dit apparaat.', 'bad'); return; }
-      const x = await r.json(); syncSha = x.sha; j = JSON.parse(unb64(x.content));
-      setSync('Gekoppeld: favorieten worden gedeeld tussen apparaten.', 'ok');
-    } else {
-      const r = await fetch('data/gebruiker.json', {cache: 'no-cache'}); if (!r.ok) { setSync('Niet gekoppeld: favorieten staan alleen op dit apparaat.'); return; }
-      j = await r.json(); setSync('Alleen lezen: gedeelde favorieten zichtbaar. Voeg een sleutel toe om te wijzigen.');
-    }
-    favs = new Set(token ? j.favorieten || [] : [...(j.favorieten || []), ...favs]);
-    gezien = new Set([...(j.gezien || []), ...gezien]);
-    saveLocal();
-  } catch (e) { setSync('Kon gedeelde favorieten niet laden.', 'bad'); }
+    const j = await supa('lijst_get', {p_id: lijstId});
+    if (!j) { setSync('Deze lijst bestaat niet (meer).', 'bad'); lijstId = ''; store.set('lijst', ''); showLijst(); return; }
+    store.set('lijst', lijstId); lijstNaam = j.naam || ''; store.set('lijstnaam', lijstNaam);
+    favs = new Set(j.favorieten || []); gezien = new Set([...(j.gezien || []), ...gezien]);
+    if (j.profiel) { profiel = j.profiel; store.set('profiel', JSON.stringify(profiel)); }
+    saveLocal(); setSync('Gedeeld: wijzigingen gaan direct naar iedereen met de link.', 'ok');
+    if (qId) history.replaceState(null, '', location.pathname + location.hash);
+  } catch (e) { setSync('Kon de lijst niet laden. Favorieten staan in deze browser.', 'bad'); }
+  showLijst();
 }
 async function pushShared() {
-  if (!token) return;
-  try {
-    const cur = await fetch(`https://api.github.com/repos/${REPO}/contents/${SYNC_PATH}`, {headers: ghHeaders(), cache: 'no-store'});
-    if (cur.ok) syncSha = (await cur.json()).sha; else if (cur.status === 404) syncSha = null;
-    const body = {message: 'Favorieten bijgewerkt', content: b64(JSON.stringify({favorieten: [...favs], gezien: [...gezien]}, null, 1)),
-      committer: {name: 'huis-tracker', email: 'huis-tracker@users.noreply.github.com'}};
-    if (syncSha) body.sha = syncSha;
-    const r = await fetch(`https://api.github.com/repos/${REPO}/contents/${SYNC_PATH}`, {method: 'PUT', headers: ghHeaders(), body: JSON.stringify(body)});
-    if (!r.ok) throw new Error(r.status);
-    syncSha = (await r.json()).content.sha; setSync('Opgeslagen en gedeeld.', 'ok');
-  } catch (e) { setSync('Opslaan mislukt (' + e.message + '). Staat wel op dit apparaat.', 'bad'); }
+  if (!SUPA_URL || !lijstId) return;
+  try { await supa('lijst_save', {p_id: lijstId, p_data: lijstData()}); setSync('Opgeslagen en gedeeld.', 'ok'); }
+  catch (e) { setSync('Opslaan mislukt. Staat wel in deze browser.', 'bad'); }
 }
-const showReminder = () => { const r = document.getElementById('syncreminder'); if (r) r.hidden = !!token; };
 const changed = () => { saveLocal(); clearTimeout(syncTimer); syncTimer = setTimeout(pushShared, 1500); };
 const markSeen = (id) => { if (!gezien.has(id)) { gezien.add(id); changed(); } };
 let favOnly = false;
@@ -441,8 +437,10 @@ $$('[data-none]').forEach((b) => b.onclick = () => { sel[selKey(b.dataset.none)]
 $('#favbtn').onclick = () => { favOnly = !favOnly; render(); };
 $('#reset').onclick = () => { $$('.f').forEach((e) => e.type === 'checkbox' ? e.checked = e.dataset.f === 'verbergVerkocht' : e.tagName === 'SELECT' ? e.selectedIndex = 0 : e.value = ''); sel.corporatie = sel.buurt = sel.type = null; favOnly = false; render(); };
 $('#voorbtn').onclick = () => { const c = $('.f[data-f="voorJou"]'); c.checked = !c.checked; render(); };
-$('#tokensave').onclick = async () => { const v = $('#tokenin').value.trim(); if (!v) return; token = v; store.set('gh-token', v); $('#tokenin').value = ''; setSync('Koppelen…'); showReminder(); const local = new Set(favs); await loadShared(); if (!syncSha) { favs = new Set([...favs, ...local]); } else { favs = new Set([...favs, ...local]); } changed(); render(); };
-$('#tokendel').onclick = () => { token = ''; store.set('gh-token', ''); setSync('Sleutel verwijderd. Favorieten staan alleen op dit apparaat.'); showReminder(); };
+$('#lijstnew').onclick = async () => { try { lijstNaam = $('#lijstnaam').value.trim() || 'Onze lijst'; store.set('lijstnaam', lijstNaam); lijstId = await supa('lijst_new', {p_data: lijstData()}); store.set('lijst', lijstId); setSync('Lijst gemaakt. Deel de link hieronder.', 'ok'); showLijst(); } catch (e) { setSync('Lijst maken mislukt.', 'bad'); } };
+$('#lijstjoin').onclick = () => { const m = $('#lijstlink').value.match(/lijst=([0-9a-f-]{36})/i); if (!m) { setSync('Dat is geen geldige lijst-link.', 'bad'); return; } lijstId = m[1]; loadShared().then(() => { renderStatic(); render(); profLabel(); }); };
+$('#lijstcopy').onclick = async () => { try { await navigator.clipboard.writeText(shareUrl()); setSync('Link gekopieerd.', 'ok'); } catch (e) { $('#lijstshare').select(); } };
+$('#lijstleave').onclick = () => { lijstId = ''; store.set('lijst', ''); setSync('Ontkoppeld op dit apparaat. De lijst zelf bestaat nog; open de link om terug te gaan.'); showLijst(); };
 
 const visible = () => {
   const f = filters(), q = (f.q || '').toLowerCase().trim();
@@ -619,13 +617,12 @@ const openProf = () => {
 };
 $('#profbtn').onclick = openProf;
 $('#profskip').onclick = () => { $('#profmodal').hidden = true; };
-$('#profsave').onclick = () => { const c = $('#profopts input:checked'); if (!c) return; profiel = {corp: c.value, zelfstandig: $('#profzelf').checked}; store.set('profiel', JSON.stringify(profiel)); $('#profmodal').hidden = true; profLabel(); renderStatic(); render(); };
+$('#profsave').onclick = () => { const c = $('#profopts input:checked'); if (!c) return; profiel = {corp: c.value, zelfstandig: $('#profzelf').checked}; store.set('profiel', JSON.stringify(profiel)); changed(); $('#profmodal').hidden = true; profLabel(); renderStatic(); render(); };
 Promise.all(['woningen', 'regels', 'bronnen', 'meta'].map((n) => fetch('data/' + n + '.json', {cache: 'no-cache'}).then((r) => r.ok ? r.json() : (n === 'meta' ? {} : [])).catch(() => n === 'meta' ? {} : [])))
   .then(([w, r, b, m]) => {
     W = w; R = r; B = b; META = m;
     initMap(); profLabel(); renderStatic(); render();
-    if (!profiel) openProf();
-    loadShared().then(render); showReminder();
+    loadShared().then(() => { profLabel(); renderStatic(); render(); if (!profiel) openProf(); });
     const openSync = (e) => { e.stopPropagation(); $$('details.tdd').forEach((o) => o.open = false); $('#syncpanel').hidden = false; $('#syncpanel').scrollIntoView({block: 'start'}); };
     $('#syncopen').onclick = openSync; $('#syncopen2').onclick = openSync; $('#syncclose').onclick = () => $('#syncpanel').hidden = true;
     const h = location.hash.slice(1); if (['regels', 'bronnen'].includes(h)) showTab(h);
