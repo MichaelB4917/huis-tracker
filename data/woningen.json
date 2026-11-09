@@ -517,7 +517,7 @@
   "postcode": "",
   "lon": 4.78339,
   "lat": 52.35163,
-  "erfpacht": "Canon afgekocht t/m 15-09-2050",
+  "erfpacht": "Canon afgekocht t/m 16-09-2050",
   "basis": true,
   "eerstGezien": "2026-11-08",
   "buurtcode": "FG01",
@@ -3025,7 +3025,7 @@
   "gezienOp": "2026-11-09",
   "lon": 4.94457,
   "lat": 52.40319,
-  "erfpacht": "",
+  "erfpacht": "Canon afgekocht t/m 28-02-2053",
   "basis": true,
   "eerstGezien": "2026-11-08",
   "buurtcode": "NH01",
@@ -3065,7 +3065,7 @@
   "gezienOp": "2026-11-09",
   "lon": 4.90844,
   "lat": 52.35631,
-  "erfpacht": "",
+  "erfpacht": "Canon afgekocht t/m 31-05-2055",
   "basis": true,
   "eerstGezien": "2026-11-08",
   "buurtcode": "MB01",
@@ -3145,7 +3145,7 @@
   "gezienOp": "2026-11-09",
   "lon": 4.9455,
   "lat": 52.32373,
-  "erfpacht": "",
+  "erfpacht": "Canon afgekocht t/m 31-01-2035",
   "basis": true,
   "eerstGezien": "2026-11-08",
   "buurtcode": "TB02",
@@ -4046,7 +4046,7 @@
   "energielabel": "A+",
   "bouwjaar": 2007,
   "servicekosten": 143.75,
-  "erfpacht": "",
+  "erfpacht": "Canon afgekocht t/m 30-06-2056",
   "deadline": "",
   "id": "rd-1f9227d7",
   "adres": "1e Kekerstraat 25",
@@ -4086,7 +4086,7 @@
   "energielabel": "D",
   "bouwjaar": 1930,
   "servicekosten": 359.7,
-  "erfpacht": "",
+  "erfpacht": "Canon afgekocht t/m 15-09-2056",
   "deadline": "",
   "id": "rd-bf77a9fc",
   "adres": "Adelaarsweg 84-H",
@@ -4125,7 +4125,7 @@
   "energielabel": "B",
   "bouwjaar": 1899,
   "servicekosten": 268.5,
-  "erfpacht": "",
+  "erfpacht": "Canon afgekocht t/m 30-09-2053",
   "deadline": "",
   "id": "rd-064f2dcf",
   "adres": "Bentinckstraat 22-2",
@@ -4165,7 +4165,7 @@
   "energielabel": "B",
   "bouwjaar": 1991,
   "servicekosten": 184.47,
-  "erfpacht": "",
+  "erfpacht": "Canon afgekocht t/m 15-02-2042",
   "deadline": "",
   "id": "rd-7b30fb2c",
   "adres": "Bruins Slotstraat 20",
@@ -4204,7 +4204,7 @@
   "energielabel": "B",
   "bouwjaar": 1905,
   "servicekosten": 120.65,
-  "erfpacht": "",
+  "erfpacht": "Canon afgekocht t/m 31-07-2055",
   "deadline": "",
   "id": "rd-f2ef21a1",
   "adres": "De Wittenkade 130-1",
@@ -4244,7 +4244,7 @@
   "energielabel": "A",
   "bouwjaar": 1970,
   "servicekosten": 536.35,
-  "erfpacht": "",
+  "erfpacht": "Canon afgekocht t/m 31-03-2054",
   "deadline": "",
   "id": "rd-da5e9b78",
   "adres": "Grubbehoeve 630",
@@ -4284,7 +4284,7 @@
   "energielabel": "A",
   "bouwjaar": 1887,
   "servicekosten": 128.77,
-  "erfpacht": "",
+  "erfpacht": "Canon afgekocht t/m 30-06-2055",
   "deadline": "",
   "id": "rd-2d1fc17f",
   "adres": "Haarlemmerweg 53-2",
@@ -4324,7 +4324,7 @@
   "energielabel": "A",
   "bouwjaar": 1918,
   "servicekosten": 245.6,
-  "erfpacht": "",
+  "erfpacht": "Canon afgekocht t/m 31-12-2059",
   "deadline": "",
   "id": "rd-93229654",
   "adres": "Hembrugstraat 322",
@@ -4364,7 +4364,7 @@
   "energielabel": "C",
   "bouwjaar": 1953,
   "servicekosten": 226.17,
-  "erfpacht": "",
+  "erfpacht": "Canon afgekocht t/m 31-10-2054",
   "deadline": "",
   "id": "rd-8bf02686",
   "adres": "Hermanus Coenradistraat 14-3",
@@ -4404,7 +4404,7 @@
   "energielabel": "G",
   "bouwjaar": 1950,
   "servicekosten": 171.22,
-  "erfpacht": "",
+  "erfpacht": "Canon afgekocht t/m 31-08-2055",
   "deadline": "",
   "id": "rd-746a32b3",
   "adres": "Hertspieghelweg 4-H",
@@ -4444,7 +4444,7 @@
   "energielabel": "C",
   "bouwjaar": 1927,
   "servicekosten": 172.96,
-  "erfpacht": "",
+  "erfpacht": "Canon afgekocht t/m 28-02-2057",
   "deadline": "",
   "id": "rd-974ec76b",
   "adres": "Hoofdweg 416-H",
@@ -4484,7 +4484,7 @@
   "energielabel": "A",
   "bouwjaar": 1999,
   "servicekosten": 379.9,
-  "erfpacht": "",
+  "erfpacht": "Canon afgekocht t/m 31-01-2050",
   "deadline": "",
   "id": "rd-419e8fa6",
   "adres": "Isabella Richaardsstraat 118",
@@ -4524,7 +4524,7 @@
   "energielabel": "",
   "bouwjaar": 1915,
   "servicekosten": 278.69,
-  "erfpacht": "",
+  "erfpacht": "Canon afgekocht t/m 31-01-2059",
   "deadline": "",
   "id": "rd-20e6d8a8",
   "adres": "Jan Pieter Heijestraat 56",
@@ -4563,7 +4563,7 @@
   "energielabel": "C",
   "bouwjaar": 1970,
   "servicekosten": 292.34,
-  "erfpacht": "",
+  "erfpacht": "Canon afgekocht t/m 31-08-2053",
   "deadline": "",
   "id": "rd-07b4db62",
   "adres": "Kikkenstein 2326",
@@ -4603,7 +4603,7 @@
   "energielabel": "C",
   "bouwjaar": 1970,
   "servicekosten": 304.55,
-  "erfpacht": "",
+  "erfpacht": "Canon afgekocht t/m 15-11-2050",
   "deadline": "",
   "id": "rd-2aa85d0c",
   "adres": "Kikkenstein 3633",
@@ -4643,7 +4643,7 @@
   "energielabel": "A",
   "bouwjaar": 1985,
   "servicekosten": 168.21,
-  "erfpacht": "",
+  "erfpacht": "Canon afgekocht t/m 30-04-2036",
   "deadline": "",
   "id": "rd-3cfac2e2",
   "adres": "Louis Davidsstraat 12",
@@ -4683,7 +4683,7 @@
   "energielabel": "A",
   "bouwjaar": 1985,
   "servicekosten": 165.08,
-  "erfpacht": "",
+  "erfpacht": "Canon afgekocht t/m 30-04-2036",
   "deadline": "",
   "id": "rd-b00698bf",
   "adres": "Louis Davidsstraat 54",
@@ -4723,7 +4723,7 @@
   "energielabel": "C",
   "bouwjaar": 1981,
   "servicekosten": 75.3,
-  "erfpacht": "",
+  "erfpacht": "Canon afgekocht t/m 15-12-2031",
   "deadline": "",
   "id": "rd-48d2e61f",
   "adres": "Nachtegaalstraat 135",
@@ -4762,7 +4762,7 @@
   "energielabel": "A",
   "bouwjaar": 1928,
   "servicekosten": 216.1,
-  "erfpacht": "",
+  "erfpacht": "Canon afgekocht t/m 30-06-2055",
   "deadline": "",
   "id": "rd-2a194392",
   "adres": "Reitzstraat 147",
@@ -4802,7 +4802,7 @@
   "energielabel": "A",
   "bouwjaar": 1990,
   "servicekosten": 196.9,
-  "erfpacht": "",
+  "erfpacht": "Canon afgekocht t/m 31-12-2041",
   "deadline": "",
   "id": "rd-b71f8707",
   "adres": "Reitzstraat 7-C",
@@ -4842,7 +4842,7 @@
   "energielabel": "B",
   "bouwjaar": 1985,
   "servicekosten": 98.4,
-  "erfpacht": "",
+  "erfpacht": "Canon afgekocht t/m 15-02-2036",
   "deadline": "",
   "id": "rd-309261e5",
   "adres": "Smederij 12",
@@ -4882,7 +4882,7 @@
   "energielabel": "C",
   "bouwjaar": 1981,
   "servicekosten": 167.3,
-  "erfpacht": "",
+  "erfpacht": "Canon afgekocht t/m 30-06-2032",
   "deadline": "",
   "id": "rd-f98cccde",
   "adres": "Van Beuningenstraat 32-D",
@@ -4922,7 +4922,7 @@
   "energielabel": "C",
   "bouwjaar": 1983,
   "servicekosten": 211.34,
-  "erfpacht": "",
+  "erfpacht": "Canon afgekocht t/m 30-09-2033",
   "deadline": "",
   "id": "rd-8b300ea1",
   "adres": "Vianenstraat 162",
@@ -4962,7 +4962,7 @@
   "energielabel": "A",
   "bouwjaar": 1985,
   "servicekosten": 214.45,
-  "erfpacht": "",
+  "erfpacht": "Canon afgekocht t/m 28-02-2035",
   "deadline": "",
   "id": "rd-36c97869",
   "adres": "Wethouder Insingerstraat 87",
@@ -5001,7 +5001,7 @@
   "energielabel": "A",
   "bouwjaar": 1984,
   "servicekosten": 179.95,
-  "erfpacht": "",
+  "erfpacht": "Canon afgekocht t/m 28-02-2035",
   "deadline": "",
   "id": "rd-56d20969",
   "adres": "Wethouder Ramstraat 68",
@@ -5040,7 +5040,7 @@
   "energielabel": "A",
   "bouwjaar": 1985,
   "servicekosten": 224.8,
-  "erfpacht": "",
+  "erfpacht": "Canon afgekocht t/m 28-02-2035",
   "deadline": "",
   "id": "rd-be477d25",
   "adres": "Wethouder Serrurierstraat 42",
@@ -5089,7 +5089,7 @@
   "energielabel": "A",
   "bouwjaar": 1952,
   "servicekosten": "",
-  "erfpacht": "",
+  "erfpacht": "Canon afgekocht t/m 16-04-2072",
   "status": "beschikbaar",
   "voorrangLabel": "nee",
   "voorJou": "nee",
@@ -5111,7 +5111,8 @@
   "funderingBodem": "Niet indeelbaar",
   "labelBron": "advertentie",
   "fotoGezocht": "2026-11",
-  "foto": "https://ikzoek.stadgenoot.nl/webcontent/images/5a3d6b3134f6919f7ff3d234f42dad6b88c4c1f1?w=400&h=400"
+  "foto": "https://ikzoek.stadgenoot.nl/webcontent/images/5a3d6b3134f6919f7ff3d234f42dad6b88c4c1f1?w=400&h=400",
+  "sgDetail": "2026-11-09"
  },
  {
   "id": "sg-balboaplein-18-amsterdam",
@@ -5129,7 +5130,7 @@
   "energielabel": "B",
   "bouwjaar": 2004,
   "servicekosten": 288.11,
-  "erfpacht": "",
+  "erfpacht": "Canon afgekocht t/m 31-05-2053",
   "status": "beschikbaar",
   "voorrangLabel": "nee",
   "voorJou": "nee",
@@ -5151,7 +5152,8 @@
   "funderingBodem": "Niet indeelbaar",
   "labelBron": "advertentie",
   "fotoGezocht": "2026-11",
-  "foto": "https://ikzoek.stadgenoot.nl/webcontent/images/942883cb296106175639e91bea3c40257bc6886a?w=400&h=400"
+  "foto": "https://ikzoek.stadgenoot.nl/webcontent/images/942883cb296106175639e91bea3c40257bc6886a?w=400&h=400",
+  "sgDetail": "2026-11-09"
  },
  {
   "id": "sg-bilderdijkstraat-176-3-amsterdam",
@@ -5169,7 +5171,7 @@
   "energielabel": "D",
   "bouwjaar": 1925,
   "servicekosten": 280.07,
-  "erfpacht": "",
+  "erfpacht": "Eigen grond",
   "status": "beschikbaar",
   "voorrangLabel": "nee",
   "voorJou": "nee",
@@ -5191,7 +5193,8 @@
   "funderingBodem": "Niet indeelbaar",
   "labelBron": "advertentie",
   "fotoGezocht": "2026-11",
-  "foto": "https://ikzoek.stadgenoot.nl/webcontent/images/1a6cda8a503cc225a5867e0c816602046a583f29?w=400&h=400"
+  "foto": "https://ikzoek.stadgenoot.nl/webcontent/images/1a6cda8a503cc225a5867e0c816602046a583f29?w=400&h=400",
+  "sgDetail": "2026-11-09"
  },
  {
   "id": "sg-bos-en-lommerplantsoen-17-s-amsterdam",
@@ -5209,7 +5212,7 @@
   "energielabel": "C",
   "bouwjaar": 1960,
   "servicekosten": 113.06,
-  "erfpacht": "",
+  "erfpacht": "Canon afgekocht t/m 31-01-2062",
   "status": "beschikbaar",
   "voorrangLabel": "nee",
   "voorJou": "nee",
@@ -5231,7 +5234,8 @@
   "funderingBodem": "Niet indeelbaar",
   "labelBron": "advertentie",
   "fotoGezocht": "2026-11",
-  "foto": "https://ikzoek.stadgenoot.nl/webcontent/images/22bdff1ff3a096be6cf438bd59eebb3b9926e693?w=400&h=400"
+  "foto": "https://ikzoek.stadgenoot.nl/webcontent/images/22bdff1ff3a096be6cf438bd59eebb3b9926e693?w=400&h=400",
+  "sgDetail": "2026-11-09"
  },
  {
   "id": "sg-brinkstraat-119-amsterdam",
@@ -5249,7 +5253,7 @@
   "energielabel": "",
   "bouwjaar": 1924,
   "servicekosten": 373.92,
-  "erfpacht": "",
+  "erfpacht": "Canon afgekocht t/m 15-11-2054",
   "status": "beschikbaar",
   "voorrangLabel": "nee",
   "voorJou": "nee",
@@ -5270,7 +5274,8 @@
   "funderingVoor1970": "100",
   "funderingBodem": "Niet indeelbaar",
   "fotoGezocht": "2026-11",
-  "foto": "https://ikzoek.stadgenoot.nl/webcontent/images/53f51dce4f77a4fe56ef2cbda6324379f09e169f?w=400&h=400"
+  "foto": "https://ikzoek.stadgenoot.nl/webcontent/images/53f51dce4f77a4fe56ef2cbda6324379f09e169f?w=400&h=400",
+  "sgDetail": "2026-11-09"
  },
  {
   "id": "sg-corversbosstraat-83-amsterdam",
@@ -5288,7 +5293,7 @@
   "energielabel": "C",
   "bouwjaar": 1967,
   "servicekosten": 176.04,
-  "erfpacht": "",
+  "erfpacht": "Canon afgekocht t/m 16-08-2053",
   "status": "beschikbaar",
   "voorrangLabel": "nee",
   "voorJou": "nee",
@@ -5310,7 +5315,8 @@
   "funderingBodem": "Niet indeelbaar",
   "labelBron": "advertentie",
   "fotoGezocht": "2026-11",
-  "foto": "https://ikzoek.stadgenoot.nl/webcontent/images/2bfb649f293c961cd39e8d24bec45eff6555d0f0?w=400&h=400"
+  "foto": "https://ikzoek.stadgenoot.nl/webcontent/images/2bfb649f293c961cd39e8d24bec45eff6555d0f0?w=400&h=400",
+  "sgDetail": "2026-11-09"
  },
  {
   "id": "sg-eerste-constantijn-huygensstraat-54-f-amsterdam",
@@ -5328,7 +5334,7 @@
   "energielabel": "A",
   "bouwjaar": 2006,
   "servicekosten": 145.33,
-  "erfpacht": "",
+  "erfpacht": "Eigen grond",
   "status": "beschikbaar",
   "voorrangLabel": "nee",
   "voorJou": "nee",
@@ -5350,7 +5356,8 @@
   "funderingBodem": "Niet indeelbaar",
   "labelBron": "advertentie",
   "fotoGezocht": "2026-11",
-  "foto": "https://ikzoek.stadgenoot.nl/webcontent/images/f2b427b7ce9947f3680c1a6e50dcf5b9ad8cbd85?w=400&h=400"
+  "foto": "https://ikzoek.stadgenoot.nl/webcontent/images/f2b427b7ce9947f3680c1a6e50dcf5b9ad8cbd85?w=400&h=400",
+  "sgDetail": "2026-11-09"
  },
  {
   "id": "sg-eerste-oosterparkstraat-174-e-amsterdam",
@@ -5368,7 +5375,7 @@
   "energielabel": "A",
   "bouwjaar": 1989,
   "servicekosten": 173.66,
-  "erfpacht": "",
+  "erfpacht": "Erfpacht (zie advertentie)",
   "status": "beschikbaar",
   "voorrangLabel": "nee",
   "voorJou": "nee",
@@ -5390,7 +5397,8 @@
   "funderingBodem": "Niet indeelbaar",
   "labelBron": "advertentie",
   "fotoGezocht": "2026-11",
-  "foto": "https://ikzoek.stadgenoot.nl/webcontent/images/6ad4dce1d8d8f040bee3952610aee88c2e0f30e7?w=400&h=400"
+  "foto": "https://ikzoek.stadgenoot.nl/webcontent/images/6ad4dce1d8d8f040bee3952610aee88c2e0f30e7?w=400&h=400",
+  "sgDetail": "2026-11-09"
  },
  {
   "id": "sg-kennemerduinstraat-10-amsterdam",
@@ -5408,7 +5416,7 @@
   "energielabel": "B",
   "bouwjaar": 1964,
   "servicekosten": "",
-  "erfpacht": "",
+  "erfpacht": "Canon afgekocht t/m 01-10-2055",
   "status": "beschikbaar",
   "voorrangLabel": "nee",
   "voorJou": "nee",
@@ -5430,7 +5438,8 @@
   "funderingBodem": "Niet indeelbaar",
   "labelBron": "advertentie",
   "fotoGezocht": "2026-11",
-  "foto": "https://ikzoek.stadgenoot.nl/webcontent/images/cd1271f4b896a858abcfd4014f82a72c2fe21a26?w=400&h=400"
+  "foto": "https://ikzoek.stadgenoot.nl/webcontent/images/cd1271f4b896a858abcfd4014f82a72c2fe21a26?w=400&h=400",
+  "sgDetail": "2026-11-09"
  },
  {
   "id": "sg-kouterstraat-4-amsterdam",
@@ -5448,7 +5457,7 @@
   "energielabel": "D",
   "bouwjaar": 1925,
   "servicekosten": 357.46,
-  "erfpacht": "",
+  "erfpacht": "Canon afgekocht t/m 16-05-2055",
   "status": "beschikbaar",
   "voorrangLabel": "nee",
   "voorJou": "nee",
@@ -5470,7 +5479,8 @@
   "funderingBodem": "Niet indeelbaar",
   "labelBron": "advertentie",
   "fotoGezocht": "2026-11",
-  "foto": "https://ikzoek.stadgenoot.nl/webcontent/images/4fa57697657188c66b5ab05460ad324343886d2c?w=400&h=400"
+  "foto": "https://ikzoek.stadgenoot.nl/webcontent/images/4fa57697657188c66b5ab05460ad324343886d2c?w=400&h=400",
+  "sgDetail": "2026-11-09"
  },
  {
   "id": "sg-middenweg-410-amsterdam",
@@ -5488,7 +5498,7 @@
   "energielabel": "E",
   "bouwjaar": 1925,
   "servicekosten": 196.59,
-  "erfpacht": "",
+  "erfpacht": "Canon afgekocht t/m 16-11-2054",
   "status": "beschikbaar",
   "voorrangLabel": "nee",
   "voorJou": "nee",
@@ -5510,7 +5520,8 @@
   "funderingBodem": "Niet indeelbaar",
   "labelBron": "advertentie",
   "fotoGezocht": "2026-11",
-  "foto": "https://ikzoek.stadgenoot.nl/webcontent/images/b56a3fb3bc083e9b4163569f9536aeb19e61189f?w=400&h=400"
+  "foto": "https://ikzoek.stadgenoot.nl/webcontent/images/b56a3fb3bc083e9b4163569f9536aeb19e61189f?w=400&h=400",
+  "sgDetail": "2026-11-09"
  },
  {
   "id": "sg-pienemanstraat-9-amsterdam",
@@ -5527,8 +5538,8 @@
   "tuin": "",
   "energielabel": "C",
   "bouwjaar": 1923,
-  "servicekosten": "",
-  "erfpacht": "",
+  "servicekosten": 232.61,
+  "erfpacht": "Canon afgekocht t/m 16-06-2054",
   "status": "beschikbaar",
   "voorrangLabel": "nee",
   "voorJou": "nee",
@@ -5550,7 +5561,8 @@
   "funderingBodem": "Niet indeelbaar",
   "labelBron": "advertentie",
   "fotoGezocht": "2026-11",
-  "foto": "https://ikzoek.stadgenoot.nl/webcontent/images/023dc41508ede2191a065ea17e07b4f31d03f016?w=400&h=400"
+  "foto": "https://ikzoek.stadgenoot.nl/webcontent/images/023dc41508ede2191a065ea17e07b4f31d03f016?w=400&h=400",
+  "sgDetail": "2026-11-09"
  },
  {
   "id": "sg-ploegstraat-179-amsterdam",
@@ -5568,7 +5580,7 @@
   "energielabel": "D",
   "bouwjaar": 1925,
   "servicekosten": 237.17,
-  "erfpacht": "",
+  "erfpacht": "Canon afgekocht t/m 16-05-2055",
   "status": "beschikbaar",
   "voorrangLabel": "nee",
   "voorJou": "nee",
@@ -5590,7 +5602,8 @@
   "funderingBodem": "Niet indeelbaar",
   "labelBron": "advertentie",
   "fotoGezocht": "2026-11",
-  "foto": "https://ikzoek.stadgenoot.nl/webcontent/images/3b4aa48cd2982ddea8cf7ca7da2e12219b71af99?w=400&h=400"
+  "foto": "https://ikzoek.stadgenoot.nl/webcontent/images/3b4aa48cd2982ddea8cf7ca7da2e12219b71af99?w=400&h=400",
+  "sgDetail": "2026-11-09"
  },
  {
   "id": "sg-postjeskade-8-2-amsterdam",
@@ -5608,7 +5621,7 @@
   "energielabel": "B",
   "bouwjaar": 1949,
   "servicekosten": 146.29,
-  "erfpacht": "",
+  "erfpacht": "Erfpacht (zie advertentie)",
   "status": "beschikbaar",
   "voorrangLabel": "nee",
   "voorJou": "nee",
@@ -5630,7 +5643,8 @@
   "funderingBodem": "Niet indeelbaar",
   "labelBron": "advertentie",
   "fotoGezocht": "2026-11",
-  "foto": "https://ikzoek.stadgenoot.nl/webcontent/images/9ef982e9be4bb33554d9d63a67e843cb549de043?w=400&h=400"
+  "foto": "https://ikzoek.stadgenoot.nl/webcontent/images/9ef982e9be4bb33554d9d63a67e843cb549de043?w=400&h=400",
+  "sgDetail": "2026-11-09"
  },
  {
   "id": "sg-president-kennedylaan-32-h-amsterdam",
@@ -5648,7 +5662,7 @@
   "energielabel": "C",
   "bouwjaar": 1961,
   "servicekosten": 169.43,
-  "erfpacht": "",
+  "erfpacht": "Canon afgekocht t/m 01-08-2053",
   "status": "beschikbaar",
   "voorrangLabel": "nee",
   "voorJou": "nee",
@@ -5670,7 +5684,8 @@
   "funderingBodem": "Niet indeelbaar",
   "labelBron": "advertentie",
   "fotoGezocht": "2026-11",
-  "foto": "https://ikzoek.stadgenoot.nl/webcontent/images/68fb282c0f5ddf9a201c4f410a11bff1e2c9e98a?w=400&h=400"
+  "foto": "https://ikzoek.stadgenoot.nl/webcontent/images/68fb282c0f5ddf9a201c4f410a11bff1e2c9e98a?w=400&h=400",
+  "sgDetail": "2026-11-09"
  },
  {
   "id": "sg-ruysdaelkade-263-c-amsterdam",
@@ -5688,7 +5703,7 @@
   "energielabel": "C",
   "bouwjaar": 1922,
   "servicekosten": 180.86,
-  "erfpacht": "",
+  "erfpacht": "Canon afgekocht t/m 01-10-2054",
   "status": "beschikbaar",
   "voorrangLabel": "nee",
   "voorJou": "nee",
@@ -5710,7 +5725,8 @@
   "funderingBodem": "Niet indeelbaar",
   "labelBron": "advertentie",
   "fotoGezocht": "2026-11",
-  "foto": "https://ikzoek.stadgenoot.nl/webcontent/images/7fe30cdd0992d6fc98e28b0bff3c815e046918f3?w=400&h=400"
+  "foto": "https://ikzoek.stadgenoot.nl/webcontent/images/7fe30cdd0992d6fc98e28b0bff3c815e046918f3?w=400&h=400",
+  "sgDetail": "2026-11-09"
  },
  {
   "id": "sg-uiterwaardenstraat-74-2-amsterdam",
@@ -5728,7 +5744,7 @@
   "energielabel": "C",
   "bouwjaar": 1934,
   "servicekosten": 171.23,
-  "erfpacht": "",
+  "erfpacht": "Canon afgekocht t/m 01-04-2056",
   "status": "beschikbaar",
   "voorrangLabel": "nee",
   "voorJou": "nee",
@@ -5750,7 +5766,8 @@
   "funderingBodem": "Niet indeelbaar",
   "labelBron": "advertentie",
   "fotoGezocht": "2026-11",
-  "foto": "https://ikzoek.stadgenoot.nl/webcontent/images/83a66e9339a828b82aca9e7d6f62a9040b3c89e5?w=400&h=400"
+  "foto": "https://ikzoek.stadgenoot.nl/webcontent/images/83a66e9339a828b82aca9e7d6f62a9040b3c89e5?w=400&h=400",
+  "sgDetail": "2026-11-09"
  },
  {
   "id": "sg-voorsteven-28-amsterdam",
@@ -5768,7 +5785,7 @@
   "energielabel": "C",
   "bouwjaar": 1977,
   "servicekosten": 281.86,
-  "erfpacht": "",
+  "erfpacht": "Canon afgekocht t/m 01-07-2052",
   "status": "beschikbaar",
   "voorrangLabel": "nee",
   "voorJou": "nee",
@@ -5790,7 +5807,8 @@
   "funderingBodem": "Laagveengebied",
   "labelBron": "advertentie",
   "fotoGezocht": "2026-11",
-  "foto": "https://ikzoek.stadgenoot.nl/webcontent/images/b465f1ec2b85dadf75ece7fe6e2e39d323f08a7d?w=400&h=400"
+  "foto": "https://ikzoek.stadgenoot.nl/webcontent/images/b465f1ec2b85dadf75ece7fe6e2e39d323f08a7d?w=400&h=400",
+  "sgDetail": "2026-11-09"
  },
  {
   "id": "sg-wolbrantskerkweg-74-f-amsterdam",
@@ -5808,7 +5826,7 @@
   "energielabel": "A",
   "bouwjaar": 2004,
   "servicekosten": 313.1,
-  "erfpacht": "",
+  "erfpacht": "Canon afgekocht t/m 16-06-2052",
   "status": "beschikbaar",
   "voorrangLabel": "nee",
   "voorJou": "nee",
@@ -5830,6 +5848,7 @@
   "funderingBodem": "Niet indeelbaar",
   "labelBron": "advertentie",
   "fotoGezocht": "2026-11",
-  "foto": "https://ikzoek.stadgenoot.nl/webcontent/images/ac3fdc5a7b998d9ca82b06d76a32e7640af1dc78?w=400&h=400"
+  "foto": "https://ikzoek.stadgenoot.nl/webcontent/images/ac3fdc5a7b998d9ca82b06d76a32e7640af1dc78?w=400&h=400",
+  "sgDetail": "2026-11-09"
  }
 ]
