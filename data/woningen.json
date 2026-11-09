@@ -27,7 +27,15 @@
   "erfpacht": "Eigen grond",
   "tuin": "nee",
   "gezienOp": "2026-11-09",
-  "deadline": ""
+  "deadline": "",
+  "buurtcode": "KA05",
+  "buurt": "Aalsmeerwegbuurt-Oost",
+  "buurtWozM2": 9086,
+  "buurtWozJaar": 2026,
+  "funderingPc": "1059AB",
+  "fundering": "Stedelijk gebied - 80-100 %",
+  "funderingVoor1970": "100",
+  "funderingBodem": "Niet indeelbaar"
  },
  {
   "id": "aalsmeerweg-70-h",
@@ -57,7 +65,11 @@
   "lat": 52.34893,
   "erfpacht": "Canon afgekocht t/m 16-04-2063",
   "basis": true,
-  "eerstGezien": "2026-11-08"
+  "eerstGezien": "2026-11-08",
+  "buurtcode": "KA04",
+  "buurt": "Aalsmeerwegbuurt-West",
+  "buurtWozM2": 9334,
+  "buurtWozJaar": 2026
  },
  {
   "id": "admiraliteitstraat-21",
@@ -87,7 +99,11 @@
   "lat": 52.36861,
   "erfpacht": "Canon afgekocht t/m 01-02-2041",
   "basis": true,
-  "eerstGezien": "2026-11-08"
+  "eerstGezien": "2026-11-08",
+  "buurtcode": "AK04",
+  "buurt": "Oostenburg",
+  "buurtWozM2": 9144,
+  "buurtWozJaar": 2026
  },
  {
   "id": "baarsstraat-35-2",
@@ -117,7 +133,15 @@
   "erfpacht": "Canon afgekocht t/m 31-10-2061",
   "tuin": "nee",
   "gezienOp": "2026-11-09",
-  "deadline": ""
+  "deadline": "",
+  "buurtcode": "KB02",
+  "buurt": "Schinkelbuurt-Zuid",
+  "buurtWozM2": 8457,
+  "buurtWozJaar": 2026,
+  "funderingPc": "1053ET",
+  "fundering": "Stedelijk gebied - 0-20 %",
+  "funderingVoor1970": "0",
+  "funderingBodem": "Niet indeelbaar"
  },
  {
   "id": "baldwinstraat-27",
@@ -147,7 +171,15 @@
   "erfpacht": "Canon afgekocht t/m 28-02-3039",
   "tuin": "nee",
   "gezienOp": "2026-11-09",
-  "deadline": ""
+  "deadline": "",
+  "buurtcode": "FG01",
+  "buurt": "Middelveldsche Akerpolder",
+  "buurtWozM2": 5589,
+  "buurtWozJaar": 2026,
+  "funderingPc": "1075RV",
+  "fundering": "Stedelijk gebied - 80-100 %",
+  "funderingVoor1970": "83.33333333333334",
+  "funderingBodem": "Niet indeelbaar"
  },
  {
   "id": "bart-poesiatstraat-102",
@@ -177,7 +209,15 @@
   "erfpacht": "Canon afgekocht t/m 29-02-2076",
   "tuin": "nee",
   "gezienOp": "2026-11-09",
-  "deadline": ""
+  "deadline": "",
+  "buurtcode": "FJ04",
+  "buurt": "Zuidwestkwadrant-Zuid",
+  "buurtWozM2": 5125,
+  "buurtWozJaar": 2026,
+  "funderingPc": "1069SG",
+  "fundering": "Stedelijk gebied - 80-100 %",
+  "funderingVoor1970": "100",
+  "funderingBodem": "Niet indeelbaar"
  },
  {
   "id": "bart-poesiatstraat-128",
@@ -207,7 +247,15 @@
   "erfpacht": "Canon afgekocht t/m 29-02-2076",
   "tuin": "nee",
   "gezienOp": "2026-11-09",
-  "deadline": ""
+  "deadline": "",
+  "buurtcode": "FJ04",
+  "buurt": "Zuidwestkwadrant-Zuid",
+  "buurtWozM2": 5125,
+  "buurtWozJaar": 2026,
+  "funderingPc": "1069RN",
+  "fundering": "Stedelijk gebied - 80-100 %",
+  "funderingVoor1970": "100",
+  "funderingBodem": "Niet indeelbaar"
  },
  {
   "id": "bergmolen-27",
@@ -237,7 +285,15 @@
   "erfpacht": "Canon afgekocht t/m 15-07-2060",
   "tuin": "nee",
   "gezienOp": "2026-11-09",
-  "deadline": ""
+  "deadline": "",
+  "buurtcode": "NA07",
+  "buurt": "Molenwijk",
+  "buurtWozM2": 3969,
+  "buurtWozJaar": 2026,
+  "funderingPc": "1035BB",
+  "fundering": "Stedelijk gebied - 80-100 %",
+  "funderingVoor1970": "100",
+  "funderingBodem": "Niet indeelbaar"
  },
  {
   "id": "bergmolen-54",
@@ -267,7 +323,11 @@
   "lat": 52.41892,
   "erfpacht": "Canon afgekocht t/m 15-07-2060",
   "basis": true,
-  "eerstGezien": "2026-11-08"
+  "eerstGezien": "2026-11-08",
+  "buurtcode": "NA07",
+  "buurt": "Molenwijk",
+  "buurtWozM2": 3969,
+  "buurtWozJaar": 2026
  },
  {
   "id": "charlotte-brontéstraat-114",
@@ -297,7 +357,11 @@
   "lat": 52.32463,
   "erfpacht": "Canon afgekocht t/m 30-04-2034",
   "basis": true,
-  "eerstGezien": "2026-11-08"
+  "eerstGezien": "2026-11-08",
+  "buurtcode": "TB02",
+  "buurt": "Venserpolder-Oost",
+  "buurtWozM2": 5279,
+  "buurtWozJaar": 2026
  },
  {
   "id": "cornelis-trooststraat-56-2",
@@ -327,7 +391,11 @@
   "lat": 52.35054,
   "erfpacht": "Canon afgekocht t/m 30-09-2056",
   "basis": true,
-  "eerstGezien": "2026-11-08"
+  "eerstGezien": "2026-11-08",
+  "buurtcode": "KF01",
+  "buurt": "Cornelis Troostbuurt",
+  "buurtWozM2": 9467,
+  "buurtWozJaar": 2026
  },
  {
   "id": "dantestraat-82",
@@ -357,7 +425,11 @@
   "lat": 52.32602,
   "erfpacht": "Canon afgekocht t/m 30-11-2034",
   "basis": true,
-  "eerstGezien": "2026-11-08"
+  "eerstGezien": "2026-11-08",
+  "buurtcode": "TB02",
+  "buurt": "Venserpolder-Oost",
+  "buurtWozM2": 5279,
+  "buurtWozJaar": 2026
  },
  {
   "id": "dostojevskisingel-289",
@@ -387,7 +459,11 @@
   "lat": 52.32471,
   "erfpacht": "Canon afgekocht t/m 30-11-2034",
   "basis": true,
-  "eerstGezien": "2026-11-08"
+  "eerstGezien": "2026-11-08",
+  "buurtcode": "TB02",
+  "buurt": "Venserpolder-Oost",
+  "buurtWozM2": 5279,
+  "buurtWozJaar": 2026
  },
  {
   "id": "eduard-hellendoornstraat-15",
@@ -417,7 +493,11 @@
   "lat": 52.35163,
   "erfpacht": "Canon afgekocht t/m 15-09-2050",
   "basis": true,
-  "eerstGezien": "2026-11-08"
+  "eerstGezien": "2026-11-08",
+  "buurtcode": "FG01",
+  "buurt": "Middelveldsche Akerpolder",
+  "buurtWozM2": 5589,
+  "buurtWozJaar": 2026
  },
  {
   "id": "eerste-atjehstraat-9-a",
@@ -447,7 +527,15 @@
   "erfpacht": "Canon afgekocht t/m 30-04-2051",
   "tuin": "nee",
   "gezienOp": "2026-11-09",
-  "deadline": ""
+  "deadline": "",
+  "buurtcode": "MF02",
+  "buurt": "Timorpleinbuurt-Zuid",
+  "buurtWozM2": 8223,
+  "buurtWozJaar": 2026,
+  "funderingPc": "1094JX",
+  "fundering": "Stedelijk gebied - 0-20 %",
+  "funderingVoor1970": "0",
+  "funderingBodem": "Niet indeelbaar"
  },
  {
   "id": "elisabeth-boddaertstraat-111",
@@ -477,7 +565,15 @@
   "erfpacht": "Canon afgekocht t/m 15-04-2074",
   "tuin": "nee",
   "gezienOp": "2026-11-09",
-  "deadline": ""
+  "deadline": "",
+  "buurtcode": "FN04",
+  "buurt": "Staalmanbuurt",
+  "buurtWozM2": 6265,
+  "buurtWozJaar": 2026,
+  "funderingPc": "1076DK",
+  "fundering": "Stedelijk gebied - 80-100 %",
+  "funderingVoor1970": "100",
+  "funderingBodem": "Niet indeelbaar"
  },
  {
   "id": "gerard-doustraat-78-3a",
@@ -507,7 +603,15 @@
   "erfpacht": "Canon afgekocht t/m 15-04-2056",
   "tuin": "nee",
   "gezienOp": "2026-11-09",
-  "deadline": ""
+  "deadline": "",
+  "buurtcode": "KE04",
+  "buurt": "Sarphatiparkbuurt",
+  "buurtWozM2": 9254,
+  "buurtWozJaar": 2026,
+  "funderingPc": "1072VW",
+  "fundering": "Stedelijk gebied - 80-100 %",
+  "funderingVoor1970": "100",
+  "funderingBodem": "Niet indeelbaar"
  },
  {
   "id": "hestiastraat-79-h",
@@ -537,7 +641,15 @@
   "erfpacht": "Canon afgekocht t/m 15-12-2063",
   "tuin": "nee",
   "gezienOp": "2026-11-09",
-  "deadline": ""
+  "deadline": "",
+  "buurtcode": "KH02",
+  "buurt": "Olympisch Stadion e.o.",
+  "buurtWozM2": 8636,
+  "buurtWozJaar": 2026,
+  "funderingPc": "1076DK",
+  "fundering": "Stedelijk gebied - 80-100 %",
+  "funderingVoor1970": "100",
+  "funderingBodem": "Niet indeelbaar"
  },
  {
   "id": "jacob-van-lennepstraat-225",
@@ -567,7 +679,15 @@
   "erfpacht": "Canon afgekocht t/m 15-10-2040",
   "tuin": "nee",
   "gezienOp": "2026-11-09",
-  "deadline": ""
+  "deadline": "",
+  "buurtcode": "ES02",
+  "buurt": "Borgerbuurt",
+  "buurtWozM2": 8603,
+  "buurtWozJaar": 2026,
+  "funderingPc": "1094BE",
+  "fundering": "Stedelijk gebied - 0-20 %",
+  "funderingVoor1970": "0",
+  "funderingBodem": "Niet indeelbaar"
  },
  {
   "id": "javastraat-93-b",
@@ -597,7 +717,11 @@
   "lat": 52.36387,
   "erfpacht": "Canon afgekocht t/m 31-01-2039",
   "basis": true,
-  "eerstGezien": "2026-11-08"
+  "eerstGezien": "2026-11-08",
+  "buurtcode": "MF01",
+  "buurt": "Timorpleinbuurt-Noord",
+  "buurtWozM2": 8519,
+  "buurtWozJaar": 2026
  },
  {
   "id": "johan-huizingalaan-607-a",
@@ -627,7 +751,11 @@
   "lat": 52.35112,
   "erfpacht": "Canon afgekocht t/m 15-12-2072",
   "basis": true,
-  "eerstGezien": "2026-11-08"
+  "eerstGezien": "2026-11-08",
+  "buurtcode": "FN04",
+  "buurt": "Staalmanbuurt",
+  "buurtWozM2": 6265,
+  "buurtWozJaar": 2026
  },
  {
   "id": "johan-kernstraat-23",
@@ -657,7 +785,15 @@
   "erfpacht": "Canon afgekocht t/m 31-10-2072",
   "tuin": "nee",
   "gezienOp": "2026-11-09",
-  "deadline": ""
+  "deadline": "",
+  "buurtcode": "FL03",
+  "buurt": "Jacob Geelbuurt",
+  "buurtWozM2": 6184,
+  "buurtWozJaar": 2026,
+  "funderingPc": "1065VD",
+  "fundering": "Stedelijk gebied - 80-100 %",
+  "funderingVoor1970": "100",
+  "funderingBodem": "Niet indeelbaar"
  },
  {
   "id": "johannes-van-der-waalsstraat-20-2",
@@ -687,7 +823,11 @@
   "lat": 52.35109,
   "erfpacht": "Canon afgekocht t/m 31-03-2062",
   "basis": true,
-  "eerstGezien": "2026-11-08"
+  "eerstGezien": "2026-11-08",
+  "buurtcode": "MN03",
+  "buurt": "Middenmeer-Zuid",
+  "buurtWozM2": 8125,
+  "buurtWozJaar": 2026
  },
  {
   "postcode": "1098 PJ",
@@ -717,7 +857,15 @@
   "lon": 4.93984873,
   "eerstGezien": "2026-11-08",
   "gezienOp": "2026-11-09",
-  "basis": true
+  "basis": true,
+  "buurtcode": "MN03",
+  "buurt": "Middenmeer-Zuid",
+  "buurtWozM2": 8125,
+  "buurtWozJaar": 2026,
+  "funderingPc": "1098PJ",
+  "fundering": "Stedelijk gebied - 80-100 %",
+  "funderingVoor1970": "100",
+  "funderingBodem": "Niet indeelbaar"
  },
  {
   "id": "kinkerstraat-293-a",
@@ -747,7 +895,15 @@
   "erfpacht": "Canon afgekocht t/m 30-04-2044",
   "tuin": "nee",
   "gezienOp": "2026-11-09",
-  "deadline": ""
+  "deadline": "",
+  "buurtcode": "ES02",
+  "buurt": "Borgerbuurt",
+  "buurtWozM2": 8603,
+  "buurtWozJaar": 2026,
+  "funderingPc": "1098PJ",
+  "fundering": "Stedelijk gebied - 80-100 %",
+  "funderingVoor1970": "100",
+  "funderingBodem": "Niet indeelbaar"
  },
  {
   "id": "klaas-katerstraat-11",
@@ -777,7 +933,15 @@
   "erfpacht": "Canon afgekocht t/m 29-02-2076",
   "tuin": "nee",
   "gezienOp": "2026-11-09",
-  "deadline": ""
+  "deadline": "",
+  "buurtcode": "FJ04",
+  "buurt": "Zuidwestkwadrant-Zuid",
+  "buurtWozM2": 5125,
+  "buurtWozJaar": 2026,
+  "funderingPc": "1053JC",
+  "fundering": "Stedelijk gebied - 0-20 %",
+  "funderingVoor1970": "0",
+  "funderingBodem": "Niet indeelbaar"
  },
  {
   "id": "laan-der-hesperiden-14-2",
@@ -807,7 +971,15 @@
   "erfpacht": "Canon afgekocht t/m 15-12-2063",
   "tuin": "nee",
   "gezienOp": "2026-11-09",
-  "deadline": ""
+  "deadline": "",
+  "buurtcode": "KH02",
+  "buurt": "Olympisch Stadion e.o.",
+  "buurtWozM2": 8636,
+  "buurtWozJaar": 2026,
+  "funderingPc": "1069NH",
+  "fundering": "Kwetsbaar gebied - 0-20 %",
+  "funderingVoor1970": "0",
+  "funderingBodem": "Zeekleigebied"
  },
  {
   "id": "lutmastraat-12-c",
@@ -837,7 +1009,15 @@
   "erfpacht": "Canon afgekocht t/m 30-11-2036",
   "tuin": "nee",
   "gezienOp": "2026-11-09",
-  "deadline": ""
+  "deadline": "",
+  "buurtcode": "KF02",
+  "buurt": "Lizzy Ansinghbuurt",
+  "buurtWozM2": 9101,
+  "buurtWozJaar": 2026,
+  "funderingPc": "1072JR",
+  "fundering": "Stedelijk gebied - 0-20 %",
+  "funderingVoor1970": "0",
+  "funderingBodem": "Niet indeelbaar"
  },
  {
   "id": "m-gandhilaan-134",
@@ -867,7 +1047,11 @@
   "lat": 52.35365,
   "erfpacht": "Canon afgekocht t/m 28-02-2039",
   "basis": true,
-  "eerstGezien": "2026-11-08"
+  "eerstGezien": "2026-11-08",
+  "buurtcode": "FG01",
+  "buurt": "Middelveldsche Akerpolder",
+  "buurtWozM2": 5589,
+  "buurtWozJaar": 2026
  },
  {
   "id": "m-gandhilaan-136",
@@ -897,7 +1081,11 @@
   "lat": 52.35364,
   "erfpacht": "Canon afgekocht t/m 28-02-2039",
   "basis": true,
-  "eerstGezien": "2026-11-08"
+  "eerstGezien": "2026-11-08",
+  "buurtcode": "FG01",
+  "buurt": "Middelveldsche Akerpolder",
+  "buurtWozM2": 5589,
+  "buurtWozJaar": 2026
  },
  {
   "id": "madurastraat-107-1",
@@ -927,7 +1115,11 @@
   "lat": 52.36456,
   "erfpacht": "Canon afgekocht t/m 30-09-2054",
   "basis": true,
-  "eerstGezien": "2026-11-08"
+  "eerstGezien": "2026-11-08",
+  "buurtcode": "MF01",
+  "buurt": "Timorpleinbuurt-Noord",
+  "buurtWozM2": 8519,
+  "buurtWozJaar": 2026
  },
  {
   "id": "madurastraat-28-h",
@@ -957,7 +1149,11 @@
   "lat": 52.36416,
   "erfpacht": "Canon afgekocht t/m 30-09-2066",
   "basis": true,
-  "eerstGezien": "2026-11-08"
+  "eerstGezien": "2026-11-08",
+  "buurtcode": "MF01",
+  "buurt": "Timorpleinbuurt-Noord",
+  "buurtWozM2": 8519,
+  "buurtWozJaar": 2026
  },
  {
   "id": "mr-p-n-arntzeniusweg-7-h",
@@ -987,7 +1183,11 @@
   "lat": 52.35634,
   "erfpacht": "Canon afgekocht t/m 31-08-2063",
   "basis": true,
-  "eerstGezien": "2026-11-08"
+  "eerstGezien": "2026-11-08",
+  "buurtcode": "MN01",
+  "buurt": "Linnaeusparkbuurt",
+  "buurtWozM2": 9873,
+  "buurtWozJaar": 2026
  },
  {
   "id": "riouwstraat-43-d",
@@ -1017,7 +1217,15 @@
   "erfpacht": "Canon afgekocht t/m 15-02-2039",
   "tuin": "nee",
   "gezienOp": "2026-11-09",
-  "deadline": ""
+  "deadline": "",
+  "buurtcode": "MF02",
+  "buurt": "Timorpleinbuurt-Zuid",
+  "buurtWozM2": 8223,
+  "buurtWozJaar": 2026,
+  "funderingPc": "1094XE",
+  "fundering": "Stedelijk gebied - 0-20 %",
+  "funderingVoor1970": "20",
+  "funderingBodem": "Niet indeelbaar"
  },
  {
   "id": "riouwstraat-87-c",
@@ -1047,7 +1255,15 @@
   "erfpacht": "Canon afgekocht t/m 15-12-2035",
   "tuin": "nee",
   "gezienOp": "2026-11-09",
-  "deadline": ""
+  "deadline": "",
+  "buurtcode": "MF02",
+  "buurt": "Timorpleinbuurt-Zuid",
+  "buurtWozM2": 8223,
+  "buurtWozJaar": 2026,
+  "funderingPc": "1094XK",
+  "fundering": "Stedelijk gebied - 20-40 %",
+  "funderingVoor1970": "33.33333333333333",
+  "funderingBodem": "Niet indeelbaar"
  },
  {
   "id": "rupelmonde-66",
@@ -1077,7 +1293,11 @@
   "lat": 52.32848,
   "erfpacht": "Canon afgekocht t/m 28-02-2035",
   "basis": true,
-  "eerstGezien": "2026-11-08"
+  "eerstGezien": "2026-11-08",
+  "buurtcode": "KQ05",
+  "buurt": "Buitenveldert-Zuidwest",
+  "buurtWozM2": 8046,
+  "buurtWozJaar": 2026
  },
  {
   "id": "sassenheimstraat-92-3",
@@ -1107,7 +1327,11 @@
   "lat": 52.34885,
   "erfpacht": "Canon afgekocht t/m 31-03-2063",
   "basis": true,
-  "eerstGezien": "2026-11-08"
+  "eerstGezien": "2026-11-08",
+  "buurtcode": "KA04",
+  "buurt": "Aalsmeerwegbuurt-West",
+  "buurtWozM2": 9334,
+  "buurtWozJaar": 2026
  },
  {
   "id": "soendastraat-24-3",
@@ -1137,7 +1361,15 @@
   "erfpacht": "Canon afgekocht t/m 30-09-2056",
   "tuin": "nee",
   "gezienOp": "2026-11-09",
-  "deadline": ""
+  "deadline": "",
+  "buurtcode": "MF01",
+  "buurt": "Timorpleinbuurt-Noord",
+  "buurtWozM2": 8519,
+  "buurtWozJaar": 2026,
+  "funderingPc": "1094BH",
+  "fundering": "Stedelijk gebied - 80-100 %",
+  "funderingVoor1970": "100",
+  "funderingBodem": "Niet indeelbaar"
  },
  {
   "id": "soendastraat-65",
@@ -1167,7 +1399,15 @@
   "erfpacht": "Canon afgekocht t/m 15-05-2067",
   "tuin": "nee",
   "gezienOp": "2026-11-09",
-  "deadline": "2026-10-13"
+  "deadline": "2026-10-13",
+  "buurtcode": "MF01",
+  "buurt": "Timorpleinbuurt-Noord",
+  "buurtWozM2": 8519,
+  "buurtWozJaar": 2026,
+  "funderingPc": "1066BG",
+  "fundering": "Stedelijk gebied - 0-20 %",
+  "funderingVoor1970": "15.789473684210526",
+  "funderingBodem": "Niet indeelbaar"
  },
  {
   "id": "spinnekop-14",
@@ -1197,7 +1437,15 @@
   "erfpacht": "",
   "tuin": "nee",
   "gezienOp": "2026-11-09",
-  "deadline": ""
+  "deadline": "",
+  "buurtcode": "NA07",
+  "buurt": "Molenwijk",
+  "buurtWozM2": 3969,
+  "buurtWozJaar": 2026,
+  "funderingPc": "1035CK",
+  "fundering": "Stedelijk gebied - 0-20 %",
+  "funderingVoor1970": "0",
+  "funderingBodem": "Niet indeelbaar"
  },
  {
   "id": "statenjachtstraat-406",
@@ -1227,7 +1475,11 @@
   "lat": 52.40586,
   "erfpacht": "Canon afgekocht t/m 15-10-2059",
   "basis": true,
-  "eerstGezien": "2026-11-08"
+  "eerstGezien": "2026-11-08",
+  "buurtcode": "NE04",
+  "buurt": "Banne-Zuidoost",
+  "buurtWozM2": 6114,
+  "buurtWozJaar": 2026
  },
  {
   "id": "statenjachtstraat-486",
@@ -1257,7 +1509,11 @@
   "lat": 52.40582,
   "erfpacht": "Canon afgekocht t/m 15-10-2059",
   "basis": true,
-  "eerstGezien": "2026-11-08"
+  "eerstGezien": "2026-11-08",
+  "buurtcode": "NE04",
+  "buurt": "Banne-Zuidoost",
+  "buurtWozM2": 6114,
+  "buurtWozJaar": 2026
  },
  {
   "id": "wamelplein-132",
@@ -1287,7 +1543,15 @@
   "erfpacht": "Canon afgekocht t/m 30-09-2033",
   "tuin": "nee",
   "gezienOp": "2026-11-09",
-  "deadline": ""
+  "deadline": "",
+  "buurtcode": "TM01",
+  "buurt": "Gein 1",
+  "buurtWozM2": 4610,
+  "buurtWozJaar": 2026,
+  "funderingPc": "1106DS",
+  "fundering": "Kwetsbaar gebied - 0-20 %",
+  "funderingVoor1970": "0",
+  "funderingBodem": "Laagveengebied"
  },
  {
   "id": "waterpoortweg-441",
@@ -1317,7 +1581,15 @@
   "erfpacht": "Canon afgekocht t/m 30-09-2047",
   "tuin": "nee",
   "gezienOp": "2026-11-09",
-  "deadline": ""
+  "deadline": "",
+  "buurtcode": "EG02",
+  "buurt": "GWL-terrein",
+  "buurtWozM2": 7702,
+  "buurtWozJaar": 2026,
+  "funderingPc": "1051PZ",
+  "fundering": "Stedelijk gebied - 0-20 %",
+  "funderingVoor1970": "0",
+  "funderingBodem": "Niet indeelbaar"
  },
  {
   "id": "weteringschans-60-a",
@@ -1347,7 +1619,15 @@
   "erfpacht": "Canon afgekocht t/m 15-05-2036",
   "tuin": "nee",
   "gezienOp": "2026-11-09",
-  "deadline": ""
+  "deadline": "",
+  "buurtcode": "AH07",
+  "buurt": "Den Texbuurt",
+  "buurtWozM2": 10539,
+  "buurtWozJaar": 2026,
+  "funderingPc": "1017SH",
+  "fundering": "Stedelijk gebied - 60-80 %",
+  "funderingVoor1970": "80",
+  "funderingBodem": "Niet indeelbaar"
  },
  {
   "id": "amerbos-73-1025xz",
@@ -1377,7 +1657,15 @@
   "lat": 52.40319,
   "erfpacht": "",
   "basis": true,
-  "eerstGezien": "2026-11-08"
+  "eerstGezien": "2026-11-08",
+  "buurtcode": "NH01",
+  "buurt": "Buikslotermeer-Noord",
+  "buurtWozM2": 5519,
+  "buurtWozJaar": 2026,
+  "funderingPc": "1025XZ",
+  "fundering": "Kwetsbaar gebied - 0-20 %",
+  "funderingVoor1970": "0",
+  "funderingBodem": "Laagveengebied"
  },
  {
   "id": "blasiusstraat-26-h-1091cs",
@@ -1407,7 +1695,15 @@
   "lat": 52.35631,
   "erfpacht": "",
   "basis": true,
-  "eerstGezien": "2026-11-08"
+  "eerstGezien": "2026-11-08",
+  "buurtcode": "MB01",
+  "buurt": "Weesperzijde-Noord",
+  "buurtWozM2": 9506,
+  "buurtWozJaar": 2026,
+  "funderingPc": "1091CS",
+  "fundering": "Stedelijk gebied - 80-100 %",
+  "funderingVoor1970": "100",
+  "funderingBodem": "Niet indeelbaar"
  },
  {
   "id": "deymanstraat-28-1091se",
@@ -1437,7 +1733,15 @@
   "lat": 52.35762,
   "erfpacht": "Canon afgekocht t/m 16-04-2039",
   "basis": true,
-  "eerstGezien": "2026-11-08"
+  "eerstGezien": "2026-11-08",
+  "buurtcode": "MB01",
+  "buurt": "Weesperzijde-Noord",
+  "buurtWozM2": 9506,
+  "buurtWozJaar": 2026,
+  "funderingPc": "1091SE",
+  "fundering": "Stedelijk gebied - 40-60 %",
+  "funderingVoor1970": "55.55555555555556",
+  "funderingBodem": "Niet indeelbaar"
  },
  {
   "id": "dickenslaan-160-1102zw",
@@ -1467,7 +1771,15 @@
   "lat": 52.32373,
   "erfpacht": "",
   "basis": true,
-  "eerstGezien": "2026-11-08"
+  "eerstGezien": "2026-11-08",
+  "buurtcode": "TB02",
+  "buurt": "Venserpolder-Oost",
+  "buurtWozM2": 5279,
+  "buurtWozJaar": 2026,
+  "funderingPc": "1102ZW",
+  "fundering": "Kwetsbaar gebied - 0-20 %",
+  "funderingVoor1970": "0",
+  "funderingBodem": "Laagveengebied"
  },
  {
   "id": "dostojevskisingel-35-1102xj",
@@ -1497,7 +1809,15 @@
   "lat": 52.32327,
   "erfpacht": "Canon afgekocht t/m 31-01-2035",
   "basis": true,
-  "eerstGezien": "2026-11-08"
+  "eerstGezien": "2026-11-08",
+  "buurtcode": "TB02",
+  "buurt": "Venserpolder-Oost",
+  "buurtWozM2": 5279,
+  "buurtWozJaar": 2026,
+  "funderingPc": "1102XJ",
+  "fundering": "Kwetsbaar gebied - 0-20 %",
+  "funderingVoor1970": "0",
+  "funderingBodem": "Laagveengebied"
  },
  {
   "id": "h-cleyndertweg-587-1025dx",
@@ -1527,7 +1847,15 @@
   "lat": 52.40352,
   "erfpacht": "Canon afgekocht t/m 31-12-2049",
   "basis": true,
-  "eerstGezien": "2026-11-08"
+  "eerstGezien": "2026-11-08",
+  "buurtcode": "NH01",
+  "buurt": "Buikslotermeer-Noord",
+  "buurtWozM2": 5519,
+  "buurtWozJaar": 2026,
+  "funderingPc": "1025DX",
+  "fundering": "Stedelijk gebied - 0-20 %",
+  "funderingVoor1970": "0",
+  "funderingBodem": "Niet indeelbaar"
  },
  {
   "id": "jan-mankesstraat-15-2-1061st",
@@ -1557,7 +1885,15 @@
   "lat": 52.36489,
   "erfpacht": "Canon afgekocht t/m 31-10-2061",
   "basis": true,
-  "eerstGezien": "2026-11-08"
+  "eerstGezien": "2026-11-08",
+  "buurtcode": "FM02",
+  "buurt": "Overtoomse Veld-Noord",
+  "buurtWozM2": 6313,
+  "buurtWozJaar": 2026,
+  "funderingPc": "1061ST",
+  "fundering": "Stedelijk gebied - 60-80 %",
+  "funderingVoor1970": "75",
+  "funderingBodem": "Niet indeelbaar"
  },
  {
   "id": "jan-tooropstraat-116-3-1061ac",
@@ -1587,7 +1923,15 @@
   "lat": 52.36516,
   "erfpacht": "Canon afgekocht t/m 31-10-2061",
   "basis": true,
-  "eerstGezien": "2026-11-08"
+  "eerstGezien": "2026-11-08",
+  "buurtcode": "FM02",
+  "buurt": "Overtoomse Veld-Noord",
+  "buurtWozM2": 6313,
+  "buurtWozJaar": 2026,
+  "funderingPc": "1061AC",
+  "fundering": "Stedelijk gebied - 80-100 %",
+  "funderingVoor1970": "100",
+  "funderingBodem": "Niet indeelbaar"
  },
  {
   "postcode": "1067 MN",
@@ -1617,7 +1961,15 @@
   "lon": 4.8010037,
   "eerstGezien": "2026-11-08",
   "gezienOp": "2026-11-09",
-  "basis": true
+  "basis": true,
+  "buurtcode": "FB06",
+  "buurt": "Dudokbuurt",
+  "buurtWozM2": 5206,
+  "buurtWozJaar": 2026,
+  "funderingPc": "1067MN",
+  "fundering": "Stedelijk gebied - 0-20 %",
+  "funderingVoor1970": "9.090909090909092",
+  "funderingBodem": "Niet indeelbaar"
  },
  {
   "postcode": "1067 MN",
@@ -1647,7 +1999,15 @@
   "lon": 4.80093553,
   "eerstGezien": "2026-11-08",
   "gezienOp": "2026-11-09",
-  "basis": true
+  "basis": true,
+  "buurtcode": "FB06",
+  "buurt": "Dudokbuurt",
+  "buurtWozM2": 5206,
+  "buurtWozJaar": 2026,
+  "funderingPc": "1067MN",
+  "fundering": "Stedelijk gebied - 0-20 %",
+  "funderingVoor1970": "9.090909090909092",
+  "funderingBodem": "Niet indeelbaar"
  },
  {
   "id": "kleine-wittenburgerstraat-2-e-1018lv",
@@ -1677,7 +2037,15 @@
   "lat": 52.36982,
   "erfpacht": "",
   "basis": true,
-  "eerstGezien": "2026-11-08"
+  "eerstGezien": "2026-11-08",
+  "buurtcode": "AK03",
+  "buurt": "Wittenburg",
+  "buurtWozM2": 7603,
+  "buurtWozJaar": 2026,
+  "funderingPc": "1018LV",
+  "fundering": "Stedelijk gebied - 20-40 %",
+  "funderingVoor1970": "33.33333333333333",
+  "funderingBodem": "Niet indeelbaar"
  },
  {
   "id": "le-mairekade-125-1013cc",
@@ -1707,7 +2075,15 @@
   "lat": 52.38941,
   "erfpacht": "",
   "basis": true,
-  "eerstGezien": "2026-11-08"
+  "eerstGezien": "2026-11-08",
+  "buurtcode": "EB07",
+  "buurt": "Spaarndammerbuurt-Noordoost",
+  "buurtWozM2": 7795,
+  "buurtWozJaar": 2026,
+  "funderingPc": "1013CC",
+  "fundering": "Stedelijk gebied - 0-20 %",
+  "funderingVoor1970": "0",
+  "funderingBodem": "Niet indeelbaar"
  },
  {
   "id": "le-mairekade-163-1013cc",
@@ -1737,7 +2113,15 @@
   "lat": 52.38944,
   "erfpacht": "Canon afgekocht t/m 15-06-2035",
   "basis": true,
-  "eerstGezien": "2026-11-08"
+  "eerstGezien": "2026-11-08",
+  "buurtcode": "EB07",
+  "buurt": "Spaarndammerbuurt-Noordoost",
+  "buurtWozM2": 7795,
+  "buurtWozJaar": 2026,
+  "funderingPc": "1013CC",
+  "fundering": "Stedelijk gebied - 0-20 %",
+  "funderingVoor1970": "0",
+  "funderingBodem": "Niet indeelbaar"
  },
  {
   "id": "loenermark-583-1025tz",
@@ -1767,7 +2151,15 @@
   "lat": 52.39961,
   "erfpacht": "Canon afgekocht t/m 15-09-2053",
   "basis": true,
-  "eerstGezien": "2026-11-08"
+  "eerstGezien": "2026-11-08",
+  "buurtcode": "NH03",
+  "buurt": "Loenermark",
+  "buurtWozM2": 5659,
+  "buurtWozJaar": 2026,
+  "funderingPc": "1025TZ",
+  "fundering": "Stedelijk gebied - 0-20 %",
+  "funderingVoor1970": "0",
+  "funderingBodem": "Niet indeelbaar"
  },
  {
   "id": "martin-vlaarkade-77-1013cs",
@@ -1797,7 +2189,15 @@
   "lat": 52.38857,
   "erfpacht": "",
   "basis": true,
-  "eerstGezien": "2026-11-08"
+  "eerstGezien": "2026-11-08",
+  "buurtcode": "EB10",
+  "buurt": "Spaarndammerbuurt-Zuidoost",
+  "buurtWozM2": 8568,
+  "buurtWozJaar": 2026,
+  "funderingPc": "1013CS",
+  "fundering": "Stedelijk gebied - 20-40 %",
+  "funderingVoor1970": "33.33333333333333",
+  "funderingBodem": "Niet indeelbaar"
  },
  {
   "id": "mauritskade-100-2-1093rr",
@@ -1827,7 +2227,15 @@
   "lat": 52.36486,
   "erfpacht": "Canon afgekocht t/m 15-05-2059",
   "basis": true,
-  "eerstGezien": "2026-11-08"
+  "eerstGezien": "2026-11-08",
+  "buurtcode": "ME01",
+  "buurt": "Dapperbuurt-Noord",
+  "buurtWozM2": 8053,
+  "buurtWozJaar": 2026,
+  "funderingPc": "1093RR",
+  "fundering": "Stedelijk gebied - 80-100 %",
+  "funderingVoor1970": "100",
+  "funderingBodem": "Niet indeelbaar"
  },
  {
   "id": "nova-zemblastraat-249-1013rj",
@@ -1857,7 +2265,15 @@
   "lat": 52.39013,
   "erfpacht": "",
   "basis": true,
-  "eerstGezien": "2026-11-08"
+  "eerstGezien": "2026-11-08",
+  "buurtcode": "EB07",
+  "buurt": "Spaarndammerbuurt-Noordoost",
+  "buurtWozM2": 7795,
+  "buurtWozJaar": 2026,
+  "funderingPc": "1013RJ",
+  "fundering": "Stedelijk gebied - 0-20 %",
+  "funderingVoor1970": "13.333333333333334",
+  "funderingBodem": "Niet indeelbaar"
  },
  {
   "id": "oeverpad-255-1068pj",
@@ -1887,7 +2303,15 @@
   "lat": 52.36437,
   "erfpacht": "Canon afgekocht t/m 01-09-1996",
   "basis": true,
-  "eerstGezien": "2026-11-08"
+  "eerstGezien": "2026-11-08",
+  "buurtcode": "FK02",
+  "buurt": "Meer en Oever",
+  "buurtWozM2": 5188,
+  "buurtWozJaar": 2026,
+  "funderingPc": "1068PJ",
+  "fundering": "Stedelijk gebied - 40-60 %",
+  "funderingVoor1970": "50",
+  "funderingBodem": "Niet indeelbaar"
  },
  {
   "id": "piet-mondriaanstraat-107-3-1061tp",
@@ -1917,7 +2341,15 @@
   "lat": 52.3658,
   "erfpacht": "Canon afgekocht t/m 31-10-2061",
   "basis": true,
-  "eerstGezien": "2026-11-08"
+  "eerstGezien": "2026-11-08",
+  "buurtcode": "FM02",
+  "buurt": "Overtoomse Veld-Noord",
+  "buurtWozM2": 6313,
+  "buurtWozJaar": 2026,
+  "funderingPc": "1061TP",
+  "fundering": "Stedelijk gebied - 80-100 %",
+  "funderingVoor1970": "100",
+  "funderingBodem": "Niet indeelbaar"
  },
  {
   "postcode": "1107 JK",
@@ -1947,7 +2379,15 @@
   "lon": 4.98016158,
   "eerstGezien": "2026-11-08",
   "gezienOp": "2026-11-09",
-  "basis": true
+  "basis": true,
+  "buurtcode": "TL02",
+  "buurt": "Reigersbos 2",
+  "buurtWozM2": 4655,
+  "buurtWozJaar": 2026,
+  "funderingPc": "1107JK",
+  "fundering": "Kwetsbaar gebied - 0-20 %",
+  "funderingVoor1970": "0",
+  "funderingBodem": "Laagveengebied"
  },
  {
   "id": "soesterberghof-36-1107gn",
@@ -1977,7 +2417,15 @@
   "lat": 52.29532,
   "erfpacht": "Canon afgekocht t/m 16-08-2032",
   "basis": true,
-  "eerstGezien": "2026-11-08"
+  "eerstGezien": "2026-11-08",
+  "buurtcode": "TL02",
+  "buurt": "Reigersbos 2",
+  "buurtWozM2": 4655,
+  "buurtWozJaar": 2026,
+  "funderingPc": "1107GN",
+  "fundering": "Kwetsbaar gebied - 0-20 %",
+  "funderingVoor1970": "0",
+  "funderingBodem": "Laagveengebied"
  },
  {
   "id": "spaarndammerstraat-65-2-1013ta",
@@ -2007,7 +2455,15 @@
   "lat": 52.38946,
   "erfpacht": "",
   "basis": true,
-  "eerstGezien": "2026-11-08"
+  "eerstGezien": "2026-11-08",
+  "buurtcode": "EB06",
+  "buurt": "Spaarndammerbuurt-Zuidwest",
+  "buurtWozM2": 8410,
+  "buurtWozJaar": 2026,
+  "funderingPc": "1013TA",
+  "fundering": "Stedelijk gebied - 80-100 %",
+  "funderingVoor1970": "100",
+  "funderingBodem": "Niet indeelbaar"
  },
  {
   "id": "vasco-da-gamastraat-40-h-1057vm",
@@ -2037,7 +2493,15 @@
   "lat": 52.36779,
   "erfpacht": "Canon afgekocht t/m 16-04-2063",
   "basis": true,
-  "eerstGezien": "2026-11-08"
+  "eerstGezien": "2026-11-08",
+  "buurtcode": "EM04",
+  "buurt": "Columbusplein e.o.",
+  "buurtWozM2": 8721,
+  "buurtWozJaar": 2026,
+  "funderingPc": "1057VM",
+  "fundering": "Stedelijk gebied - 80-100 %",
+  "funderingVoor1970": "100",
+  "funderingBodem": "Niet indeelbaar"
  },
  {
   "id": "wagenaarstraat-483-1093cn",
@@ -2067,7 +2531,15 @@
   "lat": 52.36384,
   "erfpacht": "",
   "basis": true,
-  "eerstGezien": "2026-11-08"
+  "eerstGezien": "2026-11-08",
+  "buurtcode": "ME01",
+  "buurt": "Dapperbuurt-Noord",
+  "buurtWozM2": 8053,
+  "buurtWozJaar": 2026,
+  "funderingPc": "1093CN",
+  "fundering": "Stedelijk gebied - 80-100 %",
+  "funderingVoor1970": "85.71428571428571",
+  "funderingBodem": "Niet indeelbaar"
  },
  {
   "id": "ward-bingleystraat-15-h-1065tj",
@@ -2097,7 +2569,15 @@
   "lat": 52.35441,
   "erfpacht": "Canon afgekocht t/m 30-11-2054",
   "basis": true,
-  "eerstGezien": "2026-11-08"
+  "eerstGezien": "2026-11-08",
+  "buurtcode": "FN02",
+  "buurt": "Jacques Veltmanbuurt",
+  "buurtWozM2": 6606,
+  "buurtWozJaar": 2026,
+  "funderingPc": "1065TJ",
+  "fundering": "Stedelijk gebied - 80-100 %",
+  "funderingVoor1970": "100",
+  "funderingBodem": "Niet indeelbaar"
  },
  {
   "id": "wethouder-ramstraat-16-1107cn",
@@ -2127,7 +2607,15 @@
   "lat": 52.2929,
   "erfpacht": "Canon afgekocht t/m 31-08-2035",
   "basis": true,
-  "eerstGezien": "2026-11-08"
+  "eerstGezien": "2026-11-08",
+  "buurtcode": "TM04",
+  "buurt": "Gein 4",
+  "buurtWozM2": 5533,
+  "buurtWozJaar": 2026,
+  "funderingPc": "1107CN",
+  "fundering": "Kwetsbaar gebied - 0-20 %",
+  "funderingVoor1970": "0",
+  "funderingBodem": "Laagveengebied"
  },
  {
   "id": "sg-aardbeistraat-16-amsterdam",
@@ -2156,7 +2644,15 @@
   "gezienOp": "2026-11-09",
   "eerstGezien": "2026-11-08",
   "lat": 52.41160024,
-  "lon": 4.89858192
+  "lon": 4.89858192,
+  "buurtcode": "NC03",
+  "buurt": "Terrasdorp",
+  "buurtWozM2": 6199,
+  "buurtWozJaar": 2026,
+  "funderingPc": "1033TT",
+  "fundering": "Stedelijk gebied - 80-100 %",
+  "funderingVoor1970": "100",
+  "funderingBodem": "Niet indeelbaar"
  },
  {
   "id": "sg-balboaplein-18-amsterdam",
@@ -2185,7 +2681,15 @@
   "gezienOp": "2026-11-09",
   "eerstGezien": "2026-11-08",
   "lat": 52.36890602,
-  "lon": 4.85619196
+  "lon": 4.85619196,
+  "buurtcode": "EM02",
+  "buurt": "Balboaplein e.o.",
+  "buurtWozM2": 8398,
+  "buurtWozJaar": 2026,
+  "funderingPc": "1057VS",
+  "fundering": "Stedelijk gebied - 60-80 %",
+  "funderingVoor1970": "66.66666666666666",
+  "funderingBodem": "Niet indeelbaar"
  },
  {
   "id": "sg-bilderdijkstraat-176-3-amsterdam",
@@ -2214,7 +2718,15 @@
   "gezienOp": "2026-11-09",
   "eerstGezien": "2026-11-08",
   "lat": 52.36683742,
-  "lon": 4.87214728
+  "lon": 4.87214728,
+  "buurtcode": "ES03",
+  "buurt": "Da Costabuurt-Zuid",
+  "buurtWozM2": 9679,
+  "buurtWozJaar": 2026,
+  "funderingPc": "1053LD",
+  "fundering": "Stedelijk gebied - 80-100 %",
+  "funderingVoor1970": "100",
+  "funderingBodem": "Niet indeelbaar"
  },
  {
   "id": "sg-bos-en-lommerplantsoen-17-s-amsterdam",
@@ -2243,7 +2755,15 @@
   "gezienOp": "2026-11-09",
   "eerstGezien": "2026-11-08",
   "lat": 52.37691487,
-  "lon": 4.84450057
+  "lon": 4.84450057,
+  "buurtcode": "ED04",
+  "buurt": "Robert Scottbuurt-West",
+  "buurtWozM2": 7539,
+  "buurtWozJaar": 2026,
+  "funderingPc": "1055AA",
+  "fundering": "Stedelijk gebied - 80-100 %",
+  "funderingVoor1970": "100",
+  "funderingBodem": "Niet indeelbaar"
  },
  {
   "id": "sg-brinkstraat-119-amsterdam",
@@ -2272,7 +2792,15 @@
   "gezienOp": "2026-11-09",
   "eerstGezien": "2026-11-08",
   "lat": 52.34131919,
-  "lon": 4.94499185
+  "lon": 4.94499185,
+  "buurtcode": "MP03",
+  "buurt": "Betondorp",
+  "buurtWozM2": 7684,
+  "buurtWozJaar": 2026,
+  "funderingPc": "1097VK",
+  "fundering": "Stedelijk gebied - 80-100 %",
+  "funderingVoor1970": "100",
+  "funderingBodem": "Niet indeelbaar"
  },
  {
   "id": "sg-corversbosstraat-83-amsterdam",
@@ -2301,7 +2829,15 @@
   "gezienOp": "2026-11-09",
   "eerstGezien": "2026-11-08",
   "lat": 52.39148247,
-  "lon": 4.96050435
+  "lon": 4.96050435,
+  "buurtcode": "NJ03",
+  "buurt": "Markengouw-Zuid",
+  "buurtWozM2": 5452,
+  "buurtWozJaar": 2026,
+  "funderingPc": "1024KK",
+  "fundering": "Stedelijk gebied - 80-100 %",
+  "funderingVoor1970": "100",
+  "funderingBodem": "Niet indeelbaar"
  },
  {
   "id": "sg-eerste-constantijn-huygensstraat-54-f-amsterdam",
@@ -2330,7 +2866,15 @@
   "gezienOp": "2026-11-09",
   "eerstGezien": "2026-11-08",
   "lat": 52.36405857,
-  "lon": 4.87383856
+  "lon": 4.87383856,
+  "buurtcode": "EU02",
+  "buurt": "WG-terrein",
+  "buurtWozM2": 9976,
+  "buurtWozJaar": 2026,
+  "funderingPc": "1054BR",
+  "fundering": "Stedelijk gebied - 40-60 %",
+  "funderingVoor1970": "50",
+  "funderingBodem": "Niet indeelbaar"
  },
  {
   "id": "sg-eerste-oosterparkstraat-174-e-amsterdam",
@@ -2359,7 +2903,15 @@
   "gezienOp": "2026-11-09",
   "eerstGezien": "2026-11-08",
   "lat": 52.35729122,
-  "lon": 4.9149603
+  "lon": 4.9149603,
+  "buurtcode": "MC03",
+  "buurt": "Oosterparkbuurt-Zuidwest",
+  "buurtWozM2": 8535,
+  "buurtWozJaar": 2026,
+  "funderingPc": "1091HJ",
+  "fundering": "Stedelijk gebied - 0-20 %",
+  "funderingVoor1970": "0",
+  "funderingBodem": "Niet indeelbaar"
  },
  {
   "id": "sg-kennemerduinstraat-10-amsterdam",
@@ -2388,7 +2940,15 @@
   "gezienOp": "2026-11-09",
   "eerstGezien": "2026-11-08",
   "lat": 52.3950457,
-  "lon": 4.95421135
+  "lon": 4.95421135,
+  "buurtcode": "NJ05",
+  "buurt": "Werengouw-Midden",
+  "buurtWozM2": 5589,
+  "buurtWozJaar": 2026,
+  "funderingPc": "1024XA",
+  "fundering": "Stedelijk gebied - 60-80 %",
+  "funderingVoor1970": "75",
+  "funderingBodem": "Niet indeelbaar"
  },
  {
   "id": "sg-kouterstraat-4-amsterdam",
@@ -2417,7 +2977,15 @@
   "gezienOp": "2026-11-09",
   "eerstGezien": "2026-11-08",
   "lat": 52.34079838,
-  "lon": 4.9499568
+  "lon": 4.9499568,
+  "buurtcode": "MP03",
+  "buurt": "Betondorp",
+  "buurtWozM2": 7684,
+  "buurtWozJaar": 2026,
+  "funderingPc": "1097WK",
+  "fundering": "Stedelijk gebied - 80-100 %",
+  "funderingVoor1970": "100",
+  "funderingBodem": "Niet indeelbaar"
  },
  {
   "id": "sg-middenweg-410-amsterdam",
@@ -2446,7 +3014,15 @@
   "gezienOp": "2026-11-09",
   "eerstGezien": "2026-11-08",
   "lat": 52.34273107,
-  "lon": 4.94761919
+  "lon": 4.94761919,
+  "buurtcode": "MP03",
+  "buurt": "Betondorp",
+  "buurtWozM2": 7684,
+  "buurtWozJaar": 2026,
+  "funderingPc": "1097VB",
+  "fundering": "Stedelijk gebied - 80-100 %",
+  "funderingVoor1970": "100",
+  "funderingBodem": "Niet indeelbaar"
  },
  {
   "id": "sg-pienemanstraat-9-amsterdam",
@@ -2475,7 +3051,15 @@
   "gezienOp": "2026-11-09",
   "eerstGezien": "2026-11-08",
   "lat": 52.34930334,
-  "lon": 4.88918495
+  "lon": 4.88918495,
+  "buurtcode": "KF01",
+  "buurt": "Cornelis Troostbuurt",
+  "buurtWozM2": 9467,
+  "buurtWozJaar": 2026,
+  "funderingPc": "1072KE",
+  "fundering": "Stedelijk gebied - 80-100 %",
+  "funderingVoor1970": "100",
+  "funderingBodem": "Niet indeelbaar"
  },
  {
   "id": "sg-ploegstraat-179-amsterdam",
@@ -2504,7 +3088,15 @@
   "gezienOp": "2026-11-09",
   "eerstGezien": "2026-11-08",
   "lat": 52.34071499,
-  "lon": 4.94928262
+  "lon": 4.94928262,
+  "buurtcode": "MP03",
+  "buurt": "Betondorp",
+  "buurtWozM2": 7684,
+  "buurtWozJaar": 2026,
+  "funderingPc": "1097WE",
+  "fundering": "Stedelijk gebied - 80-100 %",
+  "funderingVoor1970": "100",
+  "funderingBodem": "Niet indeelbaar"
  },
  {
   "id": "sg-postjeskade-8-2-amsterdam",
@@ -2533,7 +3125,15 @@
   "gezienOp": "2026-11-09",
   "eerstGezien": "2026-11-08",
   "lat": 52.36373847,
-  "lon": 4.8522898
+  "lon": 4.8522898,
+  "buurtcode": "EM03",
+  "buurt": "Orteliusbuurt-Zuid",
+  "buurtWozM2": 8973,
+  "buurtWozJaar": 2026,
+  "funderingPc": "1057DR",
+  "fundering": "Stedelijk gebied - 80-100 %",
+  "funderingVoor1970": "100",
+  "funderingBodem": "Niet indeelbaar"
  },
  {
   "id": "sg-president-kennedylaan-32-h-amsterdam",
@@ -2562,7 +3162,15 @@
   "gezienOp": "2026-11-09",
   "eerstGezien": "2026-11-08",
   "lat": 52.3426577,
-  "lon": 4.91234249
+  "lon": 4.91234249,
+  "buurtcode": "KM04",
+  "buurt": "Rijnbuurt-Oost",
+  "buurtWozM2": 9040,
+  "buurtWozJaar": 2026,
+  "funderingPc": "1079ND",
+  "fundering": "Stedelijk gebied - 80-100 %",
+  "funderingVoor1970": "100",
+  "funderingBodem": "Niet indeelbaar"
  },
  {
   "id": "sg-ruysdaelkade-263-c-amsterdam",
@@ -2591,7 +3199,15 @@
   "gezienOp": "2026-11-09",
   "eerstGezien": "2026-11-08",
   "lat": 52.34923945,
-  "lon": 4.88682272
+  "lon": 4.88682272,
+  "buurtcode": "KF01",
+  "buurt": "Cornelis Troostbuurt",
+  "buurtWozM2": 9467,
+  "buurtWozJaar": 2026,
+  "funderingPc": "1072AZ",
+  "fundering": "Stedelijk gebied - 80-100 %",
+  "funderingVoor1970": "100",
+  "funderingBodem": "Niet indeelbaar"
  },
  {
   "id": "sg-uiterwaardenstraat-74-2-amsterdam",
@@ -2620,7 +3236,15 @@
   "gezienOp": "2026-11-09",
   "eerstGezien": "2026-11-08",
   "lat": 52.3433297,
-  "lon": 4.90959113
+  "lon": 4.90959113,
+  "buurtcode": "KM04",
+  "buurt": "Rijnbuurt-Oost",
+  "buurtWozM2": 9040,
+  "buurtWozJaar": 2026,
+  "funderingPc": "1079CD",
+  "fundering": "Stedelijk gebied - 80-100 %",
+  "funderingVoor1970": "100",
+  "funderingBodem": "Niet indeelbaar"
  },
  {
   "id": "sg-voorsteven-28-amsterdam",
@@ -2649,7 +3273,15 @@
   "gezienOp": "2026-11-09",
   "eerstGezien": "2026-11-08",
   "lat": 52.41023818,
-  "lon": 4.91510154
+  "lon": 4.91510154,
+  "buurtcode": "NE01",
+  "buurt": "Banne-Noordwest",
+  "buurtWozM2": 4883,
+  "buurtWozJaar": 2026,
+  "funderingPc": "1034SL",
+  "fundering": "Kwetsbaar gebied - 0-20 %",
+  "funderingVoor1970": "0",
+  "funderingBodem": "Laagveengebied"
  },
  {
   "id": "sg-wolbrantskerkweg-74-f-amsterdam",
@@ -2678,6 +3310,14 @@
   "gezienOp": "2026-11-09",
   "eerstGezien": "2026-11-08",
   "lat": 52.35613562,
-  "lon": 4.79758461
+  "lon": 4.79758461,
+  "buurtcode": "FJ03",
+  "buurt": "Zuidwestkwadrant-Noord",
+  "buurtWozM2": 4711,
+  "buurtWozJaar": 2026,
+  "funderingPc": "1069DA",
+  "fundering": "Stedelijk gebied - 40-60 %",
+  "funderingVoor1970": "50",
+  "funderingBodem": "Niet indeelbaar"
  }
 ]

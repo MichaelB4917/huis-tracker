@@ -1,0 +1,1172 @@
+{
+ "aalsmeerweg-35-h": {
+  "adres": "Aalsmeerweg 35-H",
+  "corporatie": "Alliantie",
+  "eerstGezien": "2026-11-08",
+  "offline": "",
+  "log": [
+   {
+    "d": "2026-11-09",
+    "status": "beschikbaar",
+    "prijs": 450000
+   }
+  ]
+ },
+ "aalsmeerweg-70-h": {
+  "adres": "Aalsmeerweg 70-H",
+  "corporatie": "Alliantie",
+  "eerstGezien": "2026-11-08",
+  "offline": "",
+  "log": [
+   {
+    "d": "2026-11-09",
+    "status": "verkocht o.v.b.",
+    "prijs": 395000
+   }
+  ]
+ },
+ "admiraliteitstraat-21": {
+  "adres": "Admiraliteitstraat 21",
+  "corporatie": "Alliantie",
+  "eerstGezien": "2026-11-08",
+  "offline": "",
+  "log": [
+   {
+    "d": "2026-11-09",
+    "status": "verkocht o.v.b.",
+    "prijs": 420000
+   }
+  ]
+ },
+ "baarsstraat-35-2": {
+  "adres": "Baarsstraat 35-2",
+  "corporatie": "Alliantie",
+  "eerstGezien": "2026-11-08",
+  "offline": "",
+  "log": [
+   {
+    "d": "2026-11-09",
+    "status": "verkocht o.v.b.",
+    "prijs": 375000
+   }
+  ]
+ },
+ "baldwinstraat-27": {
+  "adres": "Baldwinstraat 27",
+  "corporatie": "Alliantie",
+  "eerstGezien": "2026-11-08",
+  "offline": "",
+  "log": [
+   {
+    "d": "2026-11-09",
+    "status": "verkocht o.v.b.",
+    "prijs": 325000
+   }
+  ]
+ },
+ "bart-poesiatstraat-102": {
+  "adres": "Bart Poesiatstraat 102",
+  "corporatie": "Alliantie",
+  "eerstGezien": "2026-11-08",
+  "offline": "",
+  "log": [
+   {
+    "d": "2026-11-09",
+    "status": "verkocht o.v.b.",
+    "prijs": 320000
+   }
+  ]
+ },
+ "bart-poesiatstraat-128": {
+  "adres": "Bart Poesiatstraat 128",
+  "corporatie": "Alliantie",
+  "eerstGezien": "2026-11-08",
+  "offline": "",
+  "log": [
+   {
+    "d": "2026-11-09",
+    "status": "verkocht o.v.b.",
+    "prijs": 350000
+   }
+  ]
+ },
+ "bergmolen-27": {
+  "adres": "Bergmolen 27",
+  "corporatie": "Alliantie",
+  "eerstGezien": "2026-11-08",
+  "offline": "",
+  "log": [
+   {
+    "d": "2026-11-09",
+    "status": "beschikbaar",
+    "prijs": 320000
+   }
+  ]
+ },
+ "bergmolen-54": {
+  "adres": "Bergmolen 54",
+  "corporatie": "Alliantie",
+  "eerstGezien": "2026-11-08",
+  "offline": "",
+  "log": [
+   {
+    "d": "2026-11-09",
+    "status": "beschikbaar",
+    "prijs": 345000
+   }
+  ]
+ },
+ "charlotte-brontéstraat-114": {
+  "adres": "Charlotte Brontéstraat 114",
+  "corporatie": "Alliantie",
+  "eerstGezien": "2026-11-08",
+  "offline": "",
+  "log": [
+   {
+    "d": "2026-11-09",
+    "status": "beschikbaar",
+    "prijs": 320000
+   }
+  ]
+ },
+ "cornelis-trooststraat-56-2": {
+  "adres": "Cornelis Trooststraat 56-2",
+  "corporatie": "Alliantie",
+  "eerstGezien": "2026-11-08",
+  "offline": "",
+  "log": [
+   {
+    "d": "2026-11-09",
+    "status": "beschikbaar",
+    "prijs": 450000
+   }
+  ]
+ },
+ "dantestraat-82": {
+  "adres": "Dantestraat 82",
+  "corporatie": "Alliantie",
+  "eerstGezien": "2026-11-08",
+  "offline": "",
+  "log": [
+   {
+    "d": "2026-11-09",
+    "status": "verkocht o.v.b.",
+    "prijs": 295000
+   }
+  ]
+ },
+ "dostojevskisingel-289": {
+  "adres": "Dostojevskisingel 289",
+  "corporatie": "Alliantie",
+  "eerstGezien": "2026-11-08",
+  "offline": "",
+  "log": [
+   {
+    "d": "2026-11-09",
+    "status": "beschikbaar",
+    "prijs": 325000
+   }
+  ]
+ },
+ "eduard-hellendoornstraat-15": {
+  "adres": "Eduard Hellendoornstraat 15",
+  "corporatie": "Alliantie",
+  "eerstGezien": "2026-11-08",
+  "offline": "",
+  "log": [
+   {
+    "d": "2026-11-09",
+    "status": "beschikbaar",
+    "prijs": 330000
+   }
+  ]
+ },
+ "eerste-atjehstraat-9-a": {
+  "adres": "Eerste Atjehstraat 9-A",
+  "corporatie": "Alliantie",
+  "eerstGezien": "2026-11-08",
+  "offline": "",
+  "log": [
+   {
+    "d": "2026-11-09",
+    "status": "beschikbaar",
+    "prijs": 450000
+   }
+  ]
+ },
+ "elisabeth-boddaertstraat-111": {
+  "adres": "Elisabeth Boddaertstraat 111",
+  "corporatie": "Alliantie",
+  "eerstGezien": "2026-11-08",
+  "offline": "",
+  "log": [
+   {
+    "d": "2026-11-09",
+    "status": "verkocht o.v.b.",
+    "prijs": 450000
+   }
+  ]
+ },
+ "gerard-doustraat-78-3a": {
+  "adres": "Gerard Doustraat 78-3A",
+  "corporatie": "Alliantie",
+  "eerstGezien": "2026-11-08",
+  "offline": "",
+  "log": [
+   {
+    "d": "2026-11-09",
+    "status": "beschikbaar",
+    "prijs": 325000
+   }
+  ]
+ },
+ "hestiastraat-79-h": {
+  "adres": "Hestiastraat 79-H",
+  "corporatie": "Alliantie",
+  "eerstGezien": "2026-11-08",
+  "offline": "",
+  "log": [
+   {
+    "d": "2026-11-09",
+    "status": "beschikbaar",
+    "prijs": 550000
+   }
+  ]
+ },
+ "jacob-van-lennepstraat-225": {
+  "adres": "Jacob van Lennepstraat 225",
+  "corporatie": "Alliantie",
+  "eerstGezien": "2026-11-08",
+  "offline": "",
+  "log": [
+   {
+    "d": "2026-11-09",
+    "status": "verkocht o.v.b.",
+    "prijs": 425000
+   }
+  ]
+ },
+ "javastraat-93-b": {
+  "adres": "Javastraat 93-B",
+  "corporatie": "Alliantie",
+  "eerstGezien": "2026-11-08",
+  "offline": "",
+  "log": [
+   {
+    "d": "2026-11-09",
+    "status": "beschikbaar",
+    "prijs": 415000
+   }
+  ]
+ },
+ "johan-huizingalaan-607-a": {
+  "adres": "Johan Huizingalaan 607-A",
+  "corporatie": "Alliantie",
+  "eerstGezien": "2026-11-08",
+  "offline": "",
+  "log": [
+   {
+    "d": "2026-11-09",
+    "status": "beschikbaar",
+    "prijs": 525000
+   }
+  ]
+ },
+ "johan-kernstraat-23": {
+  "adres": "Johan Kernstraat 23",
+  "corporatie": "Alliantie",
+  "eerstGezien": "2026-11-08",
+  "offline": "",
+  "log": [
+   {
+    "d": "2026-11-09",
+    "status": "beschikbaar",
+    "prijs": 450000
+   }
+  ]
+ },
+ "johannes-van-der-waalsstraat-20-2": {
+  "adres": "Johannes van der Waalsstraat 20-2",
+  "corporatie": "Alliantie",
+  "eerstGezien": "2026-11-08",
+  "offline": "",
+  "log": [
+   {
+    "d": "2026-11-09",
+    "status": "beschikbaar",
+    "prijs": 535000
+   }
+  ]
+ },
+ "johannes-van-der-waalsstraat-6-2": {
+  "adres": "Johannes van der Waalsstraat 6-2",
+  "corporatie": "Alliantie",
+  "eerstGezien": "2026-11-08",
+  "offline": "",
+  "log": [
+   {
+    "d": "2026-11-09",
+    "status": "beschikbaar",
+    "prijs": 530000
+   }
+  ]
+ },
+ "kinkerstraat-293-a": {
+  "adres": "Kinkerstraat 293-A",
+  "corporatie": "Alliantie",
+  "eerstGezien": "2026-11-08",
+  "offline": "",
+  "log": [
+   {
+    "d": "2026-11-09",
+    "status": "verkocht o.v.b.",
+    "prijs": 550000
+   }
+  ]
+ },
+ "klaas-katerstraat-11": {
+  "adres": "Klaas Katerstraat 11",
+  "corporatie": "Alliantie",
+  "eerstGezien": "2026-11-08",
+  "offline": "",
+  "log": [
+   {
+    "d": "2026-11-09",
+    "status": "verkocht o.v.b.",
+    "prijs": 300000
+   }
+  ]
+ },
+ "laan-der-hesperiden-14-2": {
+  "adres": "Laan der Hesperiden 14-2",
+  "corporatie": "Alliantie",
+  "eerstGezien": "2026-11-08",
+  "offline": "",
+  "log": [
+   {
+    "d": "2026-11-09",
+    "status": "verkocht o.v.b.",
+    "prijs": 485000
+   }
+  ]
+ },
+ "lutmastraat-12-c": {
+  "adres": "Lutmastraat 12-C",
+  "corporatie": "Alliantie",
+  "eerstGezien": "2026-11-08",
+  "offline": "",
+  "log": [
+   {
+    "d": "2026-11-09",
+    "status": "beschikbaar",
+    "prijs": 450000
+   }
+  ]
+ },
+ "m-gandhilaan-134": {
+  "adres": "M. Gandhilaan 134",
+  "corporatie": "Alliantie",
+  "eerstGezien": "2026-11-08",
+  "offline": "",
+  "log": [
+   {
+    "d": "2026-11-09",
+    "status": "beschikbaar",
+    "prijs": 350000
+   }
+  ]
+ },
+ "m-gandhilaan-136": {
+  "adres": "M. Gandhilaan 136",
+  "corporatie": "Alliantie",
+  "eerstGezien": "2026-11-08",
+  "offline": "",
+  "log": [
+   {
+    "d": "2026-11-09",
+    "status": "beschikbaar",
+    "prijs": 375000
+   }
+  ]
+ },
+ "madurastraat-107-1": {
+  "adres": "Madurastraat 107-1",
+  "corporatie": "Alliantie",
+  "eerstGezien": "2026-11-08",
+  "offline": "",
+  "log": [
+   {
+    "d": "2026-11-09",
+    "status": "beschikbaar",
+    "prijs": 450000
+   }
+  ]
+ },
+ "madurastraat-28-h": {
+  "adres": "Madurastraat 28-H",
+  "corporatie": "Alliantie",
+  "eerstGezien": "2026-11-08",
+  "offline": "",
+  "log": [
+   {
+    "d": "2026-11-09",
+    "status": "beschikbaar",
+    "prijs": 485000
+   }
+  ]
+ },
+ "mr-p-n-arntzeniusweg-7-h": {
+  "adres": "Mr. P.N. Arntzeniusweg 7-H",
+  "corporatie": "Alliantie",
+  "eerstGezien": "2026-11-08",
+  "offline": "",
+  "log": [
+   {
+    "d": "2026-11-09",
+    "status": "verkocht o.v.b.",
+    "prijs": 520000
+   }
+  ]
+ },
+ "riouwstraat-43-d": {
+  "adres": "Riouwstraat 43-D",
+  "corporatie": "Alliantie",
+  "eerstGezien": "2026-11-08",
+  "offline": "",
+  "log": [
+   {
+    "d": "2026-11-09",
+    "status": "beschikbaar",
+    "prijs": 525000
+   }
+  ]
+ },
+ "riouwstraat-87-c": {
+  "adres": "Riouwstraat 87-C",
+  "corporatie": "Alliantie",
+  "eerstGezien": "2026-11-08",
+  "offline": "",
+  "log": [
+   {
+    "d": "2026-11-09",
+    "status": "beschikbaar",
+    "prijs": 410000
+   }
+  ]
+ },
+ "rupelmonde-66": {
+  "adres": "Rupelmonde 66",
+  "corporatie": "Alliantie",
+  "eerstGezien": "2026-11-08",
+  "offline": "",
+  "log": [
+   {
+    "d": "2026-11-09",
+    "status": "beschikbaar",
+    "prijs": 445000
+   }
+  ]
+ },
+ "sassenheimstraat-92-3": {
+  "adres": "Sassenheimstraat 92-3",
+  "corporatie": "Alliantie",
+  "eerstGezien": "2026-11-08",
+  "offline": "",
+  "log": [
+   {
+    "d": "2026-11-09",
+    "status": "verkocht o.v.b.",
+    "prijs": 525000
+   }
+  ]
+ },
+ "soendastraat-24-3": {
+  "adres": "Soendastraat 24-3",
+  "corporatie": "Alliantie",
+  "eerstGezien": "2026-11-08",
+  "offline": "",
+  "log": [
+   {
+    "d": "2026-11-09",
+    "status": "beschikbaar",
+    "prijs": 400000
+   }
+  ]
+ },
+ "soendastraat-65": {
+  "adres": "Soendastraat 65",
+  "corporatie": "Alliantie",
+  "eerstGezien": "2026-11-08",
+  "offline": "",
+  "log": [
+   {
+    "d": "2026-11-09",
+    "status": "verkocht o.v.b.",
+    "prijs": 650000
+   }
+  ]
+ },
+ "spinnekop-14": {
+  "adres": "Spinnekop 14",
+  "corporatie": "Alliantie",
+  "eerstGezien": "2026-11-08",
+  "offline": "",
+  "log": [
+   {
+    "d": "2026-11-09",
+    "status": "beschikbaar",
+    "prijs": 325000
+   }
+  ]
+ },
+ "statenjachtstraat-406": {
+  "adres": "Statenjachtstraat 406",
+  "corporatie": "Alliantie",
+  "eerstGezien": "2026-11-08",
+  "offline": "",
+  "log": [
+   {
+    "d": "2026-11-09",
+    "status": "beschikbaar",
+    "prijs": 350000
+   }
+  ]
+ },
+ "statenjachtstraat-486": {
+  "adres": "Statenjachtstraat 486",
+  "corporatie": "Alliantie",
+  "eerstGezien": "2026-11-08",
+  "offline": "",
+  "log": [
+   {
+    "d": "2026-11-09",
+    "status": "beschikbaar",
+    "prijs": 315000
+   }
+  ]
+ },
+ "wamelplein-132": {
+  "adres": "Wamelplein 132",
+  "corporatie": "Alliantie",
+  "eerstGezien": "2026-11-08",
+  "offline": "",
+  "log": [
+   {
+    "d": "2026-11-09",
+    "status": "beschikbaar",
+    "prijs": 265000
+   }
+  ]
+ },
+ "waterpoortweg-441": {
+  "adres": "Waterpoortweg 441",
+  "corporatie": "Alliantie",
+  "eerstGezien": "2026-11-08",
+  "offline": "",
+  "log": [
+   {
+    "d": "2026-11-09",
+    "status": "beschikbaar",
+    "prijs": 600000
+   }
+  ]
+ },
+ "weteringschans-60-a": {
+  "adres": "Weteringschans 60-A",
+  "corporatie": "Alliantie",
+  "eerstGezien": "2026-11-08",
+  "offline": "",
+  "log": [
+   {
+    "d": "2026-11-09",
+    "status": "beschikbaar",
+    "prijs": 500000
+   }
+  ]
+ },
+ "amerbos-73-1025xz": {
+  "adres": "Amerbos 73",
+  "corporatie": "Lieven de Key",
+  "eerstGezien": "2026-11-08",
+  "offline": "",
+  "log": [
+   {
+    "d": "2026-11-09",
+    "status": "onder bod",
+    "prijs": 385000
+   }
+  ]
+ },
+ "blasiusstraat-26-h-1091cs": {
+  "adres": "Blasiusstraat 26-H",
+  "corporatie": "Lieven de Key",
+  "eerstGezien": "2026-11-08",
+  "offline": "",
+  "log": [
+   {
+    "d": "2026-11-09",
+    "status": "onder bod",
+    "prijs": 500000
+   }
+  ]
+ },
+ "deymanstraat-28-1091se": {
+  "adres": "Deymanstraat 28",
+  "corporatie": "Lieven de Key",
+  "eerstGezien": "2026-11-08",
+  "offline": "",
+  "log": [
+   {
+    "d": "2026-11-09",
+    "status": "beschikbaar",
+    "prijs": 405000
+   }
+  ]
+ },
+ "dickenslaan-160-1102zw": {
+  "adres": "Dickenslaan 160",
+  "corporatie": "Lieven de Key",
+  "eerstGezien": "2026-11-08",
+  "offline": "",
+  "log": [
+   {
+    "d": "2026-11-09",
+    "status": "beschikbaar",
+    "prijs": 295000
+   }
+  ]
+ },
+ "dostojevskisingel-35-1102xj": {
+  "adres": "Dostojevskisingel 35",
+  "corporatie": "Lieven de Key",
+  "eerstGezien": "2026-11-08",
+  "offline": "",
+  "log": [
+   {
+    "d": "2026-11-09",
+    "status": "beschikbaar",
+    "prijs": 325000
+   }
+  ]
+ },
+ "h-cleyndertweg-587-1025dx": {
+  "adres": "H. Cleyndertweg 587",
+  "corporatie": "Lieven de Key",
+  "eerstGezien": "2026-11-08",
+  "offline": "",
+  "log": [
+   {
+    "d": "2026-11-09",
+    "status": "beschikbaar",
+    "prijs": 370000
+   }
+  ]
+ },
+ "jan-mankesstraat-15-2-1061st": {
+  "adres": "Jan Mankesstraat 15-2",
+  "corporatie": "Lieven de Key",
+  "eerstGezien": "2026-11-08",
+  "offline": "",
+  "log": [
+   {
+    "d": "2026-11-09",
+    "status": "beschikbaar",
+    "prijs": 425000
+   }
+  ]
+ },
+ "jan-tooropstraat-116-3-1061ac": {
+  "adres": "Jan Tooropstraat 116-3",
+  "corporatie": "Lieven de Key",
+  "eerstGezien": "2026-11-08",
+  "offline": "",
+  "log": [
+   {
+    "d": "2026-11-09",
+    "status": "verkocht o.v.b.",
+    "prijs": 415000
+   }
+  ]
+ },
+ "kerdijkhof-100-1067mn": {
+  "adres": "Kerdijkhof 100",
+  "corporatie": "Lieven de Key",
+  "eerstGezien": "2026-11-08",
+  "offline": "",
+  "log": [
+   {
+    "d": "2026-11-09",
+    "status": "onder bod",
+    "prijs": 310000
+   }
+  ]
+ },
+ "kerdijkhof-50-1067mn": {
+  "adres": "Kerdijkhof 50",
+  "corporatie": "Lieven de Key",
+  "eerstGezien": "2026-11-08",
+  "offline": "",
+  "log": [
+   {
+    "d": "2026-11-09",
+    "status": "onder bod",
+    "prijs": 400000
+   }
+  ]
+ },
+ "kleine-wittenburgerstraat-2-e-1018lv": {
+  "adres": "Kleine Wittenburgerstraat 2-E",
+  "corporatie": "Lieven de Key",
+  "eerstGezien": "2026-11-08",
+  "offline": "",
+  "log": [
+   {
+    "d": "2026-11-09",
+    "status": "onder bod",
+    "prijs": 480000
+   }
+  ]
+ },
+ "le-mairekade-125-1013cc": {
+  "adres": "Le Mairekade 125",
+  "corporatie": "Lieven de Key",
+  "eerstGezien": "2026-11-08",
+  "offline": "",
+  "log": [
+   {
+    "d": "2026-11-09",
+    "status": "verkocht o.v.b.",
+    "prijs": 425000
+   }
+  ]
+ },
+ "le-mairekade-163-1013cc": {
+  "adres": "Le Mairekade 163",
+  "corporatie": "Lieven de Key",
+  "eerstGezien": "2026-11-08",
+  "offline": "",
+  "log": [
+   {
+    "d": "2026-11-09",
+    "status": "beschikbaar",
+    "prijs": 585000
+   }
+  ]
+ },
+ "loenermark-583-1025tz": {
+  "adres": "Loenermark 583",
+  "corporatie": "Lieven de Key",
+  "eerstGezien": "2026-11-08",
+  "offline": "",
+  "log": [
+   {
+    "d": "2026-11-09",
+    "status": "beschikbaar",
+    "prijs": 350000
+   }
+  ]
+ },
+ "martin-vlaarkade-77-1013cs": {
+  "adres": "Martin Vlaarkade 77",
+  "corporatie": "Lieven de Key",
+  "eerstGezien": "2026-11-08",
+  "offline": "",
+  "log": [
+   {
+    "d": "2026-11-09",
+    "status": "beschikbaar",
+    "prijs": 500000
+   }
+  ]
+ },
+ "mauritskade-100-2-1093rr": {
+  "adres": "Mauritskade 100-2",
+  "corporatie": "Lieven de Key",
+  "eerstGezien": "2026-11-08",
+  "offline": "",
+  "log": [
+   {
+    "d": "2026-11-09",
+    "status": "beschikbaar",
+    "prijs": 420000
+   }
+  ]
+ },
+ "nova-zemblastraat-249-1013rj": {
+  "adres": "Nova Zemblastraat 249",
+  "corporatie": "Lieven de Key",
+  "eerstGezien": "2026-11-08",
+  "offline": "",
+  "log": [
+   {
+    "d": "2026-11-09",
+    "status": "verkocht o.v.b.",
+    "prijs": 365000
+   }
+  ]
+ },
+ "oeverpad-255-1068pj": {
+  "adres": "Oeverpad 255",
+  "corporatie": "Lieven de Key",
+  "eerstGezien": "2026-11-08",
+  "offline": "",
+  "log": [
+   {
+    "d": "2026-11-09",
+    "status": "beschikbaar",
+    "prijs": 370000
+   }
+  ]
+ },
+ "piet-mondriaanstraat-107-3-1061tp": {
+  "adres": "Piet Mondriaanstraat 107-3",
+  "corporatie": "Lieven de Key",
+  "eerstGezien": "2026-11-08",
+  "offline": "",
+  "log": [
+   {
+    "d": "2026-11-09",
+    "status": "beschikbaar",
+    "prijs": 440000
+   }
+  ]
+ },
+ "schelluinenstraat-64-1107jk": {
+  "adres": "Schelluinenstraat 64",
+  "corporatie": "Lieven de Key",
+  "eerstGezien": "2026-11-08",
+  "offline": "",
+  "log": [
+   {
+    "d": "2026-11-09",
+    "status": "onder bod",
+    "prijs": 325000
+   }
+  ]
+ },
+ "soesterberghof-36-1107gn": {
+  "adres": "Soesterberghof 36",
+  "corporatie": "Lieven de Key",
+  "eerstGezien": "2026-11-08",
+  "offline": "",
+  "log": [
+   {
+    "d": "2026-11-09",
+    "status": "verkocht o.v.b.",
+    "prijs": 275000
+   }
+  ]
+ },
+ "spaarndammerstraat-65-2-1013ta": {
+  "adres": "Spaarndammerstraat 65-2",
+  "corporatie": "Lieven de Key",
+  "eerstGezien": "2026-11-08",
+  "offline": "",
+  "log": [
+   {
+    "d": "2026-11-09",
+    "status": "beschikbaar",
+    "prijs": 375000
+   }
+  ]
+ },
+ "vasco-da-gamastraat-40-h-1057vm": {
+  "adres": "Vasco da Gamastraat 40-H",
+  "corporatie": "Lieven de Key",
+  "eerstGezien": "2026-11-08",
+  "offline": "",
+  "log": [
+   {
+    "d": "2026-11-09",
+    "status": "beschikbaar",
+    "prijs": 450000
+   }
+  ]
+ },
+ "wagenaarstraat-483-1093cn": {
+  "adres": "Wagenaarstraat 483",
+  "corporatie": "Lieven de Key",
+  "eerstGezien": "2026-11-08",
+  "offline": "",
+  "log": [
+   {
+    "d": "2026-11-09",
+    "status": "beschikbaar",
+    "prijs": 525000
+   }
+  ]
+ },
+ "ward-bingleystraat-15-h-1065tj": {
+  "adres": "Ward Bingleystraat 15-H",
+  "corporatie": "Lieven de Key",
+  "eerstGezien": "2026-11-08",
+  "offline": "",
+  "log": [
+   {
+    "d": "2026-11-09",
+    "status": "onder bod",
+    "prijs": 375000
+   }
+  ]
+ },
+ "wethouder-ramstraat-16-1107cn": {
+  "adres": "Wethouder Ramstraat 16",
+  "corporatie": "Lieven de Key",
+  "eerstGezien": "2026-11-08",
+  "offline": "",
+  "log": [
+   {
+    "d": "2026-11-09",
+    "status": "verkocht o.v.b.",
+    "prijs": 465000
+   }
+  ]
+ },
+ "sg-aardbeistraat-16-amsterdam": {
+  "adres": "Aardbeistraat 16",
+  "corporatie": "Stadgenoot",
+  "eerstGezien": "2026-11-08",
+  "offline": "",
+  "log": [
+   {
+    "d": "2026-11-09",
+    "status": "beschikbaar",
+    "prijs": 500000
+   }
+  ]
+ },
+ "sg-balboaplein-18-amsterdam": {
+  "adres": "Balboaplein 18",
+  "corporatie": "Stadgenoot",
+  "eerstGezien": "2026-11-08",
+  "offline": "",
+  "log": [
+   {
+    "d": "2026-11-09",
+    "status": "beschikbaar",
+    "prijs": 740000
+   }
+  ]
+ },
+ "sg-bilderdijkstraat-176-3-amsterdam": {
+  "adres": "Bilderdijkstraat 176-3",
+  "corporatie": "Stadgenoot",
+  "eerstGezien": "2026-11-08",
+  "offline": "",
+  "log": [
+   {
+    "d": "2026-11-09",
+    "status": "beschikbaar",
+    "prijs": 500000
+   }
+  ]
+ },
+ "sg-bos-en-lommerplantsoen-17-s-amsterdam": {
+  "adres": "Bos en Lommerplantsoen 17-S",
+  "corporatie": "Stadgenoot",
+  "eerstGezien": "2026-11-08",
+  "offline": "",
+  "log": [
+   {
+    "d": "2026-11-09",
+    "status": "beschikbaar",
+    "prijs": 260000
+   }
+  ]
+ },
+ "sg-brinkstraat-119-amsterdam": {
+  "adres": "Brinkstraat 119",
+  "corporatie": "Stadgenoot",
+  "eerstGezien": "2026-11-08",
+  "offline": "",
+  "log": [
+   {
+    "d": "2026-11-09",
+    "status": "beschikbaar",
+    "prijs": 575000
+   }
+  ]
+ },
+ "sg-corversbosstraat-83-amsterdam": {
+  "adres": "Corversbosstraat 83",
+  "corporatie": "Stadgenoot",
+  "eerstGezien": "2026-11-08",
+  "offline": "",
+  "log": [
+   {
+    "d": "2026-11-09",
+    "status": "beschikbaar",
+    "prijs": 300000
+   }
+  ]
+ },
+ "sg-eerste-constantijn-huygensstraat-54-f-amsterdam": {
+  "adres": "Eerste Constantijn Huygensstraat 54 F",
+  "corporatie": "Stadgenoot",
+  "eerstGezien": "2026-11-08",
+  "offline": "",
+  "log": [
+   {
+    "d": "2026-11-09",
+    "status": "beschikbaar",
+    "prijs": 485000
+   }
+  ]
+ },
+ "sg-eerste-oosterparkstraat-174-e-amsterdam": {
+  "adres": "Eerste Oosterparkstraat 174-E",
+  "corporatie": "Stadgenoot",
+  "eerstGezien": "2026-11-08",
+  "offline": "",
+  "log": [
+   {
+    "d": "2026-11-09",
+    "status": "beschikbaar",
+    "prijs": 525000
+   }
+  ]
+ },
+ "sg-kennemerduinstraat-10-amsterdam": {
+  "adres": "Kennemerduinstraat 10",
+  "corporatie": "Stadgenoot",
+  "eerstGezien": "2026-11-08",
+  "offline": "",
+  "log": [
+   {
+    "d": "2026-11-09",
+    "status": "beschikbaar",
+    "prijs": 350000
+   }
+  ]
+ },
+ "sg-kouterstraat-4-amsterdam": {
+  "adres": "Kouterstraat 4",
+  "corporatie": "Stadgenoot",
+  "eerstGezien": "2026-11-08",
+  "offline": "",
+  "log": [
+   {
+    "d": "2026-11-09",
+    "status": "beschikbaar",
+    "prijs": 525000
+   }
+  ]
+ },
+ "sg-middenweg-410-amsterdam": {
+  "adres": "Middenweg 410",
+  "corporatie": "Stadgenoot",
+  "eerstGezien": "2026-11-08",
+  "offline": "",
+  "log": [
+   {
+    "d": "2026-11-09",
+    "status": "beschikbaar",
+    "prijs": 350000
+   }
+  ]
+ },
+ "sg-pienemanstraat-9-amsterdam": {
+  "adres": "Pienemanstraat 9",
+  "corporatie": "Stadgenoot",
+  "eerstGezien": "2026-11-08",
+  "offline": "",
+  "log": [
+   {
+    "d": "2026-11-09",
+    "status": "beschikbaar",
+    "prijs": 425000
+   }
+  ]
+ },
+ "sg-ploegstraat-179-amsterdam": {
+  "adres": "Ploegstraat 179",
+  "corporatie": "Stadgenoot",
+  "eerstGezien": "2026-11-08",
+  "offline": "",
+  "log": [
+   {
+    "d": "2026-11-09",
+    "status": "beschikbaar",
+    "prijs": 375000
+   }
+  ]
+ },
+ "sg-postjeskade-8-2-amsterdam": {
+  "adres": "Postjeskade 8-2",
+  "corporatie": "Stadgenoot",
+  "eerstGezien": "2026-11-08",
+  "offline": "",
+  "log": [
+   {
+    "d": "2026-11-09",
+    "status": "beschikbaar",
+    "prijs": 435000
+   }
+  ]
+ },
+ "sg-president-kennedylaan-32-h-amsterdam": {
+  "adres": "President Kennedylaan 32-H",
+  "corporatie": "Stadgenoot",
+  "eerstGezien": "2026-11-08",
+  "offline": "",
+  "log": [
+   {
+    "d": "2026-11-09",
+    "status": "beschikbaar",
+    "prijs": 575000
+   }
+  ]
+ },
+ "sg-ruysdaelkade-263-c-amsterdam": {
+  "adres": "Ruysdaelkade 263-C",
+  "corporatie": "Stadgenoot",
+  "eerstGezien": "2026-11-08",
+  "offline": "",
+  "log": [
+   {
+    "d": "2026-11-09",
+    "status": "beschikbaar",
+    "prijs": 450000
+   }
+  ]
+ },
+ "sg-uiterwaardenstraat-74-2-amsterdam": {
+  "adres": "Uiterwaardenstraat 74-2",
+  "corporatie": "Stadgenoot",
+  "eerstGezien": "2026-11-08",
+  "offline": "",
+  "log": [
+   {
+    "d": "2026-11-09",
+    "status": "beschikbaar",
+    "prijs": 400000
+   }
+  ]
+ },
+ "sg-voorsteven-28-amsterdam": {
+  "adres": "Voorsteven 28",
+  "corporatie": "Stadgenoot",
+  "eerstGezien": "2026-11-08",
+  "offline": "",
+  "log": [
+   {
+    "d": "2026-11-09",
+    "status": "beschikbaar",
+    "prijs": 360000
+   }
+  ]
+ },
+ "sg-wolbrantskerkweg-74-f-amsterdam": {
+  "adres": "Wolbrantskerkweg 74-F",
+  "corporatie": "Stadgenoot",
+  "eerstGezien": "2026-11-08",
+  "offline": "",
+  "log": [
+   {
+    "d": "2026-11-09",
+    "status": "beschikbaar",
+    "prijs": 540000
+   }
+  ]
+ }
+}
