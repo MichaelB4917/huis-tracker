@@ -299,24 +299,44 @@
     .stat { padding: 10px 12px; border-right: 1px solid var(--line); border-bottom: 1px solid var(--line); }
     .stat .val { font-size: 17px; }
     #map { height: 260px; }
-    /* lijst als rijen */
-    #tabel thead { display: none; }
-    #tabel, #tabel tbody, #tabel tr { display: block; }
-    #tabel tr { padding: 14px 14px 12px; border-bottom: 1px solid var(--line); position: relative; }
-    #tabel tbody tr:last-child { border-bottom: 0; }
-    #tabel td { display: inline; padding: 0 !important; border: 0; white-space: nowrap; font-size: 13.5px; }
-    #tabel td + td::before { content: " · "; color: var(--muted); }
-    #tabel td.c-adres { display: block; min-width: 0; white-space: normal; }
-    #tabel td.c-adres + td::before, #tabel td.c-prijs::before, #tabel td.c-prijs + td::before { content: ""; }
-    #tabel td.c-prijs { display: block; font-size: 18px; text-align: left; margin: 6px 0 2px; }
-    #tabel td[data-sfx]::after { content: attr(data-sfx); }
-    #tabel td.c-stadsdeel .sub { display: inline; } #tabel td.c-stadsdeel .sub::before { content: ", "; }
-    #tabel td.c-voorrang, #tabel td.c-status { display: inline-block; margin-top: 8px; margin-right: 6px; }
-    #tabel td.c-voorrang::before, #tabel td.c-status::before { content: "" !important; }
-    #tabel td.c-kamers::after { content: attr(data-sfx) "\A"; white-space: pre; }
-    #tabel td.c-energielabel, #tabel td.c-type, #tabel td.c-bouwjaar, #tabel td.c-servicekosten, #tabel td.c-erfpacht, #tabel td.c-voorrangSpec, #tabel td.c-maps, #tabel td.c-online, #tabel td.c-energielabel:empty { display: none; }
-    tr.isnew td:first-child { box-shadow: none; } #tabel tr.isnew { box-shadow: inset 3px 0 0 var(--accent); }
-    tbody tr:hover td { background: none; }
+  }
+
+  /* ---------- Overzicht: ruime rijen ---------- */
+  .rows { background: var(--panel); border: 1px solid var(--line); border-radius: var(--r); overflow: hidden; }
+  .wrow { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 8px 24px; padding: 16px 18px; border-bottom: 1px solid var(--line); position: relative; }
+  .wrow:last-child { border-bottom: 0; }
+  .wrow:hover { background: color-mix(in srgb, var(--accent) 5%, transparent); }
+  .wrow.isnew { box-shadow: inset 3px 0 0 var(--accent); }
+  .wrow.dim { opacity: .55; }
+  .wrow.empty { display: block; color: var(--muted); }
+  .r-top { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+  .r-top .adres { font-size: 17px; }
+  .wrow.seen .adres { color: color-mix(in srgb, var(--link) 55%, var(--muted)); font-weight: 600; }
+  .wrow .sub { margin: 3px 0 0 25px; font-size: 13px; }
+  .r-facts { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 14px; margin: 10px 0 0 25px; font-size: 14px; }
+  .r-facts span:empty { display: none; }
+  .r-side { text-align: right; display: flex; flex-direction: column; align-items: flex-end; gap: 4px; }
+  .r-prijs { font-size: 21px; font-weight: 800; letter-spacing: -.01em; white-space: nowrap; }
+  .r-ppm { font-size: 12.5px; color: var(--muted); white-space: nowrap; }
+  .r-badges { display: flex; gap: 6px; flex-wrap: wrap; justify-content: flex-end; margin-top: 4px; }
+  .elabel { display: inline-grid; place-items: center; min-width: 28px; height: 22px; padding: 0 6px; border-radius: 4px; font-size: 12.5px; font-weight: 800; color: #fff; }
+  .l-A { background: #1a9641; } .l-B { background: #52b151; } .l-C { background: #a6d96a; color: #1f1f1f; } .l-D { background: #f2d33a; color: #1f1f1f; }
+  .l-E { background: #fdae61; color: #1f1f1f; } .l-F { background: #f46d43; } .l-G { background: #d7191c; } .l-none { background: var(--soft); color: var(--muted); }
+  .elabel.sm { min-width: 24px; height: 18px; font-size: 11px; padding: 0 5px; }
+  @media (max-width: 760px) {
+    .wrow { grid-template-columns: minmax(0, 1fr); padding: 14px; gap: 6px; }
+    .r-top .adres { font-size: 16px; }
+    .wrow .sub, .r-facts { margin-left: 25px; }
+    .r-facts { gap: 4px 12px; font-size: 13.5px; margin-top: 8px; }
+    .r-side { text-align: left; align-items: flex-start; margin-left: 25px; }
+    .r-prijs { font-size: 19px; }
+    .r-badges { justify-content: flex-start; }
+    /* tabel: excel-achtig, horizontaal scrollen met vaste adreskolom */
+    #tabel td, #tabel th { white-space: nowrap; }
+    #tabel th:first-child, #tabel td:first-child { position: sticky; left: 0; z-index: 2; background: var(--panel); box-shadow: 1px 0 0 var(--line); }
+    #tabel td.c-adres { min-width: 0; max-width: 11rem; overflow: hidden; text-overflow: ellipsis; }
+    /* weergave-menu als paneel onderin */
+    .tdd .panel { position: fixed; left: 12px; right: 12px; bottom: 12px; top: auto; max-height: 70vh; min-width: 0; z-index: 2000; }
   }
 </style>
 </head>
@@ -408,13 +428,13 @@
           <button class="btn" id="favbtn" aria-pressed="false">★ Favorieten <span id="favn"></span></button>
           </div><div class="grp">
           <button class="btn" id="kaartbtn" aria-pressed="true">Kaart</button>
-          <div class="seg"><button data-density="compact">Compact</button><button data-density="ruim">Details</button></div>
+          <div class="seg"><button data-density="overzicht" title="Ruime rijen met de belangrijkste gegevens">Overzicht</button><button data-density="tabel" title="Alle gegevens als tabel, kolommen kies je via Weergave">Tabel</button></div>
           <details class="dd tdd" data-dd="weergave"><summary>Weergave ▾</summary>
         <div class="panel">
           <h4>Onderdelen</h4>
           <label class="check sw"><input type="checkbox" class="sec" data-sec="stats" checked> Kerncijfers</label>
           <label class="check sw"><input type="checkbox" class="sec" data-sec="kaartblok" checked> Kaart</label>
-          <h4>Kolommen</h4>
+          <h4>Kolommen in tabel</h4>
           <div id="colboxes"></div>
           <h4>Gedeelde lijst</h4>
           <button class="mini" id="syncopen2">Lijst maken of delen</button>
@@ -426,7 +446,8 @@
           <div id="map"></div>
           <div class="legend" id="legend"></div>
         </div>
-        <div class="scroll"><table id="tabel"><thead><tr id="thead"></tr></thead><tbody></tbody></table></div>
+        <div class="rows" id="rows"></div>
+        <div class="scroll" id="tabelwrap"><table id="tabel" class="compact"><thead><tr id="thead"></tr></thead><tbody></tbody></table></div>
         <details class="statsblok card" id="statsblok" style="margin-top:12px">
           <summary>Prijs per m² per stadsdeel</summary>
           <p class="note">Mediaan per stadsdeel, alle woningen (aantal tussen haakjes).</p>
@@ -565,16 +586,16 @@ const COLS = [['adres', 'Adres', true], ['stadsdeel', 'Stadsdeel', true], ['corp
   ['ppm', '€/m²', true, 'num'], ['kamers', 'Kamers', true, 'num'], ['type', 'Type', false], ['energielabel', 'Label', true], ['bouwjaar', 'Bouwjaar', false, 'num'],
   ['servicekosten', 'VvE p/m', true, 'num'], ['erfpacht', 'Erfpacht', false], ['online', 'Online', false, 'nowrap'], ['voorrang', 'Voorrang', true], ['voorrangSpec', 'Voorrangsregel', false], ['status', 'Status', true], ['maps', 'Maps', false]];
 let colState = {}; try { colState = JSON.parse(store.get('cols') || '{}'); } catch (e) {}
-const colOn = (k) => k === 'adres' || (k in colState ? colState[k] : COLS.find((c) => c[0] === k)[2]);
+const colOn = (k) => k === 'adres' || k === 'energielabel' || (k in colState ? colState[k] : COLS.find((c) => c[0] === k)[2]);
 const colStyle = document.createElement('style'); document.head.append(colStyle);
 const applyCols = () => colStyle.textContent = COLS.filter(([k]) => !colOn(k)).map(([k]) => `#tabel .c-${k}{display:none}`).join('');
 COLS.forEach(([k, l, , c]) => { const th = el('th', 'c-' + k + (c ? ' ' + c : ''), l); $('#thead').append(th); });
-COLS.slice(1).forEach(([k, l]) => { const lab = el('label', 'check'); const cb = el('input'); cb.type = 'checkbox'; cb.checked = colOn(k); cb.onchange = () => { colState[k] = cb.checked; store.set('cols', JSON.stringify(colState)); applyCols(); }; lab.append(cb, l); $('#colboxes').append(lab); });
+COLS.slice(1).filter(([k]) => k !== 'energielabel').forEach(([k, l]) => { const lab = el('label', 'check'); const cb = el('input'); cb.type = 'checkbox'; cb.checked = colOn(k); cb.onchange = () => { colState[k] = cb.checked; store.set('cols', JSON.stringify(colState)); applyCols(); }; lab.append(cb, l); $('#colboxes').append(lab); });
 applyCols();
 
-let density = store.get('density') || 'ruim';
-const applyDensity = () => { $('#tabel').classList.toggle('compact', density === 'compact'); $$('[data-density]').forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.density === density))); };
-$$('[data-density]').forEach((b) => b.onclick = () => { density = b.dataset.density; store.set('density', density); applyDensity(); });
+let density = store.get('weergave') === 'tabel' ? 'tabel' : 'overzicht';
+const applyDensity = () => { $('#rows').hidden = density !== 'overzicht'; $('#tabelwrap').hidden = density !== 'tabel'; $$('[data-density]').forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.density === density))); };
+$$('[data-density]').forEach((b) => b.onclick = () => { density = b.dataset.density; store.set('weergave', density); applyDensity(); });
 applyDensity();
 
 $$('.sec').forEach((c) => c.onchange = () => { $('#' + c.dataset.sec).hidden = !c.checked; if (c.dataset.sec === 'kaartblok') $('#kaartbtn').setAttribute('aria-pressed', String(c.checked)); if (c.checked && map) map.invalidateSize(); });
@@ -722,9 +743,35 @@ const render = () => {
     const cE = cell('erfpacht', w.erfpacht || ''); cE.classList.add('spec');
     const m = el('a', null, 'maps'); m.href = 'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent(w.adres + ', ' + (w.plaats || 'Amsterdam')); m.target = '_blank';
     tr.append(cA, cS, cC, num('prijs', eur.format(w.prijs)), sfx(num('m2', String(w.m2)), ' m²'), sfx(num('ppm', eur.format(Math.round(w.prijs / w.m2))), '/m²'), sfx(num('kamers', String(w.kamers)), w.kamers === 1 ? ' kamer' : ' kamers'),
-      cell('type', w.type), cell('energielabel', w.energielabel || ''), num('bouwjaar', w.bouwjaar ? String(w.bouwjaar) : ''),
+      cell('type', w.type), cell('energielabel', w.energielabel ? (() => { const x = el('span', 'elabel sm l-' + w.energielabel[0], w.energielabel); return x; })() : ''), num('bouwjaar', w.bouwjaar ? String(w.bouwjaar) : ''),
       num('servicekosten', w.servicekosten !== '' && w.servicekosten != null ? eur2.format(w.servicekosten) : ''), cE, cell('online', onlineSinds(w)), cV, cSp, cell('status', badge(statusTone(w.status), w.status)), cell('maps', m));
     return tr;
+  }));
+  // Overzicht: ruime rijen met de belangrijkste gegevens
+  const RB = $('#rows');
+  if (!rows.length) RB.replaceChildren(el('div', 'wrow empty', 'Geen woningen met deze filters.'));
+  else RB.replaceChildren(...rows.map((w) => {
+    const r = el('article', 'wrow'); if (isNew(w)) r.classList.add('isnew'); if (gezien.has(w.id)) r.classList.add('seen'); if (w.status === 'verkocht o.v.b.') r.classList.add('dim');
+    const main = el('div', 'r-main');
+    const top = el('div', 'r-top');
+    const st = el('button', 'star' + (favs.has(w.id) ? ' on' : ''), favs.has(w.id) ? '★' : '☆'); st.title = 'Favoriet'; st.setAttribute('aria-label', 'Favoriet');
+    st.onclick = () => { favs.has(w.id) ? favs.delete(w.id) : favs.add(w.id); changed(); render(); };
+    const a = el('a', 'adres', w.adres); a.href = w.url; a.target = '_blank'; a.rel = 'noopener'; a.addEventListener('click', () => markSeen(w.id));
+    top.append(st, a); if (isNew(w)) top.append(badge('t-new', 'Nieuw'));
+    const d = el('span', 'cd'); d.style.background = corpColor(w.corporatie);
+    const sub = el('div', 'sub'); sub.append([w.postcode, [w.stadsdeel, w.wijk].filter(Boolean).join(', ')].filter(Boolean).join(' · ') + ' · ', d, w.corporatie);
+    const facts = el('div', 'r-facts');
+    const lbl = el('span', 'elabel' + (w.energielabel ? ' l-' + w.energielabel[0] : ' l-none'), w.energielabel || '?'); lbl.title = w.energielabel ? 'Energielabel ' + w.energielabel : 'Energielabel onbekend';
+    facts.append(lbl, el('span', null, w.m2 + ' m²'), el('span', null, w.kamers + (w.kamers === 1 ? ' kamer' : ' kamers')), el('span', null, w.type || ''),
+      ...(w.servicekosten !== '' && w.servicekosten != null ? [el('span', null, 'VvE ' + eur.format(w.servicekosten) + ' p/m')] : []),
+      ...(w.erfpacht ? [el('span', null, (/t\/m \d\d-\d\d-(\d{4})/.test(w.erfpacht) ? 'Erfpacht afgekocht t/m ' + w.erfpacht.match(/(\d{4})$/)[1] : w.erfpacht))] : []));
+    main.append(top, sub, facts);
+    const side = el('div', 'r-side');
+    const v = voorrang(w);
+    const bad = el('div', 'r-badges'); bad.append(badge(v.cls, v.text === 'ja' ? 'voorrang' : v.text === 'checken' ? 'voorrang checken' : v.text.startsWith('tot') ? 'voorrang ' + v.text : v.text), badge(statusTone(w.status), w.status));
+    side.append(el('div', 'r-prijs', eur.format(w.prijs)), el('div', 'r-ppm', eur.format(Math.round(w.prijs / w.m2)) + ' per m² · online ' + onlineSinds(w)), bad);
+    r.append(main, side);
+    return r;
   }));
   drawMap(rows);
 };
