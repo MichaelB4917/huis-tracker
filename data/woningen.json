@@ -1664,7 +1664,8 @@
   "funderingPc": "1091CW",
   "fundering": "Stedelijk gebied - 80-100 %",
   "funderingVoor1970": "91.66666666666666",
-  "funderingBodem": "Niet indeelbaar"
+  "funderingBodem": "Niet indeelbaar",
+  "basis": true
  },
  {
   "postcode": "1033 MA",
@@ -1701,7 +1702,8 @@
   "funderingPc": "1033MA",
   "fundering": "Stedelijk gebied - 0-20 %",
   "funderingVoor1970": "0",
-  "funderingBodem": "Niet indeelbaar"
+  "funderingBodem": "Niet indeelbaar",
+  "basis": true
  },
  {
   "postcode": "1068 ZE",
@@ -1738,7 +1740,8 @@
   "funderingPc": "1068ZE",
   "fundering": "Stedelijk gebied - 0-20 %",
   "funderingVoor1970": "0",
-  "funderingBodem": "Niet indeelbaar"
+  "funderingBodem": "Niet indeelbaar",
+  "basis": true
  },
  {
   "postcode": "1068 ZG",
@@ -1775,7 +1778,8 @@
   "funderingPc": "1068ZG",
   "fundering": "Stedelijk gebied - 0-20 %",
   "funderingVoor1970": "0",
-  "funderingBodem": "Niet indeelbaar"
+  "funderingBodem": "Niet indeelbaar",
+  "basis": true
  },
  {
   "postcode": "1068 ZJ",
@@ -1812,7 +1816,8 @@
   "funderingPc": "1068ZJ",
   "fundering": "Stedelijk gebied - 0-20 %",
   "funderingVoor1970": "0",
-  "funderingBodem": "Niet indeelbaar"
+  "funderingBodem": "Niet indeelbaar",
+  "basis": true
  },
  {
   "postcode": "1068 ZB",
@@ -1849,7 +1854,8 @@
   "funderingPc": "1068ZB",
   "fundering": "Stedelijk gebied - 0-20 %",
   "funderingVoor1970": "0",
-  "funderingBodem": "Niet indeelbaar"
+  "funderingBodem": "Niet indeelbaar",
+  "basis": true
  },
  {
   "postcode": "1068 XZ",
@@ -1886,7 +1892,8 @@
   "funderingPc": "1068XZ",
   "fundering": "Stedelijk gebied - 80-100 %",
   "funderingVoor1970": "100",
-  "funderingBodem": "Niet indeelbaar"
+  "funderingBodem": "Niet indeelbaar",
+  "basis": true
  },
  {
   "postcode": "1091 AJ",
@@ -1923,7 +1930,8 @@
   "funderingPc": "1091AJ",
   "fundering": "Stedelijk gebied - 0-20 %",
   "funderingVoor1970": "0",
-  "funderingBodem": "Niet indeelbaar"
+  "funderingBodem": "Niet indeelbaar",
+  "basis": true
  },
  {
   "postcode": "1024 SE",
@@ -1960,7 +1968,8 @@
   "funderingPc": "1024SE",
   "fundering": "Stedelijk gebied - 80-100 %",
   "funderingVoor1970": "100",
-  "funderingBodem": "Niet indeelbaar"
+  "funderingBodem": "Niet indeelbaar",
+  "basis": true
  },
  {
   "postcode": "1024 SJ",
@@ -1997,7 +2006,8 @@
   "funderingPc": "1024SJ",
   "fundering": "Stedelijk gebied - 80-100 %",
   "funderingVoor1970": "100",
-  "funderingBodem": "Niet indeelbaar"
+  "funderingBodem": "Niet indeelbaar",
+  "basis": true
  },
  {
   "postcode": "1102 NN",
@@ -2034,7 +2044,8 @@
   "funderingPc": "1102NN",
   "fundering": "Stedelijk gebied - 0-20 %",
   "funderingVoor1970": "0",
-  "funderingBodem": "Niet indeelbaar"
+  "funderingBodem": "Niet indeelbaar",
+  "basis": true
  },
  {
   "postcode": "1102 NB",
@@ -2071,7 +2082,8 @@
   "funderingPc": "1102NB",
   "fundering": "Stedelijk gebied - 0-20 %",
   "funderingVoor1970": "0",
-  "funderingBodem": "Niet indeelbaar"
+  "funderingBodem": "Niet indeelbaar",
+  "basis": true
  },
  {
   "postcode": "1065 EC",
@@ -2108,7 +2120,8 @@
   "funderingPc": "1065EC",
   "fundering": "Stedelijk gebied - 80-100 %",
   "funderingVoor1970": "100",
-  "funderingBodem": "Niet indeelbaar"
+  "funderingBodem": "Niet indeelbaar",
+  "basis": true
  },
  {
   "postcode": "1063 JL",
@@ -2145,7 +2158,8 @@
   "funderingPc": "1063JL",
   "fundering": "Stedelijk gebied - 80-100 %",
   "funderingVoor1970": "100",
-  "funderingBodem": "Niet indeelbaar"
+  "funderingBodem": "Niet indeelbaar",
+  "basis": true
  },
  {
   "postcode": "1065 GA",
@@ -2182,7 +2196,8 @@
   "funderingPc": "1065GA",
   "fundering": "Stedelijk gebied - 80-100 %",
   "funderingVoor1970": "100",
-  "funderingBodem": "Niet indeelbaar"
+  "funderingBodem": "Niet indeelbaar",
+  "basis": true
  },
  {
   "postcode": "1073 ER",
@@ -2219,7 +2234,8 @@
   "funderingPc": "1073ER",
   "fundering": "Stedelijk gebied - 80-100 %",
   "funderingVoor1970": "85.71428571428571",
-  "funderingBodem": "Niet indeelbaar"
+  "funderingBodem": "Niet indeelbaar",
+  "basis": true
  },
  {
   "postcode": "1106 KL",
@@ -2256,7 +2272,8 @@
   "funderingPc": "1106KL",
   "fundering": "Kwetsbaar gebied - 0-20 %",
   "funderingVoor1970": "0",
-  "funderingBodem": "Laagveengebied"
+  "funderingBodem": "Laagveengebied",
+  "basis": true
  },
  {
   "postcode": "1106 KT",
@@ -2293,7 +2310,8 @@
   "funderingPc": "1106KT",
   "fundering": "Kwetsbaar gebied - 0-20 %",
   "funderingVoor1970": "0",
-  "funderingBodem": "Laagveengebied"
+  "funderingBodem": "Laagveengebied",
+  "basis": true
  },
  {
   "postcode": "1068 LW",
@@ -2330,7 +2348,8 @@
   "funderingPc": "1068LW",
   "fundering": "Stedelijk gebied - 0-20 %",
   "funderingVoor1970": "0",
-  "funderingBodem": "Niet indeelbaar"
+  "funderingBodem": "Niet indeelbaar",
+  "basis": true
  },
  {
   "postcode": "1068 LS",
@@ -2367,7 +2386,8 @@
   "funderingPc": "1068LS",
   "fundering": "Stedelijk gebied - 0-20 %",
   "funderingVoor1970": "0",
-  "funderingBodem": "Niet indeelbaar"
+  "funderingBodem": "Niet indeelbaar",
+  "basis": true
  },
  {
   "postcode": "1017 CX",
@@ -2404,7 +2424,8 @@
   "funderingPc": "1017CX",
   "fundering": "Stedelijk gebied - 60-80 %",
   "funderingVoor1970": "75",
-  "funderingBodem": "Niet indeelbaar"
+  "funderingBodem": "Niet indeelbaar",
+  "basis": true
  },
  {
   "postcode": "1106 BM",
@@ -2441,7 +2462,8 @@
   "funderingPc": "1106BM",
   "fundering": "Kwetsbaar gebied - 0-20 %",
   "funderingVoor1970": "0",
-  "funderingBodem": "Laagveengebied"
+  "funderingBodem": "Laagveengebied",
+  "basis": true
  },
  {
   "postcode": "1106 BV",
@@ -2478,7 +2500,8 @@
   "funderingPc": "1106BV",
   "fundering": "Kwetsbaar gebied - 0-20 %",
   "funderingVoor1970": "0",
-  "funderingBodem": "Laagveengebied"
+  "funderingBodem": "Laagveengebied",
+  "basis": true
  },
  {
   "postcode": "1106 BV",
@@ -2515,7 +2538,8 @@
   "funderingPc": "1106BV",
   "fundering": "Kwetsbaar gebied - 0-20 %",
   "funderingVoor1970": "0",
-  "funderingBodem": "Laagveengebied"
+  "funderingBodem": "Laagveengebied",
+  "basis": true
  },
  {
   "postcode": "1106 HX",
@@ -2552,7 +2576,8 @@
   "funderingPc": "1106HX",
   "fundering": "Kwetsbaar gebied - 0-20 %",
   "funderingVoor1970": "0",
-  "funderingBodem": "Laagveengebied"
+  "funderingBodem": "Laagveengebied",
+  "basis": true
  },
  {
   "postcode": "1024 PS",
@@ -2589,7 +2614,8 @@
   "funderingPc": "1024PS",
   "fundering": "Stedelijk gebied - 80-100 %",
   "funderingVoor1970": "100",
-  "funderingBodem": "Niet indeelbaar"
+  "funderingBodem": "Niet indeelbaar",
+  "basis": true
  },
  {
   "postcode": "1024 PM",
@@ -2626,7 +2652,8 @@
   "funderingPc": "1024PM",
   "fundering": "Stedelijk gebied - 80-100 %",
   "funderingVoor1970": "100",
-  "funderingBodem": "Niet indeelbaar"
+  "funderingBodem": "Niet indeelbaar",
+  "basis": true
  },
  {
   "postcode": "1024 PR",
@@ -2663,7 +2690,8 @@
   "funderingPc": "1024PR",
   "fundering": "Stedelijk gebied - 80-100 %",
   "funderingVoor1970": "100",
-  "funderingBodem": "Niet indeelbaar"
+  "funderingBodem": "Niet indeelbaar",
+  "basis": true
  },
  {
   "postcode": "1095 GV",
@@ -2700,7 +2728,8 @@
   "funderingPc": "1095GV",
   "fundering": "Stedelijk gebied - 0-20 %",
   "funderingVoor1970": "0",
-  "funderingBodem": "Niet indeelbaar"
+  "funderingBodem": "Niet indeelbaar",
+  "basis": true
  },
  {
   "postcode": "1063 BX",
@@ -2737,7 +2766,8 @@
   "funderingPc": "1063BX",
   "fundering": "Stedelijk gebied - 80-100 %",
   "funderingVoor1970": "100",
-  "funderingBodem": "Niet indeelbaar"
+  "funderingBodem": "Niet indeelbaar",
+  "basis": true
  },
  {
   "postcode": "1065 ER",
@@ -2774,7 +2804,8 @@
   "funderingPc": "1065ER",
   "fundering": "Stedelijk gebied - 80-100 %",
   "funderingVoor1970": "100",
-  "funderingBodem": "Niet indeelbaar"
+  "funderingBodem": "Niet indeelbaar",
+  "basis": true
  },
  {
   "postcode": "1065 EP",
@@ -2811,7 +2842,8 @@
   "funderingPc": "1065EP",
   "fundering": "Stedelijk gebied - 80-100 %",
   "funderingVoor1970": "100",
-  "funderingBodem": "Niet indeelbaar"
+  "funderingBodem": "Niet indeelbaar",
+  "basis": true
  },
  {
   "id": "amerbos-73-1025xz",
@@ -3836,7 +3868,8 @@
   "funderingPc": "1104VA",
   "fundering": "Stedelijk gebied - 0-20 %",
   "funderingVoor1970": "0",
-  "funderingBodem": "Niet indeelbaar"
+  "funderingBodem": "Niet indeelbaar",
+  "basis": true
  },
  {
   "postcode": "1021 BW",
@@ -3872,7 +3905,8 @@
   "funderingPc": "1021BW",
   "fundering": "Stedelijk gebied - 80-100 %",
   "funderingVoor1970": "100",
-  "funderingBodem": "Niet indeelbaar"
+  "funderingBodem": "Niet indeelbaar",
+  "basis": true
  },
  {
   "postcode": "1051 GK",
@@ -3909,7 +3943,8 @@
   "funderingPc": "1051GK",
   "fundering": "Stedelijk gebied - 80-100 %",
   "funderingVoor1970": "100",
-  "funderingBodem": "Niet indeelbaar"
+  "funderingBodem": "Niet indeelbaar",
+  "basis": true
  },
  {
   "postcode": "1067 VB",
@@ -3945,7 +3980,8 @@
   "funderingPc": "1067VB",
   "fundering": "Stedelijk gebied - 0-20 %",
   "funderingVoor1970": "0",
-  "funderingBodem": "Niet indeelbaar"
+  "funderingBodem": "Niet indeelbaar",
+  "basis": true
  },
  {
   "postcode": "1051 AM",
@@ -3982,7 +4018,8 @@
   "funderingPc": "1051AM",
   "fundering": "Stedelijk gebied - 80-100 %",
   "funderingVoor1970": "100",
-  "funderingBodem": "Niet indeelbaar"
+  "funderingBodem": "Niet indeelbaar",
+  "basis": true
  },
  {
   "postcode": "1103 GZ",
@@ -4019,7 +4056,8 @@
   "funderingPc": "1103GZ",
   "fundering": "Stedelijk gebied - 0-20 %",
   "funderingVoor1970": "0",
-  "funderingBodem": "Niet indeelbaar"
+  "funderingBodem": "Niet indeelbaar",
+  "basis": true
  },
  {
   "postcode": "1051 KP",
@@ -4056,7 +4094,8 @@
   "funderingPc": "1051KP",
   "fundering": "Stedelijk gebied - 80-100 %",
   "funderingVoor1970": "100",
-  "funderingBodem": "Niet indeelbaar"
+  "funderingBodem": "Niet indeelbaar",
+  "basis": true
  },
  {
   "postcode": "1013 XE",
@@ -4093,7 +4132,8 @@
   "funderingPc": "1013XE",
   "fundering": "Stedelijk gebied - 80-100 %",
   "funderingVoor1970": "100",
-  "funderingBodem": "Niet indeelbaar"
+  "funderingBodem": "Niet indeelbaar",
+  "basis": true
  },
  {
   "postcode": "1063 XS",
@@ -4130,7 +4170,8 @@
   "funderingPc": "1063XS",
   "fundering": "Stedelijk gebied - 80-100 %",
   "funderingVoor1970": "100",
-  "funderingBodem": "Niet indeelbaar"
+  "funderingBodem": "Niet indeelbaar",
+  "basis": true
  },
  {
   "postcode": "1055 KL",
@@ -4167,7 +4208,8 @@
   "funderingPc": "1055KL",
   "fundering": "Stedelijk gebied - 80-100 %",
   "funderingVoor1970": "100",
-  "funderingBodem": "Niet indeelbaar"
+  "funderingBodem": "Niet indeelbaar",
+  "basis": true
  },
  {
   "postcode": "1056 DG",
@@ -4204,7 +4246,8 @@
   "funderingPc": "1056DG",
   "fundering": "Stedelijk gebied - 80-100 %",
   "funderingVoor1970": "100",
-  "funderingBodem": "Niet indeelbaar"
+  "funderingBodem": "Niet indeelbaar",
+  "basis": true
  },
  {
   "postcode": "1103 MH",
@@ -4241,7 +4284,8 @@
   "funderingPc": "1103MH",
   "fundering": "Stedelijk gebied - 0-20 %",
   "funderingVoor1970": "0",
-  "funderingBodem": "Niet indeelbaar"
+  "funderingBodem": "Niet indeelbaar",
+  "basis": true
  },
  {
   "postcode": "1053 GP",
@@ -4277,7 +4321,8 @@
   "funderingPc": "1053GP",
   "fundering": "Stedelijk gebied - 80-100 %",
   "funderingVoor1970": "100",
-  "funderingBodem": "Niet indeelbaar"
+  "funderingBodem": "Niet indeelbaar",
+  "basis": true
  },
  {
   "postcode": "1104 TD",
@@ -4314,7 +4359,8 @@
   "funderingPc": "1104TD",
   "fundering": "Stedelijk gebied - 0-20 %",
   "funderingVoor1970": "0",
-  "funderingBodem": "Niet indeelbaar"
+  "funderingBodem": "Niet indeelbaar",
+  "basis": true
  },
  {
   "postcode": "1104 TV",
@@ -4351,7 +4397,8 @@
   "funderingPc": "1104TV",
   "fundering": "Stedelijk gebied - 0-20 %",
   "funderingVoor1970": "0",
-  "funderingBodem": "Niet indeelbaar"
+  "funderingBodem": "Niet indeelbaar",
+  "basis": true
  },
  {
   "postcode": "1068 SH",
@@ -4388,7 +4435,8 @@
   "funderingPc": "1068SH",
   "fundering": "Stedelijk gebied - 0-20 %",
   "funderingVoor1970": "0",
-  "funderingBodem": "Niet indeelbaar"
+  "funderingBodem": "Niet indeelbaar",
+  "basis": true
  },
  {
   "postcode": "1068 SJ",
@@ -4425,7 +4473,8 @@
   "funderingPc": "1068SJ",
   "fundering": "Stedelijk gebied - 0-20 %",
   "funderingVoor1970": "0",
-  "funderingBodem": "Niet indeelbaar"
+  "funderingBodem": "Niet indeelbaar",
+  "basis": true
  },
  {
   "postcode": "1021 EZ",
@@ -4461,7 +4510,8 @@
   "funderingPc": "1021EZ",
   "fundering": "Stedelijk gebied - 80-100 %",
   "funderingVoor1970": "94.11764705882352",
-  "funderingBodem": "Niet indeelbaar"
+  "funderingBodem": "Niet indeelbaar",
+  "basis": true
  },
  {
   "postcode": "1091 ZC",
@@ -4498,7 +4548,8 @@
   "funderingPc": "1091ZC",
   "fundering": "Stedelijk gebied - 80-100 %",
   "funderingVoor1970": "100",
-  "funderingBodem": "Niet indeelbaar"
+  "funderingBodem": "Niet indeelbaar",
+  "basis": true
  },
  {
   "postcode": "1091 VZ",
@@ -4535,7 +4586,8 @@
   "funderingPc": "1091VZ",
   "fundering": "Stedelijk gebied - 0-20 %",
   "funderingVoor1970": "0",
-  "funderingBodem": "Niet indeelbaar"
+  "funderingBodem": "Niet indeelbaar",
+  "basis": true
  },
  {
   "postcode": "1021 NG",
@@ -4572,7 +4624,8 @@
   "funderingPc": "1021NG",
   "fundering": "Stedelijk gebied - 0-20 %",
   "funderingVoor1970": "0",
-  "funderingBodem": "Niet indeelbaar"
+  "funderingBodem": "Niet indeelbaar",
+  "basis": true
  },
  {
   "postcode": "1051 XG",
@@ -4609,7 +4662,8 @@
   "funderingPc": "1051XG",
   "fundering": "Stedelijk gebied - 40-60 %",
   "funderingVoor1970": "42.857142857142854",
-  "funderingBodem": "Niet indeelbaar"
+  "funderingBodem": "Niet indeelbaar",
+  "basis": true
  },
  {
   "postcode": "1106 DE",
@@ -4646,7 +4700,8 @@
   "funderingPc": "1106DE",
   "fundering": "Kwetsbaar gebied - 0-20 %",
   "funderingVoor1970": "0",
-  "funderingBodem": "Laagveengebied"
+  "funderingBodem": "Laagveengebied",
+  "basis": true
  },
  {
   "postcode": "1107 XE",
@@ -4682,7 +4737,8 @@
   "funderingPc": "1107XE",
   "fundering": "Kwetsbaar gebied - 0-20 %",
   "funderingVoor1970": "0",
-  "funderingBodem": "Laagveengebied"
+  "funderingBodem": "Laagveengebied",
+  "basis": true
  },
  {
   "postcode": "1107 CP",
@@ -4718,7 +4774,8 @@
   "funderingPc": "1107CP",
   "fundering": "Kwetsbaar gebied - 0-20 %",
   "funderingVoor1970": "0",
-  "funderingBodem": "Laagveengebied"
+  "funderingBodem": "Laagveengebied",
+  "basis": true
  },
  {
   "postcode": "1107 CG",
@@ -4755,7 +4812,8 @@
   "funderingPc": "1107CG",
   "fundering": "Kwetsbaar gebied - 0-20 %",
   "funderingVoor1970": "0",
-  "funderingBodem": "Laagveengebied"
+  "funderingBodem": "Laagveengebied",
+  "basis": true
  },
  {
   "id": "sg-aardbeistraat-16-amsterdam",
