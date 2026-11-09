@@ -247,9 +247,8 @@
   #map { height: 340px; border-radius: var(--rc); }
   .legend { margin-top: 10px; gap: 6px 16px; }
   /* Kaart schuift mee naar rechts zodra je er voorbij scrollt (alleen brede schermen) */
-  #mapdock { position: fixed; top: 16px; bottom: 16px; z-index: 30; background: var(--panel); border: 1px solid var(--line); border-radius: var(--r); box-shadow: var(--shadow); padding: 8px; animation: dockin .18s ease-out; }
+  #mapdock { position: fixed; top: 16px; bottom: 16px; z-index: 30; background: var(--panel); border: 1px solid var(--line); border-radius: var(--r); box-shadow: var(--shadow); padding: 8px; }
   #mapdock #map { height: 100%; }
-  @keyframes dockin { from { opacity: 0; transform: translateX(12px); } to { opacity: 1; transform: none; } }
   body.mapdock #rows, body.mapdock #tabelwrap, body.mapdock #statsblok, body.mapdock .foot { margin-right: calc(var(--dockw) + 16px); }
   details.statsblok > summary { list-style: none; } details.statsblok > summary::-webkit-details-marker { display: none; }
   details.statsblok > summary::before { content: "▸ "; } details.statsblok[open] > summary::before { content: "▾ "; }
@@ -716,13 +715,26 @@ const dockCheck = () => {
   docked = want;
   const m = $('#map');
   if (docked) {
+    const from = m.getBoundingClientRect();
     const ph = el('div'); ph.id = 'mapph'; ph.style.height = m.offsetHeight + 'px'; m.before(ph);
     const d = el('div'); d.id = 'mapdock'; d.append(m); document.body.append(d);
-    document.body.classList.add('mapdock'); placeDock();
+    document.body.classList.add('mapdock'); placeDock(); map.invalidateSize();
+    glide(d, from);
   } else {
+    const from = $('#mapdock').getBoundingClientRect();
     $('#mapph').replaceWith(m); $('#mapdock').remove(); document.body.classList.remove('mapdock');
+    map.invalidateSize();
+    glide(m, from);
   }
-  map.invalidateSize();
+};
+// Glijden van de oude naar de nieuwe plek (FLIP)
+const glide = (node, from) => {
+  if (matchMedia('(prefers-reduced-motion: reduce)').matches || !node.animate) return;
+  const to = node.getBoundingClientRect(); if (!to.width || !to.height) return;
+  node.animate([
+    {transformOrigin: '0 0', transform: `translate(${from.left - to.left}px, ${from.top - to.top}px) scale(${from.width / to.width}, ${from.height / to.height})`},
+    {transformOrigin: '0 0', transform: 'none'}
+  ], {duration: 380, easing: 'cubic-bezier(.2, .8, .2, 1)'});
 };
 const placeDock = () => {
   const d = $('#mapdock'); if (!d) return;
