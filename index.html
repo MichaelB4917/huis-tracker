@@ -182,6 +182,142 @@
   .profbtn { background: rgb(255 255 255 / .2); border: 0; color: var(--head-ink); font: inherit; font-size: 13px; padding: 5px 10px; border-radius: 4px; cursor: pointer; }
   .leaflet-popup-content { font: 13px/1.4 "Helvetica Neue", Arial, sans-serif; }
   .leaflet-container { background: #f2f2f2; }
+
+  /* ---------- Afwerking ---------- */
+  :root { --r: 10px; --rc: 8px; --ctl: 36px; --line: #e3e3e3; --page: #f5f5f3; }
+  :root[data-theme="dark"] { --line: #34353a; --page: #111214; }
+  body { -webkit-font-smoothing: antialiased; }
+  .topbar { box-shadow: 0 1px 0 rgb(0 0 0 / .06); }
+  .topbar .in { padding: 10px 20px; gap: 8px 18px; min-height: 60px; }
+  .brand { font-size: 20px; gap: 10px; white-space: nowrap; }
+  .brand .tag { font-size: 11px; padding: 2px 7px; border-radius: 5px; }
+  .nav { gap: 2px; }
+  .nav button { padding: 7px 12px; border-radius: 8px; font-size: 14.5px; }
+  .nav button:hover { background: rgb(255 255 255 / .14); opacity: 1; }
+  .topr { margin-left: auto; display: flex; align-items: center; gap: 10px; }
+  .profbtn { height: 34px; padding: 0 12px; border-radius: 999px; background: rgb(255 255 255 / .22); font-weight: 600; white-space: nowrap; max-width: 16rem; overflow: hidden; text-overflow: ellipsis; }
+  .profbtn:hover { background: rgb(255 255 255 / .32); }
+  .themes { margin: 0; padding: 3px; gap: 2px; border-radius: 999px; background: rgb(0 0 0 / .12); }
+  .themes button { border: 0; border-radius: 999px !important; height: 28px; min-width: 32px; padding: 0 10px; font-size: 13px; font-weight: 600; color: var(--head-ink); opacity: .85; }
+  .themes button[aria-pressed="true"] { background: #fff; color: #1f1f1f; opacity: 1; }
+  .searchbar .in { padding: 16px 20px; gap: 10px 20px; }
+  .searchwrap { position: relative; flex: 1 1 22rem; min-width: 0; display: flex; }
+  .searchwrap svg { position: absolute; left: 14px; top: 50%; width: 18px; height: 18px; transform: translateY(-50%); color: var(--muted); pointer-events: none; }
+  .search { flex: 1; height: 46px; padding: 0 16px 0 42px; border-radius: var(--rc); border-color: #cfcfcf; font-size: 15.5px; }
+  .wrap { padding: 20px 20px 48px; }
+  .alert, .reminder { border-radius: var(--rc); padding: 10px 16px; margin-bottom: 16px; font-size: 14px; }
+  .alert .badge { border-radius: 999px; }
+  .layout { grid-template-columns: 16rem minmax(0, 1fr); gap: 22px; }
+  @media (max-width: 900px) { .layout { grid-template-columns: minmax(0, 1fr); } .side { position: static; max-height: none; } }
+
+  /* filters */
+  .side { border-radius: var(--r); overflow: hidden; position: sticky; top: 16px; max-height: calc(100vh - 32px); overflow-y: auto; }
+  .side h3 { padding: 14px 16px; font-size: 16px; }
+  .side details.dd > summary { padding: 13px 16px; font-size: 14.5px; }
+  .side .panel { padding: 0 16px 14px; }
+  .side .panel > div:first-child:has(.mini) { margin-bottom: 4px; }
+  .field input, .field select { height: 38px; padding: 0 10px; border-radius: 6px; border-color: #cfcfcf; }
+  .check { min-height: 30px; padding: 2px 0; }
+  .check input { width: 17px; height: 17px; margin: 0; flex: none; }
+  .check .cd { margin: 0 2px 0 0; }
+  .tree .row { gap: 2px; } .tree .tg { width: 20px; height: 24px; }
+  .sidewrap > summary { border-radius: var(--r); height: 46px; align-items: center; padding: 0 16px; }
+
+  /* resultatenkop */
+  .reshead { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 14px; }
+  .reshead .ttl { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; }
+  .reshead h2 { font-size: 21px; margin: 0; letter-spacing: -.01em; }
+  .ctrls { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+  .grp { display: flex; gap: 8px; align-items: center; }
+  .grp + .grp { padding-left: 8px; border-left: 1px solid var(--line); }
+  .btn, .sort, .tdd > summary { height: var(--ctl); padding: 0 14px; border-radius: 6px; border-color: #cfcfcf; font-weight: 600; }
+  .sort { padding-right: 30px; appearance: none; background: var(--bg) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%23777' stroke-width='1.6' fill='none'/%3E%3C/svg%3E") no-repeat right 12px center; }
+  .seg { height: var(--ctl); border-radius: 6px; border-color: #cfcfcf; }
+  .seg button { padding: 0 12px; font-weight: 600; }
+  .seg button + button { border-left-color: #cfcfcf; }
+  .tdd .panel { border-radius: var(--r); padding: 14px; }
+  :root[data-theme="dark"] .btn, :root[data-theme="dark"] .sort, :root[data-theme="dark"] .tdd > summary, :root[data-theme="dark"] .seg, :root[data-theme="dark"] .field input, :root[data-theme="dark"] .field select, :root[data-theme="dark"] .search { border-color: #45464c; }
+
+  /* kerncijfers, kaart */
+  .stats { border-radius: var(--r); margin-bottom: 14px; }
+  .stat { padding: 12px 18px; }
+  .stat .lbl { font-size: 12.5px; }
+  .stat .val { font-size: 20px; margin-top: 2px; }
+  .card { border-radius: var(--r); padding: 14px; margin-bottom: 14px; }
+  #map { height: 340px; border-radius: var(--rc); }
+  .legend { margin-top: 10px; gap: 6px 16px; }
+  details.statsblok > summary { list-style: none; } details.statsblok > summary::-webkit-details-marker { display: none; }
+  details.statsblok > summary::before { content: "▸ "; } details.statsblok[open] > summary::before { content: "▾ "; }
+
+  /* lijst */
+  .scroll { border-radius: var(--r); }
+  table { font-size: 14px; }
+  th { padding: 11px 10px; font-size: 11.5px; text-transform: uppercase; letter-spacing: .04em; border-bottom: 1px solid var(--line); background: var(--panel); }
+  th:first-child, td:first-child { padding-left: 16px; } th:last-child, td:last-child { padding-right: 16px; }
+  td { padding: 14px 10px; vertical-align: middle; }
+  td.c-adres, td.c-stadsdeel { vertical-align: top; }
+  #tabel td.c-adres { min-width: 14rem; }
+  #tabel td.c-stadsdeel { max-width: 9rem; } #tabel td.c-stadsdeel .sub { white-space: normal; }
+  #tabel td { padding-left: 7px; padding-right: 7px; } #tabel td:first-child { padding-left: 16px; } #tabel td:last-child { padding-right: 14px; }
+  #tabel th { padding-left: 7px; padding-right: 7px; } #tabel th:first-child { padding-left: 16px; }
+  #tabel td.c-corporatie { font-size: 13px; }
+  .adres { font-size: 15px; }
+  .sub { margin-top: 3px; }
+  .sub .badge { vertical-align: 1px; }
+  .badge { border-radius: 4px; padding: 2px 8px; font-size: 11.5px; line-height: 1.35; }
+  .badge.t-new { padding: 1px 6px; }
+  tr.isnew td:first-child { box-shadow: inset 3px 0 0 var(--accent); }
+  table.compact td { padding-top: 6px; padding-bottom: 6px; vertical-align: middle; }
+  table.compact th:first-child, table.compact td:first-child { padding-left: 14px; }
+  .star { padding: 0 6px 0 0; font-size: 17px; }
+
+  /* schakelaars voor aan/uit-opties */
+  .check.sw { justify-content: space-between; flex-direction: row-reverse; gap: 12px; }
+  .check.sw input { appearance: none; -webkit-appearance: none; width: 36px; height: 21px; border-radius: 999px; background: #c9c9c9; position: relative; cursor: pointer; transition: background .15s; flex: none; }
+  .check.sw input::after { content: ""; position: absolute; top: 2px; left: 2px; width: 17px; height: 17px; border-radius: 50%; background: #fff; box-shadow: 0 1px 2px rgb(0 0 0 / .25); transition: transform .15s; }
+  .check.sw input:checked { background: var(--accent); }
+  .check.sw input:checked::after { transform: translateX(15px); }
+  :root[data-theme="dark"] .check.sw input { background: #4a4b50; }
+  .check.sw input:focus-visible { outline: 2px solid var(--link); outline-offset: 2px; }
+
+  /* mobiel */
+  @media (max-width: 760px) {
+    .topbar .in { padding: 10px 14px; gap: 8px 10px; }
+    .brand { font-size: 18px; } .brand .tag { display: none; }
+    .nav { order: 3; width: 100%; overflow-x: auto; margin: 0 -4px; }
+    .nav button { white-space: nowrap; }
+    .topr { gap: 6px; } .profbtn { max-width: 11rem; font-size: 12.5px; height: 30px; }
+    .themes button { min-width: 28px; padding: 0 8px; height: 26px; }
+    .searchbar .in { padding: 12px 14px; }
+    .wrap { padding: 14px 14px 40px; }
+    .layout { gap: 14px; }
+    .reshead { gap: 10px; }
+    .ctrls { flex-wrap: nowrap; overflow-x: auto; width: 100%; padding-bottom: 2px; scrollbar-width: none; }
+    .grp { flex: none; }
+    .stats { display: grid; grid-template-columns: repeat(6, 1fr); }
+    .stat { grid-column: span 2; } .stat:nth-child(n+4) { grid-column: span 3; } .stat:nth-child(3), .stat:last-child { border-right: 0; } .stat:nth-child(n+4) { border-bottom: 0; }
+    .stat { padding: 10px 12px; border-right: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+    .stat .val { font-size: 17px; }
+    #map { height: 260px; }
+    /* lijst als rijen */
+    #tabel thead { display: none; }
+    #tabel, #tabel tbody, #tabel tr { display: block; }
+    #tabel tr { padding: 14px 14px 12px; border-bottom: 1px solid var(--line); position: relative; }
+    #tabel tbody tr:last-child { border-bottom: 0; }
+    #tabel td { display: inline; padding: 0 !important; border: 0; white-space: nowrap; font-size: 13.5px; }
+    #tabel td + td::before { content: " · "; color: var(--muted); }
+    #tabel td.c-adres { display: block; min-width: 0; white-space: normal; }
+    #tabel td.c-adres + td::before, #tabel td.c-prijs::before, #tabel td.c-prijs + td::before { content: ""; }
+    #tabel td.c-prijs { display: block; font-size: 18px; text-align: left; margin: 6px 0 2px; }
+    #tabel td[data-sfx]::after { content: attr(data-sfx); }
+    #tabel td.c-stadsdeel .sub { display: inline; } #tabel td.c-stadsdeel .sub::before { content: ", "; }
+    #tabel td.c-voorrang, #tabel td.c-status { display: inline-block; margin-top: 8px; margin-right: 6px; }
+    #tabel td.c-voorrang::before, #tabel td.c-status::before { content: "" !important; }
+    #tabel td.c-kamers::after { content: attr(data-sfx) "\A"; white-space: pre; }
+    #tabel td.c-energielabel, #tabel td.c-type, #tabel td.c-bouwjaar, #tabel td.c-servicekosten, #tabel td.c-erfpacht, #tabel td.c-voorrangSpec, #tabel td.c-maps, #tabel td.c-online, #tabel td.c-energielabel:empty { display: none; }
+    tr.isnew td:first-child { box-shadow: none; } #tabel tr.isnew { box-shadow: inset 3px 0 0 var(--accent); }
+    tbody tr:hover td { background: none; }
+  }
 </style>
 </head>
 <body>
@@ -192,13 +328,15 @@
     <button data-tab="regels" aria-pressed="false">Voorrangsregels</button>
     <button data-tab="bronnen" aria-pressed="false">Bronnen <span id="tabdot"></span></button>
   </nav>
-  <button class="profbtn" id="profbtn" title="Mijn situatie aanpassen">Ik huur bij: …</button>
-  <div class="themes" aria-label="Thema">
-    <button data-theme-btn="light">Licht</button><button data-theme-btn="dark">Donker</button><button data-theme-btn="system">Systeem</button>
+  <div class="topr">
+    <button class="profbtn" id="profbtn" title="Mijn situatie aanpassen">Ik huur bij: …</button>
+    <div class="themes" aria-label="Thema">
+      <button data-theme-btn="light" title="Licht" aria-label="Licht">☀︎</button><button data-theme-btn="dark" title="Donker" aria-label="Donker">☾</button><button data-theme-btn="system" title="Zoals je apparaat" aria-label="Systeem">Auto</button>
+    </div>
   </div>
 </div></header>
 <div class="searchbar" data-page-bar><div class="in">
-  <input type="search" class="search f" data-f="q" placeholder="Zoek op straat, buurt, postcode of type in Amsterdam">
+  <div class="searchwrap"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7" fill="none" stroke="currentColor" stroke-width="2"/><path d="m20 20-4-4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg><input type="search" class="search f" data-f="q" placeholder="Zoek op straat, buurt, postcode of type"></div>
   <span id="kop">Laden…</span>
 </div></div>
 
@@ -241,22 +379,22 @@
           <details class="dd side" open data-dd="meer"><summary>Voorrang, status &amp; woning <span class="cnt"></span></summary>
         <div class="panel">
           <h4>Voorrang</h4>
-          <label class="check"><input type="checkbox" class="f" data-f="voorJou"> Alleen waar ik voorrang kan krijgen</label>
-          <label class="check"><input type="checkbox" class="f" data-f="voorrangActief"> Alleen als voorrang nu loopt</label>
+          <label class="check sw"><input type="checkbox" class="f" data-f="voorJou"> Alleen waar ik voorrang kan krijgen</label>
+          <label class="check sw"><input type="checkbox" class="f" data-f="voorrangActief"> Alleen als voorrang nu loopt</label>
           <h4>Status</h4>
-          <label class="check"><input type="checkbox" class="f" data-f="nieuw"> Alleen nieuw (7 dagen)</label>
-          <label class="check"><input type="checkbox" class="f" data-f="verbergVerkocht" checked> Verberg verkocht o.v.b.</label>
-          <label class="check"><input type="checkbox" class="f" data-f="verbergBod"> Verberg onder bod</label>
+          <label class="check sw"><input type="checkbox" class="f" data-f="nieuw"> Alleen nieuw (7 dagen)</label>
+          <label class="check sw"><input type="checkbox" class="f" data-f="verbergVerkocht" checked> Verberg verkocht o.v.b.</label>
+          <label class="check sw"><input type="checkbox" class="f" data-f="verbergBod"> Verberg onder bod</label>
           <h4>Woning</h4>
-          <label class="check"><input type="checkbox" class="f" data-f="tuin"> Met tuin</label>
-          <label class="check"><input type="checkbox" class="f" data-f="goedLabel"> Energielabel A–C</label>
-          <label class="check"><input type="checkbox" class="f" data-f="erfpachtAfgekocht"> Erfpacht afgekocht</label>
+          <label class="check sw"><input type="checkbox" class="f" data-f="tuin"> Met tuin</label>
+          <label class="check sw"><input type="checkbox" class="f" data-f="goedLabel"> Energielabel A–C</label>
+          <label class="check sw"><input type="checkbox" class="f" data-f="erfpachtAfgekocht"> Erfpacht afgekocht</label>
         </div></details>
         </aside>
       </details>
       <div>
         <div class="reshead">
-          <h2 id="ntitle">Woningen</h2>
+          <div class="ttl"><h2 id="ntitle">Woningen</h2>
           <select class="sort f" data-f="sort" aria-label="Sorteren">
         <option value="nieuw">Nieuwste eerst</option>
         <option value="prijs-asc">Prijs laag–hoog</option>
@@ -264,21 +402,24 @@
         <option value="ppm-asc">Laagste €/m²</option>
         <option value="m2-desc">Grootste eerst</option>
         <option value="deadline-asc">Voorrang loopt eerst af</option>
-      </select>
+      </select></div>
+          <div class="ctrls"><div class="grp">
           <button class="btn" id="voorbtn" aria-pressed="false" title="Alleen woningen waar jij voorrang kunt krijgen">✓ Voorrang voor mij</button>
           <button class="btn" id="favbtn" aria-pressed="false">★ Favorieten <span id="favn"></span></button>
+          </div><div class="grp">
           <button class="btn" id="kaartbtn" aria-pressed="true">Kaart</button>
           <div class="seg"><button data-density="compact">Compact</button><button data-density="ruim">Details</button></div>
           <details class="dd tdd" data-dd="weergave"><summary>Weergave ▾</summary>
         <div class="panel">
           <h4>Onderdelen</h4>
-          <label class="check"><input type="checkbox" class="sec" data-sec="stats" checked> Kerncijfers</label>
-          <label class="check"><input type="checkbox" class="sec" data-sec="kaartblok" checked> Kaart</label>
+          <label class="check sw"><input type="checkbox" class="sec" data-sec="stats" checked> Kerncijfers</label>
+          <label class="check sw"><input type="checkbox" class="sec" data-sec="kaartblok" checked> Kaart</label>
           <h4>Kolommen</h4>
           <div id="colboxes"></div>
           <h4>Gedeelde lijst</h4>
           <button class="mini" id="syncopen2">Lijst maken of delen</button>
         </div></details>
+          </div></div>
         </div>
         <div class="stats" id="stats"></div>
         <div class="card" id="kaartblok">
@@ -332,7 +473,7 @@ const corpOrder = ['Alliantie', 'Lieven de Key', 'Stadgenoot', 'Rochdale', 'Ymer
 const corpColor = (c) => `var(--c${Math.max(0, corpOrder.indexOf(c) < 0 ? 5 : corpOrder.indexOf(c))})`;
 const corpHex = (c) => getComputedStyle(document.documentElement).getPropertyValue(`--c${corpOrder.indexOf(c) < 0 ? 5 : corpOrder.indexOf(c)}`).trim();
 const EERSTE = '2026-11-08';
-const onlineSinds = (w) => w.onlineSinds ? nlDate(w.onlineSinds) : w.basis ? 'vóór ' + nlShort(EERSTE) : nlDate(w.eerstGezien);
+const onlineSinds = (w) => w.onlineSinds ? nlShort(w.onlineSinds) : w.basis ? '< ' + nlShort(EERSTE) : nlShort(w.eerstGezien);
 let favs = new Set(); try { favs = new Set(JSON.parse(store.get('favs') || '[]')); } catch (e) {}
 let gezien = new Set(); try { gezien = new Set(JSON.parse(store.get('gezien') || '[]')); } catch (e) {}
 // Delen via Supabase: elke lijst is één rij, alleen bereikbaar met de geheime lijst-id (via RPC-functies)
@@ -422,7 +563,7 @@ const statusTone = (s) => s === 'beschikbaar' ? 't-ok' : s === 'onder bod' ? 't-
 // Kolommen
 const COLS = [['adres', 'Adres', true], ['stadsdeel', 'Stadsdeel', true], ['corporatie', 'Corporatie', true], ['prijs', 'Prijs', true, 'num'], ['m2', 'm²', true, 'num'],
   ['ppm', '€/m²', true, 'num'], ['kamers', 'Kamers', true, 'num'], ['type', 'Type', false], ['energielabel', 'Label', true], ['bouwjaar', 'Bouwjaar', false, 'num'],
-  ['servicekosten', 'VvE/mnd', true, 'num'], ['erfpacht', 'Erfpacht', false], ['online', 'Online sinds', true, 'nowrap'], ['voorrang', 'Voorrang', true], ['voorrangSpec', 'Voorrangsregel', false], ['status', 'Status', true], ['maps', 'Maps', false]];
+  ['servicekosten', 'VvE p/m', true, 'num'], ['erfpacht', 'Erfpacht', false], ['online', 'Online', false, 'nowrap'], ['voorrang', 'Voorrang', true], ['voorrangSpec', 'Voorrangsregel', false], ['status', 'Status', true], ['maps', 'Maps', false]];
 let colState = {}; try { colState = JSON.parse(store.get('cols') || '{}'); } catch (e) {}
 const colOn = (k) => k === 'adres' || (k in colState ? colState[k] : COLS.find((c) => c[0] === k)[2]);
 const colStyle = document.createElement('style'); document.head.append(colStyle);
@@ -566,20 +707,21 @@ const render = () => {
   else tb.replaceChildren(...rows.map((w) => {
     const tr = el('tr'); if (isNew(w)) tr.classList.add('isnew'); if (w.status === 'verkocht o.v.b.') tr.classList.add('dim');
     const cell = (k, ...kids) => { const c = el('td', 'c-' + k); c.append(...kids.filter((x) => x != null && x !== '')); return c; };
+    const sfx = (c, t) => { c.dataset.sfx = t; return c; };
     const num = (k, v) => { const c = cell(k, v); c.classList.add('num'); return c; };
     const a = el('a', 'adres', w.adres); a.href = w.url; a.target = '_blank'; a.rel = 'noopener';
     const st = el('button', 'star' + (favs.has(w.id) ? ' on' : ''), favs.has(w.id) ? '★' : '☆'); st.title = 'Favoriet'; st.setAttribute('aria-label', 'Favoriet');
     st.onclick = () => { favs.has(w.id) ? favs.delete(w.id) : favs.add(w.id); changed(); render(); };
     a.addEventListener('click', () => markSeen(w.id));
     if (gezien.has(w.id)) tr.classList.add('seen');
-    const cA = cell('adres', st, a); if (isNew(w)) cA.append(' ', badge('t-new', 'Nieuw')); cA.append(el('div', 'sub', [w.postcode, w.type].filter(Boolean).join(' · ')));
+    const cA = cell('adres', st, a); const sb = el('div', 'sub'); if (isNew(w)) sb.append(badge('t-new', 'Nieuw'), ' '); sb.append([w.postcode, w.type, 'online ' + onlineSinds(w)].filter(Boolean).join(' · ')); cA.append(sb);
     const cS = cell('stadsdeel', w.stadsdeel || '—'); if (w.wijk) cS.append(el('div', 'sub', w.wijk));
     const d = el('span', 'cd'); d.style.background = corpColor(w.corporatie); const cC = cell('corporatie', d, w.corporatie); cC.classList.add('nowrap');
     const v = voorrang(w); const cV = cell('voorrang', badge(v.cls, v.text));
     const cSp = cell('voorrangSpec', w.voorrangSpec || ''); cSp.classList.add('spec');
     const cE = cell('erfpacht', w.erfpacht || ''); cE.classList.add('spec');
     const m = el('a', null, 'maps'); m.href = 'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent(w.adres + ', ' + (w.plaats || 'Amsterdam')); m.target = '_blank';
-    tr.append(cA, cS, cC, num('prijs', eur.format(w.prijs)), num('m2', String(w.m2)), num('ppm', eur.format(Math.round(w.prijs / w.m2))), num('kamers', String(w.kamers)),
+    tr.append(cA, cS, cC, num('prijs', eur.format(w.prijs)), sfx(num('m2', String(w.m2)), ' m²'), sfx(num('ppm', eur.format(Math.round(w.prijs / w.m2))), '/m²'), sfx(num('kamers', String(w.kamers)), w.kamers === 1 ? ' kamer' : ' kamers'),
       cell('type', w.type), cell('energielabel', w.energielabel || ''), num('bouwjaar', w.bouwjaar ? String(w.bouwjaar) : ''),
       num('servicekosten', w.servicekosten !== '' && w.servicekosten != null ? eur2.format(w.servicekosten) : ''), cE, cell('online', onlineSinds(w)), cV, cSp, cell('status', badge(statusTone(w.status), w.status)), cell('maps', m));
     return tr;
