@@ -43,6 +43,14 @@
   .nav { display: flex; gap: 4px; }
   .nav button { background: none; border: 0; color: var(--head-ink); font: inherit; font-weight: 600; padding: 6px 10px; border-radius: 4px; cursor: pointer; opacity: .85; display: inline-flex; align-items: center; gap: 6px; }
   .nav button[aria-pressed="true"] { opacity: 1; background: rgb(255 255 255 / .22); }
+  .nav { max-width: 100%; overflow-x: auto; scrollbar-width: none; } .nav::-webkit-scrollbar { display: none; } .nav button { flex: none; }
+  .navn:not(:empty) { font-size: 11.5px; background: rgb(255 255 255 / .3); border-radius: 999px; padding: 0 7px; line-height: 18px; }
+  /* Tabblad Onze lijst: zelfde pagina, alleen jullie woningen, met beheeroverzicht */
+  body.lijstmode .layout { grid-template-columns: minmax(0, 1fr); } body.lijstmode .sidewrap, body.lijstmode #stats, body.lijstmode #voorbtn, body.lijstmode #favbtn, body.lijstmode #syncreminder, body.lijstmode #alert, body.lijstmode #statsblok { display: none !important; }
+  #lijstoverzicht { margin-bottom: 14px; } #lijstoverzicht h2 { font-size: 18px; margin: 0 0 4px; }
+  #lijstoverzicht .chips { display: flex; flex-wrap: wrap; gap: 6px 14px; font-size: 13.5px; color: var(--muted); margin: 6px 0 12px; } #lijstoverzicht .chips b { color: var(--fg); }
+  #lijstTbl td, #lijstTbl th { padding: 7px 8px; font-size: 13.5px; vertical-align: middle; } #lijstTbl select, #lijstTbl input { font: inherit; font-size: 13px; max-width: 10.5rem; }
+  #lijstTbl input[type=number] { width: 7.5rem; } #lijstTbl .adres { font-weight: 600; cursor: pointer; }
   .themes { margin-left: auto; display: flex; gap: 2px; }
   .themes button { background: none; border: 1px solid rgb(255 255 255 / .55); color: var(--head-ink); font: inherit; font-size: 12px; padding: 3px 8px; cursor: pointer; }
   .themes button:first-child { border-radius: 4px 0 0 4px; } .themes button:last-child { border-radius: 0 4px 4px 0; }
@@ -378,6 +386,7 @@
   <div class="brand"><span class="logo">⌂</span>Corporatiewoningen <span class="tag">Amsterdam</span></div>
   <nav class="nav" role="tablist">
     <button data-tab="woningen" aria-pressed="true">Koopwoningen</button>
+    <button data-tab="lijst" aria-pressed="false">★ Onze lijst <span id="lijstn" class="navn"></span></button>
     <button data-tab="regels" aria-pressed="false">Voorrangsregels</button>
     <button data-tab="bronnen" aria-pressed="false">Bronnen <span id="tabdot"></span></button>
   </nav>
@@ -478,6 +487,7 @@
         </div></details>
           </div></div>
         </div>
+        <div class="card" id="lijstoverzicht" hidden></div>
         <div class="stats" id="stats"></div>
         <div class="card" id="kaartblok">
           <div id="map"></div>
@@ -606,8 +616,14 @@ $$('[data-theme-btn]').forEach((b) => b.onclick = () => { themePref = b.dataset.
 mq.addEventListener('change', applyTheme); applyTheme();
 
 // Tabs
-const showTab = (n) => { $$('[data-page]').forEach((s) => s.hidden = s.dataset.page !== n); $('[data-page-bar]').hidden = n !== 'woningen'; $$('[data-tab]').forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.tab === n))); if (n === 'woningen' && map) setTimeout(() => map.invalidateSize(), 50); dockSoon(); };
-$$('[data-tab]').forEach((b) => b.onclick = () => { showTab(b.dataset.tab); history.replaceState(null, '', '#' + b.dataset.tab); });
+let lijstTab = false;
+const showTab = (n) => { const pg = n === 'lijst' ? 'woningen' : n; const was = lijstTab; lijstTab = n === 'lijst'; document.body.classList.toggle('lijstmode', lijstTab);
+  $$('[data-page]').forEach((s) => s.hidden = s.dataset.page !== pg); $('[data-page-bar]').hidden = pg !== 'woningen'; $('#lijstoverzicht').hidden = !lijstTab;
+  if (was !== lijstTab && W.length) { render(); if (lijstTab) fitLijst(); }
+  if (pg === 'woningen' && map) setTimeout(() => map.invalidateSize(), 50); $$('[data-tab]').forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.tab === n))); dockSoon(); };
+$$('[data-tab]').forEach((b) => b.onclick = () => { showTab(b.dataset.tab); history.replaceState(null, '', b.dataset.tab === 'woningen' ? location.pathname + location.search : '#' + b.dataset.tab); scrollTo(0, 0); });
+const inLijst = (w) => favs.has(w.id) || !!(VG[w.id] && VG[w.id].status);
+const fitLijst = () => { if (!map) return; const pts = W.filter((w) => inLijst(w) && w.lat && w.lon).map((w) => [w.lat, w.lon]); if (pts.length) setTimeout(() => { map.invalidateSize(); map.fitBounds(pts, {padding: [30, 30], maxZoom: 14}); }, 80); };
 
 let W = [], R = [], B = [], META = {};
 const sel = {corporatie: null, buurt: null, type: null};
@@ -697,7 +713,7 @@ $('#lijstleave').onclick = () => { lijstId = ''; store.set('lijst', ''); setSync
 
 const visible = () => {
   const f = filters(), q = (f.q || '').toLowerCase().trim();
-  const rows = W.filter((w) => {
+  const rows = lijstTab ? W.filter(inLijst) : W.filter((w) => {
     const ppm = w.prijs / w.m2;
     if (q && ![w.adres, w.wijk, w.stadsdeel, w.type, w.corporatie, w.postcode].join(' ').toLowerCase().includes(q)) return false;
     if (f.maxPrijs && w.prijs > +f.maxPrijs) return false;
@@ -855,7 +871,9 @@ const render = () => {
   $('#favbtn').setAttribute('aria-pressed', String(favOnly));
   ['corporatie', 'type'].forEach(ddList); buurtTree();
   const rows = visible();
-  $('#ntitle').textContent = rows.length + (rows.length === 1 ? ' woning' : ' woningen') + (rows.length < W.length ? ' van ' + W.length : '');
+  $('#ntitle').textContent = lijstTab ? rows.length + (rows.length === 1 ? ' woning' : ' woningen') + ' in jullie lijst' : rows.length + (rows.length === 1 ? ' woning' : ' woningen') + (rows.length < W.length ? ' van ' + W.length : '');
+  $('#lijstn').textContent = W.filter(inLijst).length || '';
+  if (lijstTab) renderLijst(rows);
   const tb = $('#tabel tbody');
   if (!rows.length) { const tr = el('tr'); const c = el('td', 'muted', 'Geen woningen met deze filters.'); c.colSpan = COLS.length; tr.append(c); tb.replaceChildren(tr); }
   else tb.replaceChildren(...rows.map((w) => {
@@ -883,6 +901,7 @@ const render = () => {
   // Overzicht: ruime rijen met de belangrijkste gegevens
   const RB = $('#rows');
   if (!rows.length) RB.replaceChildren(el('div', 'wrow empty', 'Geen woningen met deze filters.'));
+  if (!rows.length && lijstTab) RB.replaceChildren(el('div', 'wrow empty', 'Nog niets in jullie lijst. Klik op ☆ bij een woning, of zet een status bij Onze voortgang in de details.'));
   else RB.replaceChildren(...rows.map((w) => {
     const r = el('article', 'wrow'); hoverLink(r, w.id); if (isNew(w)) r.classList.add('isnew'); if (gezien.has(w.id)) r.classList.add('seen'); if (w.status === 'verkocht o.v.b.') r.classList.add('dim');
     const main = el('div', 'r-main');
@@ -1062,6 +1081,45 @@ const verkoopTempo = () => loadHist().then((H) => {
   box.replaceChildren(el('h4', null, 'Tijd tot verkocht o.v.b. of offline'), ...(ks.length ? ks.sort().map((c) => el('div', null, c + ': gemiddeld ' + Math.round(per[c].reduce((a, b) => a + b, 0) / per[c].length) + ' dagen (' + per[c].length + ' woningen)')) : [el('p', 'note', 'Wordt bijgehouden sinds 9 november 2026. Zodra woningen verkocht worden, verschijnt hier per corporatie hoe snel dat gaat.')]));
 });
 
+// Tabblad Onze lijst: overzicht en beheer
+const renderLijst = (rows) => {
+  const box = $('#lijstoverzicht');
+  const h = el('h2', null, 'Onze lijst');
+  const p = el('p', 'note', 'Favorieten (★) en woningen waar jullie een status bij hebben gezet. Wordt gedeeld via jullie lijst' + (lijstId ? '.' : ' zodra je een lijst maakt (anders alleen in deze browser).'));
+  p.style.margin = 0;
+  const per = {}; rows.forEach((w) => { const st = (VG[w.id] || {}).status || 'geen status'; per[st] = (per[st] || 0) + 1; });
+  const chips = el('div', 'chips');
+  Object.entries(per).forEach(([k, v]) => { const c = el('span'); c.append(el('b', null, String(v)), ' ' + k); chips.append(c); });
+  const komend = rows.filter((w) => (VG[w.id] || {}).bezichtiging >= today).sort((a, b) => VG[a.id].bezichtiging.localeCompare(VG[b.id].bezichtiging))[0];
+  if (komend) { const c = el('span'); c.append('Eerstvolgende bezichtiging: ', el('b', null, nlDate(VG[komend.id].bezichtiging)), ' · ' + komend.adres); chips.append(c); }
+  const dl = rows.filter((w) => w.deadline && w.deadline >= today && w.status === 'beschikbaar').sort((a, b) => a.deadline.localeCompare(b.deadline))[0];
+  if (dl) { const c = el('span'); c.append('Eerstvolgende deadline: ', el('b', null, nlDate(dl.deadline)), ' · ' + dl.adres); chips.append(c); }
+  if (!rows.length) { box.replaceChildren(h, p); return; }
+  const tbl = el('table'); tbl.id = 'lijstTbl';
+  const th = el('tr'); ['', 'Woning', 'Prijs', fin.maxHyp ? 'Eigen geld nodig' : 'Totaal incl. kosten', 'Status', 'Bezichtiging', 'Ons bod', 'Deadline'].forEach((t) => th.append(el('th', null, t)));
+  const thead = el('thead'); thead.append(th); const tb = el('tbody');
+  rows.forEach((w) => {
+    const vg = VG[w.id] || {};
+    const set = (k, val) => { VG[w.id] = Object.assign({}, VG[w.id] || {}, {[k]: val, t: Date.now()}); changed(); render(); };
+    const tr = el('tr'); hoverLink(tr, w.id);
+    const st = el('button', 'star' + (favs.has(w.id) ? ' on' : ''), favs.has(w.id) ? '★' : '☆'); st.title = favs.has(w.id) ? 'Uit favorieten halen' : 'Favoriet maken';
+    st.onclick = () => { favs.has(w.id) ? favs.delete(w.id) : favs.add(w.id); changed(); render(); };
+    const c0 = el('td'); c0.append(st);
+    const c1 = el('td'); const a = el('span', 'adres', w.adres); a.onclick = () => openDetail(w); const d = el('span', 'cd'); d.style.background = corpColor(w.corporatie);
+    const sb = el('div', 'sub'); sb.append(d, w.corporatie + ' · ' + (w.stadsdeel || '') + ' · ', badge(statusTone(w.status), w.status)); c1.append(a, sb);
+    const c2 = el('td', 'num nowrap', eur.format(w.prijs));
+    const c3 = el('td', 'num nowrap'); if (fin.maxHyp) { c3.textContent = eur.format(eigenNodig(w)); c3.style.color = pastBudget(w) ? 'var(--ok)' : 'var(--bad)'; } else c3.textContent = eur.format(totaal(w));
+    const sel2 = el('select'); VSTATUS.forEach((o) => { const op = el('option', null, o || '—'); op.value = o; op.selected = (vg.status || '') === o; sel2.append(op); }); sel2.onchange = () => set('status', sel2.value);
+    const c4 = el('td'); c4.append(sel2);
+    const bz = el('input'); bz.type = 'date'; bz.value = vg.bezichtiging || ''; bz.onchange = () => set('bezichtiging', bz.value); const c5 = el('td'); c5.append(bz);
+    const bod = el('input'); bod.type = 'number'; bod.step = 1000; bod.placeholder = '€'; bod.value = vg.bod ?? ''; bod.onchange = () => set('bod', bod.value === '' ? '' : +bod.value); const c6 = el('td'); c6.append(bod);
+    const c7 = el('td', 'nowrap', w.deadline ? nlDate(w.deadline) : '—');
+    tr.append(c0, c1, c2, c3, c4, c5, c6, c7); tb.append(tr);
+  });
+  tbl.append(thead, tb); const wrap = el('div', 'scroll'); wrap.append(tbl);
+  box.replaceChildren(h, p, chips, wrap);
+};
+
 const profLabel = () => { $('#profbtn').textContent = profiel ? 'Ik huur bij: ' + profiel.corp + ' ✎' : 'Kies je corporatie ✎';
   $('#regelsintro').textContent = (profiel ? '"Voor jou" gaat uit van: ' + profiel.corp + (profiel.corp !== 'Geen sociale huurwoning' ? (profiel.zelfstandig ? ', zelfstandige sociale huurwoning in Amsterdam/Diemen' : ', geen zelfstandige sociale huurwoning in Amsterdam/Diemen') : '') + '. ' : 'Kies bovenin je corporatie om te zien waar jij voorrang hebt. ') + 'De advertentie is altijd leidend.'; };
 const openProf = () => {
@@ -1078,7 +1136,7 @@ Promise.all(['woningen', 'regels', 'bronnen', 'meta'].map((n) => fetch('data/' +
     loadShared().then(() => { profLabel(); renderStatic(); render(); if (!profiel) openProf(); });
     const openSync = (e) => { e.stopPropagation(); $$('details.tdd').forEach((o) => o.open = false); $('#syncpanel').hidden = false; $('#syncpanel').scrollIntoView({block: 'start'}); };
     $('#syncopen').onclick = openSync; $('#syncopen2').onclick = openSync; $('#syncclose').onclick = () => $('#syncpanel').hidden = true;
-    const h = location.hash.slice(1); if (['regels', 'bronnen'].includes(h)) showTab(h);
+    const h = location.hash.slice(1); if (['regels', 'bronnen', 'lijst'].includes(h)) showTab(h);
   });
 </script>
 </body>
