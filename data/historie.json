@@ -1168,5 +1168,759 @@
     "prijs": 540000
    }
   ]
+ },
+ "eh-66338-amsterdam-oost-blasiusstraat-74-d": {
+  "adres": "Blasiusstraat 74-D",
+  "corporatie": "Eigen Haard",
+  "eerstGezien": "2026-11-09",
+  "offline": "",
+  "log": [
+   {
+    "d": "2026-11-09",
+    "status": "beschikbaar",
+    "prijs": 625000
+   }
+  ]
+ },
+ "eh-72868-amsterdam-noord-boorderstraat-15": {
+  "adres": "Boorderstraat 15",
+  "corporatie": "Eigen Haard",
+  "eerstGezien": "2026-11-09",
+  "offline": "",
+  "log": [
+   {
+    "d": "2026-11-09",
+    "status": "beschikbaar",
+    "prijs": 350000
+   }
+  ]
+ },
+ "eh-73032-amsterdam-nieuw-west-boutenburg-233": {
+  "adres": "Boutenburg 233",
+  "corporatie": "Eigen Haard",
+  "eerstGezien": "2026-11-09",
+  "offline": "",
+  "log": [
+   {
+    "d": "2026-11-09",
+    "status": "beschikbaar",
+    "prijs": 325000
+   }
+  ]
+ },
+ "eh-72971-amsterdam-nieuw-west-boutenburg-271": {
+  "adres": "Boutenburg 271",
+  "corporatie": "Eigen Haard",
+  "eerstGezien": "2026-11-09",
+  "offline": "",
+  "log": [
+   {
+    "d": "2026-11-09",
+    "status": "beschikbaar",
+    "prijs": 325000
+   }
+  ]
+ },
+ "eh-73121-amsterdam-nieuw-west-boutenburg-341": {
+  "adres": "Boutenburg 341",
+  "corporatie": "Eigen Haard",
+  "eerstGezien": "2026-11-09",
+  "offline": "",
+  "log": [
+   {
+    "d": "2026-11-09",
+    "status": "beschikbaar",
+    "prijs": 325000
+   }
+  ]
+ },
+ "eh-72050-amsterdam-nieuw-west-boutenburg-89": {
+  "adres": "Boutenburg 89",
+  "corporatie": "Eigen Haard",
+  "eerstGezien": "2026-11-09",
+  "offline": "",
+  "log": [
+   {
+    "d": "2026-11-09",
+    "status": "verkocht o.v.b.",
+    "prijs": 325000
+   }
+  ]
+ },
+ "eh-72960-amsterdam-nieuw-west-boutenburg-9": {
+  "adres": "Boutenburg 9",
+  "corporatie": "Eigen Haard",
+  "eerstGezien": "2026-11-09",
+  "offline": "",
+  "log": [
+   {
+    "d": "2026-11-09",
+    "status": "beschikbaar",
+    "prijs": 325000
+   }
+  ]
+ },
+ "eh-66716-amsterdam-oost-camperstraat-70": {
+  "adres": "Camperstraat 70",
+  "corporatie": "Eigen Haard",
+  "eerstGezien": "2026-11-09",
+  "offline": "",
+  "log": [
+   {
+    "d": "2026-11-09",
+    "status": "beschikbaar",
+    "prijs": 585000
+   }
+  ]
+ },
+ "eh-66648-amsterdam-noord-de-egmondenstraat-160": {
+  "adres": "De Egmondenstraat 160",
+  "corporatie": "Eigen Haard",
+  "eerstGezien": "2026-11-09",
+  "offline": "",
+  "log": [
+   {
+    "d": "2026-11-09",
+    "status": "verkocht o.v.b.",
+    "prijs": 385000
+   }
+  ]
+ },
+ "eh-73197-amsterdam-noord-de-egmondenstraat-210": {
+  "adres": "De Egmondenstraat 210",
+  "corporatie": "Eigen Haard",
+  "eerstGezien": "2026-11-09",
+  "offline": "",
+  "log": [
+   {
+    "d": "2026-11-09",
+    "status": "beschikbaar",
+    "prijs": 400000
+   }
+  ]
+ },
+ "eh-66550-amsterdam-zuidoost-haardstee-235": {
+  "adres": "Haardstee 235",
+  "corporatie": "Eigen Haard",
+  "eerstGezien": "2026-11-09",
+  "offline": "",
+  "log": [
+   {
+    "d": "2026-11-09",
+    "status": "beschikbaar",
+    "prijs": 399000
+   }
+  ]
+ },
+ "eh-66393-amsterdam-zuidoost-haardstee-28": {
+  "adres": "Haardstee 28",
+  "corporatie": "Eigen Haard",
+  "eerstGezien": "2026-11-09",
+  "offline": "",
+  "log": [
+   {
+    "d": "2026-11-09",
+    "status": "beschikbaar",
+    "prijs": 370000
+   }
+  ]
+ },
+ "eh-66575-amsterdam-nieuw-west-hendrik-de-bruynstraat-15-1": {
+  "adres": "Hendrik de Bruynstraat 15-1",
+  "corporatie": "Eigen Haard",
+  "eerstGezien": "2026-11-09",
+  "offline": "",
+  "log": [
+   {
+    "d": "2026-11-09",
+    "status": "verkocht o.v.b.",
+    "prijs": 375000
+   }
+  ]
+ },
+ "eh-66536-amsterdam-nieuw-west-jan-zwanenburghof-18-2": {
+  "adres": "Jan Zwanenburghof 18-2",
+  "corporatie": "Eigen Haard",
+  "eerstGezien": "2026-11-09",
+  "offline": "",
+  "log": [
+   {
+    "d": "2026-11-09",
+    "status": "verkocht o.v.b.",
+    "prijs": 375000
+   }
+  ]
+ },
+ "eh-73229-amsterdam-nieuw-west-johan-ramaerstraat-1-3": {
+  "adres": "Johan Ramaerstraat 1-3",
+  "corporatie": "Eigen Haard",
+  "eerstGezien": "2026-11-09",
+  "offline": "",
+  "log": [
+   {
+    "d": "2026-11-09",
+    "status": "beschikbaar",
+    "prijs": 349000
+   }
+  ]
+ },
+ "eh-66513-amsterdam-zuid-kuipersstraat-197": {
+  "adres": "Kuipersstraat 197",
+  "corporatie": "Eigen Haard",
+  "eerstGezien": "2026-11-09",
+  "offline": "",
+  "log": [
+   {
+    "d": "2026-11-09",
+    "status": "beschikbaar",
+    "prijs": 600000
+   }
+  ]
+ },
+ "eh-72424-amsterdam-zuidoost-millingenhof-163": {
+  "adres": "Millingenhof 163",
+  "corporatie": "Eigen Haard",
+  "eerstGezien": "2026-11-09",
+  "offline": "",
+  "log": [
+   {
+    "d": "2026-11-09",
+    "status": "beschikbaar",
+    "prijs": 375000
+   }
+  ]
+ },
+ "eh-72425-amsterdam-zuidoost-millingenhof-292": {
+  "adres": "Millingenhof 292",
+  "corporatie": "Eigen Haard",
+  "eerstGezien": "2026-11-09",
+  "offline": "",
+  "log": [
+   {
+    "d": "2026-11-09",
+    "status": "beschikbaar",
+    "prijs": 355000
+   }
+  ]
+ },
+ "eh-66897-amsterdam-nieuw-west-osdorper-ban-221": {
+  "adres": "Osdorper Ban 221",
+  "corporatie": "Eigen Haard",
+  "eerstGezien": "2026-11-09",
+  "offline": "",
+  "log": [
+   {
+    "d": "2026-11-09",
+    "status": "verkocht o.v.b.",
+    "prijs": 325000
+   }
+  ]
+ },
+ "eh-66894-amsterdam-nieuw-west-osdorper-ban-89": {
+  "adres": "Osdorper Ban 89",
+  "corporatie": "Eigen Haard",
+  "eerstGezien": "2026-11-09",
+  "offline": "",
+  "log": [
+   {
+    "d": "2026-11-09",
+    "status": "beschikbaar",
+    "prijs": 327500
+   }
+  ]
+ },
+ "eh-72826-amsterdam-centrum-paardenstraat-54": {
+  "adres": "Paardenstraat 54",
+  "corporatie": "Eigen Haard",
+  "eerstGezien": "2026-11-09",
+  "offline": "",
+  "log": [
+   {
+    "d": "2026-11-09",
+    "status": "beschikbaar",
+    "prijs": 275000
+   }
+  ]
+ },
+ "eh-66445-amsterdam-zuidoost-papendrechtstraat-27": {
+  "adres": "Papendrechtstraat 27",
+  "corporatie": "Eigen Haard",
+  "eerstGezien": "2026-11-09",
+  "offline": "",
+  "log": [
+   {
+    "d": "2026-11-09",
+    "status": "beschikbaar",
+    "prijs": 290000
+   }
+  ]
+ },
+ "eh-66401-amsterdam-zuidoost-peursumstraat-24": {
+  "adres": "Peursumstraat 24",
+  "corporatie": "Eigen Haard",
+  "eerstGezien": "2026-11-09",
+  "offline": "",
+  "log": [
+   {
+    "d": "2026-11-09",
+    "status": "verkocht o.v.b.",
+    "prijs": 325000
+   }
+  ]
+ },
+ "eh-66555-amsterdam-zuidoost-peursumstraat-50": {
+  "adres": "Peursumstraat 50",
+  "corporatie": "Eigen Haard",
+  "eerstGezien": "2026-11-09",
+  "offline": "",
+  "log": [
+   {
+    "d": "2026-11-09",
+    "status": "verkocht o.v.b.",
+    "prijs": 290000
+   }
+  ]
+ },
+ "eh-66333-amsterdam-zuidoost-renkumhof-15": {
+  "adres": "Renkumhof 15",
+  "corporatie": "Eigen Haard",
+  "eerstGezien": "2026-11-09",
+  "offline": "",
+  "log": [
+   {
+    "d": "2026-11-09",
+    "status": "verkocht o.v.b.",
+    "prijs": 325000
+   }
+  ]
+ },
+ "eh-66622-amsterdam-noord-schoorlstraat-112": {
+  "adres": "Schoorlstraat 112",
+  "corporatie": "Eigen Haard",
+  "eerstGezien": "2026-11-09",
+  "offline": "",
+  "log": [
+   {
+    "d": "2026-11-09",
+    "status": "beschikbaar",
+    "prijs": 385000
+   }
+  ]
+ },
+ "eh-72059-amsterdam-noord-schoorlstraat-19": {
+  "adres": "Schoorlstraat 19",
+  "corporatie": "Eigen Haard",
+  "eerstGezien": "2026-11-09",
+  "offline": "",
+  "log": [
+   {
+    "d": "2026-11-09",
+    "status": "beschikbaar",
+    "prijs": 400000
+   }
+  ]
+ },
+ "eh-73035-amsterdam-noord-schoorlstraat-85": {
+  "adres": "Schoorlstraat 85",
+  "corporatie": "Eigen Haard",
+  "eerstGezien": "2026-11-09",
+  "offline": "",
+  "log": [
+   {
+    "d": "2026-11-09",
+    "status": "verkocht o.v.b.",
+    "prijs": 400000
+   }
+  ]
+ },
+ "eh-72648-amsterdam-oost-solostraat-93": {
+  "adres": "Solostraat 93",
+  "corporatie": "Eigen Haard",
+  "eerstGezien": "2026-11-09",
+  "offline": "",
+  "log": [
+   {
+    "d": "2026-11-09",
+    "status": "beschikbaar",
+    "prijs": 350000
+   }
+  ]
+ },
+ "eh-66852-amsterdam-nieuw-west-theodorus-dobbestraat-72-1": {
+  "adres": "Theodorus Dobbestraat 72-1",
+  "corporatie": "Eigen Haard",
+  "eerstGezien": "2026-11-09",
+  "offline": "",
+  "log": [
+   {
+    "d": "2026-11-09",
+    "status": "beschikbaar",
+    "prijs": 320000
+   }
+  ]
+ },
+ "eh-66436-amsterdam-nieuw-west-van-mourik-broekmanstraat-19-3": {
+  "adres": "Van Mourik Broekmanstraat 19-3",
+  "corporatie": "Eigen Haard",
+  "eerstGezien": "2026-11-09",
+  "offline": "",
+  "log": [
+   {
+    "d": "2026-11-09",
+    "status": "beschikbaar",
+    "prijs": 399000
+   }
+  ]
+ },
+ "eh-66968-amsterdam-nieuw-west-van-mourik-broekmanstraat-7-2": {
+  "adres": "Van Mourik Broekmanstraat 7-2",
+  "corporatie": "Eigen Haard",
+  "eerstGezien": "2026-11-09",
+  "offline": "",
+  "log": [
+   {
+    "d": "2026-11-09",
+    "status": "beschikbaar",
+    "prijs": 375000
+   }
+  ]
+ },
+ "rd-1f9227d7": {
+  "adres": "1e Kekerstraat 25",
+  "corporatie": "Rochdale",
+  "eerstGezien": "2026-11-09",
+  "offline": "",
+  "log": [
+   {
+    "d": "2026-11-09",
+    "status": "verkocht o.v.b.",
+    "prijs": 400000
+   }
+  ]
+ },
+ "rd-bf77a9fc": {
+  "adres": "Adelaarsweg 84-H",
+  "corporatie": "Rochdale",
+  "eerstGezien": "2026-11-09",
+  "offline": "",
+  "log": [
+   {
+    "d": "2026-11-09",
+    "status": "onder bod",
+    "prijs": 500000
+   }
+  ]
+ },
+ "rd-064f2dcf": {
+  "adres": "Bentinckstraat 22-2",
+  "corporatie": "Rochdale",
+  "eerstGezien": "2026-11-09",
+  "offline": "",
+  "log": [
+   {
+    "d": "2026-11-09",
+    "status": "beschikbaar",
+    "prijs": 375000
+   }
+  ]
+ },
+ "rd-7b30fb2c": {
+  "adres": "Bruins Slotstraat 20",
+  "corporatie": "Rochdale",
+  "eerstGezien": "2026-11-09",
+  "offline": "",
+  "log": [
+   {
+    "d": "2026-11-09",
+    "status": "verkocht o.v.b.",
+    "prijs": 350000
+   }
+  ]
+ },
+ "rd-f2ef21a1": {
+  "adres": "De Wittenkade 130-1",
+  "corporatie": "Rochdale",
+  "eerstGezien": "2026-11-09",
+  "offline": "",
+  "log": [
+   {
+    "d": "2026-11-09",
+    "status": "onder bod",
+    "prijs": 425000
+   }
+  ]
+ },
+ "rd-da5e9b78": {
+  "adres": "Grubbehoeve 630",
+  "corporatie": "Rochdale",
+  "eerstGezien": "2026-11-09",
+  "offline": "",
+  "log": [
+   {
+    "d": "2026-11-09",
+    "status": "verkocht o.v.b.",
+    "prijs": 310000
+   }
+  ]
+ },
+ "rd-2d1fc17f": {
+  "adres": "Haarlemmerweg 53-2",
+  "corporatie": "Rochdale",
+  "eerstGezien": "2026-11-09",
+  "offline": "",
+  "log": [
+   {
+    "d": "2026-11-09",
+    "status": "onder bod",
+    "prijs": 400000
+   }
+  ]
+ },
+ "rd-93229654": {
+  "adres": "Hembrugstraat 322",
+  "corporatie": "Rochdale",
+  "eerstGezien": "2026-11-09",
+  "offline": "",
+  "log": [
+   {
+    "d": "2026-11-09",
+    "status": "onder bod",
+    "prijs": 450000
+   }
+  ]
+ },
+ "rd-8bf02686": {
+  "adres": "Hermanus Coenradistraat 14-3",
+  "corporatie": "Rochdale",
+  "eerstGezien": "2026-11-09",
+  "offline": "",
+  "log": [
+   {
+    "d": "2026-11-09",
+    "status": "beschikbaar",
+    "prijs": 350000
+   }
+  ]
+ },
+ "rd-746a32b3": {
+  "adres": "Hertspieghelweg 4-H",
+  "corporatie": "Rochdale",
+  "eerstGezien": "2026-11-09",
+  "offline": "",
+  "log": [
+   {
+    "d": "2026-11-09",
+    "status": "beschikbaar",
+    "prijs": 425000
+   }
+  ]
+ },
+ "rd-974ec76b": {
+  "adres": "Hoofdweg 416-H",
+  "corporatie": "Rochdale",
+  "eerstGezien": "2026-11-09",
+  "offline": "",
+  "log": [
+   {
+    "d": "2026-11-09",
+    "status": "beschikbaar",
+    "prijs": 430000
+   }
+  ]
+ },
+ "rd-419e8fa6": {
+  "adres": "Isabella Richaardsstraat 118",
+  "corporatie": "Rochdale",
+  "eerstGezien": "2026-11-09",
+  "offline": "",
+  "log": [
+   {
+    "d": "2026-11-09",
+    "status": "onder bod",
+    "prijs": 350000
+   }
+  ]
+ },
+ "rd-20e6d8a8": {
+  "adres": "Jan Pieter Heijestraat 56",
+  "corporatie": "Rochdale",
+  "eerstGezien": "2026-11-09",
+  "offline": "",
+  "log": [
+   {
+    "d": "2026-11-09",
+    "status": "onder bod",
+    "prijs": 395000
+   }
+  ]
+ },
+ "rd-07b4db62": {
+  "adres": "Kikkenstein 2326",
+  "corporatie": "Rochdale",
+  "eerstGezien": "2026-11-09",
+  "offline": "",
+  "log": [
+   {
+    "d": "2026-11-09",
+    "status": "verkocht o.v.b.",
+    "prijs": 290000
+   }
+  ]
+ },
+ "rd-2aa85d0c": {
+  "adres": "Kikkenstein 3633",
+  "corporatie": "Rochdale",
+  "eerstGezien": "2026-11-09",
+  "offline": "",
+  "log": [
+   {
+    "d": "2026-11-09",
+    "status": "beschikbaar",
+    "prijs": 315000
+   }
+  ]
+ },
+ "rd-3cfac2e2": {
+  "adres": "Louis Davidsstraat 12",
+  "corporatie": "Rochdale",
+  "eerstGezien": "2026-11-09",
+  "offline": "",
+  "log": [
+   {
+    "d": "2026-11-09",
+    "status": "onder bod",
+    "prijs": 350000
+   }
+  ]
+ },
+ "rd-b00698bf": {
+  "adres": "Louis Davidsstraat 54",
+  "corporatie": "Rochdale",
+  "eerstGezien": "2026-11-09",
+  "offline": "",
+  "log": [
+   {
+    "d": "2026-11-09",
+    "status": "beschikbaar",
+    "prijs": 355000
+   }
+  ]
+ },
+ "rd-48d2e61f": {
+  "adres": "Nachtegaalstraat 135",
+  "corporatie": "Rochdale",
+  "eerstGezien": "2026-11-09",
+  "offline": "",
+  "log": [
+   {
+    "d": "2026-11-09",
+    "status": "onder bod",
+    "prijs": 295000
+   }
+  ]
+ },
+ "rd-2a194392": {
+  "adres": "Reitzstraat 147",
+  "corporatie": "Rochdale",
+  "eerstGezien": "2026-11-09",
+  "offline": "",
+  "log": [
+   {
+    "d": "2026-11-09",
+    "status": "verkocht o.v.b.",
+    "prijs": 450000
+   }
+  ]
+ },
+ "rd-b71f8707": {
+  "adres": "Reitzstraat 7-C",
+  "corporatie": "Rochdale",
+  "eerstGezien": "2026-11-09",
+  "offline": "",
+  "log": [
+   {
+    "d": "2026-11-09",
+    "status": "verkocht o.v.b.",
+    "prijs": 550000
+   }
+  ]
+ },
+ "rd-309261e5": {
+  "adres": "Smederij 12",
+  "corporatie": "Rochdale",
+  "eerstGezien": "2026-11-09",
+  "offline": "",
+  "log": [
+   {
+    "d": "2026-11-09",
+    "status": "verkocht o.v.b.",
+    "prijs": 375000
+   }
+  ]
+ },
+ "rd-f98cccde": {
+  "adres": "Van Beuningenstraat 32-D",
+  "corporatie": "Rochdale",
+  "eerstGezien": "2026-11-09",
+  "offline": "",
+  "log": [
+   {
+    "d": "2026-11-09",
+    "status": "onder bod",
+    "prijs": 475000
+   }
+  ]
+ },
+ "rd-8b300ea1": {
+  "adres": "Vianenstraat 162",
+  "corporatie": "Rochdale",
+  "eerstGezien": "2026-11-09",
+  "offline": "",
+  "log": [
+   {
+    "d": "2026-11-09",
+    "status": "beschikbaar",
+    "prijs": 275000
+   }
+  ]
+ },
+ "rd-36c97869": {
+  "adres": "Wethouder Insingerstraat 87",
+  "corporatie": "Rochdale",
+  "eerstGezien": "2026-11-09",
+  "offline": "",
+  "log": [
+   {
+    "d": "2026-11-09",
+    "status": "beschikbaar",
+    "prijs": 395000
+   }
+  ]
+ },
+ "rd-56d20969": {
+  "adres": "Wethouder Ramstraat 68",
+  "corporatie": "Rochdale",
+  "eerstGezien": "2026-11-09",
+  "offline": "",
+  "log": [
+   {
+    "d": "2026-11-09",
+    "status": "beschikbaar",
+    "prijs": 390000
+   }
+  ]
+ },
+ "rd-be477d25": {
+  "adres": "Wethouder Serrurierstraat 42",
+  "corporatie": "Rochdale",
+  "eerstGezien": "2026-11-09",
+  "offline": "",
+  "log": [
+   {
+    "d": "2026-11-09",
+    "status": "onder bod",
+    "prijs": 330000
+   }
+  ]
  }
 }
