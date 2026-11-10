@@ -1,5 +1,5 @@
 {
- "bijgewerkt": "2026-11-10T08:49+00:00",
+ "bijgewerkt": "2026-11-10T09:16+00:00",
  "nieuw": [],
  "fouten": [],
  "verrijking": [
@@ -11,11 +11,13 @@
   "stadgenoot: klaar in 0s",
   "foto's: 0 gevonden, 150 van 153 woningen met foto",
   "fotos: klaar in 0s",
-  "buitenruimte: 150 advertenties gelezen · balkon 112, terras 9, tuin 28, geen 12",
-  "buitenruimte: klaar in 159s",
+  "buitenruimte: 0 advertenties gelezen · balkon 112, terras 9, tuin 28, geen 12",
+  "buitenruimte: klaar in 0s",
   "energielabel: geen EP_ONLINE_KEY ingesteld, overgeslagen",
   "energielabel: klaar in 0s",
   "fundering: 0 postcodes opgezocht",
-  "fundering: klaar in 0s"
+  "fundering: klaar in 0s",
+  "archief: 153 woningen, 0 niet meer online",
+  "archief: klaar in 0s"
  ]
 }
