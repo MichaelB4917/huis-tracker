@@ -495,6 +495,11 @@
     "d": "2026-11-09",
     "status": "beschikbaar",
     "prijs": 400000
+   },
+   {
+    "d": "2026-11-10",
+    "status": "beschikbaar",
+    "prijs": 375000
    }
   ]
  },
@@ -1956,6 +1961,45 @@
     "d": "2026-11-10",
     "status": "beschikbaar",
     "prijs": 350000
+   }
+  ]
+ },
+ "fd-44532883": {
+  "adres": "Bestevâerstraat 92-1",
+  "corporatie": "Ymere",
+  "eerstGezien": "2026-11-10",
+  "offline": "",
+  "log": [
+   {
+    "d": "2026-11-10",
+    "status": "verkocht o.v.b.",
+    "prijs": 365000
+   }
+  ]
+ },
+ "fd-44663099": {
+  "adres": "Bloys van Treslongstraat 53-2",
+  "corporatie": "Ymere",
+  "eerstGezien": "2026-11-10",
+  "offline": "",
+  "log": [
+   {
+    "d": "2026-11-10",
+    "status": "beschikbaar",
+    "prijs": 395000
+   }
+  ]
+ },
+ "fd-44665788": {
+  "adres": "Churchill-laan 66-H",
+  "corporatie": "Ymere",
+  "eerstGezien": "2026-11-10",
+  "offline": "",
+  "log": [
+   {
+    "d": "2026-11-10",
+    "status": "beschikbaar",
+    "prijs": 600000
    }
   ]
  }

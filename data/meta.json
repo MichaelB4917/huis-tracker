@@ -1,22 +1,19 @@
 {
- "bijgewerkt": "2026-11-10T06:36+00:00",
- "nieuw": [
-  "rd-849c56e1",
-  "eh-73156-amsterdam-noord-marskramerstraat-76"
- ],
+ "bijgewerkt": "2026-11-10T08:36+00:00",
+ "nieuw": [],
  "fouten": [],
  "verrijking": [
   "historie: klaar in 0s",
   "buurt-WOZ: 518 Amsterdamse buurten met CBS-code",
-  "buurt-WOZ: 2 woningen nieuw aan buurt gekoppeld, 150 met buurtwaarde",
-  "buurt-WOZ: klaar in 1s",
+  "buurt-WOZ: 3 woningen nieuw aan buurt gekoppeld, 153 met buurtwaarde",
+  "buurt-WOZ: klaar in 16s",
   "stadgenoot: 0 detailpagina's gelezen",
   "stadgenoot: klaar in 0s",
-  "foto's: 2 gevonden, 150 van 150 woningen met foto",
-  "fotos: klaar in 2s",
+  "foto's: 0 gevonden, 150 van 153 woningen met foto",
+  "fotos: klaar in 0s",
   "energielabel: geen EP_ONLINE_KEY ingesteld, overgeslagen",
   "energielabel: klaar in 0s",
-  "fundering: 2 postcodes opgezocht",
-  "fundering: klaar in 4s"
+  "fundering: 3 postcodes opgezocht",
+  "fundering: klaar in 6s"
  ]
 }
