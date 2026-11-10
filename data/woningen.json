@@ -850,7 +850,7 @@
   "stadsdeel": "Nieuw-West",
   "wijk": "Slotervaart",
   "corporatie": "Alliantie",
-  "prijs": 525000,
+  "prijs": 500000,
   "m2": 94,
   "kamers": 3,
   "type": "Galerijwoning",
@@ -1195,7 +1195,7 @@
   "stadsdeel": "Nieuw-West",
   "wijk": "De Aker",
   "corporatie": "Alliantie",
-  "prijs": 350000,
+  "prijs": 325000,
   "m2": 78,
   "kamers": 3,
   "type": "Portiekwoning",
@@ -6110,7 +6110,8 @@
   "buitenGezocht": 2,
   "buiten": [
    "tuin"
-  ]
+  ],
+  "sgMis": 1
  },
  {
   "id": "sg-middenweg-410-amsterdam",
