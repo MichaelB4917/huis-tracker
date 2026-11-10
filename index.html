@@ -1388,7 +1388,7 @@ const openProf = () => {
   $('#profzelf').checked = profiel ? profiel.zelfstandig !== false : true; $('#profmodal').hidden = false;
 };
 $('#profbtn').onclick = openProf;
-$('#homelink').onclick = (e) => { if (e.metaKey || e.ctrlKey || e.shiftKey) return; e.preventDefault(); $$('details.tdd').forEach((o) => o.open = false); if (!$('#detail').hidden) closeDetail(); showTab('woningen'); history.replaceState(null, '', location.pathname); scrollTo({top: 0, behavior: 'smooth'}); };
+$('#homelink').onclick = (e) => { if (e.metaKey || e.ctrlKey || e.shiftKey) return; e.preventDefault(); location.replace(location.pathname); };
 $('#profskip').onclick = () => { $('#profmodal').hidden = true; };
 $('#profsave').onclick = () => { const c = $('#profopts input:checked'); if (!c) return; profiel = {corp: c.value, zelfstandig: $('#profzelf').checked}; store.set('profiel', JSON.stringify(profiel)); changed(); $('#profmodal').hidden = true; profLabel(); if (voorMode) sel.corporatie = voorCorps(); renderStatic(); render(); };
 Promise.all(['woningen', 'regels', 'bronnen', 'meta'].map((n) => fetch('data/' + n + '.json', {cache: 'no-cache'}).then((r) => r.ok ? r.json() : (n === 'meta' ? {} : [])).catch(() => n === 'meta' ? {} : [])))
