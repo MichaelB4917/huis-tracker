@@ -471,7 +471,7 @@
   .ico-i { width: 17px; height: 17px; vertical-align: -3px; flex: none; }
   .nav button { gap: 6px; }
   .themes button .ico-i { width: 15px; height: 15px; vertical-align: -2px; }
-  @media (max-width: 1100px) { .nav button[data-tab="meldingen"] .navlbl2 { display: none; } }
+  @media (max-width: 1360px) { .nav button[data-tab="meldingen"] .navlbl2 { display: none; } }
   .mfilt { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 20px; background: var(--panel); border: 1px solid var(--line); border-radius: var(--r); padding: 10px 16px; margin-bottom: 14px; }
   .mfilt .check.sw { flex-direction: row; justify-content: flex-start; gap: 10px; font-weight: 600; }
   .mcorps { display: flex; flex-wrap: wrap; gap: 6px; }
@@ -480,6 +480,11 @@
   .mchip:has(input:not(:checked)) { opacity: .5; }
   .mchip .cd { margin: 0; }
   body[data-pg]:not([data-pg="woningen"]) #sinds, body[data-pg]:not([data-pg="woningen"]) #alert, body[data-pg]:not([data-pg="woningen"]) #syncreminder { display: none; }
+  .sinds .gomeld { margin-left: auto; font-weight: 700; white-space: nowrap; }
+  .sinds .gomeld + .x { margin-left: 4px; }
+  .sinds > .meta { color: var(--muted); font-size: 13.5px; margin-top: 6px; }
+  body[data-pg]:not([data-pg="woningen"]) #dagbalk { display: none; }
+  @media (max-width: 760px) { .sinds .gomeld { margin-left: 0; order: 4; width: 100%; } }
 </style>
 </head>
 <body>
@@ -505,6 +510,7 @@
 </div></div>
 
 <div class="wrap">
+  <div id="dagbalk"></div>
   <div id="alert"></div>
   <div class="reminder" id="syncreminder" hidden>★ Jullie lijst staat nu alleen in deze browser. Maak een gedeelde lijst om samen bij te houden, op al je apparaten. <button class="mini" id="syncopen">Samen bijhouden →</button></div>
   <div class="card syncbox" id="syncpanel" hidden style="margin-bottom:14px"><h2>Samen bijhouden</h2>
@@ -1316,6 +1322,31 @@ const renderMeldingen = (H) => {
   const nVandaag = (dagen[localDate(new Date().toISOString())] || []).filter(mFilter).length;
   $('#meldn').textContent = nVandaag ? String(nVandaag) : ''; $('#meldn').title = 'Meldingen van vandaag';
 };
+
+// Dagbalk: alleen bij je eerste bezoek van de dag (blijft 30 min staan bij verversen)
+const renderDagbalk = (H) => {
+  const box = $('#dagbalk'); if (!box) return;
+  const today = localDate(new Date().toISOString()); let st = {}; try { st = JSON.parse(store.get('dagbalk') || '{}'); } catch (e) {}
+  if (st.d === today && (st.weg || Date.now() - (st.t || 0) > 30 * 60 * 1000)) { box.replaceChildren(); return; }
+  if (st.d !== today) { st = {d: today, t: Date.now()}; store.set('dagbalk', JSON.stringify(st)); }
+  const upd = META.bijgewerkt ? new Date(META.bijgewerkt.replace(/\+00:00$/, 'Z')).toISOString() : null;
+  const ev = buildEvents(H || {}, (d) => d === today).filter(mFilter);
+  const card = el('div', 'sinds' + (ev.length ? '' : ' leeg')); const kop = el('div', 'kop');
+  const uur = new Date().getHours(); const groet = uur < 12 ? 'Goedemorgen' : uur < 18 ? 'Goedemiddag' : 'Goedenavond';
+  kop.append(el('b', null, groet + (ev.length ? ' — dit is er vandaag veranderd' : ' — vandaag niets nieuws')), el('span', 'wanneer', upd ? 'update ' + fmtMoment(upd) : ''));
+  const x = el('button', 'x', '×'); x.title = 'Verbergen voor vandaag'; x.onclick = () => { st.weg = true; store.set('dagbalk', JSON.stringify(st)); box.replaceChildren(); };
+  const go = el('a', 'gomeld', 'Bekijk meldingen →'); go.href = '#meldingen'; go.onclick = (e) => { e.preventDefault(); st.weg = true; store.set('dagbalk', JSON.stringify(st)); box.replaceChildren(); showTab('meldingen'); history.replaceState(null, '', '#meldingen'); scrollTo({top: 0}); };
+  kop.append(go, x); card.append(kop);
+  if (ev.length) {
+    const cnt = {}; ev.forEach((e) => cnt[e.t] = (cnt[e.t] || 0) + 1);
+    const chips = el('div', 'chips');
+    const vj = ev.filter((e) => e.t === 'nieuw' && W.find((w) => w.id === e.id && voorJou(w) !== 'nee')).length;
+    if (vj) chips.append(badge('t-ok', vj + ' nieuw met voorrang voor jou'));
+    EVORDER.filter((t) => cnt[t]).forEach((t) => chips.append(badge(EVTONE[t], cnt[t] + ' ' + t)));
+    card.append(chips);
+  } else card.append(el('div', 'meta', W.filter((w) => w.status === 'beschikbaar').length + ' woningen beschikbaar, ' + W.filter((w) => w.status === 'beschikbaar' && voorJou(w) !== 'nee').length + ' met voorrang voor jou.'));
+  box.replaceChildren(card);
+};
 const renderSinds = (H) => {
   const box = $('#sinds'); if (!box) return;
   if (store.get('sinds-weg') === bezoek.last.slice(0, 16)) { box.replaceChildren(); return; }
@@ -1360,7 +1391,7 @@ $('#profsave').onclick = () => { const c = $('#profopts input:checked'); if (!c)
 Promise.all(['woningen', 'regels', 'bronnen', 'meta'].map((n) => fetch('data/' + n + '.json', {cache: 'no-cache'}).then((r) => r.ok ? r.json() : (n === 'meta' ? {} : [])).catch(() => n === 'meta' ? {} : [])))
   .then(([w, r, b, m]) => {
     W = w; R = r; B = b; META = m;
-    initMap(); profLabel(); renderStatic(); render(); verkoopTempo(); loadHist().then((H) => { HIST = H; renderMeldingen(H); });
+    initMap(); profLabel(); renderStatic(); render(); verkoopTempo(); loadHist().then((H) => { HIST = H; renderMeldingen(H); renderDagbalk(H); });
     loadShared().then(() => { profLabel(); renderStatic(); render(); if (!profiel) openProf(); });
     const openSync = (e) => { e.stopPropagation(); $$('details.tdd').forEach((o) => o.open = false); showTab('lijst'); history.replaceState(null, '', '#lijst'); $('#syncpanel').scrollIntoView({block: 'start'}); };
     $('#syncopen').onclick = openSync; $('#syncopen2').onclick = openSync; $('#syncclose').onclick = () => $('#syncpanel').hidden = true;
