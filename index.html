@@ -435,6 +435,22 @@
     .r-fotowrap .r-foto { width: 104px; height: 78px; } .r-fotowrap .star { width: 26px; height: 26px; font-size: 14px; top: 4px; right: 4px; }
     .wrow.hasfoto .sub, .wrow.hasfoto .r-facts { margin-left: 0; }
   }
+
+  /* ---------- Sinds je laatste bezoek ---------- */
+  .sinds { background: var(--panel); border: 1px solid var(--line); border-left: 4px solid var(--new); border-radius: var(--rc, 8px); padding: 12px 16px; margin-bottom: 14px; }
+  .sinds.leeg { border-left-color: var(--line); }
+  .sinds .kop { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+  .sinds .kop b { font-size: 15px; }
+  .sinds .kop .wanneer { color: var(--muted); font-size: 13px; }
+  .sinds .kop .x { margin-left: auto; background: none; border: 0; font-size: 20px; line-height: 1; color: var(--muted); cursor: pointer; padding: 0 4px; }
+  .sinds .chips { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; }
+  .sinds ul { list-style: none; margin: 10px 0 0; padding: 0; display: grid; gap: 6px; }
+  .sinds li { display: flex; align-items: baseline; gap: 8px; font-size: 14px; flex-wrap: wrap; }
+  .sinds li .wat { min-width: 7.5rem; }
+  @media (max-width: 760px) { .sinds li { display: grid; grid-template-columns: auto 1fr; gap: 2px 8px; } .sinds li .wat { min-width: 0; grid-row: span 2; } .sinds li > span:nth-child(3), .sinds li .meta { grid-column: 2; } .sinds li > span:nth-child(3) { font-size: 13px; } .sinds .kop .wanneer { width: 100%; order: 3; } }
+  .sinds li a { font-weight: 700; cursor: pointer; }
+  .sinds li .meta { color: var(--muted); font-size: 12.5px; }
+  .sinds .meer { margin-top: 6px; }
 </style>
 </head>
 <body>
@@ -459,6 +475,7 @@
 </div></div>
 
 <div class="wrap">
+  <div id="sinds"></div>
   <div id="alert"></div>
   <div class="reminder" id="syncreminder" hidden>★ Jullie lijst staat nu alleen in deze browser. Maak een gedeelde lijst om samen bij te houden, op al je apparaten. <button class="mini" id="syncopen">Samen bijhouden →</button></div>
   <div class="card syncbox" id="syncpanel" hidden style="margin-bottom:14px"><h2>Samen bijhouden</h2>
@@ -1181,6 +1198,64 @@ const renderLijst = (rows) => {
   box.replaceChildren(h, p, chips, wrap);
 };
 
+
+// ---------- Sinds je laatste bezoek ----------
+const BEZOEK_GAP = 30 * 60 * 1000; // binnen 30 min telt als hetzelfde bezoek
+const bezoek = (() => { let b = {}; try { b = JSON.parse(store.get('bezoek') || '{}'); } catch (e) {}
+  const now = Date.now(); const last = b.last ? Date.parse(b.last) : 0;
+  if (!last) b = {ref: null, last: new Date(now).toISOString()};
+  else if (now - last > BEZOEK_GAP) b = {ref: b.last, last: new Date(now).toISOString()};
+  else b.last = new Date(now).toISOString();
+  store.set('bezoek', JSON.stringify(b)); return b; })();
+const fmtMoment = (iso) => { const d = new Date(iso); const vandaag = new Date().toDateString() === d.toDateString();
+  const gisteren = new Date(Date.now() - 864e5).toDateString() === d.toDateString();
+  const dag = vandaag ? 'vandaag' : gisteren ? 'gisteren' : d.toLocaleDateString('nl-NL', {weekday: 'short', day: 'numeric', month: 'short'});
+  return dag + ' ' + d.toLocaleTimeString('nl-NL', {hour: '2-digit', minute: '2-digit'}); };
+const localDate = (iso) => { const d = new Date(iso); return d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0'); };
+const renderSinds = (H) => {
+  const box = $('#sinds'); if (!box) return;
+  if (store.get('sinds-weg') === bezoek.last.slice(0, 16)) { box.replaceChildren(); return; }
+  const upd = META.bijgewerkt ? new Date(META.bijgewerkt.replace(/\+00:00$/, 'Z')).toISOString() : null;
+  const card = el('div', 'sinds'); const kop = el('div', 'kop');
+  const x = el('button', 'x', '×'); x.title = 'Verbergen tot je volgende bezoek'; x.onclick = () => { store.set('sinds-weg', bezoek.last.slice(0, 16)); box.replaceChildren(); };
+  if (!bezoek.ref) {
+    card.classList.add('leeg'); kop.append(el('b', null, 'Welkom!'), el('span', 'wanneer', upd ? 'Laatste update ' + fmtMoment(upd) + '. Vanaf je volgende bezoek zie je hier wat er sindsdien veranderd is.' : ''), x);
+    card.append(kop); box.replaceChildren(card); return;
+  }
+  const refD = localDate(bezoek.ref);
+  const naRef = (d) => d > refD || (d === refD && upd && upd > bezoek.ref);
+  const byId = new Map(W.map((w) => [w.id, w]));
+  const ev = [];
+  for (const [id, h] of Object.entries(H || {})) {
+    const w = byId.get(id); const naam = (w && w.adres) || h.adres || id; const corp = (w && w.corporatie) || h.corporatie || '';
+    if (h.eerstGezien && naRef(h.eerstGezien) && !(w && w.basis)) ev.push({t: 'nieuw', id, naam, corp, d: h.eerstGezien, txt: w ? eur.format(w.prijs) + (w.m2 ? ' · ' + w.m2 + ' m²' : '') : ''});
+    const log = h.log || [];
+    for (let i = 1; i < log.length; i++) {
+      const a = log[i - 1], b = log[i]; if (!naRef(b.d)) continue;
+      if (a.status !== b.status) ev.push({t: b.status === 'beschikbaar' ? 'weer beschikbaar' : b.status, id, naam, corp, d: b.d, txt: a.status + ' → ' + b.status});
+      if (a.prijs && b.prijs && a.prijs !== b.prijs) ev.push({t: b.prijs < a.prijs ? 'prijs omlaag' : 'prijs omhoog', id, naam, corp, d: b.d, txt: eur.format(a.prijs) + ' → ' + eur.format(b.prijs)});
+    }
+    if (h.offline && naRef(h.offline)) ev.push({t: 'offline', id, naam, corp, d: h.offline, txt: 'niet meer te koop aangeboden'});
+  }
+  const tone = {nieuw: 't-new', 'prijs omlaag': 't-ok', 'prijs omhoog': 't-warn', 'onder bod': 't-warn', 'verkocht o.v.b.': 't-neutral', offline: 't-neutral', 'weer beschikbaar': 't-ok'};
+  const order = ['nieuw', 'prijs omlaag', 'weer beschikbaar', 'onder bod', 'verkocht o.v.b.', 'prijs omhoog', 'offline'];
+  ev.sort((a, b) => (order.indexOf(a.t) + 99) % 99 - (order.indexOf(b.t) + 99) % 99 || b.d.localeCompare(a.d));
+  kop.append(el('b', null, ev.length ? 'Sinds je laatste bezoek' : 'Niets nieuws sinds je laatste bezoek'), el('span', 'wanneer', fmtMoment(bezoek.ref) + (upd ? ' · laatste update ' + fmtMoment(upd) : '')), x);
+  card.append(kop);
+  if (!ev.length) { card.classList.add('leeg'); box.replaceChildren(card); return; }
+  const cnt = {}; ev.forEach((e) => cnt[e.t] = (cnt[e.t] || 0) + 1);
+  const chips = el('div', 'chips'); order.filter((t) => cnt[t]).forEach((t) => chips.append(badge(tone[t] || 't-neutral', cnt[t] + ' ' + t)));
+  const ul = el('ul'); const show = (n) => ul.replaceChildren(...ev.slice(0, n).map((e) => {
+    const li = el('li'); const a = el('a', null, e.naam); const w = byId.get(e.id);
+    if (w) { a.onclick = () => openDetail(w); a.href = '#'; a.addEventListener('click', (ev2) => ev2.preventDefault()); }
+    const d = el('span', 'cd'); d.style.background = corpColor(e.corp);
+    const m = el('span', 'meta'); m.append(d, e.corp + ' · ' + nlShort(e.d));
+    li.append(el('span', 'wat'), a, el('span', null, e.txt), m); li.firstChild.append(badge(tone[e.t] || 't-neutral', e.t)); return li; }));
+  show(8); card.append(chips, ul);
+  if (ev.length > 8) { const more = el('button', 'mini meer', 'Toon alle ' + ev.length); more.onclick = () => { show(ev.length); more.remove(); }; card.append(more); }
+  box.replaceChildren(card);
+};
+
 const profLabel = () => { $('#profbtn').textContent = profiel ? 'Ik huur bij: ' + profiel.corp + ' ✎' : 'Kies je corporatie ✎';
   $('#regelsintro').textContent = (profiel ? '"Voor jou" gaat uit van: ' + profiel.corp + (profiel.corp !== 'Geen sociale huurwoning' ? (profiel.zelfstandig ? ', zelfstandige sociale huurwoning in Amsterdam/Diemen' : ', geen zelfstandige sociale huurwoning in Amsterdam/Diemen') : '') + '. ' : 'Kies bovenin je corporatie om te zien waar jij voorrang hebt. ') + 'De advertentie is altijd leidend.'; };
 const openProf = () => {
@@ -1193,7 +1268,7 @@ $('#profsave').onclick = () => { const c = $('#profopts input:checked'); if (!c)
 Promise.all(['woningen', 'regels', 'bronnen', 'meta'].map((n) => fetch('data/' + n + '.json', {cache: 'no-cache'}).then((r) => r.ok ? r.json() : (n === 'meta' ? {} : [])).catch(() => n === 'meta' ? {} : [])))
   .then(([w, r, b, m]) => {
     W = w; R = r; B = b; META = m;
-    initMap(); profLabel(); renderStatic(); render(); verkoopTempo();
+    initMap(); profLabel(); renderStatic(); render(); verkoopTempo(); loadHist().then((H) => { HIST = H; renderSinds(H); });
     loadShared().then(() => { profLabel(); renderStatic(); render(); if (!profiel) openProf(); });
     const openSync = (e) => { e.stopPropagation(); $$('details.tdd').forEach((o) => o.open = false); showTab('lijst'); history.replaceState(null, '', '#lijst'); $('#syncpanel').scrollIntoView({block: 'start'}); };
     $('#syncopen').onclick = openSync; $('#syncopen2').onclick = openSync; $('#syncclose').onclick = () => $('#syncpanel').hidden = true;
