@@ -404,9 +404,66 @@ def fundering(W):
     log(f"fundering: {n} postcodes opgezocht")
 
 
+# ---------- 5. Archief: elke woning ooit gezien, met alle gegevens en afgeleide doorlooptijden ----------
+WEG_UIT_ARCHIEF = {"fotoGezocht", "buitenGezocht", "sgDetail", "funderingPc", "gezienOp"}
+
+
+def _dagen(a, b):
+    try:
+        return (dt.date.fromisoformat(b) - dt.date.fromisoformat(a)).days
+    except Exception:
+        return ""
+
+
+def archief(W):
+    A = load("archief.json", {})
+    H = load("historie.json", {})
+    nu = {w["id"]: w for w in W}
+    for id_, w in nu.items():
+        rec = A.get(id_, {})
+        rec.update({k: v for k, v in w.items() if k not in WEG_UIT_ARCHIEF})
+        rec["laatstGezien"] = TODAY
+        A[id_] = rec
+    for id_, h in H.items():  # woningen van voor het archief, alleen uit de historie bekend
+        if id_ not in A:
+            A[id_] = {"id": id_, "adres": h.get("adres", ""), "corporatie": h.get("corporatie", ""), "eerstGezien": h.get("eerstGezien", "")}
+    for id_, rec in A.items():
+        h = H.get(id_, {})
+        lg = [x for x in h.get("log", []) if not str(x.get("status", "")).startswith("weer online")]
+        rec["actief"] = id_ in nu
+        rec["offline"] = "" if rec["actief"] else (h.get("offline") or rec.get("offline") or rec.get("laatstGezien", ""))
+        start = rec.get("eerstGezien") or (lg[0]["d"] if lg else "")
+        rec["voorTracker"] = bool(rec.get("basis"))  # stond er al voor 8 nov 2026: doorlooptijden onbekend
+        statussen = [x for x in lg if x.get("status") != "offline"]
+        laatste = statussen[-1]["status"] if statussen else rec.get("status", "")
+        rec["uitkomst"] = "actief" if rec["actief"] else ("verkocht o.v.b." if laatste == "verkocht o.v.b." else "onder bod" if laatste == "onder bod" else "offline")
+        eind = TODAY if rec["actief"] else rec["offline"]
+        rec["dagenOnline"] = _dagen(start, eind)
+        bod = next((x["d"] for x in statussen if x.get("status") in ("onder bod", "verkocht o.v.b.")), "")
+        verk = next((x["d"] for x in statussen if x.get("status") == "verkocht o.v.b."), "")
+        # verdwijnt een woning zonder dat we 'onder bod' zagen, dan telt de offline-datum als moment van verkoop
+        if not bod and not rec["actief"]:
+            bod = rec["offline"]
+        rec["bodOp"], rec["verkochtOp"] = bod, verk
+        rec["dagenTotBod"] = _dagen(start, bod) if bod and not rec["voorTracker"] else ""
+        rec["dagenTotVerkocht"] = _dagen(start, verk) if verk and not rec["voorTracker"] else ""
+        prijzen = [x["prijs"] for x in lg if isinstance(x.get("prijs"), (int, float)) and x["prijs"]]
+        rec["prijsStart"] = prijzen[0] if prijzen else rec.get("prijs", "")
+        rec["prijsEind"] = prijzen[-1] if prijzen else rec.get("prijs", "")
+        rec["prijsWijzigingen"] = sum(1 for a, b in zip(prijzen, prijzen[1:]) if a != b)
+        rec["terugBeschikbaar"] = sum(1 for a, b in zip(statussen, statussen[1:]) if a.get("status") != "beschikbaar" and b.get("status") == "beschikbaar")
+        dl = rec.get("deadline", "")
+        rec["bodInVoorrang"] = (bod <= dl) if bod and dl and not rec["voorTracker"] else ""
+        m2 = rec.get("m2")
+        rec["ppm2"] = round(rec["prijsEind"] / m2) if isinstance(m2, (int, float)) and m2 and isinstance(rec["prijsEind"], (int, float)) and rec["prijsEind"] else ""
+        rec["log"] = h.get("log", [])
+    save("archief.json", A, indent=None)
+    log(f"archief: {len(A)} woningen, {sum(1 for r in A.values() if not r['actief'])} niet meer online")
+
+
 def main():
     W = json.loads((D / "woningen.json").read_text())
-    for naam, fn in (("historie", historie), ("buurt-WOZ", buurt_woz), ("stadgenoot", stadgenoot_details), ("fotos", fotos), ("buitenruimte", buitenruimte), ("energielabel", ep_label), ("fundering", fundering)):
+    for naam, fn in (("historie", historie), ("buurt-WOZ", buurt_woz), ("stadgenoot", stadgenoot_details), ("fotos", fotos), ("buitenruimte", buitenruimte), ("energielabel", ep_label), ("fundering", fundering), ("archief", archief)):
         t = time.time()
         try:
             fn(W)
@@ -415,7 +472,7 @@ def main():
             log(f"{naam} mislukt: {e}")
     (D / "woningen.json").write_text(json.dumps(W, ensure_ascii=False, indent=1))
     meta = load("meta.json", {})
-    meta["verrijking"] = LOG[-14:]
+    meta["verrijking"] = LOG[-16:]
     save("meta.json", meta)
 
 

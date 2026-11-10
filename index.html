@@ -287,6 +287,42 @@
 
   /* schakelaars voor aan/uit-opties */
   .subchecks { display: flex; gap: 14px; padding: 0 0 6px 2px; } .subchecks .check { font-size: 13px; min-height: 0; }
+  /* Marktinzicht */
+  .mkintro { margin: -4px 0 12px; max-width: 900px; line-height: 1.5; }
+  .mkfilt { display: flex; flex-wrap: wrap; gap: 10px 16px; align-items: center; margin-bottom: 12px; }
+  .mkfilt label:not(.check) { display: flex; gap: 6px; align-items: center; font-size: 14px; color: var(--muted); }
+  .mkfilt select, .mkfilt input[type=search] { height: 34px; border: 1px solid var(--line); border-radius: 8px; background: var(--panel); color: var(--fg); padding: 0 8px; font: inherit; font-size: 14px; }
+  .mkfilt input[type=search] { flex: 1 1 220px; }
+  .mkkpi { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 10px; margin-bottom: 12px; }
+  .mkk { background: var(--panel); border: 1px solid var(--line); border-radius: var(--r); padding: 12px 14px; }
+  .mkk .lbl { font-size: 12.5px; color: var(--muted); } .mkk .val { font-size: 21px; font-weight: 700; margin: 2px 0; font-variant-numeric: tabular-nums; } .mkk .sub { font-size: 12px; color: var(--muted); }
+  .mkgrid2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 0 12px; }
+  #mkarch, .mkgrid2 .card, section[data-page="markt"] .card { min-width: 0; }
+  section[data-page="markt"] h3 { margin: 0 0 6px; font-size: 16px; }
+  .mkhd { display: flex; flex-wrap: wrap; gap: 8px 14px; align-items: center; justify-content: space-between; margin-bottom: 4px; }
+  .mkseg { display: flex; flex-wrap: wrap; gap: 4px; } .mkseg button { border: 1px solid var(--line); background: var(--panel); color: var(--fg); border-radius: 999px; padding: 4px 11px; font: inherit; font-size: 13px; cursor: pointer; }
+  .mkseg button[aria-pressed="true"] { background: var(--brand); border-color: var(--brand); color: #fff; }
+  .mkchart { width: 100%; height: auto; display: block; } .mkchart .mkgrid { stroke: var(--line); stroke-width: 1; } .mkchart .mkbase { stroke: var(--muted); stroke-width: 1; }
+  .mkchart .mkax { fill: var(--muted); font-size: 11px; } .mkbar { fill: var(--brand); opacity: .45; } .mkbar2 { fill: var(--brand); }
+  .mkchart .mkhit { fill: transparent; } .mkchart .mkhit:hover { fill: var(--fg); fill-opacity: .05; }
+  .mklegend { display: flex; gap: 14px; font-size: 12.5px; color: var(--muted); margin-top: 4px; } .mklegend span { display: inline-flex; align-items: center; gap: 6px; }
+  .mklegend .sw { width: 10px; height: 10px; border-radius: 3px; background: var(--brand); } .mklegend .sw.mkbar { opacity: .45; }
+  .mkleeg { padding: 26px 8px; text-align: center; font-size: 13.5px; }
+  .mktip { position: fixed; z-index: 3000; pointer-events: none; background: var(--panel); color: var(--fg); border: 1px solid var(--line); border-radius: 8px; padding: 7px 10px; font-size: 12.5px; line-height: 1.45; box-shadow: 0 4px 16px rgba(0,0,0,.14); max-width: 260px; }
+  .mktbl { width: 100%; border-collapse: collapse; font-size: 13.5px; } .mktbl th { cursor: pointer; white-space: nowrap; user-select: none; font-size: 12.5px; color: var(--muted); font-weight: 600; text-align: left; padding: 6px 8px; border-bottom: 1px solid var(--line); }
+  .mktbl td { padding: 7px 8px; border-bottom: 1px solid var(--line); white-space: nowrap; } .mktbl tbody tr { cursor: pointer; } .mktbl tbody tr:hover { background: var(--soft); }
+  .mktbl .num { text-align: right; font-variant-numeric: tabular-nums; } .mktbl td.lo { color: #1a7f4b; } .mktbl td.hi { color: #b4441f; }
+  .mktbl .mkrng { min-width: 200px; } .mkrng { display: flex; align-items: center; gap: 8px; } td.mkrng { display: table-cell; }
+  .mkr { position: relative; display: inline-block; vertical-align: middle; width: 130px; height: 12px; margin-right: 8px; }
+  .mkr-wh { position: absolute; top: 5.5px; height: 1px; background: var(--muted); } .mkr-iq { position: absolute; top: 2px; height: 8px; border-radius: 4px; background: var(--brand); opacity: .35; }
+  .mkr-md { position: absolute; top: 1px; width: 10px; height: 10px; margin-left: -5px; border-radius: 50%; background: var(--brand); box-shadow: 0 0 0 2px var(--panel); }
+  .mkr-v { font-variant-numeric: tabular-nums; vertical-align: middle; }
+  .mkatbl tr.weg td { color: var(--muted); } .mkmut { color: var(--muted); max-width: 180px; overflow: hidden; text-overflow: ellipsis; }
+  .mkwas { display: block; font-size: 11.5px; color: var(--muted); }
+  .mku { font-size: 12px; padding: 2px 8px; border-radius: 999px; background: var(--soft); border: 1px solid var(--line); }
+  .mku-verkochtovb, .mku-onderbod { background: transparent; }
+  #mkameer { margin-top: 10px; }
+  @media (max-width: 1500px) { .nav button[data-tab="markt"] .navlbl2 { display: none; } }
   .check.sw { justify-content: space-between; flex-direction: row-reverse; gap: 12px; }
   .check.sw input { appearance: none; -webkit-appearance: none; width: 36px; height: 21px; border-radius: 999px; background: #c9c9c9; position: relative; cursor: pointer; transition: background .15s; flex: none; }
   .check.sw input::after { content: ""; position: absolute; top: 2px; left: 2px; width: 17px; height: 17px; border-radius: 50%; background: #fff; box-shadow: 0 1px 2px rgb(0 0 0 / .25); transition: transform .15s; }
@@ -495,6 +531,7 @@
     <button data-tab="woningen" aria-pressed="true">Koopwoningen</button>
     <button data-tab="lijst" aria-pressed="false"><svg class='ico-i' viewBox='0 0 24 24' aria-hidden='true'><path d='M12 3.5l2.6 5.3 5.9.9-4.25 4.1 1 5.8L12 16.9l-5.25 2.7 1-5.8L3.5 9.7l5.9-.9z' fill='none' stroke='currentColor' stroke-width='1.8' stroke-linejoin='round'/></svg><span class="navlbl2">Favorieten</span> <span id="lijstn" class="navn"></span></button>
     <button data-tab="regels" aria-pressed="false">Voorrangsregels</button>
+    <button data-tab="markt" aria-pressed="false" title="Marktinzicht: alle woningen door de tijd"><svg class='ico-i' viewBox='0 0 24 24' aria-hidden='true'><path d='M4 20V10M10 20V4M16 20v-7M21 20H3' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round'/></svg><span class="navlbl2">Marktinzicht</span></button>
     <button data-tab="meldingen" aria-pressed="false" title="Meldingen"><svg class='ico-i' viewBox='0 0 24 24' aria-hidden='true'><path d='M6 16V11a6 6 0 1 1 12 0v5l1.5 2h-15z' fill='none' stroke='currentColor' stroke-width='1.8' stroke-linejoin='round'/><path d='M10 20.5a2.2 2.2 0 0 0 4 0' fill='none' stroke='currentColor' stroke-width='1.8' stroke-linecap='round'/></svg><span class="navlbl2">Meldingen</span> <span id="meldn" class="navn"></span></button>
     <button data-tab="bronnen" aria-pressed="false">Bronnen <span id="tabdot"></span></button>
   </nav>
@@ -631,6 +668,35 @@
     </div>
   </section>
 
+  <section data-page="markt" hidden>
+    <div class="mkop"><h2>Marktinzicht</h2><span class="muted" id="mkinfo"></span></div>
+    <p class="muted mkintro">Alle corporatiewoningen die de site ooit zag, ook als ze inmiddels weg zijn. Het gaat om vraagprijzen; echte verkoopprijzen publiceren corporaties niet. Doorlooptijden meet de site alleen bij woningen die na de start (8 november 2026) binnenkwamen. Hoe langer de site draait, hoe betrouwbaarder de cijfers.</p>
+    <div class="mkfilt">
+      <label>Periode <select id="mkper"><option value="alle">Alles</option><option value="365">Laatste 12 maanden</option><option value="91">Laatste 3 maanden</option><option value="30">Laatste 30 dagen</option></select></label>
+      <label>Corporatie <select id="mkcorp"><option value="">Alle</option></select></label>
+      <label>Stadsdeel <select id="mksd"><option value="">Alle</option></select></label>
+      <label class="check sw"><input type="checkbox" id="mkvj"> Alleen waar ik voorrang kan krijgen</label>
+    </div>
+    <div class="mkkpi" id="mkkpi"></div>
+    <div class="mkgrid2">
+      <div class="card"><h3>Nieuw aanbod per week</h3><div id="mkweek"></div></div>
+      <div class="card"><h3>Hoe snel gaat een woning onder bod?</h3><p class="note">Aantal dagen tussen online komen en onder bod (of verdwijnen).</p><div id="mksnel"></div></div>
+    </div>
+    <div class="card">
+      <div class="mkhd"><h3>Vergelijk</h3><div class="mkseg" id="mkgroep"><button data-g="stadsdeel" aria-pressed="true">Stadsdeel</button><button data-g="buurt" aria-pressed="false">Buurt</button><button data-g="corporatie" aria-pressed="false">Corporatie</button><button data-g="type" aria-pressed="false">Type</button><button data-g="kamers" aria-pressed="false">Kamers</button><button data-g="grootte" aria-pressed="false">Grootte</button><button data-g="prijs" aria-pressed="false">Prijs</button><button data-g="label" aria-pressed="false">Label</button><button data-g="buiten" aria-pressed="false">Buitenruimte</button></div></div>
+      <p class="note">Medianen per groep. Klik op een kolom om te sorteren, op een rij om die woningen hieronder te zien. * = minder dan 3 metingen. Buurt-WOZ is een schatting, geen verkoopprijs.</p>
+      <div class="scroll"><table class="mktbl"><thead><tr id="mkvhead"></tr></thead><tbody id="mkvbody"></tbody></table></div>
+      <p class="note" id="mkschaal"></p>
+    </div>
+    <div class="card" id="mkarch">
+      <div class="mkhd"><h3>Alle woningen</h3><span class="muted" id="mkatel"></span></div>
+      <div class="mkfilt"><input type="search" id="mkzoek" placeholder="Zoek op adres, buurt of postcode"><select id="mkuit"><option value="alle">Online en weg</option><option value="actief">Nog online</option><option value="weg">Alleen weg</option></select><button class="mini" id="mkcsv">Download als CSV (Excel)</button></div>
+      <div class="scroll"><table class="mktbl mkatbl"><thead><tr id="mkahead"></tr></thead><tbody id="mkabody"></tbody></table></div>
+      <button class="mini" id="mkameer" hidden></button>
+      <p class="note">* stond er al bij de start van de site; doorlooptijd onbekend. Grijze rijen zijn niet meer online.</p>
+    </div>
+  </section>
+
   <section data-page="meldingen" hidden>
     <div class="mkop"><h2>Meldingen</h2><span class="muted" id="mupd"></span></div>
     <div class="mfilt">
@@ -739,6 +805,7 @@ let lijstTab = false;
 const showTab = (n) => { const pg = n === 'lijst' ? 'woningen' : n; const was = lijstTab; lijstTab = n === 'lijst'; document.body.classList.toggle('lijstmode', lijstTab);
   document.body.dataset.pg = pg; $$('[data-page]').forEach((s) => s.hidden = s.dataset.page !== pg); $('[data-page-bar]').hidden = pg !== 'woningen'; $('#lijstoverzicht').hidden = !lijstTab; $('#syncpanel').hidden = !lijstTab;
   if (was !== lijstTab && W.length) { render(); if (lijstTab) fitLijst(); }
+  if (pg === 'markt' && W.length) renderMarkt();
   if (pg === 'woningen' && map) setTimeout(() => map.invalidateSize(), 50); $$('[data-tab]').forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.tab === n))); dockSoon(); };
 $$('[data-tab]').forEach((b) => b.onclick = () => { showTab(b.dataset.tab); history.replaceState(null, '', b.dataset.tab === 'woningen' ? location.pathname + location.search : '#' + b.dataset.tab); scrollTo(0, 0); });
 const inLijst = (w) => favs.has(w.id) || !!(VG[w.id] && VG[w.id].status);
@@ -1397,6 +1464,186 @@ $('#profbtn').onclick = openProf;
 $('#homelink').onclick = (e) => { if (e.metaKey || e.ctrlKey || e.shiftKey) return; e.preventDefault(); location.replace(location.pathname); };
 $('#profskip').onclick = () => { $('#profmodal').hidden = true; };
 $('#profsave').onclick = () => { const c = $('#profopts input:checked'); if (!c) return; profiel = {corp: c.value, zelfstandig: $('#profzelf').checked}; store.set('profiel', JSON.stringify(profiel)); changed(); $('#profmodal').hidden = true; profLabel(); if (voorMode) sel.corporatie = voorCorps(); renderStatic(); render(); };
+// ---------- Marktinzicht: archief van alle woningen ooit gezien ----------
+let ARCH = null;
+const mk = {groep: 'stadsdeel', sort: 'n', dir: -1, asort: 'eerstGezien', adir: -1, zoek: '', uit: 'alle'};
+const loadArch = () => ARCH ? Promise.resolve(ARCH) : fetch('data/archief.json', {cache: 'no-cache'}).then((r) => r.ok ? r.json() : null).catch(() => null)
+  .then((a) => ARCH = a ? Object.values(a) : W.map((w) => Object.assign({}, w, {actief: true, uitkomst: 'actief', ppm2: w.m2 ? Math.round(w.prijs / w.m2) : '', prijsEind: w.prijs, prijsStart: w.prijs, voorTracker: !!w.basis})));
+const q = (a, p) => { if (!a.length) return null; const s = [...a].sort((x, y) => x - y), i = (s.length - 1) * p, lo = Math.floor(i); return s[lo] + (s[Math.ceil(i)] - s[lo]) * (i - lo); };
+const nums = (rows, f) => rows.map(f).filter((v) => typeof v === 'number' && isFinite(v));
+const pct = (n, d) => d ? Math.round(n / d * 100) + '%' : '–';
+const kNum = (v) => v == null ? '–' : eur.format(Math.round(v / 1000) * 1000);
+const dagTxt = (v) => v == null ? '–' : Math.round(v) + (Math.round(v) === 1 ? ' dag' : ' dagen');
+const wozDiff = (r) => r.buurtWozM2 && r.ppm2 ? (r.ppm2 / r.buurtWozM2 - 1) * 100 : null;
+const isWeg = (r) => !r.actief || r.status === 'onder bod' || r.status === 'verkocht o.v.b.';
+const UITK = {actief: 'Nog online', 'onder bod': 'Weg na bod', 'verkocht o.v.b.': 'Verkocht o.v.b.', offline: 'Weg'};
+const GROEPEN = {
+  corporatie: ['Corporatie', (r) => [r.corporatie || 'Onbekend']],
+  stadsdeel: ['Stadsdeel', (r) => [r.stadsdeel || 'Onbekend']],
+  buurt: ['Buurt', (r) => [(r.wijk || r.buurt || 'Onbekend') + (r.stadsdeel ? ' · ' + r.stadsdeel : '')]],
+  type: ['Type', (r) => [r.type || 'Onbekend']],
+  kamers: ['Kamers', (r) => [r.kamers ? (r.kamers >= 5 ? '5+ kamers' : r.kamers + (r.kamers === 1 ? ' kamer' : ' kamers')) : 'Onbekend']],
+  grootte: ['Grootte', (r) => [!r.m2 ? 'Onbekend' : r.m2 < 40 ? '< 40 m²' : r.m2 < 60 ? '40–59 m²' : r.m2 < 80 ? '60–79 m²' : r.m2 < 100 ? '80–99 m²' : '100 m² of meer']],
+  prijs: ['Prijsklasse', (r) => { const p = r.prijsEind || r.prijs; return [!p ? 'Onbekend' : p < 300000 ? '< € 300k' : p < 400000 ? '€ 300–400k' : p < 500000 ? '€ 400–500k' : p < 600000 ? '€ 500–600k' : '€ 600k of meer']; }],
+  label: ['Energielabel', (r) => { const l = (r.energielabel || '')[0]; return [!l ? 'Onbekend' : l === 'A' ? 'A of beter' : 'EFG'.includes(l) ? 'E, F of G' : l]; }],
+  buiten: ['Buitenruimte', (r) => { const b = buitenVan(r); return Array.isArray(r.buiten) || b.length ? (b.length ? b.map((x) => x[0].toUpperCase() + x.slice(1)) : ['Geen']) : ['Onbekend']; }],
+};
+const ORDE = {grootte: ['< 40 m²', '40–59 m²', '60–79 m²', '80–99 m²', '100 m² of meer'], prijs: ['< € 300k', '€ 300–400k', '€ 400–500k', '€ 500–600k', '€ 600k of meer'], label: ['A of beter', 'B', 'C', 'D', 'E, F of G'], kamers: ['1 kamer', '2 kamers', '3 kamers', '4 kamers', '5+ kamers']};
+
+const mkRows = () => {
+  const per = $('#mkper').value, corp = $('#mkcorp').value, sd = $('#mksd').value, vj = $('#mkvj').checked;
+  const van = per === 'alle' ? '' : new Date(Date.now() - (+per) * 864e5).toISOString().slice(0, 10);
+  return ARCH.filter((r) => (!van || (r.eerstGezien || '') >= van || (r.actief && r.voorTracker))
+    && (!corp || r.corporatie === corp) && (!sd || r.stadsdeel === sd) && (!vj || voorJou(r) !== 'nee'));
+};
+
+const tip = (() => { let t; return { show(e, html) { if (!t) { t = el('div', 'mktip'); document.body.append(t); } t.innerHTML = html; t.hidden = false; const x = Math.min(e.clientX + 14, innerWidth - t.offsetWidth - 8); t.style.left = x + 'px'; t.style.top = (e.clientY - t.offsetHeight - 10 < 0 ? e.clientY + 16 : e.clientY - t.offsetHeight - 10) + 'px'; }, hide() { if (t) t.hidden = true; } }; })();
+const svgEl = (tag, attrs) => { const e = document.createElementNS('http://www.w3.org/2000/svg', tag); for (const k in attrs) e.setAttribute(k, attrs[k]); return e; };
+
+// Staafgrafiek: [{lbl, v, v2, tip}] ; v2 = deel van v (donkerder, bv. "voor jou")
+const barChart = (box, data, opt = {}) => {
+  box.replaceChildren();
+  if (!data.length || !data.some((d) => d.v)) { box.append(el('p', 'muted mkleeg', opt.leeg || 'Nog geen gegevens.')); return; }
+  const Wd = Math.max(300, Math.round(box.clientWidth || 560)), Hd = Wd < 450 ? 180 : 200, pl = 30, pb = 26, pt = 10, max = Math.max(...data.map((d) => d.v)), step = Math.max(1, Math.ceil(max / 4));
+  const top = step * Math.ceil(max / step), sx = (Wd - pl - 4) / data.length, bw = Math.max(4, Math.min(34, sx - 4));
+  const s = svgEl('svg', {viewBox: `0 0 ${Wd} ${Hd}`, class: 'mkchart', role: 'img', 'aria-label': opt.aria || ''});
+  const y = (v) => pt + (Hd - pt - pb) * (1 - v / top);
+  for (let v = 0; v <= top; v += step) { s.append(svgEl('line', {x1: pl, x2: Wd, y1: y(v), y2: y(v), class: v ? 'mkgrid' : 'mkbase'})); const t = svgEl('text', {x: pl - 6, y: y(v) + 4, class: 'mkax', 'text-anchor': 'end'}); t.textContent = v; s.append(t); }
+  const every = Math.ceil(data.length / (Wd < 450 ? 5 : 9));
+  data.forEach((d, i) => {
+    const x = pl + i * sx + (sx - bw) / 2, h = Hd - pb - y(d.v);
+    if (d.v) { const r = Math.min(4, bw / 2, h); s.append(svgEl('path', {class: 'mkbar', d: `M${x},${Hd - pb}V${y(d.v) + r}q0,-${r} ${r},-${r}h${bw - 2 * r}q${r},0 ${r},${r}V${Hd - pb}z`})); }
+    if (d.v2) { const y2 = y(d.v2), r = Math.min(4, bw / 2, Hd - pb - y2); const full = d.v2 === d.v; s.append(svgEl('path', {class: 'mkbar2', d: full ? `M${x},${Hd - pb}V${y2 + r}q0,-${r} ${r},-${r}h${bw - 2 * r}q${r},0 ${r},${r}V${Hd - pb}z` : `M${x},${Hd - pb}V${y2 + 1}h${bw}V${Hd - pb}z`})); }
+    if (i % every === 0) { const t = svgEl('text', {x: x + bw / 2, y: Hd - 8, class: 'mkax', 'text-anchor': 'middle'}); t.textContent = d.lbl; s.append(t); }
+    const hit = svgEl('rect', {x: pl + i * sx, y: pt, width: sx, height: Hd - pt - pb, class: 'mkhit'});
+    hit.addEventListener('mousemove', (e) => tip.show(e, d.tip)); hit.addEventListener('mouseleave', tip.hide);
+    s.append(hit);
+  });
+  box.append(s);
+  if (opt.legend) { const l = el('div', 'mklegend'); opt.legend.forEach(([c, t]) => { const i = el('span'); i.append(el('span', 'sw ' + c), t); l.append(i); }); box.append(l); }
+};
+
+const weekStart = (d) => { const x = new Date(d + 'T12:00:00'); x.setDate(x.getDate() - ((x.getDay() + 6) % 7)); return x.toISOString().slice(0, 10); };
+
+const renderMarkt = () => {
+  if (!ARCH) { loadArch().then(() => { mkSetup(); renderMarkt(); }); return; }
+  const R = mkRows(), nieuw = R.filter((r) => !r.voorTracker);
+  // Kerncijfers
+  const weg = R.filter(isWeg), bod = nums(R, (r) => r.dagenTotBod), metDl = R.filter((r) => r.bodInVoorrang !== '' && r.bodInVoorrang != null);
+  const dagen = Math.max(1, (Date.now() - new Date(Math.min(...ARCH.map((r) => +new Date((r.eerstGezien || today) + 'T12:00:00'))))) / 864e5);
+  const perMnd = nieuw.length / Math.max(dagen, 30) * 30.4, vjMnd = nieuw.filter((r) => voorJou(r) !== 'nee').length / Math.max(dagen, 30) * 30.4;
+  const omlaag = R.filter((r) => r.prijsStart && r.prijsEind && r.prijsEind < r.prijsStart).length;
+  const K = [
+    ['Woningen gezien', String(R.length), `${R.filter((r) => r.actief).length} nog online · ${R.length - R.filter((r) => r.actief).length} weg`],
+    ['Nieuw aanbod', nieuw.length ? '± ' + (perMnd < 10 ? perMnd.toFixed(1).replace('.', ',') : Math.round(perMnd)) + ' per maand' : '–', profiel ? `waarvan ± ${vjMnd < 10 ? vjMnd.toFixed(1).replace('.', ',') : Math.round(vjMnd)} met voorrang voor jou` : 'stel je corporatie in voor “voor jou”'],
+    ['Vraagprijs (mediaan)', kNum(q(nums(R, (r) => r.prijsEind || r.prijs), .5)), 'per m²: ' + (q(nums(R, (r) => r.ppm2), .5) ? eur.format(Math.round(q(nums(R, (r) => r.ppm2), .5))) : '–')],
+    ['Tot onder bod (mediaan)', dagTxt(q(bod, .5)), bod.length ? `gemeten bij ${bod.length} woningen` : 'pas te meten bij nieuwe woningen'],
+    ['Weg binnen voorrangsperiode', pct(metDl.filter((r) => r.bodInVoorrang).length, metDl.length), metDl.length ? `van ${metDl.length} woningen met deadline` : 'nog geen woningen met deadline weg'],
+    ['Prijs verlaagd', pct(omlaag, R.length), `${omlaag} van ${R.length} woningen`],
+  ];
+  $('#mkkpi').replaceChildren(...K.map(([l, v, s]) => { const d = el('div', 'mkk'); d.append(el('div', 'lbl', l), el('div', 'val', v), el('div', 'sub', s)); return d; }));
+  // Aanbod per week (zonder het bestaande aanbod van de eerste dag)
+  const wk = {}; nieuw.forEach((r) => { if (!r.eerstGezien) return; const k = weekStart(r.eerstGezien); (wk[k] ||= {v: 0, v2: 0}).v++; if (voorJou(r) !== 'nee') wk[k].v2++; });
+  const weeks = []; if (Object.keys(wk).length) { let d = Object.keys(wk).sort()[0]; const end = weekStart(today); while (d <= end && weeks.length < 60) { weeks.push(d); const x = new Date(d + 'T12:00:00'); x.setDate(x.getDate() + 7); d = x.toISOString().slice(0, 10); } }
+  barChart($('#mkweek'), weeks.map((k) => { const o = wk[k] || {v: 0, v2: 0}; return {lbl: nlShort(k), v: o.v, v2: profiel ? o.v2 : 0, tip: `<b>Week van ${nlShort(k)}</b><br>${o.v} nieuw` + (profiel ? `<br>${o.v2} met voorrang voor jou` : '')}; }),
+    {aria: 'Nieuw aanbod per week', leeg: 'Vanaf nu telt de site elk nieuw aanbod per week. Het aanbod dat er op 8 november al stond telt niet mee.', legend: profiel ? [['mkbar', 'Nieuw'], ['mkbar2', 'Waarvan met voorrang voor jou']] : null});
+  // Hoe snel weg
+  const B = [['0–3', 0, 3], ['4–7', 4, 7], ['8–14', 8, 14], ['15–30', 15, 30], ['31–60', 31, 60], ['60+', 61, 1e9]];
+  barChart($('#mksnel'), B.map(([l, a, b]) => { const n = bod.filter((v) => v >= a && v <= b).length; return {lbl: l, v: n, tip: `<b>${l} dagen</b><br>${n} woning${n === 1 ? '' : 'en'} (${pct(n, bod.length)})`}; }),
+    {aria: 'Dagen tot onder bod', leeg: 'Wordt gevuld zodra nieuwe woningen onder bod gaan of verdwijnen. Woningen die er al stonden voor de start tellen niet mee.'});
+  renderVergelijk(R);
+  renderArchief(R);
+  $('#mkinfo').textContent = `${ARCH.length} woningen in het archief · sinds ${nlShort(ARCH.map((r) => r.eerstGezien).filter(Boolean).sort()[0] || today)}`;
+};
+
+const VCOLS = [
+  ['naam', 'Groep', 'l'], ['n', 'Aantal'], ['online', 'Nog online'], ['prijs', 'Vraagprijs'], ['m2', 'm²'], ['ppm2', 'Prijs per m² (spreiding)', 'w'], ['woz', 't.o.v. buurt-WOZ'],
+  ['bod', 'Dagen tot bod'], ['voorr', 'Weg in voorrang'], ['vj', 'Voor jou'], ['buiten', 'Buitenruimte'], ['lbl', 'Label A–C'],
+];
+const renderVergelijk = (R) => {
+  const [, keyF] = GROEPEN[mk.groep], G = {};
+  R.forEach((r) => keyF(r).forEach((k) => (G[k] ||= []).push(r)));
+  let rows = Object.entries(G).map(([naam, rs]) => {
+    const p = nums(rs, (r) => r.ppm2), dl = rs.filter((r) => r.bodInVoorrang !== '' && r.bodInVoorrang != null);
+    return {naam, rs, n: rs.length, online: rs.filter((r) => r.actief).length, prijs: q(nums(rs, (r) => r.prijsEind || r.prijs), .5), m2: q(nums(rs, (r) => r.m2), .5),
+      ppm2: q(p, .5), p25: q(p, .25), p75: q(p, .75), pmin: p.length ? Math.min(...p) : null, pmax: p.length ? Math.max(...p) : null, woz: q(nums(rs, wozDiff), .5),
+      bod: q(nums(rs, (r) => r.dagenTotBod), .5), nbod: nums(rs, (r) => r.dagenTotBod).length,
+      voorr: dl.length ? dl.filter((r) => r.bodInVoorrang).length / dl.length : null, ndl: dl.length,
+      vj: profiel ? rs.filter((r) => voorJou(r) !== 'nee').length / rs.length : null,
+      buiten: (() => { const k = rs.filter((r) => Array.isArray(r.buiten) || r.tuin === 'ja'); return k.length ? k.filter((r) => buitenVan(r).length).length / k.length : null; })(),
+      lbl: (() => { const k = rs.filter((r) => r.energielabel); return k.length ? k.filter((r) => /^[ABC]/.test(r.energielabel)).length / k.length : null; })()};
+  });
+  const ord = ORDE[mk.groep];
+  rows.sort((a, b) => { if (mk.sort === 'naam' && ord) return ((ord.indexOf(a.naam) + 99) % 99 - (ord.indexOf(b.naam) + 99) % 99) * -mk.dir; const x = a[mk.sort], y = b[mk.sort]; if (x == null) return 1; if (y == null) return -1; return (typeof x === 'string' ? x.localeCompare(y, 'nl') : x - y) * -mk.dir; });
+  const all = nums(R, (r) => r.ppm2), lo = Math.floor((q(all, .02) || 0) / 1000) * 1000, hi = Math.ceil((q(all, .98) || 1) / 1000) * 1000;
+  const sc = (v) => Math.max(0, Math.min(100, (v - lo) / Math.max(1, hi - lo) * 100));
+  const th = $('#mkvhead'); th.replaceChildren(...VCOLS.map(([k, t, c]) => { const e = el('th', c === 'w' ? 'mkrng' : c === 'l' ? '' : 'num', k === 'naam' ? GROEPEN[mk.groep][0] : t); if (mk.sort === k) e.append(mk.dir < 0 ? ' ↓' : ' ↑'); e.onclick = () => { mk.dir = mk.sort === k ? -mk.dir : (k === 'naam' ? 1 : -1); mk.sort = k; renderVergelijk(R); }; return e; }));
+  const tb = $('#mkvbody'); tb.replaceChildren();
+  rows.forEach((g) => {
+    const tr = el('tr'); const fp = (v) => v == null ? '–' : Math.round(v * 100) + '%';
+    const c0 = el('td'); if (mk.groep === 'corporatie') { const d = el('span', 'cd'); d.style.background = corpColor(g.naam); c0.append(d); } c0.append(g.naam);
+    const rng = el('td', 'mkrng');
+    if (g.ppm2 != null) {
+      const bar = el('div', 'mkr'); const span = el('span', 'mkr-iq'); span.style.left = sc(g.p25) + '%'; span.style.width = Math.max(1.5, sc(g.p75) - sc(g.p25)) + '%';
+      const wh = el('span', 'mkr-wh'); wh.style.left = sc(g.pmin) + '%'; wh.style.width = Math.max(0, sc(g.pmax) - sc(g.pmin)) + '%';
+      const dot = el('span', 'mkr-md'); dot.style.left = sc(g.ppm2) + '%';
+      bar.append(wh, span, dot); rng.append(bar, el('span', 'mkr-v', eur.format(Math.round(g.ppm2))));
+      rng.onmousemove = (e) => tip.show(e, `<b>${g.naam}</b><br>Mediaan ${eur.format(Math.round(g.ppm2))} per m²<br>Middelste helft ${eur.format(Math.round(g.p25))} – ${eur.format(Math.round(g.p75))}<br>Laagste ${eur.format(g.pmin)} · hoogste ${eur.format(g.pmax)}`); rng.onmouseleave = tip.hide;
+    } else rng.append('–');
+    const wz = el('td', 'num', g.woz == null ? '–' : (g.woz > 0 ? '+' : '') + Math.round(g.woz) + '%'); if (g.woz != null) wz.classList.add(g.woz <= -5 ? 'lo' : g.woz >= 5 ? 'hi' : 'mid');
+    tr.append(c0, el('td', 'num', g.n), el('td', 'num', g.online), el('td', 'num', kNum(g.prijs)), el('td', 'num', g.m2 == null ? '–' : Math.round(g.m2)), rng, wz,
+      el('td', 'num', g.bod == null ? '–' : Math.round(g.bod) + (g.nbod < 3 ? '*' : '')), el('td', 'num', g.voorr == null ? '–' : fp(g.voorr) + (g.ndl < 3 ? '*' : '')),
+      el('td', 'num', fp(g.vj)), el('td', 'num', fp(g.buiten)), el('td', 'num', fp(g.lbl)));
+    tr.onclick = () => { mk.zoek = ''; $('#mkzoek').value = ''; mkFilterGroep = g.naam; renderArchief(mkRows()); $('#mkarch').scrollIntoView({behavior: 'smooth', block: 'start'}); };
+    tb.append(tr);
+  });
+  $('#mkschaal').textContent = all.length ? `Balk: ${eur.format(lo)} – ${eur.format(hi)} per m². Stip = mediaan, donker = middelste helft, lijn = laagste tot hoogste.` : '';
+};
+
+let mkFilterGroep = '';
+const ACOLS = [['adres', 'Adres', 'l'], ['buurt', 'Buurt', 'l'], ['corporatie', 'Corporatie', 'l'], ['prijsEind', 'Vraagprijs'], ['m2', 'm²'], ['ppm2', '€/m²'], ['buiten', 'Buiten', 'l'], ['eerstGezien', 'Online sinds'], ['offline', 'Weg op'], ['dagenTotBod', 'Dagen tot bod'], ['uitkomst', 'Uitkomst', 'l']];
+const renderArchief = (R) => {
+  const zoek = mk.zoek.toLowerCase(), [, keyF] = GROEPEN[mk.groep];
+  let rows = R.filter((r) => (!zoek || [r.adres, r.wijk, r.buurt, r.postcode, r.corporatie].join(' ').toLowerCase().includes(zoek))
+    && (mk.uit === 'alle' || (mk.uit === 'actief' ? r.actief : !r.actief)) && (!mkFilterGroep || keyF(r).includes(mkFilterGroep)));
+  const v = (r, k) => k === 'buurt' ? (r.wijk || r.buurt || '') : k === 'prijsEind' ? (r.prijsEind || r.prijs) : k === 'buiten' ? buitenVan(r).join(', ') : r[k];
+  rows.sort((a, b) => { const x = v(a, mk.asort), y = v(b, mk.asort); if (x === '' || x == null) return 1; if (y === '' || y == null) return -1; return (typeof x === 'string' ? x.localeCompare(y, 'nl') : x - y) * mk.adir; });
+  $('#mkahead').replaceChildren(...ACOLS.map(([k, t, c]) => { const e = el('th', c === 'l' ? '' : 'num', t); if (mk.asort === k) e.append(mk.adir < 0 ? ' ↓' : ' ↑'); e.onclick = () => { mk.adir = mk.asort === k ? -mk.adir : (c === 'l' ? 1 : -1); mk.asort = k; renderArchief(R); }; return e; }));
+  const tb = $('#mkabody'); tb.replaceChildren();
+  rows.slice(0, mkMax).forEach((r) => {
+    const tr = el('tr', r.actief ? '' : 'weg'); const d = el('span', 'cd'); d.style.background = corpColor(r.corporatie); const c = el('td'); c.append(d, r.corporatie);
+    const pr = el('td', 'num', r.prijsEind || r.prijs ? eur.format(r.prijsEind || r.prijs) : '–'); if (r.prijsStart && r.prijsEind && r.prijsStart !== r.prijsEind) pr.append(el('span', 'mkwas', (r.prijsEind < r.prijsStart ? '↓ ' : '↑ ') + 'was ' + eur.format(r.prijsStart)));
+    const u = el('td'); u.append(el('span', 'mku mku-' + (r.uitkomst || 'actief').replace(/\W+/g, ''), r.actief ? (r.status || 'beschikbaar') : UITK[r.uitkomst] || r.uitkomst));
+    tr.append(el('td', null, r.adres), el('td', 'mkmut', r.wijk || r.buurt || ''), c, pr, el('td', 'num', r.m2 || '–'), el('td', 'num', r.ppm2 ? eur.format(r.ppm2) : '–'), el('td', 'mkmut', buitenVan(r).join(', ')),
+      el('td', 'num', nlShort(r.eerstGezien) + (r.voorTracker ? '*' : '')), el('td', 'num', r.actief ? '' : nlShort(r.offline)), el('td', 'num', r.dagenTotBod === '' || r.dagenTotBod == null ? '' : r.dagenTotBod), u);
+    tr.onclick = () => { const w = W.find((x) => x.id === r.id); openDetail(w || r); };
+    tb.append(tr);
+  });
+  $('#mkameer').hidden = rows.length <= mkMax; $('#mkameer').textContent = `Toon alle ${rows.length}`;
+  $('#mkatel').replaceChildren(`${rows.length} woning${rows.length === 1 ? '' : 'en'}`); if (mkFilterGroep) { const b = el('button', 'mini', `${mkFilterGroep} ×`); b.onclick = () => { mkFilterGroep = ''; renderArchief(R); }; $('#mkatel').append(' · ', b); }
+  mkLaatste = rows;
+};
+let mkMax = 50, mkLaatste = [];
+const mkCsv = () => {
+  const K = ['adres', 'postcode', 'wijk', 'stadsdeel', 'corporatie', 'type', 'kamers', 'm2', 'prijsStart', 'prijsEind', 'ppm2', 'buurtWozM2', 'energielabel', 'bouwjaar', 'servicekosten', 'erfpacht', 'buiten', 'voorrangLabel', 'deadline', 'eerstGezien', 'offline', 'bodOp', 'verkochtOp', 'dagenOnline', 'dagenTotBod', 'dagenTotVerkocht', 'bodInVoorrang', 'prijsWijzigingen', 'uitkomst', 'url'];
+  const esc = (v) => { v = Array.isArray(v) ? v.join(' ') : v == null ? '' : String(v); return /[;"\n]/.test(v) ? '"' + v.replace(/"/g, '""') + '"' : v; };
+  const csv = '﻿' + [K.join(';'), ...mkLaatste.map((r) => K.map((k) => esc(r[k])).join(';'))].join('\n');
+  const a = el('a'); a.href = URL.createObjectURL(new Blob([csv], {type: 'text/csv'})); a.download = `corporatiewoningen-archief-${today}.csv`; a.click();
+};
+let mkKlaar = false;
+const mkSetup = () => {
+  if (mkKlaar) return; mkKlaar = true;
+  const fill = (s, vals) => vals.forEach((v) => { const o = el('option', null, v); o.value = v; s.append(o); });
+  fill($('#mkcorp'), [...new Set(ARCH.map((r) => r.corporatie).filter(Boolean))].sort());
+  fill($('#mksd'), [...new Set(ARCH.map((r) => r.stadsdeel).filter(Boolean))].sort());
+  $$('#mkgroep button').forEach((b) => b.onclick = () => { mk.groep = b.dataset.g; mk.sort = 'n'; mk.dir = -1; mkFilterGroep = ''; $$('#mkgroep button').forEach((x) => x.setAttribute('aria-pressed', String(x === b))); renderMarkt(); });
+  ['#mkper', '#mkcorp', '#mksd', '#mkvj'].forEach((s) => $(s).onchange = () => { mkFilterGroep = ''; renderMarkt(); });
+  $('#mkzoek').oninput = (e) => { mk.zoek = e.target.value; renderArchief(mkRows()); };
+  $('#mkuit').onchange = (e) => { mk.uit = e.target.value; renderArchief(mkRows()); };
+  $('#mkameer').onclick = () => { mkMax = 1e6; renderArchief(mkRows()); };
+  $('#mkcsv').onclick = mkCsv;
+};
+
 Promise.all(['woningen', 'regels', 'bronnen', 'meta'].map((n) => fetch('data/' + n + '.json', {cache: 'no-cache'}).then((r) => r.ok ? r.json() : (n === 'meta' ? {} : [])).catch(() => n === 'meta' ? {} : [])))
   .then(([w, r, b, m]) => {
     W = w; R = r; B = b; META = m;
@@ -1404,7 +1651,7 @@ Promise.all(['woningen', 'regels', 'bronnen', 'meta'].map((n) => fetch('data/' +
     loadShared().then(() => { profLabel(); renderStatic(); render(); if (!profiel) openProf(); });
     const openSync = (e) => { e.stopPropagation(); $$('details.tdd').forEach((o) => o.open = false); showTab('lijst'); history.replaceState(null, '', '#lijst'); $('#syncpanel').scrollIntoView({block: 'start'}); };
     $('#syncopen').onclick = openSync; $('#syncopen2').onclick = openSync; $('#syncclose').onclick = () => $('#syncpanel').hidden = true;
-    const h = location.hash.slice(1); if (['regels', 'bronnen', 'lijst', 'meldingen'].includes(h)) showTab(h);
+    const h = location.hash.slice(1); if (['regels', 'bronnen', 'lijst', 'meldingen', 'markt'].includes(h)) showTab(h);
   });
 </script>
 </body>
