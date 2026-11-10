@@ -451,11 +451,13 @@
   .sinds li a { font-weight: 700; cursor: pointer; }
   .sinds li .meta { color: var(--muted); font-size: 12.5px; }
   .sinds .meer { margin-top: 6px; }
+  a.brand, a.brand:hover { text-decoration: none; color: var(--head-ink); cursor: pointer; }
+  a.brand:focus-visible { outline: 2px solid var(--link); outline-offset: 3px; border-radius: 6px; }
 </style>
 </head>
 <body>
 <header class="topbar"><div class="in">
-  <div class="brand"><svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64' class='logo' aria-hidden='true'><rect x='1' y='1' width='62' height='62' rx='15' fill='#FFFFFF' stroke='#DCE4EE' stroke-width='2'/><path d='M13 30 32 14l19 16' fill='none' stroke='#0B63C4' stroke-width='6' stroke-linecap='round' stroke-linejoin='round'/><rect x='20' y='32' width='24' height='19' rx='3' fill='#F7A100'/><rect x='28.5' y='39' width='7' height='12' rx='1.5' fill='#FFFFFF'/></svg>Corporatiewoningen <span class="tag">Amsterdam</span></div>
+  <a class="brand" href="./" id="homelink" title="Naar de homepage"><svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64' class='logo' aria-hidden='true'><rect x='1' y='1' width='62' height='62' rx='15' fill='#FFFFFF' stroke='#DCE4EE' stroke-width='2'/><path d='M13 30 32 14l19 16' fill='none' stroke='#0B63C4' stroke-width='6' stroke-linecap='round' stroke-linejoin='round'/><rect x='20' y='32' width='24' height='19' rx='3' fill='#F7A100'/><rect x='28.5' y='39' width='7' height='12' rx='1.5' fill='#FFFFFF'/></svg>Corporatiewoningen <span class="tag">Amsterdam</span></a>
   <nav class="nav" role="tablist">
     <button data-tab="woningen" aria-pressed="true">Koopwoningen</button>
     <button data-tab="lijst" aria-pressed="false">★ Onze lijst <span id="lijstn" class="navn"></span></button>
@@ -1263,6 +1265,7 @@ const openProf = () => {
   $('#profzelf').checked = profiel ? profiel.zelfstandig !== false : true; $('#profmodal').hidden = false;
 };
 $('#profbtn').onclick = openProf;
+$('#homelink').onclick = (e) => { if (e.metaKey || e.ctrlKey || e.shiftKey) return; e.preventDefault(); $$('details.tdd').forEach((o) => o.open = false); if (!$('#detail').hidden) closeDetail(); showTab('woningen'); history.replaceState(null, '', location.pathname); scrollTo({top: 0, behavior: 'smooth'}); };
 $('#profskip').onclick = () => { $('#profmodal').hidden = true; };
 $('#profsave').onclick = () => { const c = $('#profopts input:checked'); if (!c) return; profiel = {corp: c.value, zelfstandig: $('#profzelf').checked}; store.set('profiel', JSON.stringify(profiel)); changed(); $('#profmodal').hidden = true; profLabel(); renderStatic(); render(); };
 Promise.all(['woningen', 'regels', 'bronnen', 'meta'].map((n) => fetch('data/' + n + '.json', {cache: 'no-cache'}).then((r) => r.ok ? r.json() : (n === 'meta' ? {} : [])).catch(() => n === 'meta' ? {} : [])))
