@@ -670,7 +670,7 @@
 
   <section data-page="markt" hidden>
     <div class="mkop"><h2>Marktinzicht</h2><span class="muted" id="mkinfo"></span></div>
-    <p class="muted mkintro">Alle corporatiewoningen die de site ooit zag, ook als ze inmiddels weg zijn. Het gaat om vraagprijzen; echte verkoopprijzen publiceren corporaties niet. Doorlooptijden meet de site alleen bij woningen die na de start (8 november 2026) binnenkwamen. Hoe langer de site draait, hoe betrouwbaarder de cijfers.</p>
+    <p class="muted mkintro">Alle corporatiewoningen die de site ooit zag, ook als ze inmiddels weg zijn. Het gaat om vraagprijzen; echte verkoopprijzen publiceren corporaties niet. Doorlooptijden meet de site alleen bij woningen die na de start (8 november 2026) binnenkwamen. Woningen die alleen via Funda binnenkomen (Ymere) kan de site niet volgen: die gaan na 3 weken uit de lijst en tellen niet mee voor doorlooptijden. Hoe langer de site draait, hoe betrouwbaarder de cijfers.</p>
     <div class="mkfilt">
       <label>Periode <select id="mkper"><option value="alle">Alles</option><option value="365">Laatste 12 maanden</option><option value="91">Laatste 3 maanden</option><option value="30">Laatste 30 dagen</option></select></label>
       <label>Corporatie <select id="mkcorp"><option value="">Alle</option></select></label>
@@ -1476,7 +1476,7 @@ const kNum = (v) => v == null ? '–' : eur.format(Math.round(v / 1000) * 1000);
 const dagTxt = (v) => v == null ? '–' : Math.round(v) + (Math.round(v) === 1 ? ' dag' : ' dagen');
 const wozDiff = (r) => r.buurtWozM2 && r.ppm2 ? (r.ppm2 / r.buurtWozM2 - 1) * 100 : null;
 const isWeg = (r) => !r.actief || r.status === 'onder bod' || r.status === 'verkocht o.v.b.';
-const UITK = {actief: 'Nog online', 'onder bod': 'Weg na bod', 'verkocht o.v.b.': 'Verkocht o.v.b.', offline: 'Weg'};
+const UITK = {actief: 'Nog online', 'onder bod': 'Weg na bod', 'verkocht o.v.b.': 'Verkocht o.v.b.', offline: 'Weg', onbekend: 'Weg (Funda, status onbekend)'};
 const GROEPEN = {
   corporatie: ['Corporatie', (r) => [r.corporatie || 'Onbekend']],
   stadsdeel: ['Stadsdeel', (r) => [r.stadsdeel || 'Onbekend']],

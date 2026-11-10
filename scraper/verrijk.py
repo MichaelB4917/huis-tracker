@@ -88,6 +88,18 @@ def stadgenoot_status(W):
     log(f"stadgenoot-status: {gewijzigd} status gewijzigd, {len(weg)} offline")
 
 
+# ---------- 0b. Funda-woningen (Ymere): status niet te volgen, dus na FUNDA_DAGEN offline met uitkomst 'onbekend' ----------
+FUNDA_DAGEN = 21
+
+
+def funda_verlopen(W):
+    grens = (dt.date.today() - dt.timedelta(days=FUNDA_DAGEN)).isoformat()
+    weg = [w for w in W if str(w.get("bron", "")).lower().startswith("funda") and (w.get("eerstGezien") or TODAY) <= grens]
+    for w in weg:
+        W.remove(w)
+    log(f"funda: {len(weg)} woningen na {FUNDA_DAGEN} dagen offline gezet (status onbekend)")
+
+
 # ---------- 1. Historie ----------
 def historie(W):
     H = load("historie.json", {})
@@ -468,13 +480,17 @@ def archief(W):
         rec["voorTracker"] = bool(rec.get("basis"))  # stond er al voor 8 nov 2026: doorlooptijden onbekend
         statussen = [x for x in lg if x.get("status") != "offline"]
         laatste = statussen[-1]["status"] if statussen else rec.get("status", "")
-        rec["uitkomst"] = "actief" if rec["actief"] else ("verkocht o.v.b." if laatste == "verkocht o.v.b." else "onder bod" if laatste == "onder bod" else "offline")
+        funda = str(rec.get("bron", "")).lower().startswith("funda")
+        rec["statusOnbekend"] = funda
+        rec["uitkomst"] = "actief" if rec["actief"] else "onbekend" if funda else ("verkocht o.v.b." if laatste == "verkocht o.v.b." else "onder bod" if laatste == "onder bod" else "offline")
         eind = TODAY if rec["actief"] else rec["offline"]
         rec["dagenOnline"] = _dagen(start, eind)
         bod = next((x["d"] for x in statussen if x.get("status") in ("onder bod", "verkocht o.v.b.")), "")
         verk = next((x["d"] for x in statussen if x.get("status") == "verkocht o.v.b."), "")
         # verdwijnt een woning zonder dat we 'onder bod' zagen, dan telt de offline-datum als moment van verkoop
-        if not bod and not rec["actief"]:
+        if funda:
+            bod = verk = ""
+        elif not bod and not rec["actief"]:
             bod = rec["offline"]
         rec["bodOp"], rec["verkochtOp"] = bod, verk
         rec["dagenTotBod"] = _dagen(start, bod) if bod and not rec["voorTracker"] else ""
@@ -495,7 +511,7 @@ def archief(W):
 
 def main():
     W = json.loads((D / "woningen.json").read_text())
-    for naam, fn in (("stadgenoot-status", stadgenoot_status), ("historie", historie), ("buurt-WOZ", buurt_woz), ("stadgenoot", stadgenoot_details), ("fotos", fotos), ("buitenruimte", buitenruimte), ("energielabel", ep_label), ("fundering", fundering), ("archief", archief)):
+    for naam, fn in (("stadgenoot-status", stadgenoot_status), ("funda", funda_verlopen), ("historie", historie), ("buurt-WOZ", buurt_woz), ("stadgenoot", stadgenoot_details), ("fotos", fotos), ("buitenruimte", buitenruimte), ("energielabel", ep_label), ("fundering", fundering), ("archief", archief)):
         t = time.time()
         try:
             fn(W)
