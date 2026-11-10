@@ -504,7 +504,7 @@ def main():
             log(f"{naam} mislukt: {e}")
     (D / "woningen.json").write_text(json.dumps(W, ensure_ascii=False, indent=1))
     meta = load("meta.json", {})
-    meta["verrijking"] = LOG[-16:]
+    meta["verrijking"] = LOG[-24:]
     save("meta.json", meta)
 
 
