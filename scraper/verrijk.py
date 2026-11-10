@@ -323,6 +323,9 @@ def fotos(W):
 LABELS_BUITEN = r"(buitenruimte|balkon|tuin|terras|dakterras|loggia|tuinligging|ligging tuin|achtertuin|voortuin)"
 
 
+BUITEN_VERSIE = 2  # ophogen als de herkenning verandert: dan worden alle advertenties opnieuw gelezen
+
+
 def buiten_uit_tekst(t):
     """Geeft een lijst met 'balkon', 'terras', 'tuin' die echt bij de woning horen."""
     regels = [r.strip() for r in t.split("\n") if r.strip()]
@@ -333,6 +336,10 @@ def buiten_uit_tekst(t):
         elif re.fullmatch(LABELS_BUITEN + r":?", r, re.I) and i + 1 < len(regels) and len(regels[i + 1]) < 40:
             stukken.append(f"{r.rstrip(':')}: {regels[i + 1]}")  # kenmerk + waarde, bijv. "Buitenruimte: Balkon"
     x = " \n ".join(stukken).lower()
+    # zinnen over de buurt (cafés, markten) gaan niet over de woning zelf
+    x = " . ".join(z for z in re.split(r"(?<=[.!?])\s+|\n", x) if not re.search(r"caf[eé]|restaurant|horeca|borrel|terrasje|markt|winkel|park\b", z))
+    x = re.sub(r"\b(balkon|tuin|terras|dakterras)\w*[^.]{0,40}\b(behoort|hoort|horen|behoren) niet\b", " ", x)
+    x = re.sub(r"\b(beschikt|heeft)\s+niet\s+over\s+(een\s+)?(eigen\s+)?(buitenruimte|balkon|tuin|terras)", " ", x)
     x = re.sub(r"\bfranse?\s+balkon(s|netje|netjes)?\b", " ", x)
     x = re.sub(r"\bgeen\s+(eigen\s+|privé\s+)?(buitenruimte|balkon|tuin|terras|dakterras)\b", " ", x)
     x = re.sub(r"\b(balkon|tuin|terras|dakterras|loggia)\s*:\s*(nee|geen|-)\b", " ", x)
@@ -340,7 +347,7 @@ def buiten_uit_tekst(t):
     uit = []
     if re.search(r"\b(balkons?|loggia'?s?|zonnebalkon|balkon(?:\s+op|\s+aan|\s+met))\b", x):
         uit.append("balkon")
-    if re.search(r"\b(dak)?terras(sen)?\b", x):
+    if re.search(r"\b(dak|zonne|eigen\s+)?terras\b", x):
         uit.append("terras")
     if re.search(r"\b(achter|voor|zij|stads|eigen\s+)?tuin(en|tje)?\b", x) or re.search(r"\b(achter|voor)tuin\b", x):
         uit.append("tuin")
@@ -350,12 +357,12 @@ def buiten_uit_tekst(t):
 def buitenruimte(W):
     n, start = 0, time.time()
     for w in W:
-        if w.get("buitenGezocht") == TODAY[:7] or not w.get("url"):
+        if w.get("buitenGezocht") == BUITEN_VERSIE or not w.get("url") or "funda.nl" in w["url"]:
             continue
         if time.time() - start > 240:
             log("buitenruimte: tijdslimiet, rest volgende keer")
             break
-        w["buitenGezocht"] = TODAY[:7]
+        w["buitenGezocht"] = BUITEN_VERSIE
         try:
             r = requests.get(w["url"], headers=dict(UA, **{"Accept-Language": "nl"}), timeout=30)
             r.raise_for_status()
@@ -368,7 +375,7 @@ def buitenruimte(W):
         time.sleep(0.3)
     from collections import Counter
     c = Counter(b for w in W for b in w.get("buiten", []))
-    log(f"buitenruimte: {n} advertenties gelezen · balkon {c['balkon']}, terras {c['terras']}, tuin {c['tuin']}, geen {sum(1 for w in W if w.get('buitenGezocht') and not w.get('buiten'))}")
+    log(f"buitenruimte: {n} advertenties gelezen · balkon {c['balkon']}, terras {c['terras']}, tuin {c['tuin']}, geen {sum(1 for w in W if 'buiten' in w and not w['buiten'])}")
 
 
 # ---------- 4. Funderingsindicatie (KCAF, per postcode) ----------

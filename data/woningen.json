@@ -6573,9 +6573,7 @@
   "funderingPc": "1056HR",
   "fundering": "Stedelijk gebied - 80-100 %",
   "funderingVoor1970": "100",
-  "funderingBodem": "Niet indeelbaar",
-  "buitenGezocht": "2026-11",
-  "buiten": []
+  "funderingBodem": "Niet indeelbaar"
  },
  {
   "id": "fd-44663099",
@@ -6612,9 +6610,7 @@
   "funderingPc": "1056WZ",
   "fundering": "Stedelijk gebied - 80-100 %",
   "funderingVoor1970": "100",
-  "funderingBodem": "Niet indeelbaar",
-  "buitenGezocht": "2026-11",
-  "buiten": []
+  "funderingBodem": "Niet indeelbaar"
  },
  {
   "id": "fd-44665788",
@@ -6651,8 +6647,6 @@
   "funderingPc": "1078EJ",
   "fundering": "Stedelijk gebied - 80-100 %",
   "funderingVoor1970": "100",
-  "funderingBodem": "Niet indeelbaar",
-  "buitenGezocht": "2026-11",
-  "buiten": []
+  "funderingBodem": "Niet indeelbaar"
  }
 ]
