@@ -322,7 +322,6 @@
   .mku { font-size: 12px; padding: 2px 8px; border-radius: 999px; background: var(--soft); border: 1px solid var(--line); }
   .mku-verkochtovb, .mku-onderbod { background: transparent; }
   #mkameer { margin-top: 10px; }
-  @media (max-width: 1500px) { .nav button[data-tab="markt"] .navlbl2 { display: none; } }
   .check.sw { justify-content: space-between; flex-direction: row-reverse; gap: 12px; }
   .check.sw input { appearance: none; -webkit-appearance: none; width: 36px; height: 21px; border-radius: 999px; background: #c9c9c9; position: relative; cursor: pointer; transition: background .15s; flex: none; }
   .check.sw input::after { content: ""; position: absolute; top: 2px; left: 2px; width: 17px; height: 17px; border-radius: 50%; background: #fff; box-shadow: 0 1px 2px rgb(0 0 0 / .25); transition: transform .15s; }
@@ -508,7 +507,21 @@
   .ico-i { width: 17px; height: 17px; vertical-align: -3px; flex: none; }
   .nav button { gap: 6px; }
   .themes button .ico-i { width: 15px; height: 15px; vertical-align: -2px; }
-  @media (max-width: 1360px) { .nav button[data-tab="meldingen"] .navlbl2 { display: none; } }
+  .nav .navn:empty, .nav #tabdot:empty { display: none; }
+  /* bovenbalk: één rij op laptop/desktop, tabs scrollen als het niet past */
+  @media (min-width: 761px) {
+    .topbar .in { flex-wrap: nowrap; }
+    .brand { flex: none; }
+    .nav { flex: 1 1 auto; min-width: 0; overflow-x: auto; white-space: nowrap; }
+    .nav button { padding: 7px 10px; }
+    .topr { flex: none; }
+  }
+  @media (max-width: 1400px) and (min-width: 761px) { .profbtn .plbl { display: none; } }
+  @media (max-width: 760px) {
+    .topr { order: 2; width: 100%; margin-left: 0; justify-content: space-between; }
+    .profbtn { max-width: calc(100% - 130px); }
+    .nav { order: 3; }
+  }
   .mfilt { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 20px; background: var(--panel); border: 1px solid var(--line); border-radius: var(--r); padding: 10px 16px; margin-bottom: 14px; }
   .mfilt .check.sw { flex-direction: row; justify-content: flex-start; gap: 10px; font-weight: 600; }
   .mcorps { display: flex; flex-wrap: wrap; gap: 6px; }
@@ -529,10 +542,10 @@
   <a class="brand" href="./" id="homelink" title="Naar de homepage"><svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64' class='logo' aria-hidden='true'><rect x='1' y='1' width='62' height='62' rx='15' fill='#FFFFFF' stroke='#DCE4EE' stroke-width='2'/><path d='M13 30 32 14l19 16' fill='none' stroke='#0B63C4' stroke-width='6' stroke-linecap='round' stroke-linejoin='round'/><rect x='20' y='32' width='24' height='19' rx='3' fill='#F7A100'/><rect x='28.5' y='39' width='7' height='12' rx='1.5' fill='#FFFFFF'/></svg>Corporatiewoningen </a>
   <nav class="nav" role="tablist">
     <button data-tab="woningen" aria-pressed="true">Koopwoningen</button>
-    <button data-tab="lijst" aria-pressed="false"><svg class='ico-i' viewBox='0 0 24 24' aria-hidden='true'><path d='M12 3.5l2.6 5.3 5.9.9-4.25 4.1 1 5.8L12 16.9l-5.25 2.7 1-5.8L3.5 9.7l5.9-.9z' fill='none' stroke='currentColor' stroke-width='1.8' stroke-linejoin='round'/></svg><span class="navlbl2">Favorieten</span> <span id="lijstn" class="navn"></span></button>
+    <button data-tab="lijst" aria-pressed="false">Favorieten <span id="lijstn" class="navn"></span></button>
     <button data-tab="regels" aria-pressed="false">Voorrangsregels</button>
-    <button data-tab="markt" aria-pressed="false" title="Marktinzicht: alle woningen door de tijd"><svg class='ico-i' viewBox='0 0 24 24' aria-hidden='true'><path d='M4 20V10M10 20V4M16 20v-7M21 20H3' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round'/></svg><span class="navlbl2">Marktinzicht</span></button>
-    <button data-tab="meldingen" aria-pressed="false" title="Meldingen"><svg class='ico-i' viewBox='0 0 24 24' aria-hidden='true'><path d='M6 16V11a6 6 0 1 1 12 0v5l1.5 2h-15z' fill='none' stroke='currentColor' stroke-width='1.8' stroke-linejoin='round'/><path d='M10 20.5a2.2 2.2 0 0 0 4 0' fill='none' stroke='currentColor' stroke-width='1.8' stroke-linecap='round'/></svg><span class="navlbl2">Meldingen</span> <span id="meldn" class="navn"></span></button>
+    <button data-tab="markt" aria-pressed="false" title="Marktinzicht: alle woningen door de tijd">Marktinzicht</button>
+    <button data-tab="meldingen" aria-pressed="false" title="Meldingen">Meldingen <span id="meldn" class="navn"></span></button>
     <button data-tab="bronnen" aria-pressed="false">Bronnen <span id="tabdot"></span></button>
   </nav>
   <div class="topr">
@@ -1454,7 +1467,7 @@ const renderSinds = (H) => {
   box.replaceChildren(card);
 };
 
-const profLabel = () => { $('#profbtn').textContent = profiel ? 'Ik huur bij: ' + profiel.corp + ' ✎' : 'Kies je corporatie ✎';
+const profLabel = () => { $('#profbtn').innerHTML = ''; $('#profbtn').append(...(profiel ? [el('span', 'plbl', 'Ik huur bij: '), profiel.corp + ' ✎'] : ['Kies je corporatie ✎']));
   $('#regelsintro').textContent = (profiel ? '"Voor jou" gaat uit van: ' + profiel.corp + (profiel.corp !== 'Geen sociale huurwoning' ? (profiel.zelfstandig ? ', zelfstandige sociale huurwoning in Amsterdam/Diemen' : ', geen zelfstandige sociale huurwoning in Amsterdam/Diemen') : '') + '. ' : 'Kies bovenin je corporatie om te zien waar jij voorrang hebt. ') + 'De advertentie is altijd leidend.'; };
 const openProf = () => {
   const box = $('#profopts'); box.replaceChildren(...CORPS.map((c) => { const l = el('label', 'opt'); const i = el('input'); i.type = 'radio'; i.name = 'corp'; i.value = c; i.checked = profiel ? profiel.corp === c : false; l.append(i, c); return l; }));
