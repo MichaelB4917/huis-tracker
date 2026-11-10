@@ -9,6 +9,11 @@
     "d": "2026-11-09",
     "status": "beschikbaar",
     "prijs": 450000
+   },
+   {
+    "d": "2026-11-10",
+    "status": "verkocht o.v.b.",
+    "prijs": 450000
    }
   ]
  },
@@ -554,6 +559,11 @@
    {
     "d": "2026-11-09",
     "status": "beschikbaar",
+    "prijs": 265000
+   },
+   {
+    "d": "2026-11-10",
+    "status": "verkocht o.v.b.",
     "prijs": 265000
    }
   ]
@@ -1920,6 +1930,32 @@
     "d": "2026-11-09",
     "status": "onder bod",
     "prijs": 330000
+   }
+  ]
+ },
+ "eh-73156-amsterdam-noord-marskramerstraat-76": {
+  "adres": "Marskramerstraat 76",
+  "corporatie": "Eigen Haard",
+  "eerstGezien": "2026-11-10",
+  "offline": "",
+  "log": [
+   {
+    "d": "2026-11-10",
+    "status": "beschikbaar",
+    "prijs": 299000
+   }
+  ]
+ },
+ "rd-849c56e1": {
+  "adres": "J.M. den Uylstraat 85",
+  "corporatie": "Rochdale",
+  "eerstGezien": "2026-11-10",
+  "offline": "",
+  "log": [
+   {
+    "d": "2026-11-10",
+    "status": "beschikbaar",
+    "prijs": 350000
    }
   ]
  }
