@@ -468,24 +468,34 @@
   .mwarn { background: color-mix(in srgb, var(--warn) 8%, var(--panel)); border: 1px solid color-mix(in srgb, var(--warn) 40%, var(--line)); border-radius: var(--r); margin-bottom: 14px; }
   .mwarn > b { display: block; padding: 10px 16px 0; }
   @media (max-width: 760px) { .mdag li { display: grid; grid-template-columns: auto 1fr; gap: 2px 8px; } .mdag li .wat { min-width: 0; grid-row: span 2; } .mdag li > span:nth-child(3), .mdag li .meta { grid-column: 2; } .mdag > header .chips { margin-left: 0; } }
-  @media (max-width: 1440px) { .navlbl { display: none; } }
+  .ico-i { width: 17px; height: 17px; vertical-align: -3px; flex: none; }
+  .nav button { gap: 6px; }
+  .themes button .ico-i { width: 15px; height: 15px; vertical-align: -2px; }
+  @media (max-width: 1100px) { .nav button[data-tab="meldingen"] .navlbl2 { display: none; } }
+  .mfilt { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 20px; background: var(--panel); border: 1px solid var(--line); border-radius: var(--r); padding: 10px 16px; margin-bottom: 14px; }
+  .mfilt .check.sw { flex-direction: row; justify-content: flex-start; gap: 10px; font-weight: 600; }
+  .mcorps { display: flex; flex-wrap: wrap; gap: 6px; }
+  .mchip { display: inline-flex; align-items: center; gap: 6px; height: 30px; padding: 0 10px; border: 1px solid var(--line); border-radius: 999px; font-size: 13px; cursor: pointer; background: var(--bg); user-select: none; }
+  .mchip input { accent-color: var(--accent); margin: 0; }
+  .mchip:has(input:not(:checked)) { opacity: .5; }
+  .mchip .cd { margin: 0; }
   body[data-pg]:not([data-pg="woningen"]) #sinds, body[data-pg]:not([data-pg="woningen"]) #alert, body[data-pg]:not([data-pg="woningen"]) #syncreminder { display: none; }
 </style>
 </head>
 <body>
 <header class="topbar"><div class="in">
-  <a class="brand" href="./" id="homelink" title="Naar de homepage"><svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64' class='logo' aria-hidden='true'><rect x='1' y='1' width='62' height='62' rx='15' fill='#FFFFFF' stroke='#DCE4EE' stroke-width='2'/><path d='M13 30 32 14l19 16' fill='none' stroke='#0B63C4' stroke-width='6' stroke-linecap='round' stroke-linejoin='round'/><rect x='20' y='32' width='24' height='19' rx='3' fill='#F7A100'/><rect x='28.5' y='39' width='7' height='12' rx='1.5' fill='#FFFFFF'/></svg>Corporatiewoningen <span class="tag">Amsterdam</span></a>
+  <a class="brand" href="./" id="homelink" title="Naar de homepage"><svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64' class='logo' aria-hidden='true'><rect x='1' y='1' width='62' height='62' rx='15' fill='#FFFFFF' stroke='#DCE4EE' stroke-width='2'/><path d='M13 30 32 14l19 16' fill='none' stroke='#0B63C4' stroke-width='6' stroke-linecap='round' stroke-linejoin='round'/><rect x='20' y='32' width='24' height='19' rx='3' fill='#F7A100'/><rect x='28.5' y='39' width='7' height='12' rx='1.5' fill='#FFFFFF'/></svg>Corporatiewoningen </a>
   <nav class="nav" role="tablist">
     <button data-tab="woningen" aria-pressed="true">Koopwoningen</button>
-    <button data-tab="lijst" aria-pressed="false">★ Onze lijst <span id="lijstn" class="navn"></span></button>
+    <button data-tab="lijst" aria-pressed="false"><svg class='ico-i' viewBox='0 0 24 24' aria-hidden='true'><path d='M12 3.5l2.6 5.3 5.9.9-4.25 4.1 1 5.8L12 16.9l-5.25 2.7 1-5.8L3.5 9.7l5.9-.9z' fill='none' stroke='currentColor' stroke-width='1.8' stroke-linejoin='round'/></svg><span class="navlbl2">Favorieten</span> <span id="lijstn" class="navn"></span></button>
     <button data-tab="regels" aria-pressed="false">Voorrangsregels</button>
-    <button data-tab="meldingen" aria-pressed="false" title="Meldingen">🔔<span class="navlbl"> Meldingen</span> <span id="meldn" class="navn"></span></button>
+    <button data-tab="meldingen" aria-pressed="false" title="Meldingen"><svg class='ico-i' viewBox='0 0 24 24' aria-hidden='true'><path d='M6 16V11a6 6 0 1 1 12 0v5l1.5 2h-15z' fill='none' stroke='currentColor' stroke-width='1.8' stroke-linejoin='round'/><path d='M10 20.5a2.2 2.2 0 0 0 4 0' fill='none' stroke='currentColor' stroke-width='1.8' stroke-linecap='round'/></svg><span class="navlbl2">Meldingen</span> <span id="meldn" class="navn"></span></button>
     <button data-tab="bronnen" aria-pressed="false">Bronnen <span id="tabdot"></span></button>
   </nav>
   <div class="topr">
     <button class="profbtn" id="profbtn" title="Mijn situatie aanpassen">Ik huur bij: …</button>
     <div class="themes" aria-label="Thema">
-      <button data-theme-btn="light" title="Licht" aria-label="Licht">☀︎</button><button data-theme-btn="dark" title="Donker" aria-label="Donker">☾</button><button data-theme-btn="system" title="Zoals je apparaat" aria-label="Systeem">Auto</button>
+      <button data-theme-btn="light" title="Licht" aria-label="Licht"><svg class='ico-i' viewBox='0 0 24 24' aria-hidden='true'><circle cx='12' cy='12' r='4.2' fill='none' stroke='currentColor' stroke-width='1.8'/><path d='M12 2.5v2.5M12 19v2.5M2.5 12H5M19 12h2.5M5.3 5.3l1.8 1.8M16.9 16.9l1.8 1.8M5.3 18.7l1.8-1.8M16.9 7.1l1.8-1.8' stroke='currentColor' stroke-width='1.8' stroke-linecap='round'/></svg></button><button data-theme-btn="dark" title="Donker" aria-label="Donker"><svg class='ico-i' viewBox='0 0 24 24' aria-hidden='true'><path d='M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5z' fill='none' stroke='currentColor' stroke-width='1.8' stroke-linejoin='round'/></svg></button><button data-theme-btn="system" title="Zoals je apparaat" aria-label="Systeem">Auto</button>
     </div>
   </div>
 </div></header>
@@ -495,7 +505,6 @@
 </div></div>
 
 <div class="wrap">
-  <div id="sinds"></div>
   <div id="alert"></div>
   <div class="reminder" id="syncreminder" hidden>★ Jullie lijst staat nu alleen in deze browser. Maak een gedeelde lijst om samen bij te houden, op al je apparaten. <button class="mini" id="syncopen">Samen bijhouden →</button></div>
   <div class="card syncbox" id="syncpanel" hidden style="margin-bottom:14px"><h2>Samen bijhouden</h2>
@@ -617,6 +626,10 @@
 
   <section data-page="meldingen" hidden>
     <div class="mkop"><h2>Meldingen</h2><span class="muted" id="mupd"></span></div>
+    <div class="mfilt">
+      <label class="check sw"><input type="checkbox" id="mvoormij"> Alleen waar ik voorrang kan krijgen</label>
+      <div class="mcorps" id="mcorps"></div>
+    </div>
     <div id="mdeadline"></div>
     <div id="mfeed"></div>
   </section>
@@ -1188,7 +1201,7 @@ const verkoopTempo = () => loadHist().then((H) => {
 // Tabblad Onze lijst: overzicht en beheer
 const renderLijst = (rows) => {
   const box = $('#lijstoverzicht');
-  const h = el('h2', null, 'Onze lijst');
+  const h = el('h2', null, 'Favorieten');
   const p = el('p', 'note', 'Favorieten (★) en woningen waar jullie een status bij hebben gezet. Wordt gedeeld via jullie lijst' + (lijstId ? '.' : ' zodra je een lijst maakt (anders alleen in deze browser).'));
   p.style.margin = 0;
   const per = {}; rows.forEach((w) => { const st = (VG[w.id] || {}).status || 'geen status'; per[st] = (per[st] || 0) + 1; });
@@ -1264,19 +1277,27 @@ const evItem = (e) => { const byW = W.find((w) => w.id === e.id); const li = el(
 
 const dagNaam = (d) => { const t = localDate(new Date().toISOString()), y = localDate(new Date(Date.now() - 864e5).toISOString());
   return d === t ? 'Vandaag' : d === y ? 'Gisteren' : new Date(d + 'T12:00:00').toLocaleDateString('nl-NL', {weekday: 'long', day: 'numeric', month: 'long'}); };
+let mPrefs = {voormij: false, uit: []}; try { mPrefs = {...mPrefs, ...JSON.parse(store.get('mprefs') || '{}')}; } catch (e) {}
+const mFilter = (e) => { if (mPrefs.uit.includes(e.corp)) return false; if (mPrefs.voormij) { const w = W.find((x) => x.id === e.id); if (!w || voorJou(w) === 'nee') return false; } return true; };
 const renderMeldingen = (H) => {
+  H = H || HIST || {};
+  const mv = $('#mvoormij'); mv.checked = mPrefs.voormij; mv.onchange = () => { mPrefs.voormij = mv.checked; store.set('mprefs', JSON.stringify(mPrefs)); renderMeldingen(); };
+  const corps = [...new Set(W.map((w) => w.corporatie))].sort();
+  $('#mcorps').replaceChildren(...corps.map((c) => { const l = el('label', 'mchip'); const i = el('input'); i.type = 'checkbox'; i.checked = !mPrefs.uit.includes(c);
+    i.onchange = () => { mPrefs.uit = i.checked ? mPrefs.uit.filter((x) => x !== c) : [...mPrefs.uit, c]; store.set('mprefs', JSON.stringify(mPrefs)); renderMeldingen(); };
+    const d = el('span', 'cd'); d.style.background = corpColor(c); l.append(i, d, c); return l; }));
   const upd = META.bijgewerkt ? new Date(META.bijgewerkt.replace(/\+00:00$/, 'Z')).toISOString() : null;
   $('#mupd').textContent = upd ? 'Laatste update ' + fmtMoment(upd) + ' · elke ochtend rond 07:30' : '';
   // binnenkort aflopende voorrang
   const vandaag = localDate(new Date().toISOString()), over3 = localDate(new Date(Date.now() + 3 * 864e5).toISOString());
-  const dl = W.filter((w) => w.status === 'beschikbaar' && w.deadline && w.deadline >= vandaag && w.deadline <= over3 && voorJou(w) !== 'nee').sort((a, b) => a.deadline.localeCompare(b.deadline));
-  if (dl.length) { const box = el('div', 'mwarn'); box.append(el('b', null, '⏰ Voorrang verloopt binnenkort')); const ul = el('ul');
+  const dl = W.filter((w) => w.status === 'beschikbaar' && w.deadline && w.deadline >= vandaag && w.deadline <= over3 && voorJou(w) !== 'nee' && !mPrefs.uit.includes(w.corporatie)).sort((a, b) => a.deadline.localeCompare(b.deadline));
+  if (dl.length) { const box = el('div', 'mwarn'); const bt = el('b'); bt.innerHTML = "<svg class='ico-i' viewBox='0 0 24 24' aria-hidden='true'><circle cx='12' cy='13' r='8' fill='none' stroke='currentColor' stroke-width='1.8'/><path d='M12 9v4l2.5 2M9 2.5h6' fill='none' stroke='currentColor' stroke-width='1.8' stroke-linecap='round'/></svg> Voorrang verloopt binnenkort"; box.append(bt); const ul = el('ul');
     dl.forEach((w) => { const li = el('li'); const a = el('a', null, w.adres); a.href = '#'; a.onclick = (x) => { x.preventDefault(); openDetail(w); };
       li.append(badge('t-warn', 'tot ' + nlShort(w.deadline)), a, el('span', null, eur.format(w.prijs)), el('span', 'meta', w.corporatie)); ul.append(li); });
     box.append(ul); $('#mdeadline').replaceChildren(box); } else $('#mdeadline').replaceChildren();
   // feed per dag, laatste 30 dagen
   const van = localDate(new Date(Date.now() - 30 * 864e5).toISOString());
-  const ev = buildEvents(H, (d) => d >= van);
+  const ev = buildEvents(H, (d) => d >= van).filter(mFilter);
   const dagen = {}; ev.forEach((e) => (dagen[e.d] ||= []).push(e));
   const alle = new Set(Object.keys(dagen)); if (upd) alle.add(localDate(upd));
   const feed = [...alle].sort().reverse().map((d) => {
@@ -1292,8 +1313,8 @@ const renderMeldingen = (H) => {
     return box; });
   $('#mfeed').replaceChildren(...feed);
   // teller in tab: wijzigingen sinds je vorige bezoek
-  const nNieuw = bezoek.ref ? buildEvents(H, (d) => d > localDate(bezoek.ref) || (d === localDate(bezoek.ref) && upd && upd > bezoek.ref)).length : 0;
-  $('#meldn').textContent = nNieuw ? String(nNieuw) : '';
+  const nVandaag = (dagen[localDate(new Date().toISOString())] || []).filter(mFilter).length;
+  $('#meldn').textContent = nVandaag ? String(nVandaag) : ''; $('#meldn').title = 'Meldingen van vandaag';
 };
 const renderSinds = (H) => {
   const box = $('#sinds'); if (!box) return;
@@ -1339,7 +1360,7 @@ $('#profsave').onclick = () => { const c = $('#profopts input:checked'); if (!c)
 Promise.all(['woningen', 'regels', 'bronnen', 'meta'].map((n) => fetch('data/' + n + '.json', {cache: 'no-cache'}).then((r) => r.ok ? r.json() : (n === 'meta' ? {} : [])).catch(() => n === 'meta' ? {} : [])))
   .then(([w, r, b, m]) => {
     W = w; R = r; B = b; META = m;
-    initMap(); profLabel(); renderStatic(); render(); verkoopTempo(); loadHist().then((H) => { HIST = H; renderSinds(H); renderMeldingen(H); });
+    initMap(); profLabel(); renderStatic(); render(); verkoopTempo(); loadHist().then((H) => { HIST = H; renderMeldingen(H); });
     loadShared().then(() => { profLabel(); renderStatic(); render(); if (!profiel) openProf(); });
     const openSync = (e) => { e.stopPropagation(); $$('details.tdd').forEach((o) => o.open = false); showTab('lijst'); history.replaceState(null, '', '#lijst'); $('#syncpanel').scrollIntoView({block: 'start'}); };
     $('#syncopen').onclick = openSync; $('#syncopen2').onclick = openSync; $('#syncclose').onclick = () => $('#syncpanel').hidden = true;
