@@ -39,9 +39,9 @@
   "id": "ymere",
   "naam": "Ymere",
   "soort": "Corporatie",
-  "status": "werkt niet",
-  "werkt": "Ymere verkoopt alleen via Funda (geen eigen aanbodpagina); komt binnen via de Funda-mail zodra er een Ymere-woning in staat.",
-  "todo": "Wacht op een Funda-mail met een Ymere-woning.",
+  "status": "werkt",
+  "werkt": "Komt binnen via Funda-zoekopdracht \"Ymere\" (trefwoord \"Ymere verkoopt\")",
+  "todo": "",
   "url": "https://www.ymere.nl"
  },
  {
