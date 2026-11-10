@@ -549,7 +549,6 @@
           <details class="dd side" open data-dd="meer"><summary>Voorrang, status &amp; woning <span class="cnt"></span></summary>
         <div class="panel">
           <h4>Voorrang</h4>
-          <label class="check sw"><input type="checkbox" class="f" data-f="voorJou"> Alleen waar ik voorrang kan krijgen</label>
           <label class="check sw"><input type="checkbox" class="f" data-f="voorrangActief"> Alleen als voorrang nu loopt</label>
           <h4>Status</h4>
           <label class="check sw"><input type="checkbox" class="f" data-f="nieuw"> Alleen nieuw (7 dagen)</label>
@@ -578,7 +577,7 @@
         <option value="deadline-asc">Voorrang loopt eerst af</option>
       </select></div>
           <div class="ctrls"><div class="grp">
-          <button class="btn" id="voorbtn" aria-pressed="false" title="Alleen woningen waar jij voorrang kunt krijgen">✓ Voorrang voor mij</button>
+          <button class="btn" id="voorbtn" aria-pressed="false" title="Zet de corporaties aan waar jij voorrang kunt krijgen. Daarna kun je ze zelf nog aan- of uitzetten. Nog een keer klikken zet alles terug.">✓ Voorrang voor mij</button>
           <button class="btn" id="favbtn" aria-pressed="false">★ Favorieten <span id="favn"></span></button>
           </div><div class="grp">
           <button class="btn" id="kaartbtn" aria-pressed="true">Kaart</button>
@@ -749,6 +748,7 @@ const bkey = (w) => (w.stadsdeel || 'Onbekend') + '|' + (w.wijk || 'Overig');
 const open = new Set();
 
 const CORPS = ['Lieven de Key', 'Alliantie', 'Stadgenoot', 'Rochdale', 'Ymere', 'Eigen Haard', 'Andere corporatie', 'Geen sociale huurwoning'];
+let voorMode = false;
 let profiel = null; try { profiel = JSON.parse(store.get('profiel') || 'null'); } catch (e) {}
 // Maandlasten: aannames instelbaar in de detailweergave (bewaard in browser en gedeelde lijst)
 let fin = {rente: 4.0, jaren: 30, eigen: 0, huur: '', maxHyp: '', starter: false, bijkomend: 5000}; try { fin = Object.assign(fin, JSON.parse(store.get('fin') || '{}')); } catch (e) {}
@@ -822,8 +822,12 @@ const selKey = (k) => k === 'stadsdeel' ? 'buurt' : k;
 $$('[data-all]').forEach((b) => b.onclick = () => { sel[selKey(b.dataset.all)] = null; render(); });
 $$('[data-none]').forEach((b) => b.onclick = () => { sel[selKey(b.dataset.none)] = new Set(); render(); });
 $('#favbtn').onclick = () => { favOnly = !favOnly; render(); };
-$('#reset').onclick = () => { $$('.f').forEach((e) => e.type === 'checkbox' ? e.checked = e.dataset.f === 'verbergVerkocht' : e.tagName === 'SELECT' ? e.selectedIndex = 0 : e.value = ''); sel.corporatie = sel.buurt = sel.type = null; favOnly = false; render(); };
-$('#voorbtn').onclick = () => { const c = $('.f[data-f="voorJou"]'); c.checked = !c.checked; render(); };
+$('#reset').onclick = () => { $$('.f').forEach((e) => e.type === 'checkbox' ? e.checked = e.dataset.f === 'verbergVerkocht' : e.tagName === 'SELECT' ? e.selectedIndex = 0 : e.value = ''); sel.corporatie = sel.buurt = sel.type = null; favOnly = false; voorMode = false; render(); };
+const voorCorps = () => { const all = [...new Set(W.map((w) => w.corporatie || 'Onbekend'))]; const ok = all.filter((c) => voorJouCorp(c) !== 'nee'); return ok.length === all.length ? null : new Set(ok); };
+$('#voorbtn').onclick = () => {
+  if (!voorMode && !profiel) { voorMode = true; $('#profmodal').hidden = false; render(); return; }
+  voorMode = !voorMode; sel.corporatie = voorMode ? voorCorps() : null; render();
+};
 $('#lijstnew').onclick = async () => { try { lijstNaam = $('#lijstnaam').value.trim() || 'Onze lijst'; store.set('lijstnaam', lijstNaam); lijstId = await supa('lijst_new', {p_data: lijstData()}); store.set('lijst', lijstId); setSync('Lijst gemaakt. Deel de link hieronder.', 'ok'); showLijst(); } catch (e) { setSync('Lijst maken mislukt.', 'bad'); } };
 $('#lijstjoin').onclick = () => { const m = $('#lijstlink').value.match(/lijst=([0-9a-f-]{36})/i); if (!m) { setSync('Dat is geen geldige lijst-link.', 'bad'); return; } lijstId = m[1]; loadShared().then(() => { renderStatic(); render(); profLabel(); }); };
 $('#lijstcopy').onclick = async () => { try { await navigator.clipboard.writeText(shareUrl()); setSync('Link gekopieerd.', 'ok'); } catch (e) { $('#lijstshare').select(); } };
@@ -842,7 +846,6 @@ const visible = () => {
     for (const k of ['corporatie', 'type']) if (sel[k] && !sel[k].has(w[k] || 'Onbekend')) return false;
     if (sel.buurt && !sel.buurt.has(bkey(w))) return false;
     if (favOnly && !favs.has(w.id)) return false;
-    if (f.voorJou && voorJou(w) === 'nee') return false;
     if (f.voorrangActief && !voorrang(w).active) return false;
     if (f.nieuw && !isNew(w)) return false;
     if (f.verbergVerkocht && w.status === 'verkocht o.v.b.') return false;
@@ -899,10 +902,10 @@ const buurtTree = () => {
 const markActive = () => {
   const f = filters();
   const n = {prijs: ['maxPrijs', 'maxPpm', 'minM2', 'minKamers'].filter((k) => f[k]).length,
-    meer: ['voorJou', 'voorrangActief', 'nieuw', 'verbergBod', 'tuin', 'goedLabel', 'erfpachtAfgekocht'].filter((k) => f[k]).length + (f.verbergVerkocht ? 0 : 1)};
+    meer: ['voorrangActief', 'nieuw', 'verbergBod', 'tuin', 'goedLabel', 'erfpachtAfgekocht'].filter((k) => f[k]).length + (f.verbergVerkocht ? 0 : 1)};
   for (const k of ['corporatie', 'type']) n[k] = sel[k] ? sel[k].size : 0;
   n.stadsdeel = sel.buurt ? new Set([...sel.buurt].map((k) => k.split('|')[0])).size : 0;
-  $('#voorbtn').setAttribute('aria-pressed', String(f.voorJou));
+  $('#voorbtn').setAttribute('aria-pressed', String(voorMode));
   const tot = Object.entries(n).filter(([k]) => k !== 'weergave').reduce((a, [, v]) => a + (v ? 1 : 0), 0); const fc = document.getElementById('filtcnt'); if (fc) fc.textContent = tot || '';
   $$('details.dd[data-dd]').forEach((d) => { const c = n[d.dataset.dd] || 0; d.classList.toggle('on', c > 0); const s = $('.cnt', d); if (s) s.textContent = c ? c : ''; });
 };
@@ -1387,7 +1390,7 @@ const openProf = () => {
 $('#profbtn').onclick = openProf;
 $('#homelink').onclick = (e) => { if (e.metaKey || e.ctrlKey || e.shiftKey) return; e.preventDefault(); $$('details.tdd').forEach((o) => o.open = false); if (!$('#detail').hidden) closeDetail(); showTab('woningen'); history.replaceState(null, '', location.pathname); scrollTo({top: 0, behavior: 'smooth'}); };
 $('#profskip').onclick = () => { $('#profmodal').hidden = true; };
-$('#profsave').onclick = () => { const c = $('#profopts input:checked'); if (!c) return; profiel = {corp: c.value, zelfstandig: $('#profzelf').checked}; store.set('profiel', JSON.stringify(profiel)); changed(); $('#profmodal').hidden = true; profLabel(); renderStatic(); render(); };
+$('#profsave').onclick = () => { const c = $('#profopts input:checked'); if (!c) return; profiel = {corp: c.value, zelfstandig: $('#profzelf').checked}; store.set('profiel', JSON.stringify(profiel)); changed(); $('#profmodal').hidden = true; profLabel(); if (voorMode) sel.corporatie = voorCorps(); renderStatic(); render(); };
 Promise.all(['woningen', 'regels', 'bronnen', 'meta'].map((n) => fetch('data/' + n + '.json', {cache: 'no-cache'}).then((r) => r.ok ? r.json() : (n === 'meta' ? {} : [])).catch(() => n === 'meta' ? {} : [])))
   .then(([w, r, b, m]) => {
     W = w; R = r; B = b; META = m;
