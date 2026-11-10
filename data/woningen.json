@@ -25,7 +25,7 @@
   "energielabel": "D",
   "servicekosten": 323.73,
   "erfpacht": "Eigen grond",
-  "tuin": "nee",
+  "tuin": "ja",
   "gezienOp": "2026-11-10",
   "deadline": "",
   "buurtcode": "KA05",
@@ -37,7 +37,11 @@
   "funderingVoor1970": "100",
   "funderingBodem": "Niet indeelbaar",
   "fotoGezocht": "2026-11",
-  "foto": "https://ik-zoek.de-alliantie.nl/webcontent/imagebybestand/81422/b05513cf-5d7d-45c2-bcf0-43837baa4173.jpg?h=320&k=false"
+  "foto": "https://ik-zoek.de-alliantie.nl/webcontent/imagebybestand/81422/b05513cf-5d7d-45c2-bcf0-43837baa4173.jpg?h=320&k=false",
+  "buitenGezocht": "2026-11",
+  "buiten": [
+   "tuin"
+  ]
  },
  {
   "id": "aalsmeerweg-70-h",
@@ -73,7 +77,11 @@
   "buurtWozM2": 9334,
   "buurtWozJaar": 2026,
   "fotoGezocht": "2026-11",
-  "foto": "https://ik-zoek.de-alliantie.nl/webcontent/imagebybestand/87444/5dd767bd-a86b-4fbb-a906-6a4e2eba0606.jpg?h=320&k=false"
+  "foto": "https://ik-zoek.de-alliantie.nl/webcontent/imagebybestand/87444/5dd767bd-a86b-4fbb-a906-6a4e2eba0606.jpg?h=320&k=false",
+  "buitenGezocht": "2026-11",
+  "buiten": [
+   "tuin"
+  ]
  },
  {
   "id": "admiraliteitstraat-21",
@@ -109,7 +117,12 @@
   "buurtWozM2": 9144,
   "buurtWozJaar": 2026,
   "fotoGezocht": "2026-11",
-  "foto": "https://ik-zoek.de-alliantie.nl/webcontent/imagebybestand/88106/036acc38-7ce9-4f79-a9cd-be4c2773ed65.jpg?h=320&k=false"
+  "foto": "https://ik-zoek.de-alliantie.nl/webcontent/imagebybestand/88106/036acc38-7ce9-4f79-a9cd-be4c2773ed65.jpg?h=320&k=false",
+  "buitenGezocht": "2026-11",
+  "buiten": [
+   "balkon",
+   "terras"
+  ]
  },
  {
   "id": "baarsstraat-35-2",
@@ -149,7 +162,12 @@
   "funderingVoor1970": "0",
   "funderingBodem": "Niet indeelbaar",
   "fotoGezocht": "2026-11",
-  "foto": "https://ik-zoek.de-alliantie.nl/webcontent/imagebybestand/90180/33fc3e59-3c9f-4b09-996c-c8aae2bb8335.jpg?h=320&k=false"
+  "foto": "https://ik-zoek.de-alliantie.nl/webcontent/imagebybestand/90180/33fc3e59-3c9f-4b09-996c-c8aae2bb8335.jpg?h=320&k=false",
+  "buitenGezocht": "2026-11",
+  "buiten": [
+   "balkon",
+   "terras"
+  ]
  },
  {
   "id": "baldwinstraat-27",
@@ -189,7 +207,11 @@
   "funderingVoor1970": "83.33333333333334",
   "funderingBodem": "Niet indeelbaar",
   "fotoGezocht": "2026-11",
-  "foto": "https://ik-zoek.de-alliantie.nl/webcontent/imagebybestand/87100/fd40d8a9-a226-49d5-956d-682eac1cb9cd.jpg?h=320&k=false"
+  "foto": "https://ik-zoek.de-alliantie.nl/webcontent/imagebybestand/87100/fd40d8a9-a226-49d5-956d-682eac1cb9cd.jpg?h=320&k=false",
+  "buitenGezocht": "2026-11",
+  "buiten": [
+   "balkon"
+  ]
  },
  {
   "id": "bart-poesiatstraat-102",
@@ -229,7 +251,11 @@
   "funderingVoor1970": "100",
   "funderingBodem": "Niet indeelbaar",
   "fotoGezocht": "2026-11",
-  "foto": "https://ik-zoek.de-alliantie.nl/webcontent/imagebybestand/87013/29e14461-fe73-486d-a7a6-8eab04e40a8b.jpg?h=320&k=false"
+  "foto": "https://ik-zoek.de-alliantie.nl/webcontent/imagebybestand/87013/29e14461-fe73-486d-a7a6-8eab04e40a8b.jpg?h=320&k=false",
+  "buitenGezocht": "2026-11",
+  "buiten": [
+   "balkon"
+  ]
  },
  {
   "id": "bart-poesiatstraat-128",
@@ -269,7 +295,11 @@
   "funderingVoor1970": "100",
   "funderingBodem": "Niet indeelbaar",
   "fotoGezocht": "2026-11",
-  "foto": "https://ik-zoek.de-alliantie.nl/webcontent/imagebybestand/85161/45608029-59c3-4e01-88fa-35c946f3d3db.jpg?h=320&k=false"
+  "foto": "https://ik-zoek.de-alliantie.nl/webcontent/imagebybestand/85161/45608029-59c3-4e01-88fa-35c946f3d3db.jpg?h=320&k=false",
+  "buitenGezocht": "2026-11",
+  "buiten": [
+   "balkon"
+  ]
  },
  {
   "id": "bergmolen-27",
@@ -309,7 +339,11 @@
   "funderingVoor1970": "100",
   "funderingBodem": "Niet indeelbaar",
   "fotoGezocht": "2026-11",
-  "foto": "https://ik-zoek.de-alliantie.nl/webcontent/imagebybestand/87877/d937d983-8773-43e0-80ad-1ac4f4c07e4b.jpg?h=320&k=false"
+  "foto": "https://ik-zoek.de-alliantie.nl/webcontent/imagebybestand/87877/d937d983-8773-43e0-80ad-1ac4f4c07e4b.jpg?h=320&k=false",
+  "buitenGezocht": "2026-11",
+  "buiten": [
+   "balkon"
+  ]
  },
  {
   "id": "bergmolen-54",
@@ -345,7 +379,11 @@
   "buurtWozM2": 3969,
   "buurtWozJaar": 2026,
   "fotoGezocht": "2026-11",
-  "foto": "https://ik-zoek.de-alliantie.nl/webcontent/imagebybestand/87498/57b937a4-bda4-40ff-a0cd-7d57ee40fe23.jpg?h=320&k=false"
+  "foto": "https://ik-zoek.de-alliantie.nl/webcontent/imagebybestand/87498/57b937a4-bda4-40ff-a0cd-7d57ee40fe23.jpg?h=320&k=false",
+  "buitenGezocht": "2026-11",
+  "buiten": [
+   "balkon"
+  ]
  },
  {
   "id": "charlotte-brontéstraat-114",
@@ -381,7 +419,11 @@
   "buurtWozM2": 5279,
   "buurtWozJaar": 2026,
   "fotoGezocht": "2026-11",
-  "foto": "https://ik-zoek.de-alliantie.nl/webcontent/imagebybestand/87993/a0c80eda-9f5e-47d6-ae81-a4ec04c81511.jpg?h=320&k=false"
+  "foto": "https://ik-zoek.de-alliantie.nl/webcontent/imagebybestand/87993/a0c80eda-9f5e-47d6-ae81-a4ec04c81511.jpg?h=320&k=false",
+  "buitenGezocht": "2026-11",
+  "buiten": [
+   "balkon"
+  ]
  },
  {
   "id": "cornelis-trooststraat-56-2",
@@ -417,7 +459,11 @@
   "buurtWozM2": 9467,
   "buurtWozJaar": 2026,
   "fotoGezocht": "2026-11",
-  "foto": "https://ik-zoek.de-alliantie.nl/webcontent/imagebybestand/88512/b8cbd8a8-dc52-44b2-b77a-574aba1a2f64.jpg?h=320&k=false"
+  "foto": "https://ik-zoek.de-alliantie.nl/webcontent/imagebybestand/88512/b8cbd8a8-dc52-44b2-b77a-574aba1a2f64.jpg?h=320&k=false",
+  "buitenGezocht": "2026-11",
+  "buiten": [
+   "balkon"
+  ]
  },
  {
   "id": "dantestraat-82",
@@ -453,7 +499,11 @@
   "buurtWozM2": 5279,
   "buurtWozJaar": 2026,
   "fotoGezocht": "2026-11",
-  "foto": "https://ik-zoek.de-alliantie.nl/webcontent/imagebybestand/88705/413ceb18-0425-4464-8740-0ad4e300cc2c.jpg?h=320&k=false"
+  "foto": "https://ik-zoek.de-alliantie.nl/webcontent/imagebybestand/88705/413ceb18-0425-4464-8740-0ad4e300cc2c.jpg?h=320&k=false",
+  "buitenGezocht": "2026-11",
+  "buiten": [
+   "balkon"
+  ]
  },
  {
   "id": "dostojevskisingel-289",
@@ -489,7 +539,11 @@
   "buurtWozM2": 5279,
   "buurtWozJaar": 2026,
   "fotoGezocht": "2026-11",
-  "foto": "https://ik-zoek.de-alliantie.nl/webcontent/imagebybestand/87439/ea757f6b-856d-4858-bda2-8694318e6691.jpg?h=320&k=false"
+  "foto": "https://ik-zoek.de-alliantie.nl/webcontent/imagebybestand/87439/ea757f6b-856d-4858-bda2-8694318e6691.jpg?h=320&k=false",
+  "buitenGezocht": "2026-11",
+  "buiten": [
+   "balkon"
+  ]
  },
  {
   "id": "eduard-hellendoornstraat-15",
@@ -525,7 +579,11 @@
   "buurtWozM2": 5589,
   "buurtWozJaar": 2026,
   "fotoGezocht": "2026-11",
-  "foto": "https://ik-zoek.de-alliantie.nl/webcontent/imagebybestand/87401/158a3320-6703-45b8-ac15-5cbfc4237af6.jpg?h=320&k=false"
+  "foto": "https://ik-zoek.de-alliantie.nl/webcontent/imagebybestand/87401/158a3320-6703-45b8-ac15-5cbfc4237af6.jpg?h=320&k=false",
+  "buitenGezocht": "2026-11",
+  "buiten": [
+   "balkon"
+  ]
  },
  {
   "id": "eerste-atjehstraat-9-a",
@@ -553,7 +611,7 @@
   "energielabel": "C",
   "servicekosten": 150.01,
   "erfpacht": "Canon afgekocht t/m 30-04-2051",
-  "tuin": "nee",
+  "tuin": "ja",
   "gezienOp": "2026-11-10",
   "deadline": "",
   "buurtcode": "MF02",
@@ -565,7 +623,12 @@
   "funderingVoor1970": "0",
   "funderingBodem": "Niet indeelbaar",
   "fotoGezocht": "2026-11",
-  "foto": "https://ik-zoek.de-alliantie.nl/webcontent/imagebybestand/90445/d4c93efb-0bcc-4313-bdee-8499ab570c27.jpg?h=320&k=false"
+  "foto": "https://ik-zoek.de-alliantie.nl/webcontent/imagebybestand/90445/d4c93efb-0bcc-4313-bdee-8499ab570c27.jpg?h=320&k=false",
+  "buitenGezocht": "2026-11",
+  "buiten": [
+   "terras",
+   "tuin"
+  ]
  },
  {
   "id": "elisabeth-boddaertstraat-111",
@@ -605,7 +668,11 @@
   "funderingVoor1970": "100",
   "funderingBodem": "Niet indeelbaar",
   "fotoGezocht": "2026-11",
-  "foto": "https://ik-zoek.de-alliantie.nl/webcontent/imagebybestand/86317/ea3dc7f6-d4ea-4702-832e-f0f5bc2bebb7.jpg?h=320&k=false"
+  "foto": "https://ik-zoek.de-alliantie.nl/webcontent/imagebybestand/86317/ea3dc7f6-d4ea-4702-832e-f0f5bc2bebb7.jpg?h=320&k=false",
+  "buitenGezocht": "2026-11",
+  "buiten": [
+   "balkon"
+  ]
  },
  {
   "id": "gerard-doustraat-78-3a",
@@ -645,7 +712,9 @@
   "funderingVoor1970": "100",
   "funderingBodem": "Niet indeelbaar",
   "fotoGezocht": "2026-11",
-  "foto": "https://ik-zoek.de-alliantie.nl/webcontent/imagebybestand/90440/b568e8d9-875d-4567-9dd8-9102a6491a9f.jpg?h=320&k=false"
+  "foto": "https://ik-zoek.de-alliantie.nl/webcontent/imagebybestand/90440/b568e8d9-875d-4567-9dd8-9102a6491a9f.jpg?h=320&k=false",
+  "buitenGezocht": "2026-11",
+  "buiten": []
  },
  {
   "id": "hestiastraat-79-h",
@@ -673,7 +742,7 @@
   "energielabel": "D",
   "servicekosten": 266.77,
   "erfpacht": "Canon afgekocht t/m 15-12-2063",
-  "tuin": "nee",
+  "tuin": "ja",
   "gezienOp": "2026-11-10",
   "deadline": "",
   "buurtcode": "KH02",
@@ -685,7 +754,11 @@
   "funderingVoor1970": "100",
   "funderingBodem": "Niet indeelbaar",
   "fotoGezocht": "2026-11",
-  "foto": "https://ik-zoek.de-alliantie.nl/webcontent/imagebybestand/90322/666b935e-acc6-4d77-abd8-d2524aa99246.jpg?h=320&k=false"
+  "foto": "https://ik-zoek.de-alliantie.nl/webcontent/imagebybestand/90322/666b935e-acc6-4d77-abd8-d2524aa99246.jpg?h=320&k=false",
+  "buitenGezocht": "2026-11",
+  "buiten": [
+   "tuin"
+  ]
  },
  {
   "id": "jacob-van-lennepstraat-225",
@@ -713,7 +786,7 @@
   "energielabel": "C",
   "servicekosten": 169.1,
   "erfpacht": "Canon afgekocht t/m 15-10-2040",
-  "tuin": "nee",
+  "tuin": "ja",
   "gezienOp": "2026-11-10",
   "deadline": "",
   "buurtcode": "ES02",
@@ -725,7 +798,12 @@
   "funderingVoor1970": "0",
   "funderingBodem": "Niet indeelbaar",
   "fotoGezocht": "2026-11",
-  "foto": "https://ik-zoek.de-alliantie.nl/webcontent/imagebybestand/89820/806e795b-ec44-4041-9dd3-aafe3787c1d2.jpg?h=320&k=false"
+  "foto": "https://ik-zoek.de-alliantie.nl/webcontent/imagebybestand/89820/806e795b-ec44-4041-9dd3-aafe3787c1d2.jpg?h=320&k=false",
+  "buitenGezocht": "2026-11",
+  "buiten": [
+   "balkon",
+   "tuin"
+  ]
  },
  {
   "id": "javastraat-93-b",
@@ -761,7 +839,11 @@
   "buurtWozM2": 8519,
   "buurtWozJaar": 2026,
   "fotoGezocht": "2026-11",
-  "foto": "https://ik-zoek.de-alliantie.nl/webcontent/imagebybestand/88281/d6653041-8d24-48f4-a8de-b8436ead7de5.jpg?h=320&k=false"
+  "foto": "https://ik-zoek.de-alliantie.nl/webcontent/imagebybestand/88281/d6653041-8d24-48f4-a8de-b8436ead7de5.jpg?h=320&k=false",
+  "buitenGezocht": "2026-11",
+  "buiten": [
+   "balkon"
+  ]
  },
  {
   "id": "johan-huizingalaan-607-a",
@@ -797,7 +879,11 @@
   "buurtWozM2": 6265,
   "buurtWozJaar": 2026,
   "fotoGezocht": "2026-11",
-  "foto": "https://ik-zoek.de-alliantie.nl/webcontent/imagebybestand/87400/1b534753-c091-4d6a-9508-88f21c505133.jpg?h=320&k=false"
+  "foto": "https://ik-zoek.de-alliantie.nl/webcontent/imagebybestand/87400/1b534753-c091-4d6a-9508-88f21c505133.jpg?h=320&k=false",
+  "buitenGezocht": "2026-11",
+  "buiten": [
+   "balkon"
+  ]
  },
  {
   "id": "johan-kernstraat-23",
@@ -825,7 +911,7 @@
   "energielabel": "B",
   "servicekosten": 12.16,
   "erfpacht": "Canon afgekocht t/m 31-10-2072",
-  "tuin": "nee",
+  "tuin": "ja",
   "gezienOp": "2026-11-10",
   "deadline": "",
   "buurtcode": "FL03",
@@ -837,7 +923,11 @@
   "funderingVoor1970": "100",
   "funderingBodem": "Niet indeelbaar",
   "fotoGezocht": "2026-11",
-  "foto": "https://ik-zoek.de-alliantie.nl/webcontent/imagebybestand/88334/0cb785cc-5f30-420b-8e95-8cb2a027eba5.jpg?h=320&k=false"
+  "foto": "https://ik-zoek.de-alliantie.nl/webcontent/imagebybestand/88334/0cb785cc-5f30-420b-8e95-8cb2a027eba5.jpg?h=320&k=false",
+  "buitenGezocht": "2026-11",
+  "buiten": [
+   "tuin"
+  ]
  },
  {
   "id": "johannes-van-der-waalsstraat-20-2",
@@ -873,7 +963,11 @@
   "buurtWozM2": 8125,
   "buurtWozJaar": 2026,
   "fotoGezocht": "2026-11",
-  "foto": "https://ik-zoek.de-alliantie.nl/webcontent/imagebybestand/88054/43dfbc37-e2d6-497c-a419-1ab3ed9e7cac.jpg?h=320&k=false"
+  "foto": "https://ik-zoek.de-alliantie.nl/webcontent/imagebybestand/88054/43dfbc37-e2d6-497c-a419-1ab3ed9e7cac.jpg?h=320&k=false",
+  "buitenGezocht": "2026-11",
+  "buiten": [
+   "balkon"
+  ]
  },
  {
   "postcode": "1098 PJ",
@@ -913,7 +1007,11 @@
   "funderingVoor1970": "100",
   "funderingBodem": "Niet indeelbaar",
   "fotoGezocht": "2026-11",
-  "foto": "https://ik-zoek.de-alliantie.nl/webcontent/imagebybestand/88042/4d478e5a-48cb-4b64-b74a-cb0b97828e46.jpg?h=320&k=false"
+  "foto": "https://ik-zoek.de-alliantie.nl/webcontent/imagebybestand/88042/4d478e5a-48cb-4b64-b74a-cb0b97828e46.jpg?h=320&k=false",
+  "buitenGezocht": "2026-11",
+  "buiten": [
+   "balkon"
+  ]
  },
  {
   "id": "kinkerstraat-293-a",
@@ -953,7 +1051,12 @@
   "funderingVoor1970": "100",
   "funderingBodem": "Niet indeelbaar",
   "fotoGezocht": "2026-11",
-  "foto": "https://ik-zoek.de-alliantie.nl/webcontent/imagebybestand/91246/ca6e8beb-56da-4866-b1c4-411015a0d8f0.jpg?h=320&k=false"
+  "foto": "https://ik-zoek.de-alliantie.nl/webcontent/imagebybestand/91246/ca6e8beb-56da-4866-b1c4-411015a0d8f0.jpg?h=320&k=false",
+  "buitenGezocht": "2026-11",
+  "buiten": [
+   "balkon",
+   "terras"
+  ]
  },
  {
   "id": "klaas-katerstraat-11",
@@ -993,7 +1096,11 @@
   "funderingVoor1970": "0",
   "funderingBodem": "Niet indeelbaar",
   "fotoGezocht": "2026-11",
-  "foto": "https://ik-zoek.de-alliantie.nl/webcontent/imagebybestand/79988/a1a3679d-80d3-4b5a-8c11-a7a3bc33a20d.jpg?h=320&k=false"
+  "foto": "https://ik-zoek.de-alliantie.nl/webcontent/imagebybestand/79988/a1a3679d-80d3-4b5a-8c11-a7a3bc33a20d.jpg?h=320&k=false",
+  "buitenGezocht": "2026-11",
+  "buiten": [
+   "balkon"
+  ]
  },
  {
   "id": "laan-der-hesperiden-14-2",
@@ -1033,7 +1140,12 @@
   "funderingVoor1970": "0",
   "funderingBodem": "Zeekleigebied",
   "fotoGezocht": "2026-11",
-  "foto": "https://ik-zoek.de-alliantie.nl/webcontent/imagebybestand/89863/ddfaf01c-725b-4994-a339-3d689de512b8.jpg?h=320&k=false"
+  "foto": "https://ik-zoek.de-alliantie.nl/webcontent/imagebybestand/89863/ddfaf01c-725b-4994-a339-3d689de512b8.jpg?h=320&k=false",
+  "buitenGezocht": "2026-11",
+  "buiten": [
+   "balkon",
+   "terras"
+  ]
  },
  {
   "id": "lutmastraat-12-c",
@@ -1073,7 +1185,11 @@
   "funderingVoor1970": "0",
   "funderingBodem": "Niet indeelbaar",
   "fotoGezocht": "2026-11",
-  "foto": "https://ik-zoek.de-alliantie.nl/webcontent/imagebybestand/91034/9844ff4d-a2b2-4bd8-b131-9cb5cc6b96e2.jpg?h=320&k=false"
+  "foto": "https://ik-zoek.de-alliantie.nl/webcontent/imagebybestand/91034/9844ff4d-a2b2-4bd8-b131-9cb5cc6b96e2.jpg?h=320&k=false",
+  "buitenGezocht": "2026-11",
+  "buiten": [
+   "balkon"
+  ]
  },
  {
   "id": "m-gandhilaan-134",
@@ -1109,7 +1225,11 @@
   "buurtWozM2": 5589,
   "buurtWozJaar": 2026,
   "fotoGezocht": "2026-11",
-  "foto": "https://ik-zoek.de-alliantie.nl/webcontent/imagebybestand/89905/14f39342-367b-4e9e-91a6-8b6b28826a18.jpg?h=320&k=false"
+  "foto": "https://ik-zoek.de-alliantie.nl/webcontent/imagebybestand/89905/14f39342-367b-4e9e-91a6-8b6b28826a18.jpg?h=320&k=false",
+  "buitenGezocht": "2026-11",
+  "buiten": [
+   "balkon"
+  ]
  },
  {
   "id": "m-gandhilaan-136",
@@ -1145,7 +1265,11 @@
   "buurtWozM2": 5589,
   "buurtWozJaar": 2026,
   "fotoGezocht": "2026-11",
-  "foto": "https://ik-zoek.de-alliantie.nl/webcontent/imagebybestand/87046/3cfd2a6f-88a4-44b5-a80d-31647dd380c8.jpg?h=320&k=false"
+  "foto": "https://ik-zoek.de-alliantie.nl/webcontent/imagebybestand/87046/3cfd2a6f-88a4-44b5-a80d-31647dd380c8.jpg?h=320&k=false",
+  "buitenGezocht": "2026-11",
+  "buiten": [
+   "balkon"
+  ]
  },
  {
   "id": "madurastraat-107-1",
@@ -1181,7 +1305,11 @@
   "buurtWozM2": 8519,
   "buurtWozJaar": 2026,
   "fotoGezocht": "2026-11",
-  "foto": "https://ik-zoek.de-alliantie.nl/webcontent/imagebybestand/90614/b8033653-23f5-4da9-921f-b4b31f8b9d78.jpg?h=320&k=false"
+  "foto": "https://ik-zoek.de-alliantie.nl/webcontent/imagebybestand/90614/b8033653-23f5-4da9-921f-b4b31f8b9d78.jpg?h=320&k=false",
+  "buitenGezocht": "2026-11",
+  "buiten": [
+   "balkon"
+  ]
  },
  {
   "id": "madurastraat-28-h",
@@ -1217,7 +1345,12 @@
   "buurtWozM2": 8519,
   "buurtWozJaar": 2026,
   "fotoGezocht": "2026-11",
-  "foto": "https://ik-zoek.de-alliantie.nl/webcontent/imagebybestand/88271/d5a106fc-9231-4c02-beca-b5253b8426f5.jpg?h=320&k=false"
+  "foto": "https://ik-zoek.de-alliantie.nl/webcontent/imagebybestand/88271/d5a106fc-9231-4c02-beca-b5253b8426f5.jpg?h=320&k=false",
+  "buitenGezocht": "2026-11",
+  "buiten": [
+   "terras",
+   "tuin"
+  ]
  },
  {
   "id": "mr-p-n-arntzeniusweg-7-h",
@@ -1230,7 +1363,7 @@
   "m2": 62,
   "kamers": 2,
   "type": "Portiekwoning",
-  "tuin": "nee",
+  "tuin": "ja",
   "energielabel": "",
   "bouwjaar": 1929,
   "servicekosten": 187.07,
@@ -1253,7 +1386,11 @@
   "buurtWozM2": 9873,
   "buurtWozJaar": 2026,
   "fotoGezocht": "2026-11",
-  "foto": "https://ik-zoek.de-alliantie.nl/webcontent/imagebybestand/88317/351ee70a-2bc2-480a-97ad-ad7a2c7bf8c6.jpg?h=320&k=false"
+  "foto": "https://ik-zoek.de-alliantie.nl/webcontent/imagebybestand/88317/351ee70a-2bc2-480a-97ad-ad7a2c7bf8c6.jpg?h=320&k=false",
+  "buitenGezocht": "2026-11",
+  "buiten": [
+   "tuin"
+  ]
  },
  {
   "id": "riouwstraat-43-d",
@@ -1293,7 +1430,11 @@
   "funderingVoor1970": "20",
   "funderingBodem": "Niet indeelbaar",
   "fotoGezocht": "2026-11",
-  "foto": "https://ik-zoek.de-alliantie.nl/webcontent/imagebybestand/90613/0b03ac6d-58c7-4ca3-a6d9-11f68ee80327.jpg?h=320&k=false"
+  "foto": "https://ik-zoek.de-alliantie.nl/webcontent/imagebybestand/90613/0b03ac6d-58c7-4ca3-a6d9-11f68ee80327.jpg?h=320&k=false",
+  "buitenGezocht": "2026-11",
+  "buiten": [
+   "balkon"
+  ]
  },
  {
   "id": "riouwstraat-87-c",
@@ -1333,7 +1474,11 @@
   "funderingVoor1970": "33.33333333333333",
   "funderingBodem": "Niet indeelbaar",
   "fotoGezocht": "2026-11",
-  "foto": "https://ik-zoek.de-alliantie.nl/webcontent/imagebybestand/91192/32a1de18-4f2e-4d9e-a9a4-0f3f494cd28c.jpg?h=320&k=false"
+  "foto": "https://ik-zoek.de-alliantie.nl/webcontent/imagebybestand/91192/32a1de18-4f2e-4d9e-a9a4-0f3f494cd28c.jpg?h=320&k=false",
+  "buitenGezocht": "2026-11",
+  "buiten": [
+   "balkon"
+  ]
  },
  {
   "id": "rupelmonde-66",
@@ -1369,7 +1514,11 @@
   "buurtWozM2": 8046,
   "buurtWozJaar": 2026,
   "fotoGezocht": "2026-11",
-  "foto": "https://ik-zoek.de-alliantie.nl/webcontent/imagebybestand/88752/de7edd85-24c2-4b52-a43a-e605bc52a375.jpg?h=320&k=false"
+  "foto": "https://ik-zoek.de-alliantie.nl/webcontent/imagebybestand/88752/de7edd85-24c2-4b52-a43a-e605bc52a375.jpg?h=320&k=false",
+  "buitenGezocht": "2026-11",
+  "buiten": [
+   "balkon"
+  ]
  },
  {
   "id": "sassenheimstraat-92-3",
@@ -1405,7 +1554,9 @@
   "buurtWozM2": 9334,
   "buurtWozJaar": 2026,
   "fotoGezocht": "2026-11",
-  "foto": "https://ik-zoek.de-alliantie.nl/webcontent/imagebybestand/88267/ff62095f-e16c-4dfa-bd76-a61486e5c92c.jpg?h=320&k=false"
+  "foto": "https://ik-zoek.de-alliantie.nl/webcontent/imagebybestand/88267/ff62095f-e16c-4dfa-bd76-a61486e5c92c.jpg?h=320&k=false",
+  "buitenGezocht": "2026-11",
+  "buiten": []
  },
  {
   "id": "soendastraat-24-3",
@@ -1445,7 +1596,12 @@
   "funderingVoor1970": "100",
   "funderingBodem": "Niet indeelbaar",
   "fotoGezocht": "2026-11",
-  "foto": "https://ik-zoek.de-alliantie.nl/webcontent/imagebybestand/88312/55db5a21-c2f0-40f8-9921-53e962a64862.jpg?h=320&k=false"
+  "foto": "https://ik-zoek.de-alliantie.nl/webcontent/imagebybestand/88312/55db5a21-c2f0-40f8-9921-53e962a64862.jpg?h=320&k=false",
+  "buitenGezocht": "2026-11",
+  "buiten": [
+   "balkon",
+   "terras"
+  ]
  },
  {
   "id": "soendastraat-65",
@@ -1473,7 +1629,7 @@
   "energielabel": "A",
   "servicekosten": 185.99,
   "erfpacht": "Canon afgekocht t/m 15-05-2067",
-  "tuin": "nee",
+  "tuin": "ja",
   "gezienOp": "2026-11-10",
   "deadline": "2026-10-13",
   "buurtcode": "MF01",
@@ -1485,7 +1641,12 @@
   "funderingVoor1970": "15.789473684210526",
   "funderingBodem": "Niet indeelbaar",
   "fotoGezocht": "2026-11",
-  "foto": "https://ik-zoek.de-alliantie.nl/webcontent/imagebybestand/91054/a7a19224-58df-423a-8ca5-3542674fc4fa.jpg?h=320&k=false"
+  "foto": "https://ik-zoek.de-alliantie.nl/webcontent/imagebybestand/91054/a7a19224-58df-423a-8ca5-3542674fc4fa.jpg?h=320&k=false",
+  "buitenGezocht": "2026-11",
+  "buiten": [
+   "terras",
+   "tuin"
+  ]
  },
  {
   "id": "spinnekop-14",
@@ -1525,7 +1686,11 @@
   "funderingVoor1970": "0",
   "funderingBodem": "Niet indeelbaar",
   "fotoGezocht": "2026-11",
-  "foto": "https://ik-zoek.de-alliantie.nl/webcontent/imagebybestand/88685/45d5dbe1-6216-4b95-9d71-ac3702723595.jpg?h=320&k=false"
+  "foto": "https://ik-zoek.de-alliantie.nl/webcontent/imagebybestand/88685/45d5dbe1-6216-4b95-9d71-ac3702723595.jpg?h=320&k=false",
+  "buitenGezocht": "2026-11",
+  "buiten": [
+   "balkon"
+  ]
  },
  {
   "id": "statenjachtstraat-406",
@@ -1561,7 +1726,11 @@
   "buurtWozM2": 6114,
   "buurtWozJaar": 2026,
   "fotoGezocht": "2026-11",
-  "foto": "https://ik-zoek.de-alliantie.nl/webcontent/imagebybestand/90805/4cea4f52-cde3-4c22-a2b2-51ceadfc277f.jpg?h=320&k=false"
+  "foto": "https://ik-zoek.de-alliantie.nl/webcontent/imagebybestand/90805/4cea4f52-cde3-4c22-a2b2-51ceadfc277f.jpg?h=320&k=false",
+  "buitenGezocht": "2026-11",
+  "buiten": [
+   "balkon"
+  ]
  },
  {
   "id": "statenjachtstraat-486",
@@ -1597,7 +1766,11 @@
   "buurtWozM2": 6114,
   "buurtWozJaar": 2026,
   "fotoGezocht": "2026-11",
-  "foto": "https://ik-zoek.de-alliantie.nl/webcontent/imagebybestand/90174/cca22c3c-fdfc-4a79-98bf-0dd2a9436413.jpg?h=320&k=false"
+  "foto": "https://ik-zoek.de-alliantie.nl/webcontent/imagebybestand/90174/cca22c3c-fdfc-4a79-98bf-0dd2a9436413.jpg?h=320&k=false",
+  "buitenGezocht": "2026-11",
+  "buiten": [
+   "balkon"
+  ]
  },
  {
   "id": "wamelplein-132",
@@ -1637,7 +1810,12 @@
   "funderingVoor1970": "0",
   "funderingBodem": "Laagveengebied",
   "fotoGezocht": "2026-11",
-  "foto": "https://ik-zoek.de-alliantie.nl/webcontent/imagebybestand/91512/7abffbc5-960d-4882-962f-b96f7f7b2ea0.jpg?h=320&k=false"
+  "foto": "https://ik-zoek.de-alliantie.nl/webcontent/imagebybestand/91512/7abffbc5-960d-4882-962f-b96f7f7b2ea0.jpg?h=320&k=false",
+  "buitenGezocht": "2026-11",
+  "buiten": [
+   "balkon",
+   "terras"
+  ]
  },
  {
   "id": "waterpoortweg-441",
@@ -1677,7 +1855,11 @@
   "funderingVoor1970": "0",
   "funderingBodem": "Niet indeelbaar",
   "fotoGezocht": "2026-11",
-  "foto": "https://ik-zoek.de-alliantie.nl/webcontent/imagebybestand/90567/6ec89d5d-8b45-4c92-b6c3-332e051871fb.jpg?h=320&k=false"
+  "foto": "https://ik-zoek.de-alliantie.nl/webcontent/imagebybestand/90567/6ec89d5d-8b45-4c92-b6c3-332e051871fb.jpg?h=320&k=false",
+  "buitenGezocht": "2026-11",
+  "buiten": [
+   "balkon"
+  ]
  },
  {
   "id": "weteringschans-60-a",
@@ -1717,7 +1899,11 @@
   "funderingVoor1970": "80",
   "funderingBodem": "Niet indeelbaar",
   "fotoGezocht": "2026-11",
-  "foto": "https://ik-zoek.de-alliantie.nl/webcontent/imagebybestand/90062/42a2e608-357e-49cf-9763-3098cd3b2ea9.jpg?h=320&k=false"
+  "foto": "https://ik-zoek.de-alliantie.nl/webcontent/imagebybestand/90062/42a2e608-357e-49cf-9763-3098cd3b2ea9.jpg?h=320&k=false",
+  "buitenGezocht": "2026-11",
+  "buiten": [
+   "balkon"
+  ]
  },
  {
   "postcode": "1091 CW",
@@ -1757,7 +1943,12 @@
   "funderingBodem": "Niet indeelbaar",
   "basis": true,
   "fotoGezocht": "2026-11",
-  "foto": "https://www.eigenhaard.nl/media/gb5efnye/property_image_66338_2896201.jpg?width=480&height=320&v=1dd20b40996e8f0"
+  "foto": "https://www.eigenhaard.nl/media/gb5efnye/property_image_66338_2896201.jpg?width=480&height=320&v=1dd20b40996e8f0",
+  "buitenGezocht": "2026-11",
+  "buiten": [
+   "balkon",
+   "terras"
+  ]
  },
  {
   "postcode": "1033 MA",
@@ -1797,7 +1988,11 @@
   "funderingBodem": "Niet indeelbaar",
   "basis": true,
   "fotoGezocht": "2026-11",
-  "foto": "https://www.eigenhaard.nl/media/l3jj4wel/property_image_72868_2981608.jpg?width=480&height=320&v=1dd6ced0114c410"
+  "foto": "https://www.eigenhaard.nl/media/l3jj4wel/property_image_72868_2981608.jpg?width=480&height=320&v=1dd6ced0114c410",
+  "buitenGezocht": "2026-11",
+  "buiten": [
+   "balkon"
+  ]
  },
  {
   "postcode": "1068 ZE",
@@ -1837,7 +2032,11 @@
   "funderingBodem": "Niet indeelbaar",
   "basis": true,
   "fotoGezocht": "2026-11",
-  "foto": "https://www.eigenhaard.nl/media/blejajz2/property_image_73032_2993631.jpg?width=480&height=320&v=1dd637f02cd0550"
+  "foto": "https://www.eigenhaard.nl/media/blejajz2/property_image_73032_2993631.jpg?width=480&height=320&v=1dd637f02cd0550",
+  "buitenGezocht": "2026-11",
+  "buiten": [
+   "balkon"
+  ]
  },
  {
   "postcode": "1068 ZG",
@@ -1877,7 +2076,11 @@
   "funderingBodem": "Niet indeelbaar",
   "basis": true,
   "fotoGezocht": "2026-11",
-  "foto": "https://www.eigenhaard.nl/media/afgkrczo/property_image_72971_2989490.jpg?width=480&height=320&v=1dd637f09048330"
+  "foto": "https://www.eigenhaard.nl/media/afgkrczo/property_image_72971_2989490.jpg?width=480&height=320&v=1dd637f09048330",
+  "buitenGezocht": "2026-11",
+  "buiten": [
+   "balkon"
+  ]
  },
  {
   "postcode": "1068 ZJ",
@@ -1917,7 +2120,11 @@
   "funderingBodem": "Niet indeelbaar",
   "basis": true,
   "fotoGezocht": "2026-11",
-  "foto": "https://www.eigenhaard.nl/media/rk1j41ob/property_image_73121_2993553.jpg?width=480&height=320&v=1dd637f05e87620"
+  "foto": "https://www.eigenhaard.nl/media/rk1j41ob/property_image_73121_2993553.jpg?width=480&height=320&v=1dd637f05e87620",
+  "buitenGezocht": "2026-11",
+  "buiten": [
+   "balkon"
+  ]
  },
  {
   "postcode": "1068 ZB",
@@ -1957,7 +2164,11 @@
   "funderingBodem": "Niet indeelbaar",
   "basis": true,
   "fotoGezocht": "2026-11",
-  "foto": "https://www.eigenhaard.nl/media/bhmeoht3/property_image_72050_2924813.jpg?width=480&height=320&v=1dd637f0f767200"
+  "foto": "https://www.eigenhaard.nl/media/bhmeoht3/property_image_72050_2924813.jpg?width=480&height=320&v=1dd637f0f767200",
+  "buitenGezocht": "2026-11",
+  "buiten": [
+   "balkon"
+  ]
  },
  {
   "postcode": "1068 XZ",
@@ -1997,7 +2208,11 @@
   "funderingBodem": "Niet indeelbaar",
   "basis": true,
   "fotoGezocht": "2026-11",
-  "foto": "https://www.eigenhaard.nl/media/usxn2o3h/property_image_72960_2989026.jpg?width=480&height=320&v=1dd637f0c429730"
+  "foto": "https://www.eigenhaard.nl/media/usxn2o3h/property_image_72960_2989026.jpg?width=480&height=320&v=1dd637f0c429730",
+  "buitenGezocht": "2026-11",
+  "buiten": [
+   "balkon"
+  ]
  },
  {
   "postcode": "1091 AJ",
@@ -2037,7 +2252,12 @@
   "funderingBodem": "Niet indeelbaar",
   "basis": true,
   "fotoGezocht": "2026-11",
-  "foto": "https://www.eigenhaard.nl/media/xwgphu24/property_image_66716_2869942.jpg?width=480&height=320&v=1dd31346f94dc30"
+  "foto": "https://www.eigenhaard.nl/media/xwgphu24/property_image_66716_2869942.jpg?width=480&height=320&v=1dd31346f94dc30",
+  "buitenGezocht": "2026-11",
+  "buiten": [
+   "balkon",
+   "terras"
+  ]
  },
  {
   "postcode": "1024 SE",
@@ -2077,7 +2297,11 @@
   "funderingBodem": "Niet indeelbaar",
   "basis": true,
   "fotoGezocht": "2026-11",
-  "foto": "https://www.eigenhaard.nl/media/mjjb0rot/property_image_66648_2872621.jpg?width=480&height=320&v=1dd20b3f28944a0"
+  "foto": "https://www.eigenhaard.nl/media/mjjb0rot/property_image_66648_2872621.jpg?width=480&height=320&v=1dd20b3f28944a0",
+  "buitenGezocht": "2026-11",
+  "buiten": [
+   "balkon"
+  ]
  },
  {
   "postcode": "1024 SJ",
@@ -2117,7 +2341,11 @@
   "funderingBodem": "Niet indeelbaar",
   "basis": true,
   "fotoGezocht": "2026-11",
-  "foto": "https://www.eigenhaard.nl/media/45tnby0x/property_image_73197_3000383.jpg?width=480&height=320&v=1dd605a5d753b30"
+  "foto": "https://www.eigenhaard.nl/media/45tnby0x/property_image_73197_3000383.jpg?width=480&height=320&v=1dd605a5d753b30",
+  "buitenGezocht": "2026-11",
+  "buiten": [
+   "balkon"
+  ]
  },
  {
   "postcode": "1102 NN",
@@ -2157,7 +2385,11 @@
   "funderingBodem": "Niet indeelbaar",
   "basis": true,
   "fotoGezocht": "2026-11",
-  "foto": "https://www.eigenhaard.nl/media/ry2edxmp/property_image_66550_2888785.jpg?width=480&height=320&v=1dd1a5395c0c830"
+  "foto": "https://www.eigenhaard.nl/media/ry2edxmp/property_image_66550_2888785.jpg?width=480&height=320&v=1dd1a5395c0c830",
+  "buitenGezocht": "2026-11",
+  "buiten": [
+   "balkon"
+  ]
  },
  {
   "postcode": "1102 NB",
@@ -2197,7 +2429,11 @@
   "funderingBodem": "Niet indeelbaar",
   "basis": true,
   "fotoGezocht": "2026-11",
-  "foto": "https://www.eigenhaard.nl/media/oebim1d3/property_image_66393_2836996.jpg?width=480&height=320&v=1dd198a6300f010"
+  "foto": "https://www.eigenhaard.nl/media/oebim1d3/property_image_66393_2836996.jpg?width=480&height=320&v=1dd198a6300f010",
+  "buitenGezocht": "2026-11",
+  "buiten": [
+   "balkon"
+  ]
  },
  {
   "postcode": "1065 EC",
@@ -2237,7 +2473,11 @@
   "funderingBodem": "Niet indeelbaar",
   "basis": true,
   "fotoGezocht": "2026-11",
-  "foto": "https://www.eigenhaard.nl/media/jbwp24e0/property_image_66575_2851850.jpg?width=480&height=320&v=1dd34591235c3b0"
+  "foto": "https://www.eigenhaard.nl/media/jbwp24e0/property_image_66575_2851850.jpg?width=480&height=320&v=1dd34591235c3b0",
+  "buitenGezocht": "2026-11",
+  "buiten": [
+   "balkon"
+  ]
  },
  {
   "postcode": "1063 JL",
@@ -2277,7 +2517,11 @@
   "funderingBodem": "Niet indeelbaar",
   "basis": true,
   "fotoGezocht": "2026-11",
-  "foto": "https://www.eigenhaard.nl/media/gqhd4zma/property_image_66536_2925245.jpg?width=480&height=320&v=1dd644833df2d70"
+  "foto": "https://www.eigenhaard.nl/media/gqhd4zma/property_image_66536_2925245.jpg?width=480&height=320&v=1dd644833df2d70",
+  "buitenGezocht": "2026-11",
+  "buiten": [
+   "balkon"
+  ]
  },
  {
   "postcode": "1065 GA",
@@ -2317,7 +2561,11 @@
   "funderingBodem": "Niet indeelbaar",
   "basis": true,
   "fotoGezocht": "2026-11",
-  "foto": "https://www.eigenhaard.nl/media/2fbfr2hg/property_image_73229_3019190.jpg?width=480&height=320&v=1dd683602389c10"
+  "foto": "https://www.eigenhaard.nl/media/2fbfr2hg/property_image_73229_3019190.jpg?width=480&height=320&v=1dd683602389c10",
+  "buitenGezocht": "2026-11",
+  "buiten": [
+   "balkon"
+  ]
  },
  {
   "postcode": "1073 ER",
@@ -2357,7 +2605,11 @@
   "funderingBodem": "Niet indeelbaar",
   "basis": true,
   "fotoGezocht": "2026-11",
-  "foto": "https://www.eigenhaard.nl/media/yioe3gpk/property_image_66513_2897326.jpg?width=480&height=320&v=1dd20b405e66410"
+  "foto": "https://www.eigenhaard.nl/media/yioe3gpk/property_image_66513_2897326.jpg?width=480&height=320&v=1dd20b405e66410",
+  "buitenGezocht": "2026-11",
+  "buiten": [
+   "terras"
+  ]
  },
  {
   "postcode": "1033 WK",
@@ -2396,7 +2648,11 @@
   "funderingPc": "1033WK",
   "fundering": "Stedelijk gebied - 0-20 %",
   "funderingVoor1970": "0",
-  "funderingBodem": "Niet indeelbaar"
+  "funderingBodem": "Niet indeelbaar",
+  "buitenGezocht": "2026-11",
+  "buiten": [
+   "balkon"
+  ]
  },
  {
   "postcode": "1106 KL",
@@ -2436,7 +2692,11 @@
   "funderingBodem": "Laagveengebied",
   "basis": true,
   "fotoGezocht": "2026-11",
-  "foto": "https://www.eigenhaard.nl/media/ikedaaef/property_image_72424_2961659.jpg?width=480&height=320&v=1dd4cb53b77a030"
+  "foto": "https://www.eigenhaard.nl/media/ikedaaef/property_image_72424_2961659.jpg?width=480&height=320&v=1dd4cb53b77a030",
+  "buitenGezocht": "2026-11",
+  "buiten": [
+   "tuin"
+  ]
  },
  {
   "postcode": "1106 KT",
@@ -2476,7 +2736,11 @@
   "funderingBodem": "Laagveengebied",
   "basis": true,
   "fotoGezocht": "2026-11",
-  "foto": "https://www.eigenhaard.nl/media/f1moy3dj/property_image_72425_2956524.jpg?width=480&height=320&v=1dd4cb53fb793d0"
+  "foto": "https://www.eigenhaard.nl/media/f1moy3dj/property_image_72425_2956524.jpg?width=480&height=320&v=1dd4cb53fb793d0",
+  "buitenGezocht": "2026-11",
+  "buiten": [
+   "balkon"
+  ]
  },
  {
   "postcode": "1068 LW",
@@ -2516,7 +2780,12 @@
   "funderingBodem": "Niet indeelbaar",
   "basis": true,
   "fotoGezocht": "2026-11",
-  "foto": "https://www.eigenhaard.nl/media/sf5j5e54/property_image_66897_2879974.jpg?width=480&height=320&v=1dd1f219f0a7f30"
+  "foto": "https://www.eigenhaard.nl/media/sf5j5e54/property_image_66897_2879974.jpg?width=480&height=320&v=1dd1f219f0a7f30",
+  "buitenGezocht": "2026-11",
+  "buiten": [
+   "balkon",
+   "terras"
+  ]
  },
  {
   "postcode": "1068 LS",
@@ -2556,7 +2825,12 @@
   "funderingBodem": "Niet indeelbaar",
   "basis": true,
   "fotoGezocht": "2026-11",
-  "foto": "https://www.eigenhaard.nl/media/1bokoghj/property_image_66894_2879741.jpg?width=480&height=320&v=1dd6e7f5ca608f0"
+  "foto": "https://www.eigenhaard.nl/media/1bokoghj/property_image_66894_2879741.jpg?width=480&height=320&v=1dd6e7f5ca608f0",
+  "buitenGezocht": "2026-11",
+  "buiten": [
+   "balkon",
+   "terras"
+  ]
  },
  {
   "postcode": "1017 CX",
@@ -2596,7 +2870,12 @@
   "funderingBodem": "Niet indeelbaar",
   "basis": true,
   "fotoGezocht": "2026-11",
-  "foto": "https://www.eigenhaard.nl/media/m3akjp5n/property_image_72826_2977173.jpg?width=480&height=320&v=1dd6db62d473620"
+  "foto": "https://www.eigenhaard.nl/media/m3akjp5n/property_image_72826_2977173.jpg?width=480&height=320&v=1dd6db62d473620",
+  "buitenGezocht": "2026-11",
+  "buiten": [
+   "balkon",
+   "terras"
+  ]
  },
  {
   "postcode": "1106 BM",
@@ -2636,7 +2915,11 @@
   "funderingBodem": "Laagveengebied",
   "basis": true,
   "fotoGezocht": "2026-11",
-  "foto": "https://www.eigenhaard.nl/media/kvhfyacp/property_image_66445_2837385.jpg?width=480&height=320&v=1dcff12a8f70f10"
+  "foto": "https://www.eigenhaard.nl/media/kvhfyacp/property_image_66445_2837385.jpg?width=480&height=320&v=1dcff12a8f70f10",
+  "buitenGezocht": "2026-11",
+  "buiten": [
+   "terras"
+  ]
  },
  {
   "postcode": "1106 BV",
@@ -2676,7 +2959,12 @@
   "funderingBodem": "Laagveengebied",
   "basis": true,
   "fotoGezocht": "2026-11",
-  "foto": "https://www.eigenhaard.nl/media/eisjlohq/property_image_66401_2846254.jpg?width=480&height=320&v=1dd2ed8ed1b0ed0"
+  "foto": "https://www.eigenhaard.nl/media/eisjlohq/property_image_66401_2846254.jpg?width=480&height=320&v=1dd2ed8ed1b0ed0",
+  "buitenGezocht": "2026-11",
+  "buiten": [
+   "balkon",
+   "terras"
+  ]
  },
  {
   "postcode": "1106 BV",
@@ -2716,7 +3004,11 @@
   "funderingBodem": "Laagveengebied",
   "basis": true,
   "fotoGezocht": "2026-11",
-  "foto": "https://www.eigenhaard.nl/media/pxhoo222/property_image_66555_2863576.jpg?width=480&height=320&v=1dd2ed8e94f12b0"
+  "foto": "https://www.eigenhaard.nl/media/pxhoo222/property_image_66555_2863576.jpg?width=480&height=320&v=1dd2ed8e94f12b0",
+  "buitenGezocht": "2026-11",
+  "buiten": [
+   "balkon"
+  ]
  },
  {
   "postcode": "1106 HX",
@@ -2756,7 +3048,11 @@
   "funderingBodem": "Laagveengebied",
   "basis": true,
   "fotoGezocht": "2026-11",
-  "foto": "https://www.eigenhaard.nl/media/ewei4yzi/property_image_66333_2820474.jpg?width=480&height=320&v=1dd051c189abc40"
+  "foto": "https://www.eigenhaard.nl/media/ewei4yzi/property_image_66333_2820474.jpg?width=480&height=320&v=1dd051c189abc40",
+  "buitenGezocht": "2026-11",
+  "buiten": [
+   "balkon"
+  ]
  },
  {
   "postcode": "1024 PS",
@@ -2796,7 +3092,11 @@
   "funderingBodem": "Niet indeelbaar",
   "basis": true,
   "fotoGezocht": "2026-11",
-  "foto": "https://www.eigenhaard.nl/media/3eglilby/property_image_66622_2858402.jpg?width=480&height=320&v=1dd20b3edea4110"
+  "foto": "https://www.eigenhaard.nl/media/3eglilby/property_image_66622_2858402.jpg?width=480&height=320&v=1dd20b3edea4110",
+  "buitenGezocht": "2026-11",
+  "buiten": [
+   "balkon"
+  ]
  },
  {
   "postcode": "1024 PM",
@@ -2836,7 +3136,11 @@
   "funderingBodem": "Niet indeelbaar",
   "basis": true,
   "fotoGezocht": "2026-11",
-  "foto": "https://www.eigenhaard.nl/media/dqafbovo/property_image_72059_2939339.jpg?width=480&height=320&v=1dd4cb5384c50e0"
+  "foto": "https://www.eigenhaard.nl/media/dqafbovo/property_image_72059_2939339.jpg?width=480&height=320&v=1dd4cb5384c50e0",
+  "buitenGezocht": "2026-11",
+  "buiten": [
+   "balkon"
+  ]
  },
  {
   "postcode": "1024 PR",
@@ -2876,7 +3180,11 @@
   "funderingBodem": "Niet indeelbaar",
   "basis": true,
   "fotoGezocht": "2026-11",
-  "foto": "https://www.eigenhaard.nl/media/ukjf3e23/property_image_73035_2992323.jpg?width=480&height=320&v=1dd605a5922f810"
+  "foto": "https://www.eigenhaard.nl/media/ukjf3e23/property_image_73035_2992323.jpg?width=480&height=320&v=1dd605a5922f810",
+  "buitenGezocht": "2026-11",
+  "buiten": [
+   "balkon"
+  ]
  },
  {
   "postcode": "1095 GV",
@@ -2916,7 +3224,9 @@
   "funderingBodem": "Niet indeelbaar",
   "basis": true,
   "fotoGezocht": "2026-11",
-  "foto": "https://www.eigenhaard.nl/media/dkdfiahs/property_image_72648_2960573.jpg?width=480&height=320&v=1dd6db62a0614e0"
+  "foto": "https://www.eigenhaard.nl/media/dkdfiahs/property_image_72648_2960573.jpg?width=480&height=320&v=1dd6db62a0614e0",
+  "buitenGezocht": "2026-11",
+  "buiten": []
  },
  {
   "postcode": "1063 BX",
@@ -2956,7 +3266,11 @@
   "funderingBodem": "Niet indeelbaar",
   "basis": true,
   "fotoGezocht": "2026-11",
-  "foto": "https://www.eigenhaard.nl/media/azidisdw/property_image_66852_2880469.jpg?width=480&height=320&v=1dd6e7f57883870"
+  "foto": "https://www.eigenhaard.nl/media/azidisdw/property_image_66852_2880469.jpg?width=480&height=320&v=1dd6e7f57883870",
+  "buitenGezocht": "2026-11",
+  "buiten": [
+   "balkon"
+  ]
  },
  {
   "postcode": "1065 ER",
@@ -2996,7 +3310,11 @@
   "funderingBodem": "Niet indeelbaar",
   "basis": true,
   "fotoGezocht": "2026-11",
-  "foto": "https://www.eigenhaard.nl/media/ys5ns4tq/property_image_66436_2828228.jpg?width=480&height=320&v=1dd1a538f547eb0"
+  "foto": "https://www.eigenhaard.nl/media/ys5ns4tq/property_image_66436_2828228.jpg?width=480&height=320&v=1dd1a538f547eb0",
+  "buitenGezocht": "2026-11",
+  "buiten": [
+   "balkon"
+  ]
  },
  {
   "postcode": "1065 EP",
@@ -3036,7 +3354,11 @@
   "funderingBodem": "Niet indeelbaar",
   "basis": true,
   "fotoGezocht": "2026-11",
-  "foto": "https://www.eigenhaard.nl/media/fsyhclzj/property_image_66968_2964014.jpg?width=480&height=320&v=1dd64482f1151b0"
+  "foto": "https://www.eigenhaard.nl/media/fsyhclzj/property_image_66968_2964014.jpg?width=480&height=320&v=1dd64482f1151b0",
+  "buitenGezocht": "2026-11",
+  "buiten": [
+   "balkon"
+  ]
  },
  {
   "id": "amerbos-73-1025xz",
@@ -3076,7 +3398,11 @@
   "funderingVoor1970": "0",
   "funderingBodem": "Laagveengebied",
   "fotoGezocht": "2026-11",
-  "foto": "https://www.vindjeplekbijdekey.nl/media/cache/dossier_big_mobile/uploads/dossier/images/6ad32405bec9e.jpg"
+  "foto": "https://www.vindjeplekbijdekey.nl/media/cache/dossier_big_mobile/uploads/dossier/images/6ad32405bec9e.jpg",
+  "buitenGezocht": "2026-11",
+  "buiten": [
+   "balkon"
+  ]
  },
  {
   "id": "blasiusstraat-26-h-1091cs",
@@ -3116,7 +3442,11 @@
   "funderingVoor1970": "100",
   "funderingBodem": "Niet indeelbaar",
   "fotoGezocht": "2026-11",
-  "foto": "https://www.vindjeplekbijdekey.nl/media/cache/resolve/dossier_big_mobile/uploads/dossier/images/6aed906c9efe7.jpg"
+  "foto": "https://www.vindjeplekbijdekey.nl/media/cache/resolve/dossier_big_mobile/uploads/dossier/images/6aed906c9efe7.jpg",
+  "buitenGezocht": "2026-11",
+  "buiten": [
+   "tuin"
+  ]
  },
  {
   "id": "deymanstraat-28-1091se",
@@ -3156,7 +3486,11 @@
   "funderingVoor1970": "55.55555555555556",
   "funderingBodem": "Niet indeelbaar",
   "fotoGezocht": "2026-11",
-  "foto": "https://www.vindjeplekbijdekey.nl/media/cache/dossier_big_mobile/uploads/dossier/images/6a928b23eb0d0.jpg"
+  "foto": "https://www.vindjeplekbijdekey.nl/media/cache/dossier_big_mobile/uploads/dossier/images/6a928b23eb0d0.jpg",
+  "buitenGezocht": "2026-11",
+  "buiten": [
+   "balkon"
+  ]
  },
  {
   "id": "dickenslaan-160-1102zw",
@@ -3196,7 +3530,12 @@
   "funderingVoor1970": "0",
   "funderingBodem": "Laagveengebied",
   "fotoGezocht": "2026-11",
-  "foto": "https://www.vindjeplekbijdekey.nl/media/cache/resolve/dossier_big_mobile/uploads/dossier/images/6aec3ec51729e.jpg"
+  "foto": "https://www.vindjeplekbijdekey.nl/media/cache/resolve/dossier_big_mobile/uploads/dossier/images/6aec3ec51729e.jpg",
+  "buitenGezocht": "2026-11",
+  "buiten": [
+   "balkon",
+   "terras"
+  ]
  },
  {
   "id": "dostojevskisingel-35-1102xj",
@@ -3236,7 +3575,11 @@
   "funderingVoor1970": "0",
   "funderingBodem": "Laagveengebied",
   "fotoGezocht": "2026-11",
-  "foto": "https://www.vindjeplekbijdekey.nl/media/cache/dossier_big_mobile/uploads/dossier/images/6aae3b418654f.jpg"
+  "foto": "https://www.vindjeplekbijdekey.nl/media/cache/dossier_big_mobile/uploads/dossier/images/6aae3b418654f.jpg",
+  "buitenGezocht": "2026-11",
+  "buiten": [
+   "balkon"
+  ]
  },
  {
   "id": "h-cleyndertweg-587-1025dx",
@@ -3276,7 +3619,11 @@
   "funderingVoor1970": "0",
   "funderingBodem": "Niet indeelbaar",
   "fotoGezocht": "2026-11",
-  "foto": "https://www.vindjeplekbijdekey.nl/media/cache/dossier_big_mobile/uploads/dossier/images/6acddebe751e8.jpg"
+  "foto": "https://www.vindjeplekbijdekey.nl/media/cache/dossier_big_mobile/uploads/dossier/images/6acddebe751e8.jpg",
+  "buitenGezocht": "2026-11",
+  "buiten": [
+   "balkon"
+  ]
  },
  {
   "id": "jan-mankesstraat-15-2-1061st",
@@ -3316,7 +3663,11 @@
   "funderingVoor1970": "75",
   "funderingBodem": "Niet indeelbaar",
   "fotoGezocht": "2026-11",
-  "foto": "https://www.vindjeplekbijdekey.nl/media/cache/resolve/dossier_big_mobile/uploads/dossier/images/6ae99bad53208.jpg"
+  "foto": "https://www.vindjeplekbijdekey.nl/media/cache/resolve/dossier_big_mobile/uploads/dossier/images/6ae99bad53208.jpg",
+  "buitenGezocht": "2026-11",
+  "buiten": [
+   "balkon"
+  ]
  },
  {
   "id": "jan-tooropstraat-116-3-1061ac",
@@ -3356,7 +3707,11 @@
   "funderingVoor1970": "100",
   "funderingBodem": "Niet indeelbaar",
   "fotoGezocht": "2026-11",
-  "foto": "https://www.vindjeplekbijdekey.nl/media/cache/resolve/dossier_big_mobile/uploads/dossier/images/6aeaed216a65b.jpg"
+  "foto": "https://www.vindjeplekbijdekey.nl/media/cache/resolve/dossier_big_mobile/uploads/dossier/images/6aeaed216a65b.jpg",
+  "buitenGezocht": "2026-11",
+  "buiten": [
+   "balkon"
+  ]
  },
  {
   "postcode": "1067 MN",
@@ -3396,7 +3751,11 @@
   "funderingVoor1970": "9.090909090909092",
   "funderingBodem": "Niet indeelbaar",
   "fotoGezocht": "2026-11",
-  "foto": "https://www.vindjeplekbijdekey.nl/media/cache/resolve/dossier_big_mobile/uploads/dossier/images/6aeaed5f126f9.jpg"
+  "foto": "https://www.vindjeplekbijdekey.nl/media/cache/resolve/dossier_big_mobile/uploads/dossier/images/6aeaed5f126f9.jpg",
+  "buitenGezocht": "2026-11",
+  "buiten": [
+   "balkon"
+  ]
  },
  {
   "postcode": "1067 MN",
@@ -3436,7 +3795,11 @@
   "funderingVoor1970": "9.090909090909092",
   "funderingBodem": "Niet indeelbaar",
   "fotoGezocht": "2026-11",
-  "foto": "https://www.vindjeplekbijdekey.nl/media/cache/resolve/dossier_big_mobile/uploads/dossier/images/6aeee1ef8ca46.jpg"
+  "foto": "https://www.vindjeplekbijdekey.nl/media/cache/resolve/dossier_big_mobile/uploads/dossier/images/6aeee1ef8ca46.jpg",
+  "buitenGezocht": "2026-11",
+  "buiten": [
+   "balkon"
+  ]
  },
  {
   "id": "kleine-wittenburgerstraat-2-e-1018lv",
@@ -3476,7 +3839,11 @@
   "funderingVoor1970": "33.33333333333333",
   "funderingBodem": "Niet indeelbaar",
   "fotoGezocht": "2026-11",
-  "foto": "https://www.vindjeplekbijdekey.nl/media/cache/resolve/dossier_big_mobile/uploads/dossier/images/6aeee1cd74d10.jpg"
+  "foto": "https://www.vindjeplekbijdekey.nl/media/cache/resolve/dossier_big_mobile/uploads/dossier/images/6aeee1cd74d10.jpg",
+  "buitenGezocht": "2026-11",
+  "buiten": [
+   "balkon"
+  ]
  },
  {
   "id": "le-mairekade-125-1013cc",
@@ -3516,7 +3883,12 @@
   "funderingVoor1970": "0",
   "funderingBodem": "Niet indeelbaar",
   "fotoGezocht": "2026-11",
-  "foto": "https://www.vindjeplekbijdekey.nl/media/cache/resolve/dossier_big_mobile/uploads/dossier/images/6aec3fea7fe42.jpg"
+  "foto": "https://www.vindjeplekbijdekey.nl/media/cache/resolve/dossier_big_mobile/uploads/dossier/images/6aec3fea7fe42.jpg",
+  "buitenGezocht": "2026-11",
+  "buiten": [
+   "balkon",
+   "terras"
+  ]
  },
  {
   "id": "le-mairekade-163-1013cc",
@@ -3556,7 +3928,12 @@
   "funderingVoor1970": "0",
   "funderingBodem": "Niet indeelbaar",
   "fotoGezocht": "2026-11",
-  "foto": "https://www.vindjeplekbijdekey.nl/media/cache/dossier_big_mobile/uploads/dossier/images/6ad08150cdb2c.jpg"
+  "foto": "https://www.vindjeplekbijdekey.nl/media/cache/dossier_big_mobile/uploads/dossier/images/6ad08150cdb2c.jpg",
+  "buitenGezocht": "2026-11",
+  "buiten": [
+   "balkon",
+   "terras"
+  ]
  },
  {
   "id": "loenermark-583-1025tz",
@@ -3596,7 +3973,11 @@
   "funderingVoor1970": "0",
   "funderingBodem": "Niet indeelbaar",
   "fotoGezocht": "2026-11",
-  "foto": "https://www.vindjeplekbijdekey.nl/media/cache/dossier_big_mobile/uploads/dossier/images/6ad3244dc7380.jpg"
+  "foto": "https://www.vindjeplekbijdekey.nl/media/cache/dossier_big_mobile/uploads/dossier/images/6ad3244dc7380.jpg",
+  "buitenGezocht": "2026-11",
+  "buiten": [
+   "balkon"
+  ]
  },
  {
   "id": "martin-vlaarkade-77-1013cs",
@@ -3636,7 +4017,12 @@
   "funderingVoor1970": "33.33333333333333",
   "funderingBodem": "Niet indeelbaar",
   "fotoGezocht": "2026-11",
-  "foto": "https://www.vindjeplekbijdekey.nl/media/cache/dossier_big_mobile/uploads/dossier/images/6ad718d132ce7.jpg"
+  "foto": "https://www.vindjeplekbijdekey.nl/media/cache/dossier_big_mobile/uploads/dossier/images/6ad718d132ce7.jpg",
+  "buitenGezocht": "2026-11",
+  "buiten": [
+   "balkon",
+   "terras"
+  ]
  },
  {
   "id": "mauritskade-100-2-1093rr",
@@ -3676,7 +4062,9 @@
   "funderingVoor1970": "100",
   "funderingBodem": "Niet indeelbaar",
   "fotoGezocht": "2026-11",
-  "foto": "https://www.vindjeplekbijdekey.nl/media/cache/resolve/dossier_big_mobile/uploads/dossier/images/6aeaed197d3b1.jpg"
+  "foto": "https://www.vindjeplekbijdekey.nl/media/cache/resolve/dossier_big_mobile/uploads/dossier/images/6aeaed197d3b1.jpg",
+  "buitenGezocht": "2026-11",
+  "buiten": []
  },
  {
   "id": "nova-zemblastraat-249-1013rj",
@@ -3716,7 +4104,12 @@
   "funderingVoor1970": "13.333333333333334",
   "funderingBodem": "Niet indeelbaar",
   "fotoGezocht": "2026-11",
-  "foto": "https://www.vindjeplekbijdekey.nl/media/cache/dossier_big_mobile/uploads/dossier/images/6acddfb63eb88.jpg"
+  "foto": "https://www.vindjeplekbijdekey.nl/media/cache/dossier_big_mobile/uploads/dossier/images/6acddfb63eb88.jpg",
+  "buitenGezocht": "2026-11",
+  "buiten": [
+   "balkon",
+   "terras"
+  ]
  },
  {
   "id": "oeverpad-255-1068pj",
@@ -3756,7 +4149,11 @@
   "funderingVoor1970": "50",
   "funderingBodem": "Niet indeelbaar",
   "fotoGezocht": "2026-11",
-  "foto": "https://www.vindjeplekbijdekey.nl/media/cache/resolve/dossier_big_mobile/uploads/dossier/images/6ae99bb97a3a1.jpg"
+  "foto": "https://www.vindjeplekbijdekey.nl/media/cache/resolve/dossier_big_mobile/uploads/dossier/images/6ae99bb97a3a1.jpg",
+  "buitenGezocht": "2026-11",
+  "buiten": [
+   "balkon"
+  ]
  },
  {
   "id": "piet-mondriaanstraat-107-3-1061tp",
@@ -3796,7 +4193,11 @@
   "funderingVoor1970": "100",
   "funderingBodem": "Niet indeelbaar",
   "fotoGezocht": "2026-11",
-  "foto": "https://www.vindjeplekbijdekey.nl/media/cache/resolve/dossier_big_mobile/uploads/dossier/images/6ae5a712178c3.jpg"
+  "foto": "https://www.vindjeplekbijdekey.nl/media/cache/resolve/dossier_big_mobile/uploads/dossier/images/6ae5a712178c3.jpg",
+  "buitenGezocht": "2026-11",
+  "buiten": [
+   "balkon"
+  ]
  },
  {
   "postcode": "1107 JK",
@@ -3836,7 +4237,11 @@
   "funderingVoor1970": "0",
   "funderingBodem": "Laagveengebied",
   "fotoGezocht": "2026-11",
-  "foto": "https://www.vindjeplekbijdekey.nl/media/cache/resolve/dossier_big_mobile/uploads/dossier/images/6ae99bf5a906e.jpg"
+  "foto": "https://www.vindjeplekbijdekey.nl/media/cache/resolve/dossier_big_mobile/uploads/dossier/images/6ae99bf5a906e.jpg",
+  "buitenGezocht": "2026-11",
+  "buiten": [
+   "balkon"
+  ]
  },
  {
   "id": "soesterberghof-36-1107gn",
@@ -3876,7 +4281,11 @@
   "funderingVoor1970": "0",
   "funderingBodem": "Laagveengebied",
   "fotoGezocht": "2026-11",
-  "foto": "https://www.vindjeplekbijdekey.nl/media/cache/resolve/dossier_big_mobile/uploads/dossier/images/6ae99b98b86eb.jpg"
+  "foto": "https://www.vindjeplekbijdekey.nl/media/cache/resolve/dossier_big_mobile/uploads/dossier/images/6ae99b98b86eb.jpg",
+  "buitenGezocht": "2026-11",
+  "buiten": [
+   "balkon"
+  ]
  },
  {
   "id": "spaarndammerstraat-65-2-1013ta",
@@ -3916,7 +4325,11 @@
   "funderingVoor1970": "100",
   "funderingBodem": "Niet indeelbaar",
   "fotoGezocht": "2026-11",
-  "foto": "https://www.vindjeplekbijdekey.nl/media/cache/dossier_big_mobile/uploads/dossier/images/6aace9d2e88b7.jpg"
+  "foto": "https://www.vindjeplekbijdekey.nl/media/cache/dossier_big_mobile/uploads/dossier/images/6aace9d2e88b7.jpg",
+  "buitenGezocht": "2026-11",
+  "buiten": [
+   "terras"
+  ]
  },
  {
   "id": "vasco-da-gamastraat-40-h-1057vm",
@@ -3956,7 +4369,11 @@
   "funderingVoor1970": "100",
   "funderingBodem": "Niet indeelbaar",
   "fotoGezocht": "2026-11",
-  "foto": "https://www.vindjeplekbijdekey.nl/media/cache/dossier_big_mobile/uploads/dossier/images/6a9a73dba061a.jpg"
+  "foto": "https://www.vindjeplekbijdekey.nl/media/cache/dossier_big_mobile/uploads/dossier/images/6a9a73dba061a.jpg",
+  "buitenGezocht": "2026-11",
+  "buiten": [
+   "tuin"
+  ]
  },
  {
   "id": "wagenaarstraat-483-1093cn",
@@ -3996,7 +4413,11 @@
   "funderingVoor1970": "85.71428571428571",
   "funderingBodem": "Niet indeelbaar",
   "fotoGezocht": "2026-11",
-  "foto": "https://www.vindjeplekbijdekey.nl/media/cache/resolve/dossier_big_mobile/uploads/dossier/images/6aeaee0d1d86f.jpg"
+  "foto": "https://www.vindjeplekbijdekey.nl/media/cache/resolve/dossier_big_mobile/uploads/dossier/images/6aeaee0d1d86f.jpg",
+  "buitenGezocht": "2026-11",
+  "buiten": [
+   "balkon"
+  ]
  },
  {
   "id": "ward-bingleystraat-15-h-1065tj",
@@ -4036,7 +4457,11 @@
   "funderingVoor1970": "100",
   "funderingBodem": "Niet indeelbaar",
   "fotoGezocht": "2026-11",
-  "foto": "https://www.vindjeplekbijdekey.nl/media/cache/resolve/dossier_big_mobile/uploads/dossier/images/6adb0d0dd9be5.jpg"
+  "foto": "https://www.vindjeplekbijdekey.nl/media/cache/resolve/dossier_big_mobile/uploads/dossier/images/6adb0d0dd9be5.jpg",
+  "buitenGezocht": "2026-11",
+  "buiten": [
+   "balkon"
+  ]
  },
  {
   "id": "wethouder-ramstraat-16-1107cn",
@@ -4076,7 +4501,11 @@
   "funderingVoor1970": "0",
   "funderingBodem": "Laagveengebied",
   "fotoGezocht": "2026-11",
-  "foto": "https://www.vindjeplekbijdekey.nl/media/cache/resolve/dossier_big_mobile/uploads/dossier/images/6aed903f2cf6e.jpg"
+  "foto": "https://www.vindjeplekbijdekey.nl/media/cache/resolve/dossier_big_mobile/uploads/dossier/images/6aed903f2cf6e.jpg",
+  "buitenGezocht": "2026-11",
+  "buiten": [
+   "tuin"
+  ]
  },
  {
   "postcode": "1104 VA",
@@ -4116,7 +4545,11 @@
   "funderingBodem": "Niet indeelbaar",
   "basis": true,
   "fotoGezocht": "2026-11",
-  "foto": "https://www.rochdale.nl/Crop/7058ac40-d7a7-4453-8ea6-08df044e0899/480/320"
+  "foto": "https://www.rochdale.nl/Crop/7058ac40-d7a7-4453-8ea6-08df044e0899/480/320",
+  "buitenGezocht": "2026-11",
+  "buiten": [
+   "balkon"
+  ]
  },
  {
   "postcode": "1021 BW",
@@ -4155,7 +4588,11 @@
   "funderingBodem": "Niet indeelbaar",
   "basis": true,
   "fotoGezocht": "2026-11",
-  "foto": "https://www.rochdale.nl/Crop/7cee9c82-135f-4504-b2c9-08df1019b3db/480/320"
+  "foto": "https://www.rochdale.nl/Crop/7cee9c82-135f-4504-b2c9-08df1019b3db/480/320",
+  "buitenGezocht": "2026-11",
+  "buiten": [
+   "tuin"
+  ]
  },
  {
   "postcode": "1051 GK",
@@ -4195,7 +4632,11 @@
   "funderingBodem": "Niet indeelbaar",
   "basis": true,
   "fotoGezocht": "2026-11",
-  "foto": "https://www.rochdale.nl/Crop/3b4c2b5a-4bb3-4085-0ba3-08df05704dcc/480/320"
+  "foto": "https://www.rochdale.nl/Crop/3b4c2b5a-4bb3-4085-0ba3-08df05704dcc/480/320",
+  "buitenGezocht": "2026-11",
+  "buiten": [
+   "balkon"
+  ]
  },
  {
   "postcode": "1067 VB",
@@ -4219,7 +4660,7 @@
   "bron": "rochdale.nl",
   "m2": 69,
   "type": "Appartement",
-  "tuin": "nee",
+  "tuin": "ja",
   "lat": 52.37833792,
   "lon": 4.79090084,
   "eerstGezien": "2026-11-09",
@@ -4234,7 +4675,12 @@
   "funderingBodem": "Niet indeelbaar",
   "basis": true,
   "fotoGezocht": "2026-11",
-  "foto": "https://www.rochdale.nl/Crop/2de7d09b-c8eb-4540-c6f9-08df1019b44b/480/320"
+  "foto": "https://www.rochdale.nl/Crop/2de7d09b-c8eb-4540-c6f9-08df1019b44b/480/320",
+  "buitenGezocht": "2026-11",
+  "buiten": [
+   "balkon",
+   "tuin"
+  ]
  },
  {
   "postcode": "1051 AM",
@@ -4274,7 +4720,12 @@
   "funderingBodem": "Niet indeelbaar",
   "basis": true,
   "fotoGezocht": "2026-11",
-  "foto": "https://www.rochdale.nl/Crop/fa68fbe0-021e-4216-2cd0-08df2556d52e/480/320"
+  "foto": "https://www.rochdale.nl/Crop/fa68fbe0-021e-4216-2cd0-08df2556d52e/480/320",
+  "buitenGezocht": "2026-11",
+  "buiten": [
+   "balkon",
+   "terras"
+  ]
  },
  {
   "postcode": "1103 GZ",
@@ -4314,7 +4765,11 @@
   "funderingBodem": "Niet indeelbaar",
   "basis": true,
   "fotoGezocht": "2026-11",
-  "foto": "https://www.rochdale.nl/Crop/f3f2df38-103e-424d-e324-08df044e0883/480/320"
+  "foto": "https://www.rochdale.nl/Crop/f3f2df38-103e-424d-e324-08df044e0883/480/320",
+  "buitenGezocht": "2026-11",
+  "buiten": [
+   "balkon"
+  ]
  },
  {
   "postcode": "1051 KP",
@@ -4354,7 +4809,9 @@
   "funderingBodem": "Niet indeelbaar",
   "basis": true,
   "fotoGezocht": "2026-11",
-  "foto": "https://www.rochdale.nl/Crop/7cb1779f-1fce-47e2-e38e-08df044e0883/480/320"
+  "foto": "https://www.rochdale.nl/Crop/7cb1779f-1fce-47e2-e38e-08df044e0883/480/320",
+  "buitenGezocht": "2026-11",
+  "buiten": []
  },
  {
   "postcode": "1013 XE",
@@ -4394,7 +4851,11 @@
   "funderingBodem": "Niet indeelbaar",
   "basis": true,
   "fotoGezocht": "2026-11",
-  "foto": "https://www.rochdale.nl/Crop/f6b81c1e-47f1-437e-9177-08df05704e37/480/320"
+  "foto": "https://www.rochdale.nl/Crop/f6b81c1e-47f1-437e-9177-08df05704e37/480/320",
+  "buitenGezocht": "2026-11",
+  "buiten": [
+   "balkon"
+  ]
  },
  {
   "postcode": "1063 XS",
@@ -4434,7 +4895,11 @@
   "funderingBodem": "Niet indeelbaar",
   "basis": true,
   "fotoGezocht": "2026-11",
-  "foto": "https://www.rochdale.nl/Crop/fcad0ab0-f382-4e17-91a3-08df05704e37/480/320"
+  "foto": "https://www.rochdale.nl/Crop/fcad0ab0-f382-4e17-91a3-08df05704e37/480/320",
+  "buitenGezocht": "2026-11",
+  "buiten": [
+   "balkon"
+  ]
  },
  {
   "postcode": "1055 KL",
@@ -4474,7 +4939,11 @@
   "funderingBodem": "Niet indeelbaar",
   "basis": true,
   "fotoGezocht": "2026-11",
-  "foto": "https://www.rochdale.nl/Crop/4b7e3ec1-e873-457f-38c1-08def94e3a3e/480/320"
+  "foto": "https://www.rochdale.nl/Crop/4b7e3ec1-e873-457f-38c1-08def94e3a3e/480/320",
+  "buitenGezocht": "2026-11",
+  "buiten": [
+   "tuin"
+  ]
  },
  {
   "postcode": "1056 DG",
@@ -4514,7 +4983,11 @@
   "funderingBodem": "Niet indeelbaar",
   "basis": true,
   "fotoGezocht": "2026-11",
-  "foto": "https://www.rochdale.nl/Crop/eae70b3e-787f-4b16-c792-08df1019b44b/480/320"
+  "foto": "https://www.rochdale.nl/Crop/eae70b3e-787f-4b16-c792-08df1019b44b/480/320",
+  "buitenGezocht": "2026-11",
+  "buiten": [
+   "tuin"
+  ]
  },
  {
   "postcode": "1103 MH",
@@ -4554,7 +5027,9 @@
   "funderingBodem": "Niet indeelbaar",
   "basis": true,
   "fotoGezocht": "2026-11",
-  "foto": "https://www.rochdale.nl/Crop/5bf1a9eb-8006-47a5-0e74-08deee553aaf/480/320"
+  "foto": "https://www.rochdale.nl/Crop/5bf1a9eb-8006-47a5-0e74-08deee553aaf/480/320",
+  "buitenGezocht": "2026-11",
+  "buiten": []
  },
  {
   "postcode": "1067 WB",
@@ -4579,7 +5054,7 @@
   "m2": 70,
   "kamers": 3,
   "type": "Appartement",
-  "tuin": "nee",
+  "tuin": "ja",
   "lat": 52.38126307,
   "lon": 4.7899362,
   "eerstGezien": "2026-11-10",
@@ -4593,7 +5068,12 @@
   "funderingPc": "1067WB",
   "fundering": "Stedelijk gebied - 0-20 %",
   "funderingVoor1970": "0",
-  "funderingBodem": "Niet indeelbaar"
+  "funderingBodem": "Niet indeelbaar",
+  "buitenGezocht": "2026-11",
+  "buiten": [
+   "balkon",
+   "tuin"
+  ]
  },
  {
   "postcode": "1053 GP",
@@ -4632,7 +5112,11 @@
   "funderingBodem": "Niet indeelbaar",
   "basis": true,
   "fotoGezocht": "2026-11",
-  "foto": "https://www.rochdale.nl/Crop/5f75c3c1-2948-433f-a4d0-08df2556d571/480/320"
+  "foto": "https://www.rochdale.nl/Crop/5f75c3c1-2948-433f-a4d0-08df2556d571/480/320",
+  "buitenGezocht": "2026-11",
+  "buiten": [
+   "tuin"
+  ]
  },
  {
   "postcode": "1104 TD",
@@ -4672,7 +5156,11 @@
   "funderingBodem": "Niet indeelbaar",
   "basis": true,
   "fotoGezocht": "2026-11",
-  "foto": "https://www.rochdale.nl/Crop/c79c4ee7-e703-4969-36e2-08def94e3a85/480/320"
+  "foto": "https://www.rochdale.nl/Crop/c79c4ee7-e703-4969-36e2-08def94e3a85/480/320",
+  "buitenGezocht": "2026-11",
+  "buiten": [
+   "balkon"
+  ]
  },
  {
   "postcode": "1104 TV",
@@ -4712,7 +5200,11 @@
   "funderingBodem": "Niet indeelbaar",
   "basis": true,
   "fotoGezocht": "2026-11",
-  "foto": "https://www.rochdale.nl/Crop/6808a776-6625-49e6-3b71-08df2556d5c5/480/320"
+  "foto": "https://www.rochdale.nl/Crop/6808a776-6625-49e6-3b71-08df2556d5c5/480/320",
+  "buitenGezocht": "2026-11",
+  "buiten": [
+   "balkon"
+  ]
  },
  {
   "postcode": "1068 SH",
@@ -4752,7 +5244,11 @@
   "funderingBodem": "Niet indeelbaar",
   "basis": true,
   "fotoGezocht": "2026-11",
-  "foto": "https://www.rochdale.nl/Crop/5e7eb8af-17b9-42c3-9353-08deee553b05/480/320"
+  "foto": "https://www.rochdale.nl/Crop/5e7eb8af-17b9-42c3-9353-08deee553b05/480/320",
+  "buitenGezocht": "2026-11",
+  "buiten": [
+   "balkon"
+  ]
  },
  {
   "postcode": "1068 SJ",
@@ -4792,7 +5288,11 @@
   "funderingBodem": "Niet indeelbaar",
   "basis": true,
   "fotoGezocht": "2026-11",
-  "foto": "https://www.rochdale.nl/Crop/a9947ed2-e810-4ea9-201c-08def94e3a9f/480/320"
+  "foto": "https://www.rochdale.nl/Crop/a9947ed2-e810-4ea9-201c-08def94e3a9f/480/320",
+  "buitenGezocht": "2026-11",
+  "buiten": [
+   "balkon"
+  ]
  },
  {
   "postcode": "1021 EZ",
@@ -4831,7 +5331,9 @@
   "funderingBodem": "Niet indeelbaar",
   "basis": true,
   "fotoGezocht": "2026-11",
-  "foto": "https://www.rochdale.nl/Crop/692f4bcd-d21f-47c3-b353-08df1019b3db/480/320"
+  "foto": "https://www.rochdale.nl/Crop/692f4bcd-d21f-47c3-b353-08df1019b3db/480/320",
+  "buitenGezocht": "2026-11",
+  "buiten": []
  },
  {
   "postcode": "1091 ZC",
@@ -4871,7 +5373,11 @@
   "funderingBodem": "Niet indeelbaar",
   "basis": true,
   "fotoGezocht": "2026-11",
-  "foto": "https://www.rochdale.nl/Crop/8e796da7-7c58-4392-dbf3-08dec24d2f0f/480/320"
+  "foto": "https://www.rochdale.nl/Crop/8e796da7-7c58-4392-dbf3-08dec24d2f0f/480/320",
+  "buitenGezocht": "2026-11",
+  "buiten": [
+   "tuin"
+  ]
  },
  {
   "postcode": "1091 VZ",
@@ -4911,7 +5417,11 @@
   "funderingBodem": "Niet indeelbaar",
   "basis": true,
   "fotoGezocht": "2026-11",
-  "foto": "https://www.rochdale.nl/Crop/f43d62d5-358d-4f9b-2014-08def94e3a9f/480/320"
+  "foto": "https://www.rochdale.nl/Crop/f43d62d5-358d-4f9b-2014-08def94e3a9f/480/320",
+  "buitenGezocht": "2026-11",
+  "buiten": [
+   "balkon"
+  ]
  },
  {
   "postcode": "1021 NG",
@@ -4951,7 +5461,11 @@
   "funderingBodem": "Niet indeelbaar",
   "basis": true,
   "fotoGezocht": "2026-11",
-  "foto": "https://www.rochdale.nl/Crop/afc7ba5f-41ec-4e4b-3f0e-08def94e3a28/480/320"
+  "foto": "https://www.rochdale.nl/Crop/afc7ba5f-41ec-4e4b-3f0e-08def94e3a28/480/320",
+  "buitenGezocht": "2026-11",
+  "buiten": [
+   "balkon"
+  ]
  },
  {
   "postcode": "1051 XG",
@@ -4991,7 +5505,11 @@
   "funderingBodem": "Niet indeelbaar",
   "basis": true,
   "fotoGezocht": "2026-11",
-  "foto": "https://www.rochdale.nl/Crop/5421e953-5583-4a84-7a71-08deee553abe/480/320"
+  "foto": "https://www.rochdale.nl/Crop/5421e953-5583-4a84-7a71-08deee553abe/480/320",
+  "buitenGezocht": "2026-11",
+  "buiten": [
+   "balkon"
+  ]
  },
  {
   "postcode": "1106 DE",
@@ -5031,7 +5549,11 @@
   "funderingBodem": "Laagveengebied",
   "basis": true,
   "fotoGezocht": "2026-11",
-  "foto": "https://www.rochdale.nl/Crop/c5334456-bcf0-4f8e-1de3-08def94e39ee/480/320"
+  "foto": "https://www.rochdale.nl/Crop/c5334456-bcf0-4f8e-1de3-08def94e39ee/480/320",
+  "buitenGezocht": "2026-11",
+  "buiten": [
+   "balkon"
+  ]
  },
  {
   "postcode": "1107 XE",
@@ -5055,7 +5577,7 @@
   "bron": "rochdale.nl",
   "m2": 84,
   "type": "Benedenwoning",
-  "tuin": "nee",
+  "tuin": "ja",
   "lat": 52.29229342,
   "lon": 4.98339928,
   "eerstGezien": "2026-11-09",
@@ -5070,7 +5592,12 @@
   "funderingBodem": "Laagveengebied",
   "basis": true,
   "fotoGezocht": "2026-11",
-  "foto": "https://www.rochdale.nl/Crop/b602a307-a802-4d74-c329-08df1b64fc2a/480/320"
+  "foto": "https://www.rochdale.nl/Crop/b602a307-a802-4d74-c329-08df1b64fc2a/480/320",
+  "buitenGezocht": "2026-11",
+  "buiten": [
+   "terras",
+   "tuin"
+  ]
  },
  {
   "postcode": "1107 CP",
@@ -5109,7 +5636,12 @@
   "funderingBodem": "Laagveengebied",
   "basis": true,
   "fotoGezocht": "2026-11",
-  "foto": "https://www.rochdale.nl/Crop/40d7cdce-a4ed-463a-af80-08df1b64fc44/480/320"
+  "foto": "https://www.rochdale.nl/Crop/40d7cdce-a4ed-463a-af80-08df1b64fc44/480/320",
+  "buitenGezocht": "2026-11",
+  "buiten": [
+   "terras",
+   "tuin"
+  ]
  },
  {
   "postcode": "1107 CG",
@@ -5149,7 +5681,11 @@
   "funderingBodem": "Laagveengebied",
   "basis": true,
   "fotoGezocht": "2026-11",
-  "foto": "https://www.rochdale.nl/Crop/746f7a65-ed06-45be-3f7b-08df1b64fc5d/480/320"
+  "foto": "https://www.rochdale.nl/Crop/746f7a65-ed06-45be-3f7b-08df1b64fc5d/480/320",
+  "buitenGezocht": "2026-11",
+  "buiten": [
+   "balkon"
+  ]
  },
  {
   "id": "sg-aardbeistraat-16-amsterdam",
@@ -5163,7 +5699,7 @@
   "m2": 82,
   "kamers": 3,
   "type": "Tussenwoning",
-  "tuin": "",
+  "tuin": "ja",
   "energielabel": "A",
   "bouwjaar": 1952,
   "servicekosten": "",
@@ -5190,7 +5726,11 @@
   "labelBron": "advertentie",
   "fotoGezocht": "2026-11",
   "foto": "https://ikzoek.stadgenoot.nl/webcontent/images/5a3d6b3134f6919f7ff3d234f42dad6b88c4c1f1?w=400&h=400",
-  "sgDetail": "2026-11-09"
+  "sgDetail": "2026-11-09",
+  "buitenGezocht": "2026-11",
+  "buiten": [
+   "tuin"
+  ]
  },
  {
   "id": "sg-balboaplein-18-amsterdam",
@@ -5204,7 +5744,7 @@
   "m2": 105,
   "kamers": 3,
   "type": "Maisonnette",
-  "tuin": "",
+  "tuin": "nee",
   "energielabel": "B",
   "bouwjaar": 2004,
   "servicekosten": 288.11,
@@ -5231,7 +5771,11 @@
   "labelBron": "advertentie",
   "fotoGezocht": "2026-11",
   "foto": "https://ikzoek.stadgenoot.nl/webcontent/images/942883cb296106175639e91bea3c40257bc6886a?w=400&h=400",
-  "sgDetail": "2026-11-09"
+  "sgDetail": "2026-11-09",
+  "buitenGezocht": "2026-11",
+  "buiten": [
+   "balkon"
+  ]
  },
  {
   "id": "sg-bilderdijkstraat-176-3-amsterdam",
@@ -5245,7 +5789,7 @@
   "m2": 70,
   "kamers": 3,
   "type": "Portiekwoning",
-  "tuin": "",
+  "tuin": "nee",
   "energielabel": "D",
   "bouwjaar": 1925,
   "servicekosten": 280.07,
@@ -5272,7 +5816,9 @@
   "labelBron": "advertentie",
   "fotoGezocht": "2026-11",
   "foto": "https://ikzoek.stadgenoot.nl/webcontent/images/1a6cda8a503cc225a5867e0c816602046a583f29?w=400&h=400",
-  "sgDetail": "2026-11-09"
+  "sgDetail": "2026-11-09",
+  "buitenGezocht": "2026-11",
+  "buiten": []
  },
  {
   "id": "sg-bos-en-lommerplantsoen-17-s-amsterdam",
@@ -5286,7 +5832,7 @@
   "m2": 32,
   "kamers": 1,
   "type": "Portiekwoning",
-  "tuin": "",
+  "tuin": "nee",
   "energielabel": "C",
   "bouwjaar": 1960,
   "servicekosten": 113.06,
@@ -5313,7 +5859,9 @@
   "labelBron": "advertentie",
   "fotoGezocht": "2026-11",
   "foto": "https://ikzoek.stadgenoot.nl/webcontent/images/22bdff1ff3a096be6cf438bd59eebb3b9926e693?w=400&h=400",
-  "sgDetail": "2026-11-09"
+  "sgDetail": "2026-11-09",
+  "buitenGezocht": "2026-11",
+  "buiten": []
  },
  {
   "id": "sg-brinkstraat-119-amsterdam",
@@ -5327,7 +5875,7 @@
   "m2": 95,
   "kamers": 4,
   "type": "Bovenwoning",
-  "tuin": "",
+  "tuin": "nee",
   "energielabel": "",
   "bouwjaar": 1924,
   "servicekosten": 373.92,
@@ -5353,7 +5901,11 @@
   "funderingBodem": "Niet indeelbaar",
   "fotoGezocht": "2026-11",
   "foto": "https://ikzoek.stadgenoot.nl/webcontent/images/53f51dce4f77a4fe56ef2cbda6324379f09e169f?w=400&h=400",
-  "sgDetail": "2026-11-09"
+  "sgDetail": "2026-11-09",
+  "buitenGezocht": "2026-11",
+  "buiten": [
+   "balkon"
+  ]
  },
  {
   "id": "sg-corversbosstraat-83-amsterdam",
@@ -5367,7 +5919,7 @@
   "m2": 59,
   "kamers": 2,
   "type": "Benedenwoning",
-  "tuin": "",
+  "tuin": "ja",
   "energielabel": "C",
   "bouwjaar": 1967,
   "servicekosten": 176.04,
@@ -5394,7 +5946,11 @@
   "labelBron": "advertentie",
   "fotoGezocht": "2026-11",
   "foto": "https://ikzoek.stadgenoot.nl/webcontent/images/2bfb649f293c961cd39e8d24bec45eff6555d0f0?w=400&h=400",
-  "sgDetail": "2026-11-09"
+  "sgDetail": "2026-11-09",
+  "buitenGezocht": "2026-11",
+  "buiten": [
+   "tuin"
+  ]
  },
  {
   "id": "sg-eerste-constantijn-huygensstraat-54-f-amsterdam",
@@ -5408,7 +5964,7 @@
   "m2": 51,
   "kamers": 2,
   "type": "Galerijwoning",
-  "tuin": "",
+  "tuin": "nee",
   "energielabel": "A",
   "bouwjaar": 2006,
   "servicekosten": 145.33,
@@ -5435,7 +5991,11 @@
   "labelBron": "advertentie",
   "fotoGezocht": "2026-11",
   "foto": "https://ikzoek.stadgenoot.nl/webcontent/images/f2b427b7ce9947f3680c1a6e50dcf5b9ad8cbd85?w=400&h=400",
-  "sgDetail": "2026-11-09"
+  "sgDetail": "2026-11-09",
+  "buitenGezocht": "2026-11",
+  "buiten": [
+   "balkon"
+  ]
  },
  {
   "id": "sg-eerste-oosterparkstraat-174-e-amsterdam",
@@ -5449,7 +6009,7 @@
   "m2": 77,
   "kamers": 3,
   "type": "Portiekwoning",
-  "tuin": "",
+  "tuin": "nee",
   "energielabel": "A",
   "bouwjaar": 1989,
   "servicekosten": 173.66,
@@ -5476,7 +6036,11 @@
   "labelBron": "advertentie",
   "fotoGezocht": "2026-11",
   "foto": "https://ikzoek.stadgenoot.nl/webcontent/images/6ad4dce1d8d8f040bee3952610aee88c2e0f30e7?w=400&h=400",
-  "sgDetail": "2026-11-09"
+  "sgDetail": "2026-11-09",
+  "buitenGezocht": "2026-11",
+  "buiten": [
+   "balkon"
+  ]
  },
  {
   "id": "sg-kennemerduinstraat-10-amsterdam",
@@ -5490,7 +6054,7 @@
   "m2": 77,
   "kamers": 4,
   "type": "Portiekwoning",
-  "tuin": "",
+  "tuin": "ja",
   "energielabel": "B",
   "bouwjaar": 1964,
   "servicekosten": "",
@@ -5517,7 +6081,12 @@
   "labelBron": "advertentie",
   "fotoGezocht": "2026-11",
   "foto": "https://ikzoek.stadgenoot.nl/webcontent/images/cd1271f4b896a858abcfd4014f82a72c2fe21a26?w=400&h=400",
-  "sgDetail": "2026-11-09"
+  "sgDetail": "2026-11-09",
+  "buitenGezocht": "2026-11",
+  "buiten": [
+   "balkon",
+   "tuin"
+  ]
  },
  {
   "id": "sg-kouterstraat-4-amsterdam",
@@ -5531,7 +6100,7 @@
   "m2": 70,
   "kamers": 3,
   "type": "Tussenwoning",
-  "tuin": "",
+  "tuin": "ja",
   "energielabel": "D",
   "bouwjaar": 1925,
   "servicekosten": 357.46,
@@ -5558,7 +6127,11 @@
   "labelBron": "advertentie",
   "fotoGezocht": "2026-11",
   "foto": "https://ikzoek.stadgenoot.nl/webcontent/images/4fa57697657188c66b5ab05460ad324343886d2c?w=400&h=400",
-  "sgDetail": "2026-11-09"
+  "sgDetail": "2026-11-09",
+  "buitenGezocht": "2026-11",
+  "buiten": [
+   "tuin"
+  ]
  },
  {
   "id": "sg-middenweg-410-amsterdam",
@@ -5572,7 +6145,7 @@
   "m2": 48,
   "kamers": 2,
   "type": "Portiekwoning",
-  "tuin": "",
+  "tuin": "ja",
   "energielabel": "E",
   "bouwjaar": 1925,
   "servicekosten": 196.59,
@@ -5599,7 +6172,11 @@
   "labelBron": "advertentie",
   "fotoGezocht": "2026-11",
   "foto": "https://ikzoek.stadgenoot.nl/webcontent/images/b56a3fb3bc083e9b4163569f9536aeb19e61189f?w=400&h=400",
-  "sgDetail": "2026-11-09"
+  "sgDetail": "2026-11-09",
+  "buitenGezocht": "2026-11",
+  "buiten": [
+   "tuin"
+  ]
  },
  {
   "id": "sg-pienemanstraat-9-amsterdam",
@@ -5613,7 +6190,7 @@
   "m2": 47,
   "kamers": 2,
   "type": "Benedenwoning",
-  "tuin": "",
+  "tuin": "ja",
   "energielabel": "C",
   "bouwjaar": 1923,
   "servicekosten": 232.61,
@@ -5640,7 +6217,11 @@
   "labelBron": "advertentie",
   "fotoGezocht": "2026-11",
   "foto": "https://ikzoek.stadgenoot.nl/webcontent/images/023dc41508ede2191a065ea17e07b4f31d03f016?w=400&h=400",
-  "sgDetail": "2026-11-09"
+  "sgDetail": "2026-11-09",
+  "buitenGezocht": "2026-11",
+  "buiten": [
+   "tuin"
+  ]
  },
  {
   "id": "sg-ploegstraat-179-amsterdam",
@@ -5654,7 +6235,7 @@
   "m2": 48,
   "kamers": 2,
   "type": "Portiekwoning",
-  "tuin": "",
+  "tuin": "ja",
   "energielabel": "D",
   "bouwjaar": 1925,
   "servicekosten": 237.17,
@@ -5681,7 +6262,11 @@
   "labelBron": "advertentie",
   "fotoGezocht": "2026-11",
   "foto": "https://ikzoek.stadgenoot.nl/webcontent/images/3b4aa48cd2982ddea8cf7ca7da2e12219b71af99?w=400&h=400",
-  "sgDetail": "2026-11-09"
+  "sgDetail": "2026-11-09",
+  "buitenGezocht": "2026-11",
+  "buiten": [
+   "tuin"
+  ]
  },
  {
   "id": "sg-postjeskade-8-2-amsterdam",
@@ -5695,7 +6280,7 @@
   "m2": 60,
   "kamers": 3,
   "type": "Portiekwoning",
-  "tuin": "",
+  "tuin": "nee",
   "energielabel": "B",
   "bouwjaar": 1949,
   "servicekosten": 146.29,
@@ -5722,7 +6307,11 @@
   "labelBron": "advertentie",
   "fotoGezocht": "2026-11",
   "foto": "https://ikzoek.stadgenoot.nl/webcontent/images/9ef982e9be4bb33554d9d63a67e843cb549de043?w=400&h=400",
-  "sgDetail": "2026-11-09"
+  "sgDetail": "2026-11-09",
+  "buitenGezocht": "2026-11",
+  "buiten": [
+   "balkon"
+  ]
  },
  {
   "id": "sg-president-kennedylaan-32-h-amsterdam",
@@ -5736,7 +6325,7 @@
   "m2": 72,
   "kamers": 3,
   "type": "Portiekwoning",
-  "tuin": "",
+  "tuin": "ja",
   "energielabel": "C",
   "bouwjaar": 1961,
   "servicekosten": 169.43,
@@ -5763,7 +6352,12 @@
   "labelBron": "advertentie",
   "fotoGezocht": "2026-11",
   "foto": "https://ikzoek.stadgenoot.nl/webcontent/images/68fb282c0f5ddf9a201c4f410a11bff1e2c9e98a?w=400&h=400",
-  "sgDetail": "2026-11-09"
+  "sgDetail": "2026-11-09",
+  "buitenGezocht": "2026-11",
+  "buiten": [
+   "balkon",
+   "tuin"
+  ]
  },
  {
   "id": "sg-ruysdaelkade-263-c-amsterdam",
@@ -5777,7 +6371,7 @@
   "m2": 54,
   "kamers": 2,
   "type": "Portiekwoning",
-  "tuin": "",
+  "tuin": "nee",
   "energielabel": "C",
   "bouwjaar": 1922,
   "servicekosten": 180.86,
@@ -5804,7 +6398,11 @@
   "labelBron": "advertentie",
   "fotoGezocht": "2026-11",
   "foto": "https://ikzoek.stadgenoot.nl/webcontent/images/7fe30cdd0992d6fc98e28b0bff3c815e046918f3?w=400&h=400",
-  "sgDetail": "2026-11-09"
+  "sgDetail": "2026-11-09",
+  "buitenGezocht": "2026-11",
+  "buiten": [
+   "balkon"
+  ]
  },
  {
   "id": "sg-uiterwaardenstraat-74-2-amsterdam",
@@ -5818,7 +6416,7 @@
   "m2": 49,
   "kamers": 2,
   "type": "Portiekwoning",
-  "tuin": "",
+  "tuin": "nee",
   "energielabel": "C",
   "bouwjaar": 1934,
   "servicekosten": 171.23,
@@ -5845,7 +6443,12 @@
   "labelBron": "advertentie",
   "fotoGezocht": "2026-11",
   "foto": "https://ikzoek.stadgenoot.nl/webcontent/images/83a66e9339a828b82aca9e7d6f62a9040b3c89e5?w=400&h=400",
-  "sgDetail": "2026-11-09"
+  "sgDetail": "2026-11-09",
+  "buitenGezocht": "2026-11",
+  "buiten": [
+   "balkon",
+   "terras"
+  ]
  },
  {
   "id": "sg-voorsteven-28-amsterdam",
@@ -5859,7 +6462,7 @@
   "m2": 92,
   "kamers": 4,
   "type": "Portiekwoning",
-  "tuin": "",
+  "tuin": "nee",
   "energielabel": "C",
   "bouwjaar": 1977,
   "servicekosten": 281.86,
@@ -5886,7 +6489,11 @@
   "labelBron": "advertentie",
   "fotoGezocht": "2026-11",
   "foto": "https://ikzoek.stadgenoot.nl/webcontent/images/b465f1ec2b85dadf75ece7fe6e2e39d323f08a7d?w=400&h=400",
-  "sgDetail": "2026-11-09"
+  "sgDetail": "2026-11-09",
+  "buitenGezocht": "2026-11",
+  "buiten": [
+   "balkon"
+  ]
  },
  {
   "id": "sg-wolbrantskerkweg-74-f-amsterdam",
@@ -5900,7 +6507,7 @@
   "m2": 131,
   "kamers": 4,
   "type": "Portiekwoning",
-  "tuin": "",
+  "tuin": "nee",
   "energielabel": "A",
   "bouwjaar": 2004,
   "servicekosten": 313.1,
@@ -5927,7 +6534,9 @@
   "labelBron": "advertentie",
   "fotoGezocht": "2026-11",
   "foto": "https://ikzoek.stadgenoot.nl/webcontent/images/ac3fdc5a7b998d9ca82b06d76a32e7640af1dc78?w=400&h=400",
-  "sgDetail": "2026-11-09"
+  "sgDetail": "2026-11-09",
+  "buitenGezocht": "2026-11",
+  "buiten": []
  },
  {
   "id": "fd-44532883",
@@ -5941,7 +6550,7 @@
   "m2": 50,
   "kamers": "",
   "type": "Appartement",
-  "tuin": "",
+  "tuin": "nee",
   "energielabel": "D",
   "bouwjaar": "",
   "servicekosten": "",
@@ -5964,7 +6573,9 @@
   "funderingPc": "1056HR",
   "fundering": "Stedelijk gebied - 80-100 %",
   "funderingVoor1970": "100",
-  "funderingBodem": "Niet indeelbaar"
+  "funderingBodem": "Niet indeelbaar",
+  "buitenGezocht": "2026-11",
+  "buiten": []
  },
  {
   "id": "fd-44663099",
@@ -5978,7 +6589,7 @@
   "m2": 50,
   "kamers": "",
   "type": "Appartement",
-  "tuin": "",
+  "tuin": "nee",
   "energielabel": "C",
   "bouwjaar": "",
   "servicekosten": "",
@@ -6001,7 +6612,9 @@
   "funderingPc": "1056WZ",
   "fundering": "Stedelijk gebied - 80-100 %",
   "funderingVoor1970": "100",
-  "funderingBodem": "Niet indeelbaar"
+  "funderingBodem": "Niet indeelbaar",
+  "buitenGezocht": "2026-11",
+  "buiten": []
  },
  {
   "id": "fd-44665788",
@@ -6015,7 +6628,7 @@
   "m2": 67,
   "kamers": "",
   "type": "Appartement",
-  "tuin": "",
+  "tuin": "nee",
   "energielabel": "D",
   "bouwjaar": "",
   "servicekosten": "",
@@ -6038,6 +6651,8 @@
   "funderingPc": "1078EJ",
   "fundering": "Stedelijk gebied - 80-100 %",
   "funderingVoor1970": "100",
-  "funderingBodem": "Niet indeelbaar"
+  "funderingBodem": "Niet indeelbaar",
+  "buitenGezocht": "2026-11",
+  "buiten": []
  }
 ]

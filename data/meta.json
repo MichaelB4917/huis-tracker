@@ -1,19 +1,21 @@
 {
- "bijgewerkt": "2026-11-10T08:36+00:00",
+ "bijgewerkt": "2026-11-10T08:41+00:00",
  "nieuw": [],
  "fouten": [],
  "verrijking": [
+  "historie: 153 woningen, 0 offline",
   "historie: klaar in 0s",
-  "buurt-WOZ: 518 Amsterdamse buurten met CBS-code",
-  "buurt-WOZ: 3 woningen nieuw aan buurt gekoppeld, 153 met buurtwaarde",
-  "buurt-WOZ: klaar in 16s",
+  "buurt-WOZ: 0 woningen nieuw aan buurt gekoppeld, 153 met buurtwaarde",
+  "buurt-WOZ: klaar in 0s",
   "stadgenoot: 0 detailpagina's gelezen",
   "stadgenoot: klaar in 0s",
   "foto's: 0 gevonden, 150 van 153 woningen met foto",
   "fotos: klaar in 0s",
+  "buitenruimte: 153 advertenties gelezen · balkon 112, terras 27, tuin 30, geen 13",
+  "buitenruimte: klaar in 195s",
   "energielabel: geen EP_ONLINE_KEY ingesteld, overgeslagen",
   "energielabel: klaar in 0s",
-  "fundering: 3 postcodes opgezocht",
-  "fundering: klaar in 6s"
+  "fundering: 0 postcodes opgezocht",
+  "fundering: klaar in 0s"
  ]
 }
