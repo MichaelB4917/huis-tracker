@@ -319,6 +319,58 @@ def fotos(W):
     log(f"foto's: {n} gevonden, {sum(1 for w in W if w.get('foto'))} van {len(W)} woningen met foto")
 
 
+# ---------- 3d. Buitenruimte (balkon / terras / tuin) uit de advertentietekst ----------
+LABELS_BUITEN = r"(buitenruimte|balkon|tuin|terras|dakterras|loggia|tuinligging|ligging tuin|achtertuin|voortuin)"
+
+
+def buiten_uit_tekst(t):
+    """Geeft een lijst met 'balkon', 'terras', 'tuin' die echt bij de woning horen."""
+    regels = [r.strip() for r in t.split("\n") if r.strip()]
+    stukken = []
+    for i, r in enumerate(regels):
+        if len(r) >= 40:
+            stukken.append(r)  # lopende tekst van de omschrijving
+        elif re.fullmatch(LABELS_BUITEN + r":?", r, re.I) and i + 1 < len(regels) and len(regels[i + 1]) < 40:
+            stukken.append(f"{r.rstrip(':')}: {regels[i + 1]}")  # kenmerk + waarde, bijv. "Buitenruimte: Balkon"
+    x = " \n ".join(stukken).lower()
+    x = re.sub(r"\bfranse?\s+balkon(s|netje|netjes)?\b", " ", x)
+    x = re.sub(r"\bgeen\s+(eigen\s+|privé\s+)?(buitenruimte|balkon|tuin|terras|dakterras)\b", " ", x)
+    x = re.sub(r"\b(balkon|tuin|terras|dakterras|loggia)\s*:\s*(nee|geen|-)\b", " ", x)
+    x = re.sub(r"\bgemeenschappelijke?\s+(binnen|achter|daktuin|dak)?\s*(tuin|terras|binnentuin)\w*", " ", x)
+    uit = []
+    if re.search(r"\b(balkons?|loggia'?s?|zonnebalkon|balkon(?:\s+op|\s+aan|\s+met))\b", x):
+        uit.append("balkon")
+    if re.search(r"\b(dak)?terras(sen)?\b", x):
+        uit.append("terras")
+    if re.search(r"\b(achter|voor|zij|stads|eigen\s+)?tuin(en|tje)?\b", x) or re.search(r"\b(achter|voor)tuin\b", x):
+        uit.append("tuin")
+    return uit
+
+
+def buitenruimte(W):
+    n, start = 0, time.time()
+    for w in W:
+        if w.get("buitenGezocht") == TODAY[:7] or not w.get("url"):
+            continue
+        if time.time() - start > 240:
+            log("buitenruimte: tijdslimiet, rest volgende keer")
+            break
+        w["buitenGezocht"] = TODAY[:7]
+        try:
+            r = requests.get(w["url"], headers=dict(UA, **{"Accept-Language": "nl"}), timeout=30)
+            r.raise_for_status()
+        except Exception as e:
+            log("buitenruimte ophalen mislukt:", w["adres"], str(e)[:80])
+            continue
+        w["buiten"] = buiten_uit_tekst(text_of(r.text))
+        w["tuin"] = "ja" if "tuin" in w["buiten"] else "nee"
+        n += 1
+        time.sleep(0.3)
+    from collections import Counter
+    c = Counter(b for w in W for b in w.get("buiten", []))
+    log(f"buitenruimte: {n} advertenties gelezen · balkon {c['balkon']}, terras {c['terras']}, tuin {c['tuin']}, geen {sum(1 for w in W if w.get('buitenGezocht') and not w.get('buiten'))}")
+
+
 # ---------- 4. Funderingsindicatie (KCAF, per postcode) ----------
 def fundering(W):
     url = "https://api.pdok.nl/rvo/indicatieve-aandachtsgebieden-funderingsproblematiek/ogc/v1/collections/indgebfunderingsproblematiek/items"
@@ -347,7 +399,7 @@ def fundering(W):
 
 def main():
     W = json.loads((D / "woningen.json").read_text())
-    for naam, fn in (("historie", historie), ("buurt-WOZ", buurt_woz), ("stadgenoot", stadgenoot_details), ("fotos", fotos), ("energielabel", ep_label), ("fundering", fundering)):
+    for naam, fn in (("historie", historie), ("buurt-WOZ", buurt_woz), ("stadgenoot", stadgenoot_details), ("fotos", fotos), ("buitenruimte", buitenruimte), ("energielabel", ep_label), ("fundering", fundering)):
         t = time.time()
         try:
             fn(W)
@@ -356,7 +408,7 @@ def main():
             log(f"{naam} mislukt: {e}")
     (D / "woningen.json").write_text(json.dumps(W, ensure_ascii=False, indent=1))
     meta = load("meta.json", {})
-    meta["verrijking"] = LOG[-12:]
+    meta["verrijking"] = LOG[-14:]
     save("meta.json", meta)
 
 

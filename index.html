@@ -286,6 +286,7 @@
   .star { padding: 0 6px 0 0; font-size: 17px; }
 
   /* schakelaars voor aan/uit-opties */
+  .subchecks { display: flex; gap: 14px; padding: 0 0 6px 2px; } .subchecks .check { font-size: 13px; min-height: 0; }
   .check.sw { justify-content: space-between; flex-direction: row-reverse; gap: 12px; }
   .check.sw input { appearance: none; -webkit-appearance: none; width: 36px; height: 21px; border-radius: 999px; background: #c9c9c9; position: relative; cursor: pointer; transition: background .15s; flex: none; }
   .check.sw input::after { content: ""; position: absolute; top: 2px; left: 2px; width: 17px; height: 17px; border-radius: 50%; background: #fff; box-shadow: 0 1px 2px rgb(0 0 0 / .25); transition: transform .15s; }
@@ -555,7 +556,8 @@
           <label class="check sw"><input type="checkbox" class="f" data-f="verbergVerkocht" checked> Verberg verkocht o.v.b.</label>
           <label class="check sw"><input type="checkbox" class="f" data-f="verbergBod"> Verberg onder bod</label>
           <h4>Woning</h4>
-          <label class="check sw"><input type="checkbox" class="f" data-f="tuin"> Met tuin</label>
+          <label class="check sw"><input type="checkbox" class="f" data-f="buiten"> Met buitenruimte</label>
+          <div class="subchecks"><label class="check"><input type="checkbox" class="f bsub" data-f="buitenBalkon"> Balkon</label><label class="check"><input type="checkbox" class="f bsub" data-f="buitenTerras"> Terras</label><label class="check"><input type="checkbox" class="f bsub" data-f="buitenTuin"> Tuin</label></div>
           <label class="check sw"><input type="checkbox" class="f" data-f="goedLabel"> Energielabel A–C</label>
           <label class="check sw"><input type="checkbox" class="f" data-f="budget"> Past in ons budget</label>
           <h4>Onze voortgang</h4>
@@ -816,6 +818,10 @@ if (innerWidth < 900) $('.sidewrap').open = false;
 $('#kaartbtn').onclick = () => { const c = $('.sec[data-sec="kaartblok"]'); c.checked = !c.checked; c.onchange(); };
 document.addEventListener('click', (e) => { if (e.target.isConnected && !e.target.closest('details.tdd')) $$('details.tdd').forEach((o) => o.open = false); });
 
+// Buitenruimte: hoofdschakelaar zet balkon/terras/tuin samen aan of uit; losse vinkjes houden de schakelaar bij
+$('.f[data-f="buiten"]').addEventListener('change', (e) => $$('.bsub').forEach((c) => c.checked = e.target.checked));
+$$('.bsub').forEach((c) => c.addEventListener('change', () => { $('.f[data-f="buiten"]').checked = $$('.bsub').some((x) => x.checked); }));
+const buitenVan = (w) => Array.isArray(w.buiten) ? w.buiten : (w.tuin === 'ja' ? ['tuin'] : []);
 const filters = () => Object.fromEntries($$('.f').map((e) => [e.dataset.f, e.type === 'checkbox' ? e.checked : e.value]));
 $$('.f').forEach((e) => e.addEventListener(e.tagName === 'INPUT' && e.type !== 'checkbox' ? 'input' : 'change', () => render()));
 const selKey = (k) => k === 'stadsdeel' ? 'buurt' : k;
@@ -850,7 +856,7 @@ const visible = () => {
     if (f.nieuw && !isNew(w)) return false;
     if (f.verbergVerkocht && w.status === 'verkocht o.v.b.') return false;
     if (f.verbergBod && w.status === 'onder bod') return false;
-    if (f.tuin && w.tuin !== 'ja') return false;
+    { const want = [['balkon', f.buitenBalkon], ['terras', f.buitenTerras], ['tuin', f.buitenTuin]].filter((x) => x[1]).map((x) => x[0]); if (want.length && !want.some((b) => buitenVan(w).includes(b))) return false; }
     if (f.goedLabel && !['A++++', 'A+++', 'A++', 'A+', 'A', 'B', 'C'].includes(w.energielabel)) return false;
     if (f.erfpachtAfgekocht && !/afgekocht|eigen grond/i.test(w.erfpacht || '')) return false;
     if (f.budget && !pastBudget(w)) return false;
@@ -902,7 +908,7 @@ const buurtTree = () => {
 const markActive = () => {
   const f = filters();
   const n = {prijs: ['maxPrijs', 'maxPpm', 'minM2', 'minKamers'].filter((k) => f[k]).length,
-    meer: ['voorrangActief', 'nieuw', 'verbergBod', 'tuin', 'goedLabel', 'erfpachtAfgekocht'].filter((k) => f[k]).length + (f.verbergVerkocht ? 0 : 1)};
+    meer: ['voorrangActief', 'nieuw', 'verbergBod', 'buiten', 'goedLabel', 'erfpachtAfgekocht'].filter((k) => f[k]).length + (f.verbergVerkocht ? 0 : 1)};
   for (const k of ['corporatie', 'type']) n[k] = sel[k] ? sel[k].size : 0;
   n.stadsdeel = sel.buurt ? new Set([...sel.buurt].map((k) => k.split('|')[0])).size : 0;
   $('#voorbtn').setAttribute('aria-pressed', String(voorMode));
@@ -1114,7 +1120,7 @@ const openDetail = (w) => {
   const links = el('div', 'links'); links.append(link('Advertentie openen →', w.url), link('Google Maps', 'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent(w.adres + ', ' + (w.plaats || 'Amsterdam'))), link('WOZ-waarde opzoeken', 'https://www.wozwaardeloket.nl/'), fav);
   const lbl = w.energielabel ? (() => { const x = el('span'); x.append(el('span', 'elabel sm l-' + w.energielabel[0], w.energielabel)); if (w.labelBron) x.append(' ', el('span', 'muted', '(' + w.labelBron + (w.labelGeldigTot ? ', geldig t/m ' + nlDate(w.labelGeldigTot) : '') + ')')); return x; })() : 'onbekend';
   const kv = el('div', 'kv'); kv.append(...[kvItem('Vraagprijs', eur.format(w.prijs)), kvItem('Per m²', eur.format(Math.round(w.prijs / w.m2))), kvItem('Woonoppervlak', w.m2 + ' m²'), kvItem('Kamers', String(w.kamers)), kvItem('Type', w.type),
-    kvItem('Bouwjaar', w.bouwjaar ? String(w.bouwjaar) : ''), kvItem('Energielabel', lbl), kvItem('VvE', typeof w.servicekosten === 'number' ? eur2.format(w.servicekosten) + ' p/m' : ''), kvItem('Erfpacht', w.erfpacht), kvItem('Tuin', w.tuin === 'ja' ? 'ja' : ''),
+    kvItem('Bouwjaar', w.bouwjaar ? String(w.bouwjaar) : ''), kvItem('Energielabel', lbl), kvItem('VvE', typeof w.servicekosten === 'number' ? eur2.format(w.servicekosten) + ' p/m' : ''), kvItem('Erfpacht', w.erfpacht), kvItem('Buitenruimte', buitenVan(w).join(', ') || (Array.isArray(w.buiten) ? 'geen genoemd' : '')),
     kvItem('Online sinds', onlineSinds(w)), kvItem('Bron', w.bron), kvItem('Deadline', w.deadline ? nlDate(w.deadline) : '')].filter(Boolean));
   { const ph = () => el('div', 'd-foto nofoto');
     if (w.foto) { const im = el('img', 'd-foto'); im.src = w.foto; im.alt = 'Foto van ' + w.adres; im.referrerPolicy = 'no-referrer'; im.onerror = () => im.replaceWith(ph()); B.append(im); } else B.append(ph()); }
