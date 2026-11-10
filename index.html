@@ -453,6 +453,23 @@
   .sinds .meer { margin-top: 6px; }
   a.brand, a.brand:hover { text-decoration: none; color: var(--head-ink); cursor: pointer; }
   a.brand:focus-visible { outline: 2px solid var(--link); outline-offset: 3px; border-radius: 6px; }
+
+  /* ---------- Meldingen ---------- */
+  .mkop { display: flex; align-items: baseline; gap: 12px; flex-wrap: wrap; margin-bottom: 12px; } .mkop h2 { font-size: 21px; }
+  .mdag { background: var(--panel); border: 1px solid var(--line); border-radius: var(--r); margin-bottom: 12px; overflow: hidden; }
+  .mdag > header { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; padding: 10px 16px; background: var(--soft); border-bottom: 1px solid var(--line); }
+  .mdag > header b { font-size: 15px; } .mdag > header .chips { display: flex; gap: 6px; flex-wrap: wrap; margin-left: auto; }
+  .mdag.nieuwvoorjou { border-color: color-mix(in srgb, var(--new) 45%, var(--line)); } .mdag.nieuwvoorjou > header { background: color-mix(in srgb, var(--new) 9%, var(--soft)); }
+  .mdag ul, .mwarn ul { list-style: none; margin: 0; padding: 8px 16px 12px; display: grid; gap: 7px; }
+  .mdag li, .mwarn li { display: flex; align-items: baseline; gap: 8px; font-size: 14px; flex-wrap: wrap; }
+  .mdag li .wat { min-width: 7.5rem; } .mdag li a, .mwarn li a { font-weight: 700; }
+  .mdag li .meta, .mwarn li .meta { color: var(--muted); font-size: 12.5px; }
+  .mdag .leeg { padding: 10px 16px 12px; color: var(--muted); font-size: 14px; }
+  .mwarn { background: color-mix(in srgb, var(--warn) 8%, var(--panel)); border: 1px solid color-mix(in srgb, var(--warn) 40%, var(--line)); border-radius: var(--r); margin-bottom: 14px; }
+  .mwarn > b { display: block; padding: 10px 16px 0; }
+  @media (max-width: 760px) { .mdag li { display: grid; grid-template-columns: auto 1fr; gap: 2px 8px; } .mdag li .wat { min-width: 0; grid-row: span 2; } .mdag li > span:nth-child(3), .mdag li .meta { grid-column: 2; } .mdag > header .chips { margin-left: 0; } }
+  @media (max-width: 1440px) { .navlbl { display: none; } }
+  body[data-pg]:not([data-pg="woningen"]) #sinds, body[data-pg]:not([data-pg="woningen"]) #alert, body[data-pg]:not([data-pg="woningen"]) #syncreminder { display: none; }
 </style>
 </head>
 <body>
@@ -462,6 +479,7 @@
     <button data-tab="woningen" aria-pressed="true">Koopwoningen</button>
     <button data-tab="lijst" aria-pressed="false">★ Onze lijst <span id="lijstn" class="navn"></span></button>
     <button data-tab="regels" aria-pressed="false">Voorrangsregels</button>
+    <button data-tab="meldingen" aria-pressed="false" title="Meldingen">🔔<span class="navlbl"> Meldingen</span> <span id="meldn" class="navn"></span></button>
     <button data-tab="bronnen" aria-pressed="false">Bronnen <span id="tabdot"></span></button>
   </nav>
   <div class="topr">
@@ -597,6 +615,12 @@
     </div>
   </section>
 
+  <section data-page="meldingen" hidden>
+    <div class="mkop"><h2>Meldingen</h2><span class="muted" id="mupd"></span></div>
+    <div id="mdeadline"></div>
+    <div id="mfeed"></div>
+  </section>
+
   <section data-page="bronnen" hidden>
     <div id="bronkop"></div>
     <div class="scroll"><table><thead><tr><th></th><th>Bron</th><th>Soort</th><th>Status</th><th>Wat werkt</th><th>Te doen / let op</th></tr></thead><tbody id="bronnen"></tbody></table></div>
@@ -693,7 +717,7 @@ mq.addEventListener('change', applyTheme); applyTheme();
 // Tabs
 let lijstTab = false;
 const showTab = (n) => { const pg = n === 'lijst' ? 'woningen' : n; const was = lijstTab; lijstTab = n === 'lijst'; document.body.classList.toggle('lijstmode', lijstTab);
-  $$('[data-page]').forEach((s) => s.hidden = s.dataset.page !== pg); $('[data-page-bar]').hidden = pg !== 'woningen'; $('#lijstoverzicht').hidden = !lijstTab; $('#syncpanel').hidden = !lijstTab;
+  document.body.dataset.pg = pg; $$('[data-page]').forEach((s) => s.hidden = s.dataset.page !== pg); $('[data-page-bar]').hidden = pg !== 'woningen'; $('#lijstoverzicht').hidden = !lijstTab; $('#syncpanel').hidden = !lijstTab;
   if (was !== lijstTab && W.length) { render(); if (lijstTab) fitLijst(); }
   if (pg === 'woningen' && map) setTimeout(() => map.invalidateSize(), 50); $$('[data-tab]').forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.tab === n))); dockSoon(); };
 $$('[data-tab]').forEach((b) => b.onclick = () => { showTab(b.dataset.tab); history.replaceState(null, '', b.dataset.tab === 'woningen' ? location.pathname + location.search : '#' + b.dataset.tab); scrollTo(0, 0); });
@@ -1214,6 +1238,63 @@ const fmtMoment = (iso) => { const d = new Date(iso); const vandaag = new Date()
   const dag = vandaag ? 'vandaag' : gisteren ? 'gisteren' : d.toLocaleDateString('nl-NL', {weekday: 'short', day: 'numeric', month: 'short'});
   return dag + ' ' + d.toLocaleTimeString('nl-NL', {hour: '2-digit', minute: '2-digit'}); };
 const localDate = (iso) => { const d = new Date(iso); return d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0'); };
+const buildEvents = (H, keep) => {
+  const byId = new Map(W.map((w) => [w.id, w]));
+  const ev = [];
+  for (const [id, h] of Object.entries(H || {})) {
+    const w = byId.get(id); const naam = (w && w.adres) || h.adres || id; const corp = (w && w.corporatie) || h.corporatie || '';
+    if (h.eerstGezien && keep(h.eerstGezien) && !(w && w.basis)) ev.push({t: 'nieuw', id, naam, corp, d: h.eerstGezien, txt: w ? eur.format(w.prijs) + (w.m2 ? ' · ' + w.m2 + ' m²' : '') : ''});
+    const log = h.log || [];
+    for (let i = 1; i < log.length; i++) {
+      const a = log[i - 1], b = log[i]; if (!keep(b.d)) continue;
+      if (a.status !== b.status) ev.push({t: b.status === 'beschikbaar' ? 'weer beschikbaar' : b.status, id, naam, corp, d: b.d, txt: a.status + ' → ' + b.status});
+      if (a.prijs && b.prijs && a.prijs !== b.prijs) ev.push({t: b.prijs < a.prijs ? 'prijs omlaag' : 'prijs omhoog', id, naam, corp, d: b.d, txt: eur.format(a.prijs) + ' → ' + eur.format(b.prijs)});
+    }
+    if (h.offline && keep(h.offline)) ev.push({t: 'offline', id, naam, corp, d: h.offline, txt: 'niet meer te koop aangeboden'});
+  }
+  ev.sort((a, b) => b.d.localeCompare(a.d) || (EVORDER.indexOf(a.t) + 99) % 99 - (EVORDER.indexOf(b.t) + 99) % 99);
+  return ev;
+};
+const EVTONE = {nieuw: 't-new', 'prijs omlaag': 't-ok', 'prijs omhoog': 't-warn', 'onder bod': 't-warn', 'verkocht o.v.b.': 't-neutral', offline: 't-neutral', 'weer beschikbaar': 't-ok'};
+const EVORDER = ['nieuw', 'prijs omlaag', 'weer beschikbaar', 'onder bod', 'verkocht o.v.b.', 'prijs omhoog', 'offline'];
+const evItem = (e) => { const byW = W.find((w) => w.id === e.id); const li = el('li'); const wat = el('span', 'wat'); wat.append(badge(EVTONE[e.t] || 't-neutral', e.t));
+  const a = el('a', null, e.naam); if (byW) { a.href = '#'; a.onclick = (x) => { x.preventDefault(); openDetail(byW); }; }
+  const d = el('span', 'cd'); d.style.background = corpColor(e.corp); const m = el('span', 'meta'); m.append(d, e.corp);
+  li.append(wat, a, el('span', null, e.txt), m); return li; };
+
+const dagNaam = (d) => { const t = localDate(new Date().toISOString()), y = localDate(new Date(Date.now() - 864e5).toISOString());
+  return d === t ? 'Vandaag' : d === y ? 'Gisteren' : new Date(d + 'T12:00:00').toLocaleDateString('nl-NL', {weekday: 'long', day: 'numeric', month: 'long'}); };
+const renderMeldingen = (H) => {
+  const upd = META.bijgewerkt ? new Date(META.bijgewerkt.replace(/\+00:00$/, 'Z')).toISOString() : null;
+  $('#mupd').textContent = upd ? 'Laatste update ' + fmtMoment(upd) + ' · elke ochtend rond 07:30' : '';
+  // binnenkort aflopende voorrang
+  const vandaag = localDate(new Date().toISOString()), over3 = localDate(new Date(Date.now() + 3 * 864e5).toISOString());
+  const dl = W.filter((w) => w.status === 'beschikbaar' && w.deadline && w.deadline >= vandaag && w.deadline <= over3 && voorJou(w) !== 'nee').sort((a, b) => a.deadline.localeCompare(b.deadline));
+  if (dl.length) { const box = el('div', 'mwarn'); box.append(el('b', null, '⏰ Voorrang verloopt binnenkort')); const ul = el('ul');
+    dl.forEach((w) => { const li = el('li'); const a = el('a', null, w.adres); a.href = '#'; a.onclick = (x) => { x.preventDefault(); openDetail(w); };
+      li.append(badge('t-warn', 'tot ' + nlShort(w.deadline)), a, el('span', null, eur.format(w.prijs)), el('span', 'meta', w.corporatie)); ul.append(li); });
+    box.append(ul); $('#mdeadline').replaceChildren(box); } else $('#mdeadline').replaceChildren();
+  // feed per dag, laatste 30 dagen
+  const van = localDate(new Date(Date.now() - 30 * 864e5).toISOString());
+  const ev = buildEvents(H, (d) => d >= van);
+  const dagen = {}; ev.forEach((e) => (dagen[e.d] ||= []).push(e));
+  const alle = new Set(Object.keys(dagen)); if (upd) alle.add(localDate(upd));
+  const feed = [...alle].sort().reverse().map((d) => {
+    const lijst = (dagen[d] || []).sort((a, b) => (EVORDER.indexOf(a.t) + 99) % 99 - (EVORDER.indexOf(b.t) + 99) % 99);
+    const box = el('div', 'mdag'); const hd = el('header'); hd.append(el('b', null, dagNaam(d)));
+    const cnt = {}; lijst.forEach((e) => cnt[e.t] = (cnt[e.t] || 0) + 1);
+    const chips = el('div', 'chips'); EVORDER.filter((t) => cnt[t]).forEach((t) => chips.append(badge(EVTONE[t], cnt[t] + ' ' + t))); hd.append(chips); box.append(hd);
+    const voorJouNieuw = lijst.filter((e) => e.t === 'nieuw' && W.find((w) => w.id === e.id && voorJou(w) !== 'nee')).length;
+    if (voorJouNieuw) { box.classList.add('nieuwvoorjou'); chips.prepend(badge('t-ok', voorJouNieuw + ' met voorrang voor jou')); }
+    if (!lijst.length) box.append(el('div', 'leeg', 'Niets nieuws. ' + W.filter((w) => w.status === 'beschikbaar').length + ' woningen beschikbaar.'));
+    else { const ul = el('ul'); const show = (n) => ul.replaceChildren(...lijst.slice(0, n).map(evItem)); show(12); box.append(ul);
+      if (lijst.length > 12) { const m = el('button', 'mini', 'Toon alle ' + lijst.length); m.style.margin = '0 16px 12px'; m.onclick = () => { show(lijst.length); m.remove(); }; box.append(m); } }
+    return box; });
+  $('#mfeed').replaceChildren(...feed);
+  // teller in tab: wijzigingen sinds je vorige bezoek
+  const nNieuw = bezoek.ref ? buildEvents(H, (d) => d > localDate(bezoek.ref) || (d === localDate(bezoek.ref) && upd && upd > bezoek.ref)).length : 0;
+  $('#meldn').textContent = nNieuw ? String(nNieuw) : '';
+};
 const renderSinds = (H) => {
   const box = $('#sinds'); if (!box) return;
   if (store.get('sinds-weg') === bezoek.last.slice(0, 16)) { box.replaceChildren(); return; }
@@ -1227,21 +1308,8 @@ const renderSinds = (H) => {
   const refD = localDate(bezoek.ref);
   const naRef = (d) => d > refD || (d === refD && upd && upd > bezoek.ref);
   const byId = new Map(W.map((w) => [w.id, w]));
-  const ev = [];
-  for (const [id, h] of Object.entries(H || {})) {
-    const w = byId.get(id); const naam = (w && w.adres) || h.adres || id; const corp = (w && w.corporatie) || h.corporatie || '';
-    if (h.eerstGezien && naRef(h.eerstGezien) && !(w && w.basis)) ev.push({t: 'nieuw', id, naam, corp, d: h.eerstGezien, txt: w ? eur.format(w.prijs) + (w.m2 ? ' · ' + w.m2 + ' m²' : '') : ''});
-    const log = h.log || [];
-    for (let i = 1; i < log.length; i++) {
-      const a = log[i - 1], b = log[i]; if (!naRef(b.d)) continue;
-      if (a.status !== b.status) ev.push({t: b.status === 'beschikbaar' ? 'weer beschikbaar' : b.status, id, naam, corp, d: b.d, txt: a.status + ' → ' + b.status});
-      if (a.prijs && b.prijs && a.prijs !== b.prijs) ev.push({t: b.prijs < a.prijs ? 'prijs omlaag' : 'prijs omhoog', id, naam, corp, d: b.d, txt: eur.format(a.prijs) + ' → ' + eur.format(b.prijs)});
-    }
-    if (h.offline && naRef(h.offline)) ev.push({t: 'offline', id, naam, corp, d: h.offline, txt: 'niet meer te koop aangeboden'});
-  }
-  const tone = {nieuw: 't-new', 'prijs omlaag': 't-ok', 'prijs omhoog': 't-warn', 'onder bod': 't-warn', 'verkocht o.v.b.': 't-neutral', offline: 't-neutral', 'weer beschikbaar': 't-ok'};
-  const order = ['nieuw', 'prijs omlaag', 'weer beschikbaar', 'onder bod', 'verkocht o.v.b.', 'prijs omhoog', 'offline'];
-  ev.sort((a, b) => (order.indexOf(a.t) + 99) % 99 - (order.indexOf(b.t) + 99) % 99 || b.d.localeCompare(a.d));
+  const ev = buildEvents(H, naRef).sort((a, b) => (EVORDER.indexOf(a.t) + 99) % 99 - (EVORDER.indexOf(b.t) + 99) % 99 || b.d.localeCompare(a.d));
+  const tone = EVTONE, order = EVORDER;
   kop.append(el('b', null, ev.length ? 'Sinds je laatste bezoek' : 'Niets nieuws sinds je laatste bezoek'), el('span', 'wanneer', fmtMoment(bezoek.ref) + (upd ? ' · laatste update ' + fmtMoment(upd) : '')), x);
   card.append(kop);
   if (!ev.length) { card.classList.add('leeg'); box.replaceChildren(card); return; }
@@ -1271,11 +1339,11 @@ $('#profsave').onclick = () => { const c = $('#profopts input:checked'); if (!c)
 Promise.all(['woningen', 'regels', 'bronnen', 'meta'].map((n) => fetch('data/' + n + '.json', {cache: 'no-cache'}).then((r) => r.ok ? r.json() : (n === 'meta' ? {} : [])).catch(() => n === 'meta' ? {} : [])))
   .then(([w, r, b, m]) => {
     W = w; R = r; B = b; META = m;
-    initMap(); profLabel(); renderStatic(); render(); verkoopTempo(); loadHist().then((H) => { HIST = H; renderSinds(H); });
+    initMap(); profLabel(); renderStatic(); render(); verkoopTempo(); loadHist().then((H) => { HIST = H; renderSinds(H); renderMeldingen(H); });
     loadShared().then(() => { profLabel(); renderStatic(); render(); if (!profiel) openProf(); });
     const openSync = (e) => { e.stopPropagation(); $$('details.tdd').forEach((o) => o.open = false); showTab('lijst'); history.replaceState(null, '', '#lijst'); $('#syncpanel').scrollIntoView({block: 'start'}); };
     $('#syncopen').onclick = openSync; $('#syncopen2').onclick = openSync; $('#syncclose').onclick = () => $('#syncpanel').hidden = true;
-    const h = location.hash.slice(1); if (['regels', 'bronnen', 'lijst'].includes(h)) showTab(h);
+    const h = location.hash.slice(1); if (['regels', 'bronnen', 'lijst', 'meldingen'].includes(h)) showTab(h);
   });
 </script>
 </body>
