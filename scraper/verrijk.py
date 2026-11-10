@@ -56,6 +56,38 @@ def save(name, data, indent=1):
     (D / name).write_text(json.dumps(data, ensure_ascii=False, indent=indent))
 
 
+# ---------- 0. Stadgenoot-status: komt via mail binnen, dus hier dagelijks de detailpagina controleren ----------
+def stadgenoot_status(W):
+    weg, gewijzigd = [], 0
+    for w in W:
+        if w.get("corporatie") != "Stadgenoot" or "stadgenoot.nl/detail" not in w.get("url", ""):
+            continue
+        try:
+            r = requests.get(w["url"], headers=UA, timeout=30)
+            t = text_of(r.text) if r.ok else ""
+        except Exception as e:
+            log("stadgenoot status mislukt:", w["adres"], str(e)[:60])
+            continue
+        if r.status_code == 404 or "opgevraagde pagina bestaat niet" in t:
+            w["sgMis"] = w.get("sgMis", 0) + 1
+            if w["sgMis"] >= 2:  # twee dagen achter elkaar weg: echt offline (niet bij een storing)
+                weg.append(w)
+            continue
+        if not r.ok:
+            continue
+        w.pop("sgMis", None)
+        m = re.search(r"\b(Verkocht onder voorbehoud|Verkocht|Onder bod|In optie|Optie|Te koop)\b", t)
+        status = {"Verkocht onder voorbehoud": "verkocht o.v.b.", "Verkocht": "verkocht o.v.b.", "Onder bod": "onder bod", "In optie": "onder bod", "Optie": "onder bod", "Te koop": "beschikbaar"}.get(m[1] if m else "", "")
+        if status and status != w.get("status"):
+            w["status"] = status
+            gewijzigd += 1
+        w["gezienOp"] = TODAY
+        time.sleep(0.3)
+    for w in weg:
+        W.remove(w)
+    log(f"stadgenoot-status: {gewijzigd} status gewijzigd, {len(weg)} offline")
+
+
 # ---------- 1. Historie ----------
 def historie(W):
     H = load("historie.json", {})
@@ -463,7 +495,7 @@ def archief(W):
 
 def main():
     W = json.loads((D / "woningen.json").read_text())
-    for naam, fn in (("historie", historie), ("buurt-WOZ", buurt_woz), ("stadgenoot", stadgenoot_details), ("fotos", fotos), ("buitenruimte", buitenruimte), ("energielabel", ep_label), ("fundering", fundering), ("archief", archief)):
+    for naam, fn in (("stadgenoot-status", stadgenoot_status), ("historie", historie), ("buurt-WOZ", buurt_woz), ("stadgenoot", stadgenoot_details), ("fotos", fotos), ("buitenruimte", buitenruimte), ("energielabel", ep_label), ("fundering", fundering), ("archief", archief)):
         t = time.time()
         try:
             fn(W)
