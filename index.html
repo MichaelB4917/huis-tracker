@@ -316,6 +316,9 @@
   .sitsum { margin-top: 12px; padding: 10px 12px; border-radius: 10px; background: var(--tint); font-size: 14px; line-height: 1.5; }
   .situitleg { margin-top: 12px; } .situitleg summary { cursor: pointer; color: var(--link); font-size: 14px; } .situitleg .mktbl { margin-top: 8px; } .situitleg .mktbl td { white-space: normal; }
   #detail .ssub { font-size: 12px; margin: -2px 0 2px; text-align: right; }
+  .regcards { display: grid; grid-template-columns: 1fr; gap: 0 12px; } @media (min-width: 1000px) { .regcards { grid-template-columns: 1fr 1fr; } }
+  .regcard h3 { margin: 0 0 8px; font-size: 16px; } .regl { margin: 0; } .regl dt { font-weight: 700; margin-top: 12px; } .regl dt:first-child { margin-top: 0; }
+  .regl dd { margin: 3px 0 0; line-height: 1.55; font-size: 14px; } .regtbl { margin: 6px 0; font-size: 13px; } .regtbl td { white-space: normal; }
   /* Uitleg-i */
   .ii, .ii-demo { display: inline-grid; place-items: center; width: 16px; height: 16px; border-radius: 50%; border: 1px solid currentColor; background: none; color: var(--muted); font: italic 700 10.5px/1 Georgia, serif; padding: 0; margin: 0 0 0 4px; cursor: help; vertical-align: 1px; opacity: .75; flex: none; text-transform: none; letter-spacing: 0; }
   .ii:hover, .ii:focus-visible { opacity: 1; color: var(--brand); }
@@ -717,6 +720,7 @@
 
   <section data-page="regels" hidden>
     <p class="muted" style="margin-top:0" id="regelsintro"></p>
+    <p class="note" style="margin-top:-4px"><a href="#regelingen" data-goto="regelingen">Subsidies &amp; regelingen bij kopen en verbouwen (startersvrijstelling, NHG, ISDE, Amsterdam) →</a></p>
     <div class="scroll"><table id="regelsTbl"><thead><tr><th class="w-m">Corporatie</th><th>Voor jou <span data-ii="voorJou"></span></th><th class="w-l">Wie krijgt voorrang</th><th class="w-l">Voorwaarden</th><th class="w-m">Hoe lang</th><th class="w-m">Hoe claim je het</th></tr></thead><tbody id="regels"></tbody></table></div>
     <div class="card uitleg" style="margin-top:16px">
       <h2 style="font-size:18px;margin:0 0 6px">Na de koop: zelfbewoning en anti-speculatie</h2>
@@ -796,6 +800,71 @@
     </div>
     <div id="mdeadline"></div>
     <div id="mfeed"></div>
+  </section>
+
+  <section data-page="regelingen" hidden>
+    <div class="mkop"><h2>Subsidies &amp; regelingen</h2><span class="muted">stand november 2026</span></div>
+    <p class="muted mkintro">Wat er voor jullie te halen valt bij het kopen en verbouwen in Amsterdam. Bedragen en voorwaarden veranderen regelmatig: check altijd de officiële site vóór je iets aanvraagt, en laat de financiering door een hypotheekadviseur doorrekenen. De site rekent een grove schatting van de subsidies mee in de kosten (zie onderaan).</p>
+    <div class="regcards">
+      <div class="card regcard">
+        <h3>Bij het kopen</h3>
+        <dl class="regl">
+          <dt>Startersvrijstelling overdrachtsbelasting</dt>
+          <dd>Geen 2% overdrachtsbelasting als je 18–35 jaar bent, er zelf gaat wonen, de vrijstelling nog niet eerder gebruikte en de woning t/m <b>€ 555.000</b> kost (2026). Bij een hogere prijs betaal je 2% over het hele bedrag. Aan te zetten bij Onze situatie.</dd>
+          <dt>Nationale Hypotheek Garantie (NHG)</dt>
+          <dd>Voor leningen t/m <b>€ 470.000</b> (2026), of € 498.200 met energiebesparende maatregelen. Eenmalig 0,4% borgtochtprovisie; meestal een lagere rente en een vangnet bij gedwongen verkoop. Vanaf 1 januari 2027 wordt de grens € 500.000. <a href="https://www.nhg.nl" target="_blank" rel="noopener">NHG</a></dd>
+          <dt>Verbouwing meefinancieren (bouwdepot)</dt>
+          <dd>Lenen tot 100% van de getaxeerde waarde ná verbouwing, tot 106% voor energiebesparende maatregelen. Het geld staat in een bouwdepot en wordt op facturen uitbetaald (meestal 18–24 maanden). Je inkomen blijft de grens.</dd>
+          <dt>Extra leenruimte voor verduurzamen (per label)</dt>
+          <dd>Bovenop je normale maximum, mits je het aan verduurzamen besteedt: geen/ongeldig label tot € 10.000 · E/F/G tot € 20.000 · C/D tot € 20.000 · A/B tot € 20.000 · A+/A++ tot € 30.000. <a href="https://www.unive.nl/hypotheek/verbouwen-en-verduurzamen/regels-extra-hypotheek-verduurzaming-2026" target="_blank" rel="noopener">Univé</a></dd>
+          <dt>Starterslening Amsterdam</dt>
+          <dd>Niet beschikbaar: Amsterdam biedt sinds 2014 geen starterslening meer. <a href="https://www.homefinance.nl/hypotheek/starters/starterslening-amsterdam/" target="_blank" rel="noopener">Homefinance</a></dd>
+        </dl>
+      </div>
+      <div class="card regcard">
+        <h3>Verduurzamen</h3>
+        <dl class="regl">
+          <dt>ISDE (Rijk)</dt>
+          <dd>Subsidie voor eigenaar-bewoners. Eerst laten uitvoeren (door een vakbedrijf), daarna binnen 24 maanden aanvragen; kan t/m 2030. Bij twee of meer isolatiemaatregelen (binnen 24 maanden) verdubbelt het bedrag. Per m² bij één maatregel:
+            <div class="scroll"><table class="mktbl regtbl"><thead><tr><th>Maatregel</th><th class="num">Per m²</th><th class="num">Min.–max. m²</th></tr></thead><tbody>
+              <tr><td>Gevelisolatie</td><td class="num">€ 20,25</td><td class="num">10–170</td></tr>
+              <tr><td>Dakisolatie</td><td class="num">€ 16,25</td><td class="num">20–200</td></tr>
+              <tr><td>Vloerisolatie</td><td class="num">€ 5,50</td><td class="num">20–130</td></tr>
+              <tr><td>Spouwmuurisolatie</td><td class="num">€ 5,25</td><td class="num">10–170</td></tr>
+              <tr><td>HR++-glas</td><td class="num">€ 25</td><td class="num">3–45</td></tr>
+              <tr><td>Triple glas (met nieuwe kozijnen)</td><td class="num">€ 111</td><td class="num">3–45</td></tr>
+            </tbody></table></div>
+            Plus € 400 voor zuinige ventilatie (alleen samen met isolatie). Warmtepomp (lucht-water): € 1.025 + € 200 + € 225 per kW. Biobased isolatie krijgt een toeslag. <a href="https://www.rvo.nl/subsidies-financiering/isde/woningeigenaren" target="_blank" rel="noopener">RVO</a> · <a href="https://trustoo.nl/expert-blogs/energielabel-adviseur/subsidieoverzicht-2026/" target="_blank" rel="noopener">bedragen 2026</a></dd>
+          <dt>Extra isolatiesubsidie Amsterdam</dt>
+          <dd>Tot <b>€ 2.500</b> per woning (+ € 250 bij biobased materiaal) voor isolatie en ventilatie. Voor eigenaar-bewoners en VvE's, bij label D–G of minstens twee slecht geïsoleerde delen, en een WOZ-waarde t/m € 666.000. Je hebt eerst een (gratis) energieadvies van de gemeente nodig. Loopt t/m 30 juni 2028. <a href="https://solarmagazine.nl/nieuws-zonne-energie/i42649/amsterdam-breidt-subsidie-voor-isolatie-woningen-uit" target="_blank" rel="noopener">Solarmagazine</a></dd>
+          <dt>Energiebespaarlening (Warmtefonds)</dt>
+          <dd>Lening van € 1.000 tot € 29.000 voor verduurzamen, los van je hypotheek. <b>0% rente</b> bij een huishoudinkomen t/m € 60.000, anders ± 3,7–4,3% (2026). Looptijd 7–20 jaar, boetevrij aflossen. Er is ook een aparte lening voor VvE's. <a href="https://www.warmtefonds.nl" target="_blank" rel="noopener">Warmtefonds</a></dd>
+          <dt>Lager btw-tarief</dt>
+          <dd>Arbeid voor isolatie bij woningen ouder dan 2 jaar: 9% btw in plaats van 21% (materiaal blijft 21%). Zit al in de meeste offertes verwerkt.</dd>
+        </dl>
+      </div>
+      <div class="card regcard">
+        <h3>Appartement &amp; VvE</h3>
+        <dl class="regl">
+          <dt>Wat gaat via de VvE</dt>
+          <dd>Gevel, dak, kozijnen in de buitengevel en de fundering zijn meestal van de VvE. Subsidies daarvoor vraagt de VvE aan, niet jij: de Rijksregeling SVVE en de Amsterdamse isolatiesubsidie gelden ook voor VvE's. Vraag bij een bezichtiging naar het meerjarenonderhoudsplan (MJOP) en geplande verduurzaming. <a href="https://www.rvo.nl/subsidies-financiering/svve/verduurzamingsmaatregelen" target="_blank" rel="noopener">RVO: SVVE</a></dd>
+          <dt>Funderingsherstel</dt>
+          <dd>Gaat via de VvE en kan per woning tienduizenden euro's kosten. Er bestaan speciale leningen (Fonds Duurzaam Funderingsherstel); vraag of er onderzoek is gedaan en of er geld voor gereserveerd is.</dd>
+        </dl>
+      </div>
+      <div class="card regcard">
+        <h3>Hoe de site dit meerekent</h3>
+        <p style="margin:0 0 8px">Staat “Subsidies meerekenen” aan (Onze situatie), dan trekt de site bij elke woning een grove schatting af van de opknapkosten. Alleen voor verduurzamen, en alleen als je opknapniveau niet “niets doen” is:</p>
+        <div class="scroll"><table class="mktbl regtbl"><thead><tr><th>Label</th><th class="num">Schatting</th><th>Opbouw</th></tr></thead><tbody>
+          <tr><td>A, B of C</td><td class="num">€ 0</td><td>weinig te verduurzamen</td></tr>
+          <tr><td>D</td><td class="num">± € 2.800</td><td>Amsterdam € 2.500 + ISDE glas (± 12 m² × € 25)</td></tr>
+          <tr><td>E</td><td class="num">± € 3.700</td><td>Amsterdam € 2.500 + ISDE glas en vloer (verdubbeld)</td></tr>
+          <tr><td>F of G</td><td class="num">± € 4.500</td><td>als E, plus ISDE ventilatie / warmtepomp-deel</td></tr>
+          <tr><td>Eengezinswoning E–G</td><td class="num">+ € 1.600</td><td>ISDE dakisolatie (± 50 m², verdubbeld)</td></tr>
+        </tbody></table></div>
+        <p class="note">De Amsterdamse subsidie telt alleen mee bij een vraagprijs t/m € 666.000 (als benadering van de WOZ-grens). Subsidies krijg je achteraf: ze verlagen de totale kosten, maar niet het eigen geld dat je bij de koop nodig hebt.</p>
+      </div>
+    </div>
   </section>
 
   <section data-page="bronnen" hidden>
@@ -911,7 +980,7 @@ const CORPS = ['Lieven de Key', 'Alliantie', 'Stadgenoot', 'Rochdale', 'Ymere', 
 let voorMode = false;
 let profiel = null; try { profiel = JSON.parse(store.get('profiel') || 'null'); } catch (e) {}
 // Maandlasten: aannames instelbaar in de detailweergave (bewaard in browser en gedeelde lijst)
-let fin = {rente: 4.0, jaren: 30, eigen: 0, huur: '', maxHyp: '', starter: false, bijkomend: 5000, bouwdepot: true, niveau: 'gemiddeld'}; try { fin = Object.assign(fin, JSON.parse(store.get('fin') || '{}')); } catch (e) {}
+let fin = {rente: 4.0, jaren: 30, eigen: 0, huur: '', maxHyp: '', starter: false, bijkomend: 5000, bouwdepot: true, niveau: 'gemiddeld', subsidies: true}; try { fin = Object.assign(fin, JSON.parse(store.get('fin') || '{}')); } catch (e) {}
 // Verbouwing via bouwdepot: de bank leent tot de getaxeerde marktwaarde ná verbouwing (aanname: opknapbudget verhoogt de waarde 1-op-1)
 const teLenen = (w) => (w.prijs || 0) + (fin.bouwdepot ? opknap(w) : 0);
 const leenBedrag = (w) => Math.max(0, Math.min(teLenen(w) - Math.max(0, (+fin.eigen || 0) - kk(w) - (fin.bouwdepot ? 0 : opknap(w))), fin.maxHyp ? +fin.maxHyp : Infinity));
@@ -931,6 +1000,9 @@ const niveauVan = (w) => (VG[w.id] && VG[w.id].niveau) || fin.niveau || 'gemidde
 const opknapDelen = (w) => { const n = niveauVan(w), l = (w.energielabel || '')[0]; const afw = Math.round((w.m2 || 0) * (NIVEAU[n] || NIVEAU.gemiddeld)[1] / 500) * 500;
   const duur = n === 'geen' ? 0 : (l ? DUUR[l] ?? 6000 : 6000) + (isHuis(w) && 'EFG'.includes(l || 'x') ? 8000 : 0); return {n, afw, duur, tot: Math.round((afw + duur) / 1000) * 1000}; };
 const opknapM2 = (w) => w.m2 ? opknapDelen(w).tot / w.m2 : 0;
+// Subsidies (grove schatting, achteraf uitbetaald): Amsterdam extra isolatiesubsidie (label D–G, WOZ t/m € 666.000) + ISDE
+const subsidie = (w) => { if (!fin.subsidies || niveauVan(w) === 'geen') return 0; const l = (w.energielabel || '')[0]; if (!l || !'DEFG'.includes(l)) return 0;
+  const ams = (w.prijsEind || w.prijs || 0) <= 666000 ? 2500 : 0, isde = l === 'D' ? 300 : l === 'E' ? 1200 : 2000; return Math.round((ams + isde + (isHuis(w) ? 1600 : 0)) / 100) * 100; };
 const opknap = (w) => VG[w.id] && VG[w.id].opknap !== '' && VG[w.id].opknap != null ? +VG[w.id].opknap : opknapDelen(w).tot;
 const totaal = (w) => w.prijs + kk(w) + opknap(w);
 // Past in budget: maximaal te lenen = min(max hypotheek, vraagprijs); de rest (incl. kosten koper en opknappen) uit eigen geld
@@ -1351,6 +1423,7 @@ const openDetail = (w) => {
     rows.push(rij('Totaal per maand', '≈ ' + eur.format(tot), 'tot'));
     if (fin.huur) { const dif = tot - fin.huur; rows.push(el('div', 'muted', (dif >= 0 ? eur.format(dif) + ' meer' : eur.format(-dif) + ' minder') + ' dan je huidige huur')); }
     rows.push(el('div', 'sh', 'Eenmalig'), rij('Vraagprijs', eur.format(prijs)), rij('Overdrachtsbelasting', eur.format(overdracht(wp)), '', 'overdracht'), rij('Notaris, taxatie, advies', eur.format(+fin.bijkomend || 0), '', 'kostenKoper'), rij('Opknappen' + (VG[w.id] && VG[w.id].opknap !== '' && VG[w.id].opknap != null ? ' (jullie bedrag)' : ' (schatting)') + (fin.bouwdepot ? ', via bouwdepot' : ''), eur.format(opknap(wp)), '', 'opknap'), ...(VG[w.id] && VG[w.id].opknap !== '' && VG[w.id].opknap != null ? [] : [(() => { const d = opknapDelen(wp); return el('div', 'muted ssub', `${NIVEAU[d.n][0]}: ${eur.format(d.afw)} · verduurzamen (label ${w.energielabel || '?'}): ${eur.format(d.duur)}`); })()]), rij('Totaal', '≈ ' + eur.format(totaal(wp)), 'tot'));
+    { const sb = subsidie(wp); if (sb) rows.push(rij('Subsidies (schatting, achteraf)', '− ' + eur.format(sb), '', 'subsidie'), rij('Na subsidies', '≈ ' + eur.format(totaal(wp) - sb))); }
     if (fin.maxHyp) { const en = eigenNodig(wp); const ok = pastBudget(wp); const d = el('div', null, 'Eigen geld nodig: ' + eur.format(en) + (ok ? ' · past in jullie budget' : ' · ' + eur.format(en - (+fin.eigen || 0)) + ' tekort')); d.style.color = ok ? 'var(--ok)' : 'var(--bad)'; d.style.fontWeight = 600; rows.push(d); }
     sum.replaceChildren(...rows);
   };
@@ -1358,7 +1431,9 @@ const openDetail = (w) => {
   const notes = ['Bruto, dus zonder hypotheekrenteaftrek. Kosten koper kun je niet meefinancieren; die komen uit eigen geld. ' + (fin.bouwdepot ? 'De verbouwing is meegefinancierd via een bouwdepot (bank leent tot de getaxeerde waarde ná verbouwing); of dat lukt hangt af van de taxatie en je inkomen.' : 'De verbouwing betaal je hier uit eigen geld.')];
   if (w.erfpacht && !/afgekocht|eigen grond/i.test(w.erfpacht)) notes.push('Let op: erfpacht is mogelijk niet afgekocht; de canon komt hier nog bij.');
   if (!vve(w) && w.type && !/woning$|huis/i.test(w.type)) notes.push('VvE-bijdrage onbekend.');
-  B.append(dsec('Kosten & maandlasten', null, sum, el('details', 'dcalc'), el('p', 'note', notes.join(' '))));
+  if (leenBedrag(wp) && leenBedrag(wp) <= 470000) notes.push('Lening onder € 470.000: NHG mogelijk (vaak lagere rente).');
+  const regl = el('p', 'note'); { const a = link('Subsidies & regelingen →', '#regelingen'); a.removeAttribute('target'); a.onclick = (e) => { e.preventDefault(); closeDetail(); showTab('regelingen'); scrollTo(0, 0); }; regl.append(a); }
+  B.append(dsec('Kosten & maandlasten', null, sum, el('details', 'dcalc'), el('p', 'note', notes.join(' ')), regl));
   { const dt = B.querySelector('.dcalc'); dt.append(el('summary', null, 'Aannames aanpassen (rente, eigen geld, max. hypotheek…)'), calc); if (!fin.maxHyp) dt.open = false; }
   // 6. Prijs in context: markt, buurt, historie
   const ctx = el('div');
@@ -1421,7 +1496,8 @@ const renderSituatie = () => {
   Object.entries(NIVEAU).forEach(([k, [t, m]]) => { const o = el('option', null, t + (m ? ` (± ${eur.format(m)}/m²)` : '')); o.value = k; o.selected = (fin.niveau || 'gemiddeld') === k; ns.append(o); });
   ns.onchange = () => { fin.niveau = ns.value; save(); }; nl.append(ns); g.append(nl);
   const chk = (k, txt, info) => { const l = el('label', 'check sw'); const i = el('input'); i.type = 'checkbox'; i.checked = !!fin[k]; i.onchange = () => { fin[k] = i.checked; save(); }; const sp = el('span', null, txt); if (info) sp.append(ii(info)); l.append(i, sp); return l; };
-  const ch = el('div', 'sitchk'); ch.append(chk('starter', 'Startersvrijstelling (18–35, eerste keer)', 'overdracht'), chk('bouwdepot', 'Verbouwing meefinancieren (bouwdepot)', 'bouwdepot'));
+  const ch = el('div', 'sitchk'); ch.append(chk('starter', 'Startersvrijstelling (18–35, eerste keer)', 'overdracht'), chk('bouwdepot', 'Verbouwing meefinancieren (bouwdepot)', 'bouwdepot'), chk('subsidies', 'Subsidies meerekenen', 'subsidie'));
+  { const a = link('Alle subsidies & regelingen →', '#regelingen'); a.removeAttribute('target'); a.onclick = (e) => { e.preventDefault(); showTab('regelingen'); scrollTo(0, 0); }; ch.append(a); }
   const sum = el('div', 'sitsum');
   sumUpd = () => {
     const mh = +fin.maxHyp || 0, eg = +fin.eigen || 0, kosten = +fin.bijkomend || 0;
@@ -1653,6 +1729,7 @@ const INFO = {
   kostenKoper: ['Kosten koper', 'Overdrachtsbelasting plus notaris, taxatie en hypotheekadvies (samen vaak € 5.000–8.000). Deze kosten kun je niet meefinancieren: ze komen uit eigen geld. De verbouwing kan wél mee, via een bouwdepot.'],
   opknap: ['Opknapbudget', 'Schatting = woonoppervlak × bedrag per m² voor het opknapniveau (licht ± € 275, keuken/badkamer ± € 700, casco ± € 1.500 per m²) + verduurzamen op basis van het energielabel (€ 0 bij A/B tot ± € 16.000 bij F/G). Prijzen 2026 incl. btw. Kies het standaardniveau bij Onze situatie (Favorieten), per woning bij Onze voortgang, of vul na een bezichtiging je eigen bedrag in.'],
   bouwdepot: ['Bouwdepot', 'Bij aankoop mag je de verbouwing meefinancieren: de bank leent tot 100% van de getaxeerde marktwaarde ná verbouwing (taxateur rekent met je verbouwingsspecificatie). Voor energiebesparende maatregelen (isolatie, HR++-glas, warmtepomp, zonnepanelen) mag het tot 106%, plus extra leenruimte afhankelijk van het energielabel (tot € 20.000 bij label E–G). Het geld staat in een bouwdepot en wordt uitbetaald op facturen, meestal binnen 18–24 maanden. Voorwaarde blijft dat je inkomen de maandlasten toelaat; de site rekent ermee dat de verbouwing de waarde 1-op-1 verhoogt, de taxatie bepaalt het echt.'],
+  subsidie: ['Subsidies', 'Grove schatting van wat je terugkrijgt voor verduurzamen: de Amsterdamse extra isolatiesubsidie (tot € 2.500 bij label D–G en WOZ t/m € 666.000) plus ISDE van het Rijk (per m² isolatie/glas, verdubbeld bij twee maatregelen). Wordt achteraf uitbetaald, dus niet van je eigen geld bij de koop afgetrokken. Alle regelingen en voorwaarden: zie Subsidies & regelingen.'],
   maxHyp: ['Max. hypotheek', 'Hoeveel jullie maximaal kunnen lenen. Hangt af van inkomen, rente en energielabel; laat dit uitrekenen door een bank of adviseur. Vul je het in bij Onze situatie (Favorieten), dan rekent de site overal uit hoeveel eigen geld je nodig hebt en of een woning past. Leeg laten = alleen totale kosten zien.'],
   budget: ['Past in budget', 'Woning past als jullie eigen geld genoeg is voor wat je niet kunt lenen: de kosten koper, het deel boven je max. hypotheek, en het opknapbudget als je dat niet via een bouwdepot meefinanciert. Stel dit in bij Onze situatie op de Favorieten-pagina.'],
   zelfbewoning: ['Zelfbewoningsplicht', 'Je moet er zelf (blijven) wonen, vaak minimaal een aantal jaar. Verhuren of leeg laten staan mag niet; bij overtreding kan een flinke boete volgen.'],
@@ -1687,6 +1764,7 @@ const ii = (key) => { const b = el('button', 'ii', 'i'); b.type = 'button'; b.da
 // Statische i's in de HTML: <span data-ii="erfpacht"></span>
 const iiStatic = () => $$('[data-ii]').forEach((s) => { if (!s.firstChild) s.append(ii(s.dataset.ii)); });
 iiStatic();
+document.addEventListener('click', (e) => { const a = e.target.closest('a[data-goto]'); if (!a) return; e.preventDefault(); showTab(a.dataset.goto); scrollTo(0, 0); });
 
 // ---------- Marktinzicht: archief van alle woningen ooit gezien ----------
 let ARCH = null, MREF = null, WIJKEN = null;
@@ -2054,7 +2132,7 @@ Promise.all(['woningen', 'regels', 'bronnen', 'meta'].map((n) => fetch('data/' +
     loadShared().then(() => { profLabel(); renderStatic(); render(); if (!profiel) openProf(); });
     const openSync = (e) => { e.stopPropagation(); $$('details.tdd').forEach((o) => o.open = false); showTab('lijst'); history.replaceState(null, '', '#lijst'); $('#syncpanel').scrollIntoView({block: 'start'}); };
     $('#syncopen').onclick = openSync; $('#syncopen2').onclick = openSync; $('#syncclose').onclick = () => $('#syncpanel').hidden = true;
-    const h = location.hash.slice(1); if (['regels', 'bronnen', 'lijst', 'meldingen', 'markt'].includes(h)) showTab(h);
+    const h = location.hash.slice(1); if (['regels', 'bronnen', 'lijst', 'meldingen', 'markt', 'regelingen'].includes(h)) showTab(h);
   });
 </script>
 </body>
