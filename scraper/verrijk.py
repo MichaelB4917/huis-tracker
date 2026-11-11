@@ -517,9 +517,57 @@ def archief(W):
     log(f"archief: {len(A)} woningen, {sum(1 for r in A.values() if not r['actief'])} niet meer online")
 
 
+# ---------- 6. Wijkgrenzen voor de kaart op Marktinzicht (eens per kwartaal) ----------
+def rd_naar_wgs(x, y):
+    dx, dy = (x - 155000) * 1e-5, (y - 463000) * 1e-5
+    K = ((0, 1, 3235.65389), (2, 0, -32.58297), (0, 2, -0.2475), (2, 1, -0.84978), (0, 3, -0.0665), (2, 2, -0.01709), (1, 0, -0.00738), (4, 0, 0.0053), (2, 3, -0.00039), (4, 1, 0.00033), (1, 1, -0.00012))
+    L = ((1, 0, 5260.52916), (1, 1, 105.94684), (1, 2, 2.45656), (3, 0, -0.81885), (1, 3, 0.05594), (3, 1, -0.05607), (0, 1, 0.01199), (3, 2, -0.00256), (1, 4, 0.00128), (0, 2, 0.00022), (2, 0, -0.00022), (5, 0, 0.00026))
+    lat = 52.15517440 + sum(c * dx ** p * dy ** q for p, q, c in K) / 3600
+    lon = 5.38720621 + sum(c * dx ** p * dy ** q for p, q, c in L) / 3600
+    return round(lon, 5), round(lat, 5)
+
+
+def _ring(r):
+    pts = [rd_naar_wgs(x, y) for x, y in r]
+    stap = max(1, len(pts) // 120)  # vereenvoudigen: hooguit ±120 punten per ring
+    uit = pts[::stap]
+    if uit[-1] != pts[-1]:
+        uit.append(pts[-1])
+    return uit
+
+
+def wijken_geo(W):
+    oud = load("wijken.json", {})
+    if oud.get("datum", "") > (dt.date.today() - dt.timedelta(days=90)).isoformat():
+        return log("wijkgrenzen: nog actueel")
+    sd = {}
+    url, params = f"{AMS}/gebieden/stadsdelen/", {"_format": "json", "_pageSize": 100, "_fields": "identificatie,naam,eindGeldigheid"}
+    while url:
+        j = jget(url, params, AMS_H)
+        for x in j["_embedded"]["stadsdelen"]:
+            if not x.get("eindGeldigheid"):
+                sd[x["identificatie"]] = x["naam"]
+        url, params = (j.get("_links", {}).get("next") or {}).get("href"), None
+    F = []
+    url, params = f"{AMS}/gebieden/wijken/", {"_format": "json", "_pageSize": 200}
+    while url:
+        j = jget(url, params, AMS_H)
+        for x in j["_embedded"]["wijken"]:
+            g = x.get("geometrie") or {}
+            if x.get("eindGeldigheid") or not g:
+                continue
+            polys = [g["coordinates"]] if g.get("type") == "Polygon" else g.get("coordinates", [])
+            F.append({"naam": x["naam"], "code": x["code"], "stadsdeel": sd.get(x.get("ligtInStadsdeelId", ""), ""),
+                      "polys": [[_ring(r) for r in poly] for poly in polys]})
+        url, params = (j.get("_links", {}).get("next") or {}).get("href"), None
+    if F:
+        save("wijken.json", {"datum": TODAY, "wijken": F}, indent=None)
+    log(f"wijkgrenzen: {len(F)} wijken opgehaald")
+
+
 def main():
     W = json.loads((D / "woningen.json").read_text())
-    for naam, fn in (("stadgenoot-status", stadgenoot_status), ("funda", funda_verlopen), ("historie", historie), ("buurt-WOZ", buurt_woz), ("stadgenoot", stadgenoot_details), ("fotos", fotos), ("buitenruimte", buitenruimte), ("energielabel", ep_label), ("fundering", fundering), ("archief", archief)):
+    for naam, fn in (("stadgenoot-status", stadgenoot_status), ("funda", funda_verlopen), ("historie", historie), ("buurt-WOZ", buurt_woz), ("stadgenoot", stadgenoot_details), ("fotos", fotos), ("buitenruimte", buitenruimte), ("energielabel", ep_label), ("fundering", fundering), ("archief", archief), ("wijkgrenzen", wijken_geo)):
         t = time.time()
         try:
             fn(W)

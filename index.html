@@ -287,6 +287,46 @@
 
   /* schakelaars voor aan/uit-opties */
   .subchecks { display: flex; gap: 14px; padding: 0 0 6px 2px; } .subchecks .check { font-size: 13px; min-height: 0; }
+  /* Detailweergave */
+  #detail .dkort { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin: 16px 0 4px; }
+  #detail .dk { background: var(--soft); border: 1px solid var(--line); border-radius: 10px; padding: 9px 11px; min-width: 0; }
+  #detail .dk .lbl { font-size: 12px; color: var(--muted); display: flex; align-items: center; }
+  #detail .dk .val { font-size: 17px; font-weight: 700; margin-top: 2px; font-variant-numeric: tabular-nums; }
+  #detail .dk .sub { font-size: 12px; color: var(--muted); margin-top: 2px; } #detail .dk .sub .r-buurt { font-size: 12px; }
+  #detail .dk.verl .sub { color: var(--ok); font-weight: 600; }
+  #detail .dsec { border-top: 1px solid var(--line); margin-top: 18px; padding-top: 14px; }
+  #detail .dsec > h3 { margin: 0 0 10px; padding: 0; border: 0; font-size: 16px; display: flex; align-items: center; }
+  #detail .dsec h4 { margin: 14px 0 6px; font-size: 13.5px; }
+  #detail .dline { margin: 0 0 8px; line-height: 1.55; }
+  #detail .dsec .kv { margin-top: 8px; }
+  #detail .kv div > span { display: flex; align-items: center; }
+  #detail .dnotes { display: block; margin-top: 8px; font-size: 12px; color: var(--muted); } #detail .dnotes textarea { width: 100%; margin-top: 3px; }
+  #detail .sum .sh { font-size: 12px; color: var(--muted); text-transform: uppercase; letter-spacing: .04em; margin-top: 8px; }
+  #detail .sum .sh:first-child { margin-top: 0; }
+  #detail .srow { display: flex; justify-content: space-between; gap: 12px; padding: 2px 0; } #detail .srow span { display: inline-flex; align-items: center; }
+  #detail .srow b { font-weight: 600; font-variant-numeric: tabular-nums; } #detail .srow.tot { border-top: 1px solid var(--line); padding-top: 5px; margin-top: 2px; } #detail .srow.tot b { font-weight: 800; }
+  #detail .dcalc { margin-top: 12px; } #detail .dcalc summary { cursor: pointer; font-size: 13.5px; color: var(--link); margin-bottom: 8px; }
+  #detail .dbron { margin-top: 18px; }
+  @media (max-width: 560px) { #detail .dkort { grid-template-columns: 1fr 1fr; } }
+  /* Uitleg-i */
+  .ii, .ii-demo { display: inline-grid; place-items: center; width: 16px; height: 16px; border-radius: 50%; border: 1px solid currentColor; background: none; color: var(--muted); font: italic 700 10.5px/1 Georgia, serif; padding: 0; margin: 0 0 0 4px; cursor: help; vertical-align: 1px; opacity: .75; flex: none; text-transform: none; letter-spacing: 0; }
+  .ii:hover, .ii:focus-visible { opacity: 1; color: var(--brand); }
+  .ii-demo { cursor: default; margin: 0 1px; }
+  .iipop { position: fixed; z-index: 4000; background: var(--panel); color: var(--fg); border: 1px solid var(--line); border-radius: 10px; padding: 10px 12px; font-size: 13px; line-height: 1.5; box-shadow: 0 8px 28px rgb(0 0 0 / .18); }
+  .iipop b { display: block; margin-bottom: 3px; font-size: 13.5px; }
+  .mkmeerbox { padding: 10px 12px; border: 1px solid var(--line); border-radius: var(--r); background: var(--panel); }
+  .mkfilt input[type=number] { width: 92px; height: 34px; border: 1px solid var(--line); border-radius: 8px; background: var(--panel); color: var(--fg); padding: 0 8px; font: inherit; font-size: 14px; }
+  #mkkaart { height: 420px; border-radius: 10px; overflow: hidden; border: 1px solid var(--line); z-index: 0; }
+  .mkkaartleg { flex-wrap: wrap; } .mkkaartleg .sw { opacity: .85; }
+  .mkchart .mkline { fill: none; stroke: var(--brand); stroke-width: 2; } .mkchart .mkdot { fill: var(--brand); stroke: var(--panel); stroke-width: 2; }
+  .mkchart .mkref { stroke: var(--muted); stroke-width: 1.5; stroke-dasharray: 5 4; }
+  .mklegend .sw.ref { background: none; border-top: 2px dashed var(--muted); height: 0; border-radius: 0; width: 16px; }
+  .mkvjw { display: inline-flex; align-items: center; }
+  .mkhd.mkhd2 { justify-content: flex-start; margin: 4px 0 2px; font-size: 13px; } .mkseg-sm button { font-size: 12.5px; padding: 3px 10px; }
+  .mkreftbl tr.tot td { font-weight: 700; border-top: 2px solid var(--line); }
+  .mktbl th .ii { vertical-align: 0; }
+  section[data-page="markt"] h3 .ii { vertical-align: 2px; }
+  @media (max-width: 760px) { #mkkaart { height: 320px; } .mkfilt input[type=number] { width: 80px; } }
   /* Marktinzicht */
   .mkintro { margin: -4px 0 12px; max-width: 900px; line-height: 1.5; }
   .mkfilt { display: flex; flex-wrap: wrap; gap: 10px 16px; align-items: center; margin-bottom: 12px; }
@@ -297,7 +337,7 @@
   .mkkpi { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 10px; margin-bottom: 12px; }
   .mkk { background: var(--panel); border: 1px solid var(--line); border-radius: var(--r); padding: 12px 14px; }
   .mkk .lbl { font-size: 12.5px; color: var(--muted); } .mkk .val { font-size: 21px; font-weight: 700; margin: 2px 0; font-variant-numeric: tabular-nums; } .mkk .sub { font-size: 12px; color: var(--muted); }
-  .mkgrid2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 0 12px; }
+  .mkgrid2 { display: grid; grid-template-columns: 1fr; gap: 0 12px; } @media (min-width: 900px) { .mkgrid2 { grid-template-columns: 1fr 1fr; } }
   #mkarch, .mkgrid2 .card, section[data-page="markt"] .card { min-width: 0; }
   section[data-page="markt"] h3 { margin: 0 0 6px; font-size: 16px; }
   .mkhd { display: flex; flex-wrap: wrap; gap: 8px 14px; align-items: center; justify-content: space-between; margin-bottom: 4px; }
@@ -591,7 +631,7 @@
           <details class="dd side" open data-dd="prijs"><summary>Prijs &amp; oppervlakte <span class="cnt"></span></summary>
         <div class="panel">
           <label class="field">Max. vraagprijs (€)<input type="number" class="f" data-f="maxPrijs" step="10000" min="0" placeholder="Geen maximum"></label>
-          <label class="field">Max. prijs per m² (€)<input type="number" class="f" data-f="maxPpm" step="250" min="0" placeholder="Geen maximum"></label>
+          <label class="field"><span>Max. prijs per m² (€) <span data-ii="ppm2"></span></span><input type="number" class="f" data-f="maxPpm" step="250" min="0" placeholder="Geen maximum"></label>
           <label class="field">Min. woonoppervlak (m²)<input type="number" class="f" data-f="minM2" step="5" min="0" placeholder="Geen minimum"></label>
           <label class="field">Min. kamers<select class="f" data-f="minKamers"><option value="">Alle</option><option value="2">2+</option><option value="3">3+</option><option value="4">4+</option></select></label>
         </div></details>
@@ -600,21 +640,21 @@
           <details class="dd side" data-dd="type"><summary>Type <span class="cnt"></span></summary><div class="panel"><div><button class="mini" data-all="type">Alle</button><button class="mini" data-none="type">Geen</button></div><div data-list="type"></div></div></details>
           <details class="dd side" open data-dd="meer"><summary>Voorrang, status &amp; woning <span class="cnt"></span></summary>
         <div class="panel">
-          <h4>Voorrang</h4>
-          <label class="check sw"><input type="checkbox" class="f" data-f="voorrangActief"> Alleen als voorrang nu loopt</label>
-          <h4>Status</h4>
+          <h4>Voorrang <span data-ii="voorrang"></span></h4>
+          <label class="check sw"><input type="checkbox" class="f" data-f="voorrangActief"> <span>Alleen als voorrang nu loopt <span data-ii="deadline"></span></span></label>
+          <h4>Status <span data-ii="status"></span></h4>
           <label class="check sw"><input type="checkbox" class="f" data-f="nieuw"> Alleen nieuw (7 dagen)</label>
           <label class="check sw"><input type="checkbox" class="f" data-f="verbergVerkocht" checked> Verberg verkocht o.v.b.</label>
           <label class="check sw"><input type="checkbox" class="f" data-f="verbergBod"> Verberg onder bod</label>
           <h4>Woning</h4>
-          <label class="check sw"><input type="checkbox" class="f" data-f="buiten"> Met buitenruimte</label>
+          <label class="check sw"><input type="checkbox" class="f" data-f="buiten"> <span>Met buitenruimte <span data-ii="buitenruimte"></span></span></label>
           <div class="subchecks"><label class="check"><input type="checkbox" class="f bsub" data-f="buitenBalkon"> Balkon</label><label class="check"><input type="checkbox" class="f bsub" data-f="buitenTerras"> Terras</label><label class="check"><input type="checkbox" class="f bsub" data-f="buitenTuin"> Tuin</label></div>
-          <label class="check sw"><input type="checkbox" class="f" data-f="goedLabel"> Energielabel A–C</label>
-          <label class="check sw"><input type="checkbox" class="f" data-f="budget"> Past in ons budget</label>
+          <label class="check sw"><input type="checkbox" class="f" data-f="goedLabel"> <span>Energielabel A–C <span data-ii="energielabel"></span></span></label>
+          <label class="check sw"><input type="checkbox" class="f" data-f="erfpachtAfgekocht"> <span>Erfpacht afgekocht <span data-ii="erfpacht"></span></span></label>
+          <label class="check sw"><input type="checkbox" class="f" data-f="budget"> <span>Past in ons budget <span data-ii="budget"></span></span></label>
           <h4>Onze voortgang</h4>
           <label class="check sw"><input type="checkbox" class="f" data-f="metVoortgang"> Alleen met voortgang</label>
           <label class="check sw"><input type="checkbox" class="f" data-f="verbergAfgevallen"> Verberg afgewezen / niet voor ons</label>
-          <label class="check sw"><input type="checkbox" class="f" data-f="erfpachtAfgekocht"> Erfpacht afgekocht</label>
         </div></details>
         </aside>
       </details>
@@ -668,7 +708,7 @@
 
   <section data-page="regels" hidden>
     <p class="muted" style="margin-top:0" id="regelsintro"></p>
-    <div class="scroll"><table id="regelsTbl"><thead><tr><th class="w-m">Corporatie</th><th>Voor jou</th><th class="w-l">Wie krijgt voorrang</th><th class="w-l">Voorwaarden</th><th class="w-m">Hoe lang</th><th class="w-m">Hoe claim je het</th></tr></thead><tbody id="regels"></tbody></table></div>
+    <div class="scroll"><table id="regelsTbl"><thead><tr><th class="w-m">Corporatie</th><th>Voor jou <span data-ii="voorJou"></span></th><th class="w-l">Wie krijgt voorrang</th><th class="w-l">Voorwaarden</th><th class="w-m">Hoe lang</th><th class="w-m">Hoe claim je het</th></tr></thead><tbody id="regels"></tbody></table></div>
     <div class="card uitleg" style="margin-top:16px">
       <h2 style="font-size:18px;margin:0 0 6px">Na de koop: zelfbewoning en anti-speculatie</h2>
       <p style="margin:0 0 6px">Corporaties verkopen hun woningen alleen aan mensen die er zelf gaan wonen. Dat leggen ze vast in de koopakte:</p>
@@ -677,35 +717,62 @@
         <li><b>Anti-speculatiebeding</b>: verkoop je de woning binnen een paar jaar door, dan betaal je een boete of draag je de winst af aan de corporatie. Zo kun je niet snel winst maken op een woning die je met voorrang kocht.</li>
         <li><b>Opkoopbescherming Amsterdam</b> (geldt voor iedereen, niet alleen bij corporaties): is de WOZ-waarde bij levering € 637.000 of lager (grens 2026), dan mag je de woning de eerste 4 jaar niet verhuren, behalve met vergunning (bijv. aan ouders of kinderen). Boete bij overtreding: € 21.750.</li>
       </ul>
-      <div class="scroll"><table id="koopTbl"><thead><tr><th>Corporatie</th><th>Zelfbewoning</th><th>Anti-speculatie</th><th>Boete</th></tr></thead><tbody id="koopvw"></tbody></table></div>
+      <div class="scroll"><table id="koopTbl"><thead><tr><th>Corporatie</th><th>Zelfbewoning <span data-ii="zelfbewoning"></span></th><th>Anti-speculatie <span data-ii="antispeculatie"></span></th><th>Boete</th></tr></thead><tbody id="koopvw"></tbody></table></div>
       <p class="note" style="margin-top:8px">Uitgezocht op 9 november 2026 uit de sites en voorwaarden van de corporaties. De koopakte en de brochure van de woning zijn altijd leidend.</p>
     </div>
   </section>
 
   <section data-page="markt" hidden>
     <div class="mkop"><h2>Marktinzicht</h2><span class="muted" id="mkinfo"></span></div>
-    <p class="muted mkintro">Alle corporatiewoningen die de site ooit zag, ook als ze inmiddels weg zijn. Het gaat om vraagprijzen; echte verkoopprijzen publiceren corporaties niet. Doorlooptijden meet de site alleen bij woningen die na de start (8 november 2026) binnenkwamen. Woningen die alleen via Funda binnenkomen (Ymere) kan de site niet volgen: die gaan na 3 weken uit de lijst en tellen niet mee voor doorlooptijden. Hoe langer de site draait, hoe betrouwbaarder de cijfers.</p>
-    <div class="mkfilt">
-      <label>Periode <select id="mkper"><option value="alle">Alles</option><option value="365">Laatste 12 maanden</option><option value="91">Laatste 3 maanden</option><option value="30">Laatste 30 dagen</option></select></label>
-      <label>Stadsdeel <select id="mksd"><option value="">Alle</option></select></label>
-      <label class="check sw"><input type="checkbox" id="mkvj"> Alleen waar ik voorrang kan krijgen</label>
-      <div class="mcorps" id="mkcorps"></div>
+    <p class="muted mkintro">Alle corporatiewoningen die de site ooit zag, ook als ze inmiddels weg zijn, vergeleken met de vrije markt. Het gaat om vraagprijzen; echte verkoopprijzen publiceren corporaties niet. Doorlooptijden meet de site alleen bij woningen die na de start (8 november 2026) binnenkwamen. Woningen die alleen via Funda binnenkomen (Ymere) kan de site niet volgen: die gaan na 3 weken uit de lijst en tellen niet mee voor doorlooptijden. Hoe langer de site draait, hoe betrouwbaarder de cijfers. Klik op een <span class="ii-demo">i</span> voor uitleg.</p>
+    <div id="mkfilters">
+      <div class="mkfilt">
+        <label>Periode <select id="mkper"><option value="alle">Alles</option><option value="365">Laatste 12 maanden</option><option value="91">Laatste 3 maanden</option><option value="30">Laatste 30 dagen</option></select></label>
+        <label>Stadsdeel <select id="mksd"><option value="">Alle</option></select></label>
+        <span class="mkvjw"><label class="check sw"><input type="checkbox" id="mkvj"> Alleen waar ik voorrang kan krijgen</label><span data-ii="voorrang"></span></span>
+        <button class="mini" id="mkmeer" aria-expanded="false">Meer filters</button>
+        <button class="mini" id="mkwis" hidden>Wis filters</button>
+        <span id="mkwijk"></span>
+        <div class="mcorps" id="mkcorps"></div>
+      </div>
+      <div class="mkfilt mkmeerbox" id="mkmeerbox" hidden>
+        <label>Type <select id="mktype"><option value="">Alle</option></select></label>
+        <label>Kamers <select id="mkkamers"><option value="">Alle</option><option value="2">2+</option><option value="3">3+</option><option value="4">4+</option></select></label>
+        <label>Prijs <input type="number" id="mkpmin" placeholder="van" step="25000" min="0"> – <input type="number" id="mkpmax" placeholder="tot" step="25000" min="0"></label>
+        <label>m² <input type="number" id="mkm2min" placeholder="van" step="5" min="0"> – <input type="number" id="mkm2max" placeholder="tot" step="5" min="0"></label>
+        <label>Label <span data-ii="energielabel"></span> <select id="mklabel"><option value="">Alle</option><option value="ac">A–C</option><option value="d">D</option><option value="eg">E–G</option></select></label>
+        <label>Buitenruimte <span data-ii="buitenruimte"></span> <select id="mkbuiten"><option value="">Alle</option><option value="ja">Met buitenruimte</option><option value="balkon">Balkon</option><option value="terras">Terras</option><option value="tuin">Tuin</option><option value="geen">Geen</option></select></label>
+        <label>Erfpacht <span data-ii="erfpacht"></span> <select id="mkerf"><option value="">Alle</option><option value="zeker">Zeker (eigen grond / afgekocht na 2060)</option><option value="kort">Loopt af vóór 2041 of niet afgekocht</option></select></label>
+      </div>
     </div>
     <div class="mkkpi" id="mkkpi"></div>
+    <div class="card">
+      <div class="mkhd"><h3>Vrije markt vs. corporatie <span data-ii="markt"></span></h3></div>
+      <p class="note">Wat woningen in elk stadsdeel op de vrije markt opbrengen, naast de vraagprijzen van corporaties. Zo zie je hoeveel voordeel kopen met voorrang oplevert.</p>
+      <div id="mkref"></div>
+    </div>
     <div class="mkgrid2">
-      <div class="card"><h3>Nieuw aanbod per week</h3><div id="mkweek"></div></div>
-      <div class="card"><h3>Prijsverlagingen</h3><p class="note" id="mkverlnote">Hoeveel lager de vraagprijs werd, bij woningen waarvan de prijs omlaag ging.</p><div id="mkverl"></div></div>
-      <div class="card"><h3>Hoe snel gaat een woning onder bod?</h3><p class="note">Aantal dagen tussen online komen en onder bod (of verdwijnen).</p><div id="mksnel"></div></div>
+      <div class="card"><h3>Prijs per m² per maand <span data-ii="ppm2"></span></h3><p class="note">Mediane vraagprijs per m² van woningen die in die maand online kwamen, met de vrije markt als stippellijn.</p><div id="mktrend"></div></div>
+      <div class="card"><h3>Nieuw aanbod per week <span data-ii="nieuwPerMaand"></span></h3><div id="mkweek"></div></div>
+      <div class="card"><h3>Prijsverlagingen <span data-ii="prijsverlaging"></span></h3><p class="note" id="mkverlnote">Hoeveel lager de vraagprijs werd, bij woningen waarvan de prijs omlaag ging.</p><div id="mkverl"></div></div>
+      <div class="card"><h3>Hoe snel gaat een woning onder bod? <span data-ii="dagenTotBod"></span></h3><p class="note">Aantal dagen tussen online komen en onder bod (of verdwijnen).</p><div id="mksnel"></div></div>
     </div>
     <div class="card">
-      <div class="mkhd"><h3>Vergelijk</h3><div class="mkseg" id="mkgroep"><button data-g="stadsdeel" aria-pressed="true">Stadsdeel</button><button data-g="buurt" aria-pressed="false">Buurt</button><button data-g="corporatie" aria-pressed="false">Corporatie</button><button data-g="type" aria-pressed="false">Type</button><button data-g="kamers" aria-pressed="false">Kamers</button><button data-g="grootte" aria-pressed="false">Grootte</button><button data-g="prijs" aria-pressed="false">Prijs</button><button data-g="label" aria-pressed="false">Label</button><button data-g="buiten" aria-pressed="false">Buitenruimte</button></div></div>
-      <p class="note">Medianen per groep. Klik op een kolom om te sorteren, op een rij om die woningen hieronder te zien. * = minder dan 3 metingen. Buurt-WOZ is een schatting, geen verkoopprijs.</p>
+      <div class="mkhd"><h3>Kaart per wijk</h3><div class="mkseg" id="mkkaartm"><button data-v="ppm2" aria-pressed="true">Prijs per m²</button><button data-v="markt" aria-pressed="false">t.o.v. markt</button><button data-v="lasten" aria-pressed="false">Woonlasten</button><button data-v="n" aria-pressed="false">Aantal</button><button data-v="bod" aria-pressed="false">Dagen tot bod</button><button data-v="verl" aria-pressed="false">Prijs verlaagd</button></div></div>
+      <p class="note">Klik op een wijk om alle cijfers op deze pagina op die wijk te filteren.</p>
+      <div id="mkkaart"></div>
+      <div class="mklegend mkkaartleg" id="mkkaartleg"></div>
+    </div>
+    <div class="card">
+      <div class="mkhd"><h3>Vergelijk</h3><div class="mkseg" id="mkgroep"><button data-v="stadsdeel" aria-pressed="true">Stadsdeel</button><button data-v="buurt" aria-pressed="false">Buurt</button><button data-v="corporatie" aria-pressed="false">Corporatie</button><button data-v="type" aria-pressed="false">Type</button><button data-v="kamers" aria-pressed="false">Kamers</button><button data-v="grootte" aria-pressed="false">Grootte</button><button data-v="prijs" aria-pressed="false">Prijs</button><button data-v="bouw" aria-pressed="false">Bouwperiode</button><button data-v="label" aria-pressed="false">Label</button><button data-v="vve" aria-pressed="false">VvE</button><button data-v="erfpacht" aria-pressed="false">Erfpacht</button><button data-v="buiten" aria-pressed="false">Buitenruimte</button></div></div>
+      <div class="mkhd mkhd2"><span class="muted">Toon</span><div class="mkseg mkseg-sm" id="mkset"><button data-v="prijs" aria-pressed="true">Prijs &amp; lasten</button><button data-v="snelheid" aria-pressed="false">Snelheid &amp; kans</button><button data-v="woning" aria-pressed="false">Woning</button></div></div>
+      <p class="note">Medianen per groep. Klik op een kolom om te sorteren, op een rij om die woningen hieronder te zien. * = minder dan 3 metingen.</p>
       <div class="scroll"><table class="mktbl"><thead><tr id="mkvhead"></tr></thead><tbody id="mkvbody"></tbody></table></div>
       <p class="note" id="mkschaal"></p>
     </div>
     <div class="card" id="mkarch">
-      <div class="mkhd"><h3>Alle woningen</h3><span class="muted" id="mkatel"></span></div>
-      <div class="mkfilt"><input type="search" id="mkzoek" placeholder="Zoek op adres, buurt of postcode"><select id="mkuit"><option value="alle">Online en weg</option><option value="actief">Nog online</option><option value="weg">Alleen weg</option><option value="verlaagd">Met prijsverlaging</option></select><button class="mini" id="mkcsv">Download als CSV (Excel)</button></div>
+      <div class="mkhd"><h3>Alle woningen <span data-ii="archief"></span></h3><span class="muted" id="mkatel"></span></div>
+      <div class="mkfilt"><input type="search" id="mkzoek" placeholder="Zoek op adres, buurt of postcode"><select id="mkuit"><option value="alle">Online en weg</option><option value="actief">Nog online</option><option value="weg">Alleen weg</option><option value="verlaagd">Met prijsverlaging</option><option value="mislukt">Met mislukte deal</option></select><button class="mini" id="mkcsv">Download als CSV (Excel)</button></div>
       <div class="scroll"><table class="mktbl mkatbl"><thead><tr id="mkahead"></tr></thead><tbody id="mkabody"></tbody></table></div>
       <button class="mini" id="mkameer" hidden></button>
       <p class="note">* stond er al bij de start van de site; doorlooptijd onbekend. Grijze rijen zijn niet meer online.</p>
@@ -885,7 +952,8 @@ let colState = {}; try { colState = JSON.parse(store.get('cols') || '{}'); } cat
 const colOn = (k) => k === 'adres' || k === 'energielabel' || (k in colState ? colState[k] : COLS.find((c) => c[0] === k)[2]);
 const colStyle = document.createElement('style'); document.head.append(colStyle);
 const applyCols = () => colStyle.textContent = COLS.filter(([k]) => !colOn(k)).map(([k]) => `#tabel .c-${k}{display:none}`).join('');
-COLS.forEach(([k, l, , c]) => { const th = el('th', 'c-' + k + (c ? ' ' + c : ''), l); $('#thead').append(th); });
+const COLII = {ppm: 'ppm2', energielabel: 'energielabel', servicekosten: 'vve', erfpacht: 'erfpacht', voorrang: 'voorrang', status: 'status', bouwjaar: 'bouwperiode'};
+COLS.forEach(([k, l, , c]) => { const th = el('th', 'c-' + k + (c ? ' ' + c : ''), l); if (COLII[k]) { const sp = el('span'); sp.dataset.ii = COLII[k]; th.append(' ', sp); } $('#thead').append(th); });
 COLS.slice(1).filter(([k]) => k !== 'energielabel').forEach(([k, l]) => { const lab = el('label', 'check'); const cb = el('input'); cb.type = 'checkbox'; cb.checked = colOn(k); cb.onchange = () => { colState[k] = cb.checked; store.set('cols', JSON.stringify(colState)); applyCols(); }; lab.append(cb, l); $('#colboxes').append(lab); });
 applyCols();
 
@@ -1190,87 +1258,95 @@ const loadHist = () => HIST ? Promise.resolve(HIST) : fetch('data/historie.json'
 const kvItem = (l, v) => { if (v == null || v === '') return null; const d = el('div'); d.append(el('span', null, l)); const b = el('b'); b.append(v); d.append(b); return d; };
 const link = (t, href) => { const a = el('a', null, t); a.href = href; a.target = '_blank'; a.rel = 'noopener'; return a; };
 let detailW = null;
+const BP_TXT = {'Voor 1906': '19e-eeuwse bouw: hoge plafonds, vaak houten paalfundering en weinig isolatie.', '1906–1944': 'Vooroorlogs (Amsterdamse School): solide, karakteristiek, houten palen, isolatie vaak beperkt.',
+  '1945–1969': 'Wederopbouw/tuinsteden: portiekflat, vaak al gerenoveerd; asbest mogelijk.', '1970–1991': 'Stadsvernieuwing/hoogbouw: betonnen palen, isolatie matig; asbest mogelijk (tot 1993).',
+  '1992–2005': 'Na Bouwbesluit 1992: eerste isolatie-eisen, meestal label B–C.', '2006 of later': 'Moderne bouw met strenge energie-eisen, meestal label A.'};
+const loadMref = () => MREF ? Promise.resolve(MREF) : getJson('marktref.json').then((m) => MREF = m);
+const dsec = (titel, info, ...kids) => { const s = el('section', 'dsec'); const h = el('h3', null, titel); if (info) h.append(ii(info)); s.append(h, ...kids.filter(Boolean)); return s; };
+const kvI = (l, v, info) => { const d = kvItem(l, v); if (d && info) d.firstChild.append(ii(info)); return d; };
 const openDetail = (w) => {
   detailW = w; markSeen(w.id);
   const B = $('#dbody'); B.replaceChildren();
+  const prijs = w.prijsEind || w.prijs, m2p = prijs && w.m2 ? Math.round(prijs / w.m2) : null;
+  // 1. Kop: foto, adres, status, acties
+  { const ph = () => el('div', 'd-foto nofoto');
+    if (w.foto) { const im = el('img', 'd-foto'); im.src = w.foto; im.alt = 'Foto van ' + w.adres; im.referrerPolicy = 'no-referrer'; im.onerror = () => im.replaceWith(ph()); B.append(im); } else B.append(ph()); }
   const h = el('h2', null, w.adres); h.id = 'dtitel';
   const dot = el('span', 'cd'); dot.style.background = corpColor(w.corporatie);
   const sub = el('div', 'sub'); sub.append([w.postcode, w.buurt || w.wijk, w.stadsdeel].filter(Boolean).join(' · ') + ' · ', dot, w.corporatie);
-  const v = voorrang(w);
-  const bads = el('div', 'r-badges'); bads.style.marginTop = '8px'; bads.append(badge(v.cls, 'voorrang: ' + v.text), ' ', badge(statusTone(w.status), w.status), ...(isNew(w) ? [' ', badge('t-new', 'Nieuw')] : []));
+  const v = voorrang(w), actief = W.some((x) => x.id === w.id);
+  const bads = el('div', 'r-badges'); bads.style.marginTop = '8px';
+  bads.append(badge(statusTone(w.status), actief ? w.status : 'niet meer online'), ' ', badge(v.cls, 'voorrang: ' + v.text), ...(isNew(w) ? [' ', badge('t-new', 'Nieuw')] : []));
   const fav = el('button', 'mini', favs.has(w.id) ? '★ Favoriet' : '☆ Favoriet maken'); fav.onclick = () => { favs.has(w.id) ? favs.delete(w.id) : favs.add(w.id); fav.textContent = favs.has(w.id) ? '★ Favoriet' : '☆ Favoriet maken'; changed(); render(); };
-  const links = el('div', 'links'); links.append(link('Advertentie openen →', w.url), link('Google Maps', 'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent(w.adres + ', ' + (w.plaats || 'Amsterdam'))), link('WOZ-waarde opzoeken', 'https://www.wozwaardeloket.nl/'), fav);
-  const lbl = w.energielabel ? (() => { const x = el('span'); x.append(el('span', 'elabel sm l-' + w.energielabel[0], w.energielabel)); if (w.labelBron) x.append(' ', el('span', 'muted', '(' + w.labelBron + (w.labelGeldigTot ? ', geldig t/m ' + nlDate(w.labelGeldigTot) : '') + ')')); return x; })() : 'onbekend';
-  const kv = el('div', 'kv'); kv.append(...[kvItem('Vraagprijs', eur.format(w.prijs)), kvItem('Per m²', eur.format(Math.round(w.prijs / w.m2))), kvItem('Woonoppervlak', w.m2 + ' m²'), kvItem('Kamers', String(w.kamers)), kvItem('Type', w.type),
-    kvItem('Bouwjaar', w.bouwjaar ? String(w.bouwjaar) : ''), kvItem('Energielabel', lbl), kvItem('VvE', typeof w.servicekosten === 'number' ? eur2.format(w.servicekosten) + ' p/m' : ''), kvItem('Erfpacht', w.erfpacht), kvItem('Buitenruimte', buitenVan(w).join(', ') || (Array.isArray(w.buiten) ? 'geen genoemd' : '')),
-    kvItem('Online sinds', onlineSinds(w)), kvItem('Bron', w.bron), kvItem('Deadline', w.deadline ? nlDate(w.deadline) : '')].filter(Boolean));
-  { const ph = () => el('div', 'd-foto nofoto');
-    if (w.foto) { const im = el('img', 'd-foto'); im.src = w.foto; im.alt = 'Foto van ' + w.adres; im.referrerPolicy = 'no-referrer'; im.onerror = () => im.replaceWith(ph()); B.append(im); } else B.append(ph()); }
-  B.append(h, sub, bads, links, kv);
-  if (w.voorrangSpec) B.append(el('p', 'note', w.voorrangSpec));
-  // Onze voortgang (gedeeld via de lijst)
-  B.append(el('h3', null, 'Onze voortgang'));
+  const links = el('div', 'links'); links.append(link('Advertentie openen →', w.url), fav, link('Google Maps', 'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent(w.adres + ', ' + (w.plaats || 'Amsterdam'))), link('WOZ-waarde opzoeken', 'https://www.wozwaardeloket.nl/'));
+  B.append(h, sub, bads, links);
+  // 2. In het kort: de belangrijkste cijfers
+  const kort = el('div', 'dkort');
+  const tegel = (lbl, val, subTxt, info, cls) => { const t = el('div', 'dk' + (cls ? ' ' + cls : '')); const l = el('div', 'lbl', lbl); if (info) l.append(ii(info)); t.append(l, el('div', 'val'), el('div', 'sub')); t.children[1].append(val); if (subTxt) t.children[2].append(subTxt); return t; };
+  const was = w.prijsStart && w.prijsEind && w.prijsStart !== w.prijsEind ? `was ${eur.format(w.prijsStart)}` : (() => { const e = (HIST || {})[w.id]; const p = e ? e.log.map((x) => x.prijs).filter(Boolean) : []; return p.length > 1 && p[0] !== p[p.length - 1] ? `was ${eur.format(p[0])}` : ''; })();
+  const lblNode = w.energielabel ? el('span', 'elabel l-' + w.energielabel[0], w.energielabel) : 'onbekend';
+  const ppmTile = tegel('Per m²', m2p ? eur.format(m2p) : '–', '', 'ppm2');
+  kort.append(tegel('Vraagprijs', eur.format(prijs), was, null, was ? 'verl' : ''), ppmTile, tegel('Woonlasten', '≈ ' + eur.format(maandlast(Object.assign({}, w, {prijs}))) + ' p/m', 'hypotheek + VvE', 'woonlasten'),
+    tegel('Oppervlak', (w.m2 || '–') + ' m²', [w.kamers ? w.kamers + ' kamers' : '', w.type].filter(Boolean).join(' · ')), tegel('Energielabel', lblNode, w.labelBron ? w.labelBron : '', 'energielabel'),
+    tegel('Buitenruimte', buitenVan(w).join(', ') || (Array.isArray(w.buiten) ? 'geen genoemd' : 'onbekend'), '', 'buitenruimte'));
+  B.append(kort);
+  const bd = buurtDiff(w), ppmSub = ppmTile.children[2];
+  if (bd != null) ppmSub.append(buurtNode(w));
+  loadMref().then(() => { if (detailW !== w) return; const d = marktDiff(Object.assign({}, w, {ppm2: m2p})); if (d == null) return; const s = el('span', 'r-buurt ' + (d <= -5 ? 'lo' : d >= 5 ? 'hi' : ''), Math.abs(Math.round(d)) + '% ' + (d < 0 ? 'onder' : 'boven') + ' markt'); ppmSub.prepend(s, bd != null ? ' · ' : ''); });
+  // 3. Voorrang & voorwaarden
+  { const box = el('div');
+    const p = el('p', 'dline'); const vj = voorJou(w); p.append(el('b', null, vj === 'ja' ? 'Jij kunt voorrang krijgen.' : vj === 'mogelijk' ? 'Je kunt mogelijk voorrang krijgen.' : vj === 'nee' ? 'Je hebt hier geen voorrang.' : 'Stel bij “Ik huur bij” je corporatie in.'), ' ', w.voorrangSpec || '');
+    box.append(p);
+    if (w.deadline) { const n = Math.round((new Date(w.deadline + 'T12:00:00') - new Date(today + 'T12:00:00')) / 864e5); const dl = el('p', 'dline'); dl.append('Deadline voorrang: ', el('b', null, nlDate(w.deadline)), n >= 0 ? ` (nog ${n} dag${n === 1 ? '' : 'en'})` : ' (verlopen)', ii('deadline')); box.append(dl); }
+    const kr = R.find((r) => r.corporatie === w.corporatie);
+    if (kr && kr.zelfbewoning) { const kv2 = el('div', 'kv'); kv2.append(...[kvI('Zelfbewoning', kr.zelfbewoning, 'zelfbewoning'), kvI('Anti-speculatie', kr.antispeculatie, 'antispeculatie'), kvI('Boete', kr.boete)].filter(Boolean)); box.append(kv2); }
+    const ok = el('p', 'note'); ok.append(prijs <= 637000 ? 'Opkoopbescherming: bij deze prijs valt de woning waarschijnlijk onder de WOZ-grens van € 637.000, dus de eerste 4 jaar niet verhuren.' : 'Opkoopbescherming geldt alleen bij een WOZ-waarde t/m € 637.000 (2026).', ii('opkoop'), ' ');
+    const a = link('Alle voorrangsregels', '#regels'); a.removeAttribute('target'); a.onclick = (e) => { e.preventDefault(); closeDetail(); showTab('regels'); scrollTo(0, 0); }; ok.append(a); box.append(ok);
+    B.append(dsec('Voorrang & voorwaarden', 'voorrang', box)); }
+  // 4. Onze voortgang (gedeeld via de lijst)
   const vg = VG[w.id] || {};
   const setVG = (k, val) => { VG[w.id] = Object.assign({}, VG[w.id] || {}, {[k]: val, t: Date.now()}); changed(); render(); upd(); };
   const vbox = el('div', 'calc');
   const sl = el('label', null, 'Status'); const se = el('select'); VSTATUS.forEach((o) => { const op = el('option', null, o || '—'); op.value = o; op.selected = (vg.status || '') === o; se.append(op); }); se.onchange = () => setVG('status', se.value); sl.append(se);
   const fld = (k, label, type, ph) => { const l = el('label', null, label); const i = el('input'); i.type = type; i.value = vg[k] ?? ''; if (ph) i.placeholder = ph; i.onchange = () => setVG(k, type === 'number' ? (i.value === '' ? '' : +i.value) : i.value); l.append(i); return l; };
-  vbox.append(sl, fld('bezichtiging', 'Bezichtiging', 'date'), fld('bod', 'Ons bod (€)', 'number'), fld('opknap', 'Opknapbudget (€)', 'number', 'schatting: ' + eur.format(Math.round(w.m2 * opknapM2(w) / 1000) * 1000)));
-  const nl = el('label', null, 'Notities'); nl.style.display = 'block'; nl.style.marginTop = '8px'; nl.style.fontSize = '12px'; nl.style.color = 'var(--muted)';
-  const ta = el('textarea'); ta.rows = 3; ta.style.width = '100%'; ta.style.marginTop = '3px'; ta.value = vg.notitie || ''; ta.placeholder = 'Bijv. indruk bezichtiging, vragen voor de makelaar, VvE-stukken…'; ta.onchange = () => setVG('notitie', ta.value); nl.append(ta);
-  B.append(vbox, nl, el('p', 'note', lijstId ? 'Wordt gedeeld via jullie lijst.' : 'Staat alleen in deze browser. Maak een lijst om dit met je partner te delen.'));
-  // Buurt
-  B.append(el('h3', null, 'Vergeleken met de buurt'));
-  const d = buurtDiff(w);
-  if (d != null) {
-    const p = el('p'); p.style.margin = 0;
-    p.append('Buurt ', el('b', null, w.buurt || '—'), ': gemiddelde WOZ-waarde ≈ ', el('b', null, eur.format(w.buurtWozM2) + ' per m²'), ' (WOZ ' + (w.buurtWozJaar || '') + '). Deze woning: ' + eur.format(Math.round(w.prijs / w.m2)) + ' per m², ');
-    p.append(buurtNode(w), '.'); B.append(p, el('p', 'note', '* ' + WOZ_UITLEG + ' Het gemiddelde oppervlak per buurt is geschat uit oppervlakteklassen. Opknapkosten zitten niet in de vraagprijs.'));
-  } else B.append(el('p', 'note', 'Nog geen buurtwaarde bekend voor deze woning (wordt bij de dagelijkse update opgehaald).'));
-  // Maandlasten
-  B.append(el('h3', null, 'Maandlasten (indicatie)'));
+  vbox.append(sl, fld('bezichtiging', 'Bezichtiging', 'date'), fld('bod', 'Ons bod (€)', 'number'), fld('opknap', 'Opknapbudget (€)', 'number', 'schatting: ' + eur.format(Math.round((w.m2 || 0) * opknapM2(w) / 1000) * 1000)));
+  const nl = el('label', 'dnotes', 'Notities'); const ta = el('textarea'); ta.rows = 3; ta.value = vg.notitie || ''; ta.placeholder = 'Bijv. indruk bezichtiging, vragen voor de makelaar, VvE-stukken…'; ta.onchange = () => setVG('notitie', ta.value); nl.append(ta);
+  B.append(dsec('Onze voortgang', null, vbox, nl, el('p', 'note', lijstId ? 'Wordt gedeeld via jullie lijst.' : 'Staat alleen in deze browser. Maak een lijst om dit met je partner te delen.')));
+  // 5. Kosten & maandlasten
+  const wp = Object.assign({}, w, {prijs});
   const calc = el('div', 'calc');
-  const inp = (key, label, step, suffix) => { const l = el('label', null, label + (suffix ? ' (' + suffix + ')' : '')); const i = el('input'); i.type = 'number'; i.step = step; i.min = 0; i.value = fin[key]; i.placeholder = key === 'huur' ? 'bijv. 750' : ''; i.oninput = () => { fin[key] = i.value === '' ? '' : +i.value; store.set('fin', JSON.stringify(fin)); upd(); changed(); clearTimeout(window._rt); window._rt = setTimeout(render, 400); }; l.append(i); return l; };
+  const inp = (key, label, step, suffix, info) => { const l = el('label', null, label + (suffix ? ' (' + suffix + ')' : '')); if (info) l.append(ii(info)); const i = el('input'); i.type = 'number'; i.step = step; i.min = 0; i.value = fin[key]; i.placeholder = key === 'huur' ? 'bijv. 750' : ''; i.oninput = () => { fin[key] = i.value === '' ? '' : +i.value; store.set('fin', JSON.stringify(fin)); upd(); changed(); clearTimeout(window._rt); window._rt = setTimeout(render, 400); }; l.append(i); return l; };
   calc.append(inp('rente', 'Hypotheekrente', '0.05', '%'), inp('jaren', 'Looptijd', '1', 'jaar'), inp('eigen', 'Eigen geld', '1000', '€'), inp('huur', 'Huidige huur', '10', '€ p/m'),
-    inp('maxHyp', 'Max. hypotheek', '1000', '€'), inp('bijkomend', 'Notaris, taxatie, advies', '500', '€'));
-  const stl = el('label', 'check'); stl.style.gridColumn = '1 / -1'; const stc = el('input'); stc.type = 'checkbox'; stc.checked = !!fin.starter; stc.onchange = () => { fin.starter = stc.checked; store.set('fin', JSON.stringify(fin)); upd(); changed(); render(); }; stl.append(stc, ' Startersvrijstelling (18–35 jaar, eerste keer; geen overdrachtsbelasting t/m € 555.000)'); calc.append(stl);
+    inp('maxHyp', 'Max. hypotheek', '1000', '€', 'maxHyp'), inp('bijkomend', 'Notaris, taxatie, advies', '500', '€', 'kostenKoper'));
+  const stl = el('label', 'check'); stl.style.gridColumn = '1 / -1'; const stc = el('input'); stc.type = 'checkbox'; stc.checked = !!fin.starter; stc.onchange = () => { fin.starter = stc.checked; store.set('fin', JSON.stringify(fin)); upd(); changed(); render(); }; stl.append(stc, ' Startersvrijstelling (18–35 jaar, eerste keer; geen overdrachtsbelasting t/m € 555.000)', ii('overdracht')); calc.append(stl);
   const sum = el('div', 'sum');
   const upd = () => {
-    const hy = Math.round(hypotheek(w)), tot = maandlast(w);
-    const rows = [el('div', null, 'Hypotheek (annuïteit, bruto): ' + eur.format(hy) + ' p/m')];
-    if (vve(w)) rows.push(el('div', null, 'VvE: ' + eur2.format(vve(w)) + ' p/m'));
-    const t = el('div', 'tot', '≈ ' + eur.format(tot) + ' per maand'); rows.push(t);
-    if (fin.huur) { const dif = tot - fin.huur; rows.push(el('div', null, (dif >= 0 ? eur.format(dif) + ' meer' : eur.format(-dif) + ' minder') + ' dan je huidige huur')); }
-    const k = el('div'); k.style.marginTop = '10px';
-    k.append(el('div', null, 'Vraagprijs ' + eur.format(w.prijs) + ' + overdrachtsbelasting ' + eur.format(overdracht(w)) + ' + bijkomend ' + eur.format(+fin.bijkomend || 0) + ' + opknappen ' + eur.format(opknap(w))));
-    k.append(el('div', 'tot', 'Totaal ≈ ' + eur.format(totaal(w))));
-    if (fin.maxHyp) { const en = eigenNodig(w); const ok = pastBudget(w); const d = el('div', null, 'Eigen geld nodig: ' + eur.format(en) + (ok ? ' · past in jullie budget' : ' · ' + eur.format(en - (+fin.eigen || 0)) + ' tekort')); d.style.color = ok ? 'var(--ok)' : 'var(--bad)'; k.append(d); }
-    rows.push(k);
+    const hy = Math.round(hypotheek(wp)), tot = maandlast(wp);
+    const rij = (l, val, cls, info) => { const d = el('div', 'srow' + (cls ? ' ' + cls : '')); const s = el('span', null, l); if (info) s.append(ii(info)); d.append(s, el('b', null, val)); return d; };
+    const rows = [el('div', 'sh', 'Per maand'), rij('Hypotheek (annuïteit, bruto)', eur.format(hy))];
+    if (vve(w)) rows.push(rij('VvE', eur2.format(vve(w)), '', 'vve'));
+    rows.push(rij('Totaal per maand', '≈ ' + eur.format(tot), 'tot'));
+    if (fin.huur) { const dif = tot - fin.huur; rows.push(el('div', 'muted', (dif >= 0 ? eur.format(dif) + ' meer' : eur.format(-dif) + ' minder') + ' dan je huidige huur')); }
+    rows.push(el('div', 'sh', 'Eenmalig'), rij('Vraagprijs', eur.format(prijs)), rij('Overdrachtsbelasting', eur.format(overdracht(wp)), '', 'overdracht'), rij('Notaris, taxatie, advies', eur.format(+fin.bijkomend || 0), '', 'kostenKoper'), rij('Opknappen (schatting)', eur.format(opknap(wp)), '', 'opknap'), rij('Totaal', '≈ ' + eur.format(totaal(wp)), 'tot'));
+    if (fin.maxHyp) { const en = eigenNodig(wp); const ok = pastBudget(wp); const d = el('div', null, 'Eigen geld nodig: ' + eur.format(en) + (ok ? ' · past in jullie budget' : ' · ' + eur.format(en - (+fin.eigen || 0)) + ' tekort')); d.style.color = ok ? 'var(--ok)' : 'var(--bad)'; d.style.fontWeight = 600; rows.push(d); }
     sum.replaceChildren(...rows);
   };
   upd();
-  const notes = ['Bruto, dus zonder hypotheekrenteaftrek. Kosten koper en opknappen kun je niet meefinancieren in de hypotheek; die gaan van je eigen geld af. Opknapbudget is een grove schatting per m² op basis van het energielabel (pas aan bij Onze voortgang). Je max. hypotheek reken je uit bij een bank of adviseur.'];
+  const notes = ['Bruto, dus zonder hypotheekrenteaftrek. Kosten koper en opknappen kun je niet meefinancieren in de hypotheek; die gaan van je eigen geld af.'];
   if (w.erfpacht && !/afgekocht|eigen grond/i.test(w.erfpacht)) notes.push('Let op: erfpacht is mogelijk niet afgekocht; de canon komt hier nog bij.');
-  else if (!w.erfpacht) notes.push('Erfpacht onbekend; check de advertentie.');
   if (!vve(w) && w.type && !/woning$|huis/i.test(w.type)) notes.push('VvE-bijdrage onbekend.');
-  B.append(calc, sum, el('p', 'note', notes.join(' ')));
-  // Koopvoorwaarden
-  const kr = R.find((r) => r.corporatie === w.corporatie);
-  B.append(el('h3', null, 'Na de koop'));
-  if (kr && kr.zelfbewoning) {
-    const kv2 = el('div', 'kv'); kv2.style.marginTop = 0; kv2.append(...[kvItem('Zelfbewoningsplicht', kr.zelfbewoning), kvItem('Anti-speculatiebeding', kr.antispeculatie), kvItem('Boete', kr.boete)].filter(Boolean)); B.append(kv2);
-  }
-  const ok = el('p', 'note'); ok.append(w.prijs <= 637000 ? 'Opkoopbescherming: bij deze vraagprijs valt de woning waarschijnlijk onder de WOZ-grens van € 637.000, dus de eerste 4 jaar niet verhuren. ' : 'Opkoopbescherming geldt alleen als de WOZ-waarde ≤ € 637.000 is (grens 2026). ', link('Uitleg bij Voorrangsregels', '#regels')); B.append(ok);
-  ok.querySelector('a').removeAttribute('target'); ok.querySelector('a').onclick = (e) => { e.preventDefault(); closeDetail(); showTab('regels'); scrollTo(0, 0); };
-  // Fundering
-  B.append(el('h3', null, 'Fundering (indicatie per postcode)'));
-  if (w.fundering) {
-    const p = el('p'); p.style.margin = 0; p.append(el('b', null, w.fundering), w.funderingVoor1970 ? ' · ' + Math.round(+w.funderingVoor1970) + '% van de panden in deze postcode is van vóór 1970' : '', w.funderingBodem ? ' · bodem: ' + w.funderingBodem : '');
-    B.append(p, el('p', 'note', 'Bron: Klimaateffectatlas / KCAF. Zegt iets over het gebied, niet over deze woning. Vraag bij interesse naar funderingsonderzoek of -herstel (VvE, gemeente, brochure).'));
-  } else B.append(el('p', 'note', w.funderingPc ? 'Geen indicatie gevonden voor deze postcode.' : 'Nog niet opgehaald (gebeurt bij de dagelijkse update).'));
-  // Historie
-  B.append(el('h3', null, 'Historie'));
-  const hl = el('ul', 'hist'); hl.append(el('li', 'muted', 'Laden…')); B.append(hl);
+  B.append(dsec('Kosten & maandlasten', null, sum, el('details', 'dcalc'), el('p', 'note', notes.join(' '))));
+  { const dt = B.querySelector('.dcalc'); dt.append(el('summary', null, 'Aannames aanpassen (rente, eigen geld, max. hypotheek…)'), calc); if (!fin.maxHyp) dt.open = false; }
+  // 6. Prijs in context: markt, buurt, historie
+  const ctx = el('div');
+  const mk1 = el('p', 'dline', 'Vrije markt laden…'); ctx.append(mk1);
+  loadMref().then(() => { if (detailW !== w) return; const g = MREF && MREF.gebieden ? MREF.gebieden[w.stadsdeel] : null; if (!g || !m2p) { mk1.textContent = 'Geen marktcijfers voor dit stadsdeel.'; return; }
+    const d = (m2p / g.app.m2 - 1) * 100; mk1.replaceChildren('Vrije markt ', w.stadsdeel, ': appartementen verkochten voor ', el('b', null, eur.format(g.app.m2) + ' per m²'), ` (mediaan, ${MREF.periode}); ${g.app.boven}% ging boven de vraagprijs weg. Deze woning: ${eur.format(m2p)} per m², `, el('b', null, Math.abs(Math.round(d)) + '% ' + (d < 0 ? 'onder' : 'boven')), ' de markt.', ii('markt')); });
+  if (bd != null) { const p = el('p', 'dline'); p.append('Buurt ', el('b', null, w.buurt || '—'), ': gemiddelde WOZ ≈ ', el('b', null, eur.format(w.buurtWozM2) + ' per m²'), ` (WOZ ${w.buurtWozJaar || ''}). Deze woning: `, buurtNode(w), '.', ii('buurtWoz')); ctx.append(p); }
+  else ctx.append(el('p', 'note', 'Nog geen buurtwaarde bekend (wordt bij de dagelijkse update opgehaald).'));
+  const hl = el('ul', 'hist'); hl.append(el('li', 'muted', 'Laden…'));
+  ctx.append(el('h4', null, 'Prijs- en statusverloop'), hl);
+  B.append(dsec('Prijs in context', null, ctx));
   loadHist().then((H) => {
     if (detailW !== w) return;
     const e = H[w.id];
@@ -1279,6 +1355,19 @@ const openDetail = (w) => {
     const f = el('li'); f.append(el('span', null, nlDate(e.eerstGezien)), el('span', null, 'eerst gezien')); if (e.eerstGezien < e.log[0].d) items.unshift(f);
     hl.replaceChildren(...items);
   });
+  // 7. Gebouw & grond
+  const bp = bouwPeriode(w), gk = el('div', 'kv');
+  gk.append(...[kvI('Bouwjaar', w.bouwjaar ? String(w.bouwjaar) : '', 'bouwperiode'), kvI('VvE', typeof w.servicekosten === 'number' ? eur2.format(w.servicekosten) + ' p/m' : '', 'vve'),
+    kvI('Erfpacht', w.erfpacht ? w.erfpacht + (() => { const m = String(w.erfpacht).match(/t\/m \d{1,2}-\d{1,2}-(\d{4})/); const n = m ? +m[1] - +today.slice(0, 4) : null; return n != null && n <= 20 ? ` · loopt over ${n} jaar af` : ''; })() : '', 'erfpacht'), kvI('Type', w.type)].filter(Boolean));
+  const geb = [gk];
+  if (BP_TXT[bp]) geb.push(el('p', 'note', BP_TXT[bp]));
+  const fu = el('p', 'dline'); fu.append(el('b', null, 'Fundering (postcode): '));
+  if (w.fundering) fu.append(w.fundering, w.funderingVoor1970 ? ' · ' + Math.round(+w.funderingVoor1970) + '% van de panden van vóór 1970' : '', w.funderingBodem ? ' · bodem: ' + w.funderingBodem : '');
+  else fu.append(w.funderingPc ? 'geen indicatie gevonden' : 'nog niet opgehaald');
+  fu.append(ii('fundering')); geb.push(fu);
+  B.append(dsec('Gebouw & grond', null, ...geb));
+  // 8. Bron
+  const bron = el('p', 'note dbron'); bron.append(`Online sinds ${onlineSinds(w)} · bron: ${w.bron || '—'}`); B.append(bron);
   $('#detail').hidden = false; $('#detail .box').scrollTop = 0;
 };
 const closeDetail = () => { $('#detail').hidden = true; detailW = null; };
@@ -1482,44 +1571,144 @@ $('#profbtn').onclick = openProf;
 $('#homelink').onclick = (e) => { if (e.metaKey || e.ctrlKey || e.shiftKey) return; e.preventDefault(); location.replace(location.pathname); };
 $('#profskip').onclick = () => { $('#profmodal').hidden = true; };
 $('#profsave').onclick = () => { const c = $('#profopts input:checked'); if (!c) return; profiel = {corp: c.value, zelfstandig: $('#profzelf').checked}; store.set('profiel', JSON.stringify(profiel)); changed(); $('#profmodal').hidden = true; profLabel(); if (voorMode) sel.corporatie = voorCorps(); renderStatic(); render(); };
+// ---------- Uitleg-i's: korte uitleg per begrip, overal op de site ----------
+const INFO = {
+  voorrang: ['Voorrang', 'Bij sommige corporaties mogen (sociale) huurders eerder reageren dan anderen, tot een deadline. Wat het betekent: minder concurrentie, en je koopt meestal gewoon voor de vraagprijs, zonder overbieden. Wie voorrang krijgt verschilt per corporatie, zie Voorrangsregels.'],
+  voorJou: ['Voor jou', 'Of jij op deze woning voorrang kunt krijgen, berekend uit de corporatie waar je huurt (instelbaar via “Ik huur bij”) en de regels van de verkopende corporatie. “Mogelijk” = hangt af van de advertentie of wordt pas bij de bezichtiging duidelijk.'],
+  deadline: ['Deadline voorrang', 'Tot deze datum gaan voorranghuurders voor. Reageer en bezichtig daarvoor. Na de deadline mag iedereen bieden en verdwijnt je voordeel.'],
+  status: ['Status', '“Onder bod”: de corporatie onderhandelt met een koper; valt die af, dan komt de woning terug. “Verkocht o.v.b.”: er is een koper, maar de koop is nog niet definitief (bijv. financiering). Daarna verdwijnt de woning.'],
+  ppm2: ['Prijs per m²', 'Vraagprijs gedeeld door het woonoppervlak. Zo vergelijk je woningen van verschillende grootte. Let op: kleine woningen hebben bijna altijd een hogere prijs per m² dan grote.'],
+  mediaan: ['Mediaan', 'De middelste waarde: de helft zit eronder, de helft erboven. Minder gevoelig voor een paar uitschieters dan het gemiddelde.'],
+  spreiding: ['Spreiding', 'Stip = mediaan. Donkere balk = de middelste helft van de woningen. Dunne lijn = van de goedkoopste tot de duurste per m². Een lange balk betekent grote verschillen binnen de groep.'],
+  buurtWoz: ['Buurt-WOZ', 'Geschatte gemiddelde WOZ-waarde per m² in de buurt (Gemeente Amsterdam, BBGA). WOZ ligt meestal ónder wat woningen echt opbrengen en loopt een jaar achter. Onder de buurt-WOZ = relatief goedkoop; erboven is in Amsterdam niet ongewoon.'],
+  buurt: ['Buurt', 'Wijk volgens de gebiedsindeling van de gemeente (of de wijknaam uit het adres). Binnen een stadsdeel kunnen prijzen per wijk sterk verschillen.'],
+  markt: ['Vrije markt', 'Mediane verkoopprijs per m² van appartementen die in dit stadsdeel via NVM-makelaars zijn verkocht (MVA, per kwartaal). Dat zijn echte verkoopprijzen, inclusief overbieden. Een negatief percentage betekent dat de corporatie-vraagprijs onder wat de markt betaalt ligt: je voordeel als je met voorrang koopt.'],
+  marktJaar: ['1 jaar', 'Verandering van de marktprijs per m² ten opzichte van hetzelfde kwartaal een jaar eerder.'],
+  verkooptijd: ['Verkooptijd', 'Vrije markt: mediaan aantal dagen tussen aanmelden bij de makelaar en verkoop. Vergelijk met hoe snel corporatiewoningen onder bod gaan.'],
+  overbieden: ['Boven vraagprijs', 'Vrije markt: welk deel van de woningen boven de vraagprijs is verkocht, en hoeveel procent er gemiddeld boven de vraagprijs is betaald. Bij corporatiewoningen met voorrang betaal je meestal de vraagprijs.'],
+  energielabel: ['Energielabel', 'A (zuinig) tot G (onzuinig). Bepaalt je energierekening en hoeveel je nog moet isoleren. Bij label E–G: reken op isolatiekosten en hogere energielasten. Banken lenen extra voor verduurzaming (energiebespaarbudget), meer naarmate het label slechter is. In het opknapbudget op deze site zit een schatting per m² op basis van het label.'],
+  bouwperiode: ['Bouwperiode', 'Indeling naar Amsterdamse bouwgeschiedenis en bouwregels: voor 1906 (19e-eeuwse ring: hoge plafonds, houten palen, vaak funderingsherstel en slechte isolatie) · 1906–1944 (vooroorlogs, Amsterdamse School: solide, karakteristiek, houten palen, vaak label D–G) · 1945–1969 (wederopbouw, tuinsteden: portiekflats, vaak al gerenoveerd, asbest mogelijk) · 1970–1991 (stadsvernieuwing, hoogbouw: betonnen palen, isolatie matig, asbest tot 1993) · 1992–2005 (Bouwbesluit 1992: eerste isolatie-eisen, meestal label B–C) · 2006 of later (strengere energie-eisen, meestal label A).'],
+  vve: ['VvE-bijdrage', 'Maandelijkse bijdrage aan de Vereniging van Eigenaren voor onderhoud, opstalverzekering en het reservefonds. Telt mee in je maandlasten, niet in je hypotheek. Heel laag kan betekenen dat er te weinig gespaard wordt (risico op extra heffingen); hoog kan komen door een lift, cv of goed reservefonds. Vraag het meerjarenonderhoudsplan (MJOP) op.'],
+  erfpacht: ['Erfpacht', 'In Amsterdam is de grond meestal van de gemeente. “Afgekocht t/m [datum]”: tot die datum betaal je niets; daarna een nieuwe jaarlijkse canon of afkoopsom (kan honderden tot duizenden euro per jaar zijn). Eigen grond of eeuwigdurend afgekocht: geen kosten. Een afkoop die binnen ±15–20 jaar afloopt drukt de waarde en kan je hypotheekruimte beïnvloeden. “Erfpacht zeker” = eigen grond, eeuwigdurend of afgekocht tot na 2060.'],
+  fundering: ['Fundering', 'Indicatie per postcode (Klimaateffectatlas / KCAF): welk deel van de panden van vóór 1970 is en hoe kwetsbaar de bodem is. Veel oude panden op houten palen = kans op funderingsherstel, vaak tienduizenden euro’s per woning via de VvE. Zegt iets over het gebied, niet over deze woning: vraag bij interesse naar funderingsonderzoek.'],
+  woonlasten: ['Woonlasten per maand', 'Bruto maandlast van de hypotheek (annuïteit, met de rente, looptijd en het eigen geld dat je bij Maandlasten instelt) plus de VvE-bijdrage. Zonder hypotheekrenteaftrek, energie, verzekeringen en eventuele erfpachtcanon.'],
+  overdracht: ['Overdrachtsbelasting', '2% van de koopsom als je er zelf gaat wonen. Startersvrijstelling: 0% als je 18–35 jaar bent, nog niet eerder gebruikmaakte van de vrijstelling en de woning maximaal € 555.000 kost (2026). Niet mee te financieren.'],
+  kostenKoper: ['Kosten koper', 'Overdrachtsbelasting plus notaris, taxatie en hypotheekadvies (samen vaak € 5.000–8.000). Deze kosten kun je niet meefinancieren: ze komen uit eigen geld.'],
+  opknap: ['Opknapbudget', 'Grove schatting per m² op basis van het energielabel (beter label = minder werk). Pas aan bij Onze voortgang zodra je de woning hebt gezien. Kan niet in de hypotheek, behalve het energiebespaarbudget.'],
+  maxHyp: ['Max. hypotheek', 'Hoeveel je maximaal kunt lenen. Hangt af van inkomen, rente en energielabel; laat dit uitrekenen door een bank of adviseur. Vul je het in, dan rekent de site uit hoeveel eigen geld je nodig hebt en of een woning past.'],
+  budget: ['Past in budget', 'Woning past als je eigen geld genoeg is voor: vraagprijs minus wat je maximaal kunt lenen, plus kosten koper en opknapbudget. Stel je max. hypotheek en eigen geld in bij Maandlasten in een detailweergave.'],
+  zelfbewoning: ['Zelfbewoningsplicht', 'Je moet er zelf (blijven) wonen, vaak minimaal een aantal jaar. Verhuren of leeg laten staan mag niet; bij overtreding kan een flinke boete volgen.'],
+  antispeculatie: ['Anti-speculatiebeding', 'Verkoop je binnen een bepaalde periode, dan moet je (een deel van) de winst aan de corporatie afdragen of mag je niet verkopen. Bedoeld om snelle doorverkoop met winst te voorkomen.'],
+  opkoop: ['Opkoopbescherming', 'Amsterdamse regel: woningen met een WOZ-waarde tot € 637.000 (2026) mag je de eerste 4 jaar niet verhuren, behalve met vergunning (bijv. aan familie). Boete tot € 21.750.'],
+  buitenruimte: ['Buitenruimte', 'Balkon, terras of tuin, automatisch herkend uit de tekst van de advertentie (frans balkon, gemeenschappelijke tuin en “geen balkon” tellen niet mee). Kan soms missen; check de advertentie.'],
+  archief: ['Archief', 'Elke corporatiewoning die de site sinds 8 november 2026 zag, ook als die inmiddels verkocht of offline is. Zo bouw je een beeld op van de markt door de tijd.'],
+  nieuwPerMaand: ['Nieuw aanbod', 'Gemiddeld aantal nieuwe woningen per maand sinds de start van de site. Woningen die er bij de start al stonden tellen niet mee. Geeft een idee hoeveel kansen je per maand hebt.'],
+  dagenTotBod: ['Dagen tot onder bod', 'Aantal dagen tussen de eerste keer dat de site de woning zag en het moment dat hij onder bod ging (of verdween). Kort = veel vraag: reageer snel. Alleen gemeten bij woningen die na de start online kwamen; niet bij Funda-woningen.'],
+  wegInVoorrang: ['Weg in voorrangsperiode', 'Welk deel van de woningen met een voorrangsdeadline al vóór die deadline onder bod ging of verdween. Dan heeft vrijwel zeker een voorranghuurder hem gekocht. Hoog = met voorrang heb je echt kans; laag = vaak gaat hij pas daarna weg.'],
+  prijsverlaging: ['Prijsverlaging', 'De corporatie verlaagde de vraagprijs, meestal omdat er te weinig belangstelling was. Groepen met veel of grote verlagingen hebben minder concurrentie; soms loont het om even te wachten.'],
+  mislukt: ['Mislukte deals', 'Woningen die onder bod gingen en daarna weer beschikbaar kwamen (koper haakte af, financiering rond niet). Hoog = blijf letten op woningen die onder bod staan.'],
+  verkooptempo: ['Tempo', 'Hoe snel woningen van een corporatie weg zijn sinds de site meekijkt.'],
+};
+const ii = (key) => { const b = el('button', 'ii', 'i'); b.type = 'button'; b.dataset.info = key; b.setAttribute('aria-label', 'Uitleg: ' + ((INFO[key] || [])[0] || key)); return b; };
+(() => {
+  const pop = el('div', 'iipop'); pop.hidden = true; pop.setAttribute('role', 'tooltip'); document.body.append(pop);
+  let pinned = null;
+  const show = (b) => { const [t, x] = INFO[b.dataset.info] || ['', '']; if (!t) return; pop.replaceChildren(el('b', null, t), el('div', null, x)); pop.hidden = false;
+    const r = b.getBoundingClientRect(), w = Math.min(320, innerWidth - 24); pop.style.width = w + 'px';
+    const left = Math.max(12, Math.min(r.left + r.width / 2 - w / 2, innerWidth - w - 12)); pop.style.left = left + 'px';
+    const below = r.bottom + 8 + pop.offsetHeight < innerHeight; pop.style.top = (below ? r.bottom + 8 : Math.max(8, r.top - pop.offsetHeight - 8)) + 'px'; };
+  const hide = () => { pop.hidden = true; pinned = null; };
+  document.addEventListener('click', (e) => { const b = e.target.closest('.ii'); if (b) { e.preventDefault(); e.stopPropagation(); if (pinned === b) return hide(); pinned = b; show(b); } else if (!e.target.closest('.iipop')) hide(); }, true);
+  if (matchMedia('(hover: hover)').matches) {
+    document.addEventListener('mouseover', (e) => { const b = e.target.closest('.ii'); if (b && !pinned) show(b); });
+    document.addEventListener('mouseout', (e) => { const b = e.target.closest('.ii'); if (b && !pinned && !b.contains(e.relatedTarget)) pop.hidden = true; });
+  }
+  addEventListener('scroll', () => { if (!pop.hidden) hide(); }, true);
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape') hide(); });
+})();
+// Statische i's in de HTML: <span data-ii="erfpacht"></span>
+const iiStatic = () => $$('[data-ii]').forEach((s) => { if (!s.firstChild) s.append(ii(s.dataset.ii)); });
+iiStatic();
+
 // ---------- Marktinzicht: archief van alle woningen ooit gezien ----------
-let ARCH = null;
-const mk = {groep: 'stadsdeel', sort: 'n', dir: -1, asort: 'eerstGezien', adir: -1, zoek: '', uit: 'alle'};
-const loadArch = () => ARCH ? Promise.resolve(ARCH) : fetch('data/archief.json', {cache: 'no-cache'}).then((r) => r.ok ? r.json() : null).catch(() => null)
-  .then((a) => ARCH = a ? Object.values(a) : W.map((w) => Object.assign({}, w, {actief: true, uitkomst: 'actief', ppm2: w.m2 ? Math.round(w.prijs / w.m2) : '', prijsEind: w.prijs, prijsStart: w.prijs, voorTracker: !!w.basis})));
+let ARCH = null, MREF = null, WIJKEN = null;
+const mk = {groep: 'stadsdeel', set: 'prijs', sort: 'n', dir: -1, asort: 'eerstGezien', adir: -1, zoek: '', uit: 'alle', kaart: 'ppm2'};
+const getJson = (f) => fetch('data/' + f, {cache: 'no-cache'}).then((r) => r.ok ? r.json() : null).catch(() => null);
+const loadArch = () => ARCH ? Promise.resolve(ARCH) : Promise.all([getJson('archief.json'), getJson('marktref.json'), getJson('wijken.json')]).then(([a, m, g]) => {
+  MREF = m; WIJKEN = g && g.wijken ? g.wijken : null;
+  ARCH = a ? Object.values(a) : W.map((w) => Object.assign({}, w, {actief: true, uitkomst: 'actief', ppm2: w.m2 ? Math.round(w.prijs / w.m2) : '', prijsEind: w.prijs, prijsStart: w.prijs, voorTracker: !!w.basis}));
+  if (WIJKEN) ARCH.forEach((r) => { r._wijk = wijkVan(r); });
+  return ARCH;
+});
+// punt-in-polygoon: woning koppelen aan een wijk van de gemeente
+const inRing = (x, y, ring) => { let c = false; for (let i = 0, j = ring.length - 1; i < ring.length; j = i++) { const [xi, yi] = ring[i], [xj, yj] = ring[j]; if ((yi > y) !== (yj > y) && x < (xj - xi) * (y - yi) / (yj - yi) + xi) c = !c; } return c; };
+const wijkVan = (r) => { if (!r.lat || !r.lon) return ''; const x = +r.lon, y = +r.lat; const f = WIJKEN.find((w) => w.polys.some((p) => inRing(x, y, p[0]) && !p.slice(1).some((h) => inRing(x, y, h)))); return f ? f.naam : ''; };
+
 const q = (a, p) => { if (!a.length) return null; const s = [...a].sort((x, y) => x - y), i = (s.length - 1) * p, lo = Math.floor(i); return s[lo] + (s[Math.ceil(i)] - s[lo]) * (i - lo); };
 const nums = (rows, f) => rows.map(f).filter((v) => typeof v === 'number' && isFinite(v));
 const fmtPct = (v) => v == null || v === '' ? '–' : (v > 0 ? '+' : v < 0 ? '−' : '') + Math.abs(v).toFixed(1).replace('.', ',').replace(',0', '') + '%';
 const pct = (n, d) => d ? Math.round(n / d * 100) + '%' : '–';
 const kNum = (v) => v == null ? '–' : eur.format(Math.round(v / 1000) * 1000);
 const dagTxt = (v) => v == null ? '–' : Math.round(v) + (Math.round(v) === 1 ? ' dag' : ' dagen');
+const prijsVan = (r) => r.prijsEind || r.prijs;
 const wozDiff = (r) => r.buurtWozM2 && r.ppm2 ? (r.ppm2 / r.buurtWozM2 - 1) * 100 : null;
+const marktM2 = (sd) => MREF && MREF.gebieden ? (MREF.gebieden[sd] || MREF.gebieden.Amsterdam || {}).app?.m2 : null;
+const marktDiff = (r) => { const m = marktM2(r.stadsdeel); return m && r.ppm2 ? (r.ppm2 / m - 1) * 100 : null; };
+const isVerlaagd = (r) => r.prijsStart && r.prijsEind && r.prijsEind < r.prijsStart;
 const isWeg = (r) => !r.actief || r.status === 'onder bod' || r.status === 'verkocht o.v.b.';
+const woonlast = (r) => prijsVan(r) && r.m2 ? maandlast(Object.assign({}, r, {prijs: prijsVan(r)})) : null;
 const UITK = {actief: 'Nog online', 'onder bod': 'Weg na bod', 'verkocht o.v.b.': 'Verkocht o.v.b.', offline: 'Weg', onbekend: 'Weg (Funda, status onbekend)'};
+// Indelingen
+const bouwPeriode = (r) => { const j = +r.bouwjaar; return !j ? 'Onbekend' : j < 1906 ? 'Voor 1906' : j < 1945 ? '1906–1944' : j < 1970 ? '1945–1969' : j < 1992 ? '1970–1991' : j < 2006 ? '1992–2005' : '2006 of later'; };
+const erfKlasse = (r) => { const e = String(r.erfpacht || ''); if (!e) return 'Onbekend'; if (/eigen grond/i.test(e)) return 'Eigen grond'; if (/eeuwigdurend/i.test(e)) return 'Eeuwigdurend afgekocht'; const m = e.match(/afgekocht t\/m \d{1,2}-\d{1,2}-(\d{4})/i); if (m) { const j = +m[1]; return j <= 2040 ? 'Afgekocht t/m 2040' : j <= 2060 ? 'Afgekocht t/m 2041–2060' : 'Afgekocht na 2060'; } return 'Niet afgekocht / zie advertentie'; };
+const vveKlasse = (r) => { const v = typeof r.servicekosten === 'number' ? r.servicekosten : +r.servicekosten; return !v ? 'Onbekend' : v < 100 ? '< € 100' : v < 200 ? '€ 100–199' : v < 300 ? '€ 200–299' : '€ 300 of meer'; };
+const vveNum = (r) => { const v = typeof r.servicekosten === 'number' ? r.servicekosten : +r.servicekosten; return v || null; };
+const labelKlasse = (r) => { const l = (r.energielabel || '')[0]; return !l ? 'Onbekend' : l === 'A' ? 'A of beter' : 'EFG'.includes(l) ? 'E, F of G' : l; };
 const GROEPEN = {
-  corporatie: ['Corporatie', (r) => [r.corporatie || 'Onbekend']],
   stadsdeel: ['Stadsdeel', (r) => [r.stadsdeel || 'Onbekend']],
   buurt: ['Buurt', (r) => [(r.wijk || r.buurt || 'Onbekend') + (r.stadsdeel ? ' · ' + r.stadsdeel : '')]],
+  corporatie: ['Corporatie', (r) => [r.corporatie || 'Onbekend']],
   type: ['Type', (r) => [r.type || 'Onbekend']],
   kamers: ['Kamers', (r) => [r.kamers ? (r.kamers >= 5 ? '5+ kamers' : r.kamers + (r.kamers === 1 ? ' kamer' : ' kamers')) : 'Onbekend']],
   grootte: ['Grootte', (r) => [!r.m2 ? 'Onbekend' : r.m2 < 40 ? '< 40 m²' : r.m2 < 60 ? '40–59 m²' : r.m2 < 80 ? '60–79 m²' : r.m2 < 100 ? '80–99 m²' : '100 m² of meer']],
-  prijs: ['Prijsklasse', (r) => { const p = r.prijsEind || r.prijs; return [!p ? 'Onbekend' : p < 300000 ? '< € 300k' : p < 400000 ? '€ 300–400k' : p < 500000 ? '€ 400–500k' : p < 600000 ? '€ 500–600k' : '€ 600k of meer']; }],
-  label: ['Energielabel', (r) => { const l = (r.energielabel || '')[0]; return [!l ? 'Onbekend' : l === 'A' ? 'A of beter' : 'EFG'.includes(l) ? 'E, F of G' : l]; }],
+  prijs: ['Prijsklasse', (r) => { const p = prijsVan(r); return [!p ? 'Onbekend' : p < 300000 ? '< € 300k' : p < 400000 ? '€ 300–400k' : p < 500000 ? '€ 400–500k' : p < 600000 ? '€ 500–600k' : '€ 600k of meer']; }],
+  bouw: ['Bouwperiode', (r) => [bouwPeriode(r)]],
+  label: ['Energielabel', (r) => [labelKlasse(r)]],
+  vve: ['VvE per maand', (r) => [vveKlasse(r)]],
+  erfpacht: ['Erfpacht', (r) => [erfKlasse(r)]],
   buiten: ['Buitenruimte', (r) => { const b = buitenVan(r); return Array.isArray(r.buiten) || b.length ? (b.length ? b.map((x) => x[0].toUpperCase() + x.slice(1)) : ['Geen']) : ['Onbekend']; }],
 };
-const ORDE = {grootte: ['< 40 m²', '40–59 m²', '60–79 m²', '80–99 m²', '100 m² of meer'], prijs: ['< € 300k', '€ 300–400k', '€ 400–500k', '€ 500–600k', '€ 600k of meer'], label: ['A of beter', 'B', 'C', 'D', 'E, F of G'], kamers: ['1 kamer', '2 kamers', '3 kamers', '4 kamers', '5+ kamers']};
+const GINFO = {bouw: 'bouwperiode', label: 'energielabel', vve: 'vve', erfpacht: 'erfpacht', buiten: 'buitenruimte', buurt: 'buurt'};
+const ORDE = {grootte: ['< 40 m²', '40–59 m²', '60–79 m²', '80–99 m²', '100 m² of meer'], prijs: ['< € 300k', '€ 300–400k', '€ 400–500k', '€ 500–600k', '€ 600k of meer'], label: ['A of beter', 'B', 'C', 'D', 'E, F of G'],
+  kamers: ['1 kamer', '2 kamers', '3 kamers', '4 kamers', '5+ kamers'], bouw: ['Voor 1906', '1906–1944', '1945–1969', '1970–1991', '1992–2005', '2006 of later'], vve: ['< € 100', '€ 100–199', '€ 200–299', '€ 300 of meer'],
+  erfpacht: ['Eigen grond', 'Eeuwigdurend afgekocht', 'Afgekocht na 2060', 'Afgekocht t/m 2041–2060', 'Afgekocht t/m 2040', 'Niet afgekocht / zie advertentie']};
 
+// Filters
+const fv = (id) => { const e = $('#' + id); return e ? e.value : ''; };
 const mkRows = () => {
-  const per = $('#mkper').value, sd = $('#mksd').value;
+  const per = fv('mkper'), sd = fv('mksd'), tp = fv('mktype'), kmin = +fv('mkkamers') || 0, pmin = +fv('mkpmin') || 0, pmax = +fv('mkpmax') || 0, amin = +fv('mkm2min') || 0, amax = +fv('mkm2max') || 0, lb = fv('mklabel'), bt = fv('mkbuiten'), ep = fv('mkerf');
   const van = per === 'alle' ? '' : new Date(Date.now() - (+per) * 864e5).toISOString().slice(0, 10);
-  return ARCH.filter((r) => (!van || (r.eerstGezien || '') >= van || (r.actief && r.voorTracker))
-    && !mkUit.has(r.corporatie) && (!sd || r.stadsdeel === sd));
+  return ARCH.filter((r) => {
+    if (van && !((r.eerstGezien || '') >= van || (r.actief && r.voorTracker))) return false;
+    if (mkUit.has(r.corporatie) || (sd && r.stadsdeel !== sd) || (tp && r.type !== tp)) return false;
+    if (kmin && !(r.kamers >= kmin)) return false;
+    const p = prijsVan(r); if ((pmin && !(p >= pmin)) || (pmax && !(p <= pmax))) return false;
+    if ((amin && !(r.m2 >= amin)) || (amax && !(r.m2 <= amax))) return false;
+    if (lb === 'ac' && !/^[ABC]/.test(r.energielabel || '')) return false;
+    if (lb === 'd' && !/^D/.test(r.energielabel || '')) return false;
+    if (lb === 'eg' && !/^[EFG]/.test(r.energielabel || '')) return false;
+    if (bt) { const b = buitenVan(r); if (bt === 'geen' ? !(Array.isArray(r.buiten) && !b.length) : bt === 'ja' ? !b.length : !b.includes(bt)) return false; }
+    if (ep) { const k = erfKlasse(r); if (ep === 'zeker' && !['Eigen grond', 'Eeuwigdurend afgekocht', 'Afgekocht na 2060'].includes(k)) return false; if (ep === 'kort' && !['Afgekocht t/m 2040', 'Niet afgekocht / zie advertentie'].includes(k)) return false; }
+    if (mkWijk && r._wijk !== mkWijk) return false;
+    return true;
+  });
 };
+let mkWijk = '';
 
-const tip = (() => { let t; return { show(e, html) { if (!t) { t = el('div', 'mktip'); document.body.append(t); } t.innerHTML = html; t.hidden = false; const x = Math.min(e.clientX + 14, innerWidth - t.offsetWidth - 8); t.style.left = x + 'px'; t.style.top = (e.clientY - t.offsetHeight - 10 < 0 ? e.clientY + 16 : e.clientY - t.offsetHeight - 10) + 'px'; }, hide() { if (t) t.hidden = true; } }; })();
+const tip = (() => { let t; return { show(e, html) { if (!t) { t = el('div', 'mktip'); document.body.append(t); } t.innerHTML = html; t.hidden = false; const x = Math.min(e.clientX + 14, innerWidth - t.offsetWidth - 8); t.style.left = Math.max(8, x) + 'px'; t.style.top = (e.clientY - t.offsetHeight - 10 < 0 ? e.clientY + 16 : e.clientY - t.offsetHeight - 10) + 'px'; }, hide() { if (t) t.hidden = true; } }; })();
 const svgEl = (tag, attrs) => { const e = document.createElementNS('http://www.w3.org/2000/svg', tag); for (const k in attrs) e.setAttribute(k, attrs[k]); return e; };
 
-// Staafgrafiek: [{lbl, v, v2, tip}] ; v2 = deel van v (donkerder, bv. "voor jou")
+// Staafgrafiek: [{lbl, v, v2, tip}] ; v2 = deel van v (donkerder)
 const barChart = (box, data, opt = {}) => {
   box.replaceChildren();
   if (!data.length || !data.some((d) => d.v)) { box.append(el('p', 'muted mkleeg', opt.leeg || 'Nog geen gegevens.')); return; }
@@ -1530,8 +1719,8 @@ const barChart = (box, data, opt = {}) => {
   for (let v = 0; v <= top; v += step) { s.append(svgEl('line', {x1: pl, x2: Wd, y1: y(v), y2: y(v), class: v ? 'mkgrid' : 'mkbase'})); const t = svgEl('text', {x: pl - 6, y: y(v) + 4, class: 'mkax', 'text-anchor': 'end'}); t.textContent = v; s.append(t); }
   const every = Math.ceil(data.length / (Wd < 450 ? 5 : 9));
   data.forEach((d, i) => {
-    const x = pl + i * sx + (sx - bw) / 2, h = Hd - pb - y(d.v);
-    if (d.v) { const r = Math.min(4, bw / 2, h); s.append(svgEl('path', {class: 'mkbar', d: `M${x},${Hd - pb}V${y(d.v) + r}q0,-${r} ${r},-${r}h${bw - 2 * r}q${r},0 ${r},${r}V${Hd - pb}z`})); }
+    const x = pl + i * sx + (sx - bw) / 2;
+    if (d.v) { const h = Hd - pb - y(d.v), r = Math.min(4, bw / 2, h); s.append(svgEl('path', {class: 'mkbar', d: `M${x},${Hd - pb}V${y(d.v) + r}q0,-${r} ${r},-${r}h${bw - 2 * r}q${r},0 ${r},${r}V${Hd - pb}z`})); }
     if (d.v2) { const y2 = y(d.v2), r = Math.min(4, bw / 2, Hd - pb - y2); const full = d.v2 === d.v; s.append(svgEl('path', {class: 'mkbar2', d: full ? `M${x},${Hd - pb}V${y2 + r}q0,-${r} ${r},-${r}h${bw - 2 * r}q${r},0 ${r},${r}V${Hd - pb}z` : `M${x},${Hd - pb}V${y2 + 1}h${bw}V${Hd - pb}z`})); }
     if (i % every === 0) { const t = svgEl('text', {x: x + bw / 2, y: Hd - 8, class: 'mkax', 'text-anchor': 'middle'}); t.textContent = d.lbl; s.append(t); }
     const hit = svgEl('rect', {x: pl + i * sx, y: pt, width: sx, height: Hd - pt - pb, class: 'mkhit'});
@@ -1541,108 +1730,223 @@ const barChart = (box, data, opt = {}) => {
   box.append(s);
   if (opt.legend) { const l = el('div', 'mklegend'); opt.legend.forEach(([c, t]) => { const i = el('span'); i.append(el('span', 'sw ' + c), t); l.append(i); }); box.append(l); }
 };
+// Lijngrafiek met één reeks + optionele referentielijn (stippel)
+const lineChart = (box, pts, opt = {}) => {
+  box.replaceChildren();
+  if (!pts.length) { box.append(el('p', 'muted mkleeg', opt.leeg || 'Nog geen gegevens.')); return; }
+  const Wd = Math.max(300, Math.round(box.clientWidth || 560)), Hd = Wd < 450 ? 180 : 200, pl = 48, pr = 12, pb = 26, pt = 12;
+  const vals = pts.map((p) => p.v).concat(opt.ref ? [opt.ref] : []);
+  let lo = Math.min(...vals), hi = Math.max(...vals); const pad = Math.max(250, (hi - lo) * .15); lo = Math.floor((lo - pad) / 500) * 500; hi = Math.ceil((hi + pad) / 500) * 500;
+  const s = svgEl('svg', {viewBox: `0 0 ${Wd} ${Hd}`, class: 'mkchart', role: 'img', 'aria-label': opt.aria || ''});
+  const x = (i) => pts.length === 1 ? (pl + Wd - pr) / 2 : pl + i * (Wd - pl - pr) / (pts.length - 1), y = (v) => pt + (Hd - pt - pb) * (1 - (v - lo) / (hi - lo));
+  const step = Math.max(500, Math.ceil((hi - lo) / 4 / 500) * 500);
+  for (let v = lo; v <= hi; v += step) { s.append(svgEl('line', {x1: pl, x2: Wd - pr, y1: y(v), y2: y(v), class: v === lo ? 'mkbase' : 'mkgrid'})); const t = svgEl('text', {x: pl - 6, y: y(v) + 4, class: 'mkax', 'text-anchor': 'end'}); t.textContent = '€ ' + (v / 1000).toFixed(1).replace('.', ',') + 'k'; s.append(t); }
+  if (opt.ref) { s.append(svgEl('line', {x1: pl, x2: Wd - pr, y1: y(opt.ref), y2: y(opt.ref), class: 'mkref'})); const t = svgEl('text', {x: Wd - pr, y: y(opt.ref) - 5, class: 'mkax', 'text-anchor': 'end'}); t.textContent = opt.refLbl; s.append(t); }
+  if (pts.length > 1) s.append(svgEl('path', {class: 'mkline', d: pts.map((p, i) => (i ? 'L' : 'M') + x(i) + ',' + y(p.v)).join('')}));
+  const every = Math.ceil(pts.length / (Wd < 450 ? 4 : 8));
+  pts.forEach((p, i) => {
+    s.append(svgEl('circle', {cx: x(i), cy: y(p.v), r: 4.5, class: 'mkdot'}));
+    if (i % every === 0) { const t = svgEl('text', {x: x(i), y: Hd - 8, class: 'mkax', 'text-anchor': 'middle'}); t.textContent = p.lbl; s.append(t); }
+    const hit = svgEl('rect', {x: x(i) - 20, y: pt, width: 40, height: Hd - pt - pb, class: 'mkhit'});
+    hit.addEventListener('mousemove', (e) => tip.show(e, p.tip)); hit.addEventListener('mouseleave', tip.hide); s.append(hit);
+  });
+  box.append(s);
+  const l = el('div', 'mklegend'); const a = el('span'); a.append(el('span', 'sw'), opt.lbl || 'Corporatie (vraagprijs)'); l.append(a);
+  if (opt.ref) { const b = el('span'); b.append(el('span', 'sw ref'), opt.refLegend); l.append(b); } box.append(l);
+};
 
 const weekStart = (d) => { const x = new Date(d + 'T12:00:00'); x.setDate(x.getDate() - ((x.getDay() + 6) % 7)); return x.toISOString().slice(0, 10); };
+const MND = ['jan', 'feb', 'mrt', 'apr', 'mei', 'jun', 'jul', 'aug', 'sep', 'okt', 'nov', 'dec'];
 
 const renderMarkt = () => {
   if (!ARCH) { loadArch().then(() => { mkSetup(); renderMarkt(); }); return; }
   const R = mkRows(), nieuw = R.filter((r) => !r.voorTracker);
+  const sdSel = fv('mksd') || 'Amsterdam', mref = MREF && MREF.gebieden ? MREF.gebieden[sdSel] || MREF.gebieden.Amsterdam : null;
   // Kerncijfers
-  const weg = R.filter(isWeg), bod = nums(R, (r) => r.dagenTotBod), metDl = R.filter((r) => r.bodInVoorrang !== '' && r.bodInVoorrang != null);
+  const bod = nums(R, (r) => r.dagenTotBod), metDl = R.filter((r) => r.bodInVoorrang !== '' && r.bodInVoorrang != null);
   const dagen = Math.max(1, (Date.now() - new Date(Math.min(...ARCH.map((r) => +new Date((r.eerstGezien || today) + 'T12:00:00'))))) / 864e5);
   const perMnd = nieuw.length / Math.max(dagen, 30) * 30.4, vjMnd = nieuw.filter((r) => voorJou(r) !== 'nee').length / Math.max(dagen, 30) * 30.4;
-  const verl = R.filter((r) => r.prijsStart && r.prijsEind && r.prijsEind < r.prijsStart), omlaag = verl.length;
-  const vPct = q(verl.map((r) => (r.prijsEind - r.prijsStart) / r.prijsStart * 100), .5), vEur = q(verl.map((r) => r.prijsStart - r.prijsEind), .5);
+  const n1 = (v) => v < 10 ? v.toFixed(1).replace('.', ',') : Math.round(v);
+  const verl = R.filter(isVerlaagd), vPct = q(verl.map((r) => (r.prijsEind - r.prijsStart) / r.prijsStart * 100), .5), vEur = q(verl.map((r) => r.prijsStart - r.prijsEind), .5);
+  const md = q(nums(R, marktDiff), .5), mislukt = R.filter((r) => r.terugBeschikbaar > 0).length, ondbod = R.filter((r) => r.bodOp || r.terugBeschikbaar > 0).length;
   const K = [
-    ['Woningen gezien', String(R.length), `${R.filter((r) => r.actief).length} nog online · ${R.length - R.filter((r) => r.actief).length} weg`],
-    ['Nieuw aanbod', nieuw.length ? '± ' + (perMnd < 10 ? perMnd.toFixed(1).replace('.', ',') : Math.round(perMnd)) + ' per maand' : '–', profiel ? `waarvan ± ${vjMnd < 10 ? vjMnd.toFixed(1).replace('.', ',') : Math.round(vjMnd)} met voorrang voor jou` : 'stel je corporatie in voor “voor jou”'],
-    ['Vraagprijs (mediaan)', kNum(q(nums(R, (r) => r.prijsEind || r.prijs), .5)), 'per m²: ' + (q(nums(R, (r) => r.ppm2), .5) ? eur.format(Math.round(q(nums(R, (r) => r.ppm2), .5))) : '–')],
-    ['Tot onder bod (mediaan)', dagTxt(q(bod, .5)), bod.length ? `gemeten bij ${bod.length} woningen` : 'pas te meten bij nieuwe woningen'],
-    ['Weg binnen voorrangsperiode', pct(metDl.filter((r) => r.bodInVoorrang).length, metDl.length), metDl.length ? `van ${metDl.length} woningen met deadline` : 'nog geen woningen met deadline weg'],
-    ['Prijs verlaagd', pct(omlaag, R.length), omlaag ? `${omlaag} van ${R.length} · meestal ${fmtPct(vPct)} (${eur.format(Math.round(vEur / 1000) * 1000)} lager)` : `0 van ${R.length} woningen`],
+    ['Woningen gezien', String(R.length), `${R.filter((r) => r.actief).length} nog online · ${R.filter((r) => !r.actief).length} weg`, 'archief'],
+    ['Nieuw aanbod', nieuw.length ? '± ' + n1(perMnd) + ' per maand' : '–', profiel ? `waarvan ± ${n1(vjMnd)} met voorrang voor jou` : 'stel je corporatie in voor “voor jou”', 'nieuwPerMaand'],
+    ['Vraagprijs (mediaan)', kNum(q(nums(R, prijsVan), .5)), 'per m²: ' + (q(nums(R, (r) => r.ppm2), .5) ? eur.format(Math.round(q(nums(R, (r) => r.ppm2), .5))) : '–'), 'mediaan'],
+    ['T.o.v. vrije markt', md == null ? '–' : fmtPct(md), mref ? `markt: ${eur.format(mref.app.m2)} per m² (${MREF.periode})` : 'marktcijfers niet geladen', 'markt'],
+    ['Woonlasten (mediaan)', q(nums(R, woonlast), .5) ? eur.format(Math.round(q(nums(R, woonlast), .5) / 10) * 10) + ' p/m' : '–', `hypotheek + VvE · ${String(fin.rente).replace('.', ',')}% rente, ${fin.jaren} jaar`, 'woonlasten'],
+    ['Tot onder bod (mediaan)', dagTxt(q(bod, .5)), bod.length ? `gemeten bij ${bod.length} woning${bod.length === 1 ? '' : 'en'}` : 'pas te meten bij nieuwe woningen', 'dagenTotBod'],
+    ['Weg binnen voorrangsperiode', pct(metDl.filter((r) => r.bodInVoorrang).length, metDl.length), metDl.length ? `van ${metDl.length} woningen met deadline` : 'nog geen woningen met deadline weg', 'wegInVoorrang'],
+    ['Prijs verlaagd', pct(verl.length, R.length), verl.length ? `${verl.length} van ${R.length} · meestal ${fmtPct(vPct)} (${eur.format(Math.round(vEur / 1000) * 1000)} lager)` : `0 van ${R.length} woningen`, 'prijsverlaging'],
+    ['Mislukte deals', pct(mislukt, ondbod), ondbod ? `${mislukt} van ${ondbod} woningen onder bod kwam terug` : 'nog geen woningen onder bod', 'mislukt'],
   ];
-  $('#mkkpi').replaceChildren(...K.map(([l, v, s]) => { const d = el('div', 'mkk'); d.append(el('div', 'lbl', l), el('div', 'val', v), el('div', 'sub', s)); return d; }));
+  $('#mkkpi').replaceChildren(...K.map(([l, v, s, i]) => { const d = el('div', 'mkk'); const lb = el('div', 'lbl', l); lb.append(ii(i)); d.append(lb, el('div', 'val', v), el('div', 'sub', s)); return d; }));
   // Aanbod per week (zonder het bestaande aanbod van de eerste dag)
   const wk = {}; nieuw.forEach((r) => { if (!r.eerstGezien) return; const k = weekStart(r.eerstGezien); (wk[k] ||= {v: 0, v2: 0}).v++; if (voorJou(r) !== 'nee') wk[k].v2++; });
   const weeks = []; if (Object.keys(wk).length) { let d = Object.keys(wk).sort()[0]; const end = weekStart(today); while (d <= end && weeks.length < 60) { weeks.push(d); const x = new Date(d + 'T12:00:00'); x.setDate(x.getDate() + 7); d = x.toISOString().slice(0, 10); } }
   barChart($('#mkweek'), weeks.map((k) => { const o = wk[k] || {v: 0, v2: 0}; return {lbl: nlShort(k), v: o.v, v2: profiel ? o.v2 : 0, tip: `<b>Week van ${nlShort(k)}</b><br>${o.v} nieuw` + (profiel ? `<br>${o.v2} met voorrang voor jou` : '')}; }),
     {aria: 'Nieuw aanbod per week', leeg: 'Vanaf nu telt de site elk nieuw aanbod per week. Het aanbod dat er op 8 november al stond telt niet mee.', legend: profiel ? [['mkbar', 'Nieuw'], ['mkbar2', 'Waarvan met voorrang voor jou']] : null});
-  // Hoe snel weg
-  const B = [['0–3', 0, 3], ['4–7', 4, 7], ['8–14', 8, 14], ['15–30', 15, 30], ['31–60', 31, 60], ['60+', 61, 1e9]];
-  barChart($('#mksnel'), B.map(([l, a, b]) => { const n = bod.filter((v) => v >= a && v <= b).length; return {lbl: l, v: n, tip: `<b>${l} dagen</b><br>${n} woning${n === 1 ? '' : 'en'} (${pct(n, bod.length)})`}; }),
-    {aria: 'Dagen tot onder bod', leeg: 'Wordt gevuld zodra nieuwe woningen onder bod gaan of verdwijnen. Woningen die er al stonden voor de start tellen niet mee.'});
+  // Prijs per m² per maand + vrije markt
+  const mm = {}; R.forEach((r) => { if (!r.ppm2 || !r.eerstGezien) return; (mm[r.eerstGezien.slice(0, 7)] ||= []).push(r.ppm2); });
+  const mnd = Object.keys(mm).sort();
+  lineChart($('#mktrend'), mnd.map((k) => { const v = q(mm[k], .5); return {lbl: MND[+k.slice(5) - 1] + ' ' + k.slice(2, 4), v, tip: `<b>${MND[+k.slice(5) - 1]} ${k.slice(0, 4)}</b><br>Mediaan ${eur.format(Math.round(v))} per m²<br>${mm[k].length} woningen online gekomen`}; }),
+    {aria: 'Prijs per m² per maand', lbl: 'Corporatie: mediane vraagprijs per m² (maand van online komen)', ref: mref ? mref.app.m2 : null, refLbl: mref ? 'vrije markt ' + eur.format(mref.app.m2) : '', refLegend: mref ? `Vrije markt ${sdSel === 'Amsterdam' ? 'Amsterdam' : sdSel}: verkoopprijs per m², appartementen (${MREF.periode})` : ''});
+  // Prijsverlagingen
   const VB = [['< 2,5%', 0, 2.5], ['2,5–5%', 2.5, 5], ['5–7,5%', 5, 7.5], ['7,5–10%', 7.5, 10], ['10%+', 10, 1e9]];
   const vp = verl.map((r) => ({r, p: (r.prijsStart - r.prijsEind) / r.prijsStart * 100}));
   barChart($('#mkverl'), VB.map(([l, a, b]) => { const hits = vp.filter((x) => x.p >= a && x.p < b); return {lbl: l, v: hits.length, tip: `<b>${l} lager</b><br>${hits.length} woning${hits.length === 1 ? '' : 'en'}` + hits.slice(0, 5).map((x) => `<br>${x.r.adres}: ${eur.format(x.r.prijsStart)} → ${eur.format(x.r.prijsEind)}`).join('') + (hits.length > 5 ? '<br>…' : '')}; }),
     {aria: 'Prijsverlagingen', leeg: 'Nog geen prijsverlagingen in deze selectie.'});
   const dv = nums(R, (r) => r.dagenTotVerlaging);
   $('#mkverlnote').textContent = 'Hoeveel lager de vraagprijs werd, bij woningen waarvan de prijs omlaag ging.' + (dv.length ? ` Eerste verlaging meestal na ${dagTxt(q(dv, .5))} (${dv.length} gemeten).` : '');
+  // Hoe snel weg
+  const SB = [['0–3', 0, 3], ['4–7', 4, 7], ['8–14', 8, 14], ['15–30', 15, 30], ['31–60', 31, 60], ['60+', 61, 1e9]];
+  barChart($('#mksnel'), SB.map(([l, a, b]) => { const n = bod.filter((v) => v >= a && v <= b).length; return {lbl: l, v: n, tip: `<b>${l} dagen</b><br>${n} woning${n === 1 ? '' : 'en'} (${pct(n, bod.length)})`}; }),
+    {aria: 'Dagen tot onder bod', leeg: 'Wordt gevuld zodra nieuwe woningen onder bod gaan of verdwijnen. Woningen die er al stonden voor de start tellen niet mee.'});
+  renderMarktRef(R);
+  renderKaart(R);
   renderVergelijk(R);
   renderArchief(R);
   $('#mkinfo').textContent = `${ARCH.length} woningen in het archief · sinds ${nlShort(ARCH.map((r) => r.eerstGezien).filter(Boolean).sort()[0] || today)}`;
+  const actief = ['mktype', 'mkkamers', 'mkpmin', 'mkpmax', 'mkm2min', 'mkm2max', 'mklabel', 'mkbuiten', 'mkerf'].filter((i) => fv(i)).length + (mkWijk ? 1 : 0);
+  $('#mkmeer').textContent = 'Meer filters' + (actief ? ` (${actief})` : ''); $('#mkwis').hidden = !actief && !mkUit.size && !fv('mksd') && fv('mkper') === 'alle';
 };
 
-const VCOLS = [
-  ['naam', 'Groep', 'l'], ['n', 'Aantal'], ['online', 'Nog online'], ['prijs', 'Vraagprijs'], ['m2', 'm²'], ['ppm2', 'Prijs per m² (spreiding)', 'w'], ['woz', 't.o.v. buurt-WOZ'],
-  ['bod', 'Dagen tot bod'], ['voorr', 'Weg in voorrang'], ['verl', 'Prijs verlaagd'], ['verlPct', 'Verlaging (mediaan)'], ['vj', 'Voor jou'], ['buiten', 'Buitenruimte'], ['lbl', 'Label A–C'],
-];
+// Vrije markt vs corporatie per stadsdeel
+const renderMarktRef = (R) => {
+  const box = $('#mkref'); if (!MREF || !MREF.gebieden) { box.replaceChildren(el('p', 'note', 'Marktcijfers niet beschikbaar.')); return; }
+  const sds = ['Centrum', 'Noord', 'Oost', 'West', 'Zuid', 'Nieuw-West', 'Zuidoost', 'Amsterdam'];
+  const tb = el('tbody');
+  sds.forEach((sd) => {
+    const m = MREF.gebieden[sd]; if (!m) return; const rs = sd === 'Amsterdam' ? R : R.filter((r) => r.stadsdeel === sd);
+    const c = q(nums(rs, (r) => r.ppm2), .5), d = sd === 'Amsterdam' ? q(nums(rs, marktDiff), .5) : c && m.app.m2 ? (c / m.app.m2 - 1) * 100 : null, bd = q(nums(rs, (r) => r.dagenTotBod), .5), yoy = m.app_vj && m.app_vj.m2 ? (m.app.m2 / m.app_vj.m2 - 1) * 100 : null;
+    const tr = el('tr', sd === 'Amsterdam' ? 'tot' : '');
+    const dt = el('td', 'num', d == null ? '–' : fmtPct(d)); if (d != null) dt.classList.add(d <= -5 ? 'lo' : d >= 5 ? 'hi' : 'mid');
+    tr.append(el('td', null, sd === 'Amsterdam' ? 'Heel Amsterdam' : sd), el('td', 'num', eur.format(m.app.m2)), el('td', 'num mkmut', yoy == null ? '' : fmtPct(yoy)), el('td', 'num', c ? eur.format(Math.round(c)) : '–'), dt,
+      el('td', 'num', m.app.dagen + ' d'), el('td', 'num', bd == null ? '–' : Math.round(bd) + ' d'), el('td', 'num', m.app.boven + '%'), el('td', 'num', '+' + String(m.app.overbod).replace('.', ',') + '%'), el('td', 'num', kNum(m.app.prijs)));
+    if (sd !== 'Amsterdam') { tr.onclick = () => { $('#mksd').value = sd; mkWijk = ''; renderMarkt(); }; tr.title = 'Filter op ' + sd; }
+    tb.append(tr);
+  });
+  const th = el('tr'); [['Stadsdeel'], ['Markt €/m²', 'markt'], ['1 jaar', 'marktJaar'], ['Corporatie €/m²', 'ppm2'], ['Verschil', 'markt'], ['Markt: verkooptijd', 'verkooptijd'], ['Corporatie: tot bod', 'dagenTotBod'], ['Markt: boven vraag', 'overbieden'], ['Markt: overbod', 'overbieden'], ['Markt: mediaanprijs']].forEach(([t, i], k) => { const e = el('th', k ? 'num' : '', t); if (i) e.append(ii(i)); th.append(e); });
+  const thead = el('thead'); thead.append(th); const tbl = el('table', 'mktbl mkreftbl'); tbl.append(thead, tb); const sc = el('div', 'scroll'); sc.append(tbl);
+  const bron = el('p', 'note'); bron.append(`Vrije markt: ${MREF.bron}, ${MREF.periode}, appartementen, medianen. “1 jaar” = verandering t.o.v. ${MREF.vorige}. `, link('Bron', MREF.url), '. Corporatie: mediane vraagprijs in je huidige selectie. Het verschil voor heel Amsterdam is per woning berekend t.o.v. de marktprijs van het eigen stadsdeel. Klik op een stadsdeel om te filteren.');
+  box.replaceChildren(sc, bron);
+};
+
+// Kaart per wijk
+let mkMap = null, mkLayer = null;
+const KAART = {ppm2: ['Prijs per m² (mediaan)', (rs) => q(nums(rs, (r) => r.ppm2), .5), (v) => eur.format(Math.round(v))], n: ['Aantal woningen', (rs) => rs.length, (v) => String(v)],
+  markt: ['T.o.v. vrije markt', (rs) => q(nums(rs, marktDiff), .5), fmtPct, true], bod: ['Dagen tot bod (mediaan)', (rs) => q(nums(rs, (r) => r.dagenTotBod), .5), (v) => dagTxt(v)],
+  verl: ['Prijs verlaagd', (rs) => rs.filter(isVerlaagd).length / rs.length * 100, (v) => Math.round(v) + '%'], lasten: ['Woonlasten (mediaan)', (rs) => q(nums(rs, woonlast), .5), (v) => eur.format(Math.round(v / 10) * 10) + ' p/m']};
+const SEQ = ['#dbe7f7', '#a9c6ec', '#6f9fdc', '#3a74c4', '#1d4f94'], DIV = {lo: ['#1a7f4b', '#7cc19a'], mid: '#d9dde3', hi: ['#e3a07f', '#b4441f']};
+const renderKaart = (R) => {
+  const box = $('#mkkaart'), leg = $('#mkkaartleg');
+  if (!WIJKEN || typeof L === 'undefined') { box.replaceChildren(el('p', 'muted mkleeg', 'De wijkgrenzen worden bij de volgende dagelijkse update opgehaald.')); leg.replaceChildren(); return; }
+  if (!mkMap) {
+    mkMap = L.map(box, {zoomControl: true, scrollWheelZoom: false, attributionControl: true}).setView([52.36, 4.9], 11);
+    L.tileLayer('https://service.pdok.nl/brt/achtergrondkaart/wmts/v2_0/grijs/EPSG:3857/{z}/{x}/{y}.png', {maxZoom: 17, attribution: 'Kaart: PDOK · wijken: Gemeente Amsterdam'}).addTo(mkMap);
+  }
+  const [naam, f, fmt, div] = KAART[mk.kaart];
+  const per = {}; R.forEach((r) => { if (r._wijk) (per[r._wijk] ||= []).push(r); });
+  const vals = Object.values(per).map(f).filter((v) => v != null && isFinite(v)).sort((a, b) => a - b);
+  const brk = [.2, .4, .6, .8].map((p) => q(vals, p));
+  const kleur = (v) => { if (v == null) return null; if (div) return v <= -10 ? DIV.lo[0] : v <= -3 ? DIV.lo[1] : v < 3 ? DIV.mid : v < 10 ? DIV.hi[0] : DIV.hi[1]; let i = 0; while (i < 4 && v > brk[i]) i++; return SEQ[i]; };
+  if (mkLayer) mkLayer.remove();
+  mkLayer = L.layerGroup().addTo(mkMap);
+  WIJKEN.forEach((w) => {
+    const rs = per[w.naam] || [], v = rs.length ? f(rs) : null, c = kleur(v);
+    const latlngs = w.polys.map((p) => p.map((ring) => ring.map(([x, y]) => [y, x])));
+    const pg = L.polygon(latlngs, {weight: mkWijk === w.naam ? 2.5 : .6, color: mkWijk === w.naam ? '#111' : '#8a94a3', fillColor: c || '#000', fillOpacity: c ? .72 : .03}).addTo(mkLayer);
+    pg.bindTooltip(`<b>${w.naam}</b>${w.stadsdeel ? ' · ' + w.stadsdeel : ''}<br>` + (rs.length ? `${naam}: ${v == null ? '–' : fmt(v)}<br>${rs.length} woning${rs.length === 1 ? '' : 'en'}` : 'geen woningen in de selectie'), {sticky: true});
+    if (rs.length) pg.on('click', () => { mkWijk = mkWijk === w.naam ? '' : w.naam; renderMarkt(); });
+  });
+  setTimeout(() => { mkMap.invalidateSize(); if (!mkMap._fit) { mkMap._fit = true; const b = L.featureGroup(mkLayer.getLayers()).getBounds(); if (b.isValid()) mkMap.fitBounds(b, {padding: [10, 10]}); } }, 50);
+  const items = div ? [[DIV.lo[0], '≥ 10% onder'], [DIV.lo[1], '3–10% onder'], [DIV.mid, 'ongeveer gelijk'], [DIV.hi[0], '3–10% boven'], [DIV.hi[1], '≥ 10% boven']]
+    : vals.length ? SEQ.map((c, i) => [c, i === 0 ? '≤ ' + fmt(brk[0]) : i === 4 ? '> ' + fmt(brk[3]) : fmt(brk[i - 1]) + ' – ' + fmt(brk[i])]) : [];
+  leg.replaceChildren(...items.map(([c, t]) => { const s = el('span'); const b = el('span', 'sw'); b.style.background = c; s.append(b, t); return s; }), ...(vals.length ? [(() => { const s = el('span'); const b = el('span', 'sw'); b.style.background = 'transparent'; b.style.border = '1px solid var(--line)'; s.append(b, 'geen woningen'); return s; })()] : []));
+  $('#mkwijk').replaceChildren(...(mkWijk ? [(() => { const b = el('button', 'mini', `Wijk: ${mkWijk} ×`); b.onclick = () => { mkWijk = ''; renderMarkt(); }; return b; })()] : []));
+};
+
+// Vergelijk-tabel met kolomsets
+const VSETS = {
+  prijs: [['prijs', 'Vraagprijs', 'mediaan'], ['ppm2', 'Prijs per m² (spreiding)', 'spreiding', 'w'], ['markt', 't.o.v. markt', 'markt'], ['woz', 't.o.v. buurt-WOZ', 'buurtWoz'], ['lasten', 'Woonlasten p/m', 'woonlasten'], ['vve', 'VvE p/m', 'vve'], ['verl', 'Prijs verlaagd', 'prijsverlaging'], ['verlPct', 'Verlaging', 'prijsverlaging']],
+  snelheid: [['bod', 'Dagen tot bod', 'dagenTotBod'], ['voorr', 'Weg in voorrang', 'wegInVoorrang'], ['mislukt', 'Mislukte deals', 'mislukt'], ['nieuwMnd', 'Nieuw per maand', 'nieuwPerMaand'], ['vj', 'Voor jou', 'voorJou']],
+  woning: [['m2', 'm²'], ['kamers', 'Kamers'], ['bouwjaar', 'Bouwjaar', 'bouwperiode'], ['lbl', 'Label A–C', 'energielabel'], ['buiten', 'Buitenruimte', 'buitenruimte'], ['erfZeker', 'Erfpacht zeker', 'erfpacht']],
+};
 const renderVergelijk = (R) => {
-  const [, keyF] = GROEPEN[mk.groep], G = {};
+  const [gnaam, keyF] = GROEPEN[mk.groep], G = {};
   R.forEach((r) => keyF(r).forEach((k) => (G[k] ||= []).push(r)));
+  const dagen = Math.max(30, (Date.now() - new Date((ARCH.map((r) => r.eerstGezien).filter(Boolean).sort()[0] || today) + 'T12:00:00')) / 864e5);
+  const fr = (rs, f) => rs.length ? rs.filter(f).length / rs.length : null;
   let rows = Object.entries(G).map(([naam, rs]) => {
-    const p = nums(rs, (r) => r.ppm2), dl = rs.filter((r) => r.bodInVoorrang !== '' && r.bodInVoorrang != null);
-    return {naam, rs, n: rs.length, online: rs.filter((r) => r.actief).length, prijs: q(nums(rs, (r) => r.prijsEind || r.prijs), .5), m2: q(nums(rs, (r) => r.m2), .5),
-      ppm2: q(p, .5), p25: q(p, .25), p75: q(p, .75), pmin: p.length ? Math.min(...p) : null, pmax: p.length ? Math.max(...p) : null, woz: q(nums(rs, wozDiff), .5),
-      bod: q(nums(rs, (r) => r.dagenTotBod), .5), nbod: nums(rs, (r) => r.dagenTotBod).length,
-      voorr: dl.length ? dl.filter((r) => r.bodInVoorrang).length / dl.length : null, ndl: dl.length,
-      verl: rs.filter((r) => r.prijsStart && r.prijsEind && r.prijsEind < r.prijsStart).length / rs.length,
-      verlPct: q(rs.filter((r) => r.prijsStart && r.prijsEind && r.prijsEind < r.prijsStart).map((r) => (r.prijsEind - r.prijsStart) / r.prijsStart * 100), .5),
-      vj: profiel ? rs.filter((r) => voorJou(r) !== 'nee').length / rs.length : null,
-      buiten: (() => { const k = rs.filter((r) => Array.isArray(r.buiten) || r.tuin === 'ja'); return k.length ? k.filter((r) => buitenVan(r).length).length / k.length : null; })(),
-      lbl: (() => { const k = rs.filter((r) => r.energielabel); return k.length ? k.filter((r) => /^[ABC]/.test(r.energielabel)).length / k.length : null; })()};
+    const p = nums(rs, (r) => r.ppm2), dl = rs.filter((r) => r.bodInVoorrang !== '' && r.bodInVoorrang != null), ob = rs.filter((r) => r.bodOp || r.terugBeschikbaar > 0), vl = rs.filter(isVerlaagd);
+    const kb = rs.filter((r) => Array.isArray(r.buiten) || r.tuin === 'ja'), kl = rs.filter((r) => r.energielabel), ke = rs.filter((r) => erfKlasse(r) !== 'Onbekend');
+    return {naam, rs, n: rs.length, online: rs.filter((r) => r.actief).length, prijs: q(nums(rs, prijsVan), .5),
+      ppm2: q(p, .5), p25: q(p, .25), p75: q(p, .75), pmin: p.length ? Math.min(...p) : null, pmax: p.length ? Math.max(...p) : null,
+      markt: q(nums(rs, marktDiff), .5), woz: q(nums(rs, wozDiff), .5), lasten: q(nums(rs, woonlast), .5), vve: q(nums(rs, vveNum), .5),
+      verl: vl.length / rs.length, verlPct: q(vl.map((r) => (r.prijsEind - r.prijsStart) / r.prijsStart * 100), .5),
+      bod: q(nums(rs, (r) => r.dagenTotBod), .5), nbod: nums(rs, (r) => r.dagenTotBod).length, voorr: dl.length ? dl.filter((r) => r.bodInVoorrang).length / dl.length : null, ndl: dl.length,
+      mislukt: ob.length ? ob.filter((r) => r.terugBeschikbaar > 0).length / ob.length : null, nob: ob.length, nieuwMnd: rs.filter((r) => !r.voorTracker).length / dagen * 30.4,
+      vj: profiel ? fr(rs, (r) => voorJou(r) !== 'nee') : null, m2: q(nums(rs, (r) => r.m2), .5), kamers: q(nums(rs, (r) => r.kamers), .5), bouwjaar: q(nums(rs, (r) => +r.bouwjaar || null), .5),
+      lbl: kl.length ? fr(kl, (r) => /^[ABC]/.test(r.energielabel)) : null, buiten: kb.length ? fr(kb, (r) => buitenVan(r).length) : null,
+      erfZeker: ke.length ? fr(ke, (r) => ['Eigen grond', 'Eeuwigdurend afgekocht', 'Afgekocht na 2060'].includes(erfKlasse(r))) : null};
   });
   const ord = ORDE[mk.groep];
-  rows.sort((a, b) => { if (mk.sort === 'naam' && ord) return ((ord.indexOf(a.naam) + 99) % 99 - (ord.indexOf(b.naam) + 99) % 99) * -mk.dir; const x = a[mk.sort], y = b[mk.sort]; if (x == null) return 1; if (y == null) return -1; return (typeof x === 'string' ? x.localeCompare(y, 'nl') : x - y) * -mk.dir; });
+  rows.sort((a, b) => { if ((a.naam === 'Onbekend') !== (b.naam === 'Onbekend')) return a.naam === 'Onbekend' ? 1 : -1; if (mk.sort === 'naam' && ord) return ((ord.indexOf(a.naam) + 99) % 99 - (ord.indexOf(b.naam) + 99) % 99) * -mk.dir; const x = a[mk.sort], y = b[mk.sort]; if (x == null) return 1; if (y == null) return -1; return (typeof x === 'string' ? x.localeCompare(y, 'nl') : x - y) * -mk.dir; });
   const all = nums(R, (r) => r.ppm2), lo = Math.floor((q(all, .02) || 0) / 1000) * 1000, hi = Math.ceil((q(all, .98) || 1) / 1000) * 1000;
   const sc = (v) => Math.max(0, Math.min(100, (v - lo) / Math.max(1, hi - lo) * 100));
-  const th = $('#mkvhead'); th.replaceChildren(...VCOLS.map(([k, t, c]) => { const e = el('th', c === 'w' ? 'mkrng' : c === 'l' ? '' : 'num', k === 'naam' ? GROEPEN[mk.groep][0] : t); if (mk.sort === k) e.append(mk.dir < 0 ? ' ↓' : ' ↑'); e.onclick = () => { mk.dir = mk.sort === k ? -mk.dir : (k === 'naam' ? 1 : -1); mk.sort = k; renderVergelijk(R); }; return e; }));
+  const cols = [['naam', gnaam, GINFO[mk.groep], 'l'], ['n', 'Aantal'], ['online', 'Nog online'], ...VSETS[mk.set]];
+  $('#mkvhead').replaceChildren(...cols.map(([k, t, info, c]) => { const e = el('th', c === 'w' ? 'mkrng' : c === 'l' ? '' : 'num', t); if (info) e.append(ii(info)); if (mk.sort === k) e.append(mk.dir < 0 ? ' ↓' : ' ↑'); e.onclick = () => { mk.dir = mk.sort === k ? -mk.dir : (k === 'naam' ? 1 : -1); mk.sort = k; renderVergelijk(R); }; return e; }));
+  const fp = (v) => v == null ? '–' : Math.round(v * 100) + '%', ster = (n) => n < 3 ? '*' : '';
+  const cell = (g, k) => {
+    switch (k) {
+      case 'prijs': return el('td', 'num', kNum(g.prijs));
+      case 'ppm2': { const td = el('td', 'mkrng'); if (g.ppm2 == null) { td.append('–'); return td; }
+        const bar = el('div', 'mkr'), span = el('span', 'mkr-iq'), wh = el('span', 'mkr-wh'), dot = el('span', 'mkr-md');
+        span.style.left = sc(g.p25) + '%'; span.style.width = Math.max(1.5, sc(g.p75) - sc(g.p25)) + '%'; wh.style.left = sc(g.pmin) + '%'; wh.style.width = Math.max(0, sc(g.pmax) - sc(g.pmin)) + '%'; dot.style.left = sc(g.ppm2) + '%';
+        bar.append(wh, span, dot); td.append(bar, el('span', 'mkr-v', eur.format(Math.round(g.ppm2))));
+        td.onmousemove = (e) => tip.show(e, `<b>${g.naam}</b><br>Mediaan ${eur.format(Math.round(g.ppm2))} per m²<br>Middelste helft ${eur.format(Math.round(g.p25))} – ${eur.format(Math.round(g.p75))}<br>Laagste ${eur.format(g.pmin)} · hoogste ${eur.format(g.pmax)}`); td.onmouseleave = tip.hide; return td; }
+      case 'markt': case 'woz': { const v = g[k], td = el('td', 'num', v == null ? '–' : fmtPct(v)); if (v != null) td.classList.add(v <= -5 ? 'lo' : v >= 5 ? 'hi' : 'mid'); return td; }
+      case 'lasten': return el('td', 'num', g.lasten == null ? '–' : eur.format(Math.round(g.lasten / 10) * 10));
+      case 'vve': return el('td', 'num', g.vve == null ? '–' : eur.format(Math.round(g.vve)));
+      case 'verl': return el('td', 'num', fp(g.verl));
+      case 'verlPct': return el('td', 'num', g.verlPct == null ? '–' : fmtPct(g.verlPct));
+      case 'bod': return el('td', 'num', g.bod == null ? '–' : Math.round(g.bod) + ster(g.nbod));
+      case 'voorr': return el('td', 'num', g.voorr == null ? '–' : fp(g.voorr) + ster(g.ndl));
+      case 'mislukt': return el('td', 'num', g.mislukt == null ? '–' : fp(g.mislukt) + ster(g.nob));
+      case 'nieuwMnd': return el('td', 'num', g.nieuwMnd ? g.nieuwMnd.toFixed(1).replace('.', ',') : '0');
+      case 'm2': return el('td', 'num', g.m2 == null ? '–' : Math.round(g.m2));
+      case 'kamers': return el('td', 'num', g.kamers == null ? '–' : String(Math.round(g.kamers * 10) / 10).replace('.', ','));
+      case 'bouwjaar': return el('td', 'num', g.bouwjaar == null ? '–' : Math.round(g.bouwjaar));
+      default: return el('td', 'num', fp(g[k]));
+    }
+  };
   const tb = $('#mkvbody'); tb.replaceChildren();
   rows.forEach((g) => {
-    const tr = el('tr'); const fp = (v) => v == null ? '–' : Math.round(v * 100) + '%';
-    const c0 = el('td'); if (mk.groep === 'corporatie') { const d = el('span', 'cd'); d.style.background = corpColor(g.naam); c0.append(d); } c0.append(g.naam);
-    const rng = el('td', 'mkrng');
-    if (g.ppm2 != null) {
-      const bar = el('div', 'mkr'); const span = el('span', 'mkr-iq'); span.style.left = sc(g.p25) + '%'; span.style.width = Math.max(1.5, sc(g.p75) - sc(g.p25)) + '%';
-      const wh = el('span', 'mkr-wh'); wh.style.left = sc(g.pmin) + '%'; wh.style.width = Math.max(0, sc(g.pmax) - sc(g.pmin)) + '%';
-      const dot = el('span', 'mkr-md'); dot.style.left = sc(g.ppm2) + '%';
-      bar.append(wh, span, dot); rng.append(bar, el('span', 'mkr-v', eur.format(Math.round(g.ppm2))));
-      rng.onmousemove = (e) => tip.show(e, `<b>${g.naam}</b><br>Mediaan ${eur.format(Math.round(g.ppm2))} per m²<br>Middelste helft ${eur.format(Math.round(g.p25))} – ${eur.format(Math.round(g.p75))}<br>Laagste ${eur.format(g.pmin)} · hoogste ${eur.format(g.pmax)}`); rng.onmouseleave = tip.hide;
-    } else rng.append('–');
-    const wz = el('td', 'num', g.woz == null ? '–' : (g.woz > 0 ? '+' : '') + Math.round(g.woz) + '%'); if (g.woz != null) wz.classList.add(g.woz <= -5 ? 'lo' : g.woz >= 5 ? 'hi' : 'mid');
-    tr.append(c0, el('td', 'num', g.n), el('td', 'num', g.online), el('td', 'num', kNum(g.prijs)), el('td', 'num', g.m2 == null ? '–' : Math.round(g.m2)), rng, wz,
-      el('td', 'num', g.bod == null ? '–' : Math.round(g.bod) + (g.nbod < 3 ? '*' : '')), el('td', 'num', g.voorr == null ? '–' : fp(g.voorr) + (g.ndl < 3 ? '*' : '')), el('td', 'num', fp(g.verl)), el('td', 'num', g.verlPct == null ? '–' : fmtPct(g.verlPct)),
-      el('td', 'num', fp(g.vj)), el('td', 'num', fp(g.buiten)), el('td', 'num', fp(g.lbl)));
+    const tr = el('tr'), c0 = el('td');
+    if (mk.groep === 'corporatie') { const d = el('span', 'cd'); d.style.background = corpColor(g.naam); c0.append(d); } c0.append(g.naam);
+    tr.append(c0, el('td', 'num', g.n), el('td', 'num', g.online), ...VSETS[mk.set].map(([k]) => cell(g, k)));
     tr.onclick = () => { mk.zoek = ''; $('#mkzoek').value = ''; mkFilterGroep = g.naam; renderArchief(mkRows()); $('#mkarch').scrollIntoView({behavior: 'smooth', block: 'start'}); };
     tb.append(tr);
   });
-  $('#mkschaal').textContent = all.length ? `Balk: ${eur.format(lo)} – ${eur.format(hi)} per m². Stip = mediaan, donker = middelste helft, lijn = laagste tot hoogste.` : '';
+  $('#mkschaal').textContent = mk.set === 'prijs' && all.length ? `Balk: ${eur.format(lo)} – ${eur.format(hi)} per m². Stip = mediaan, donker = middelste helft, lijn = laagste tot hoogste.` : '';
 };
 
 let mkFilterGroep = '';
-const ACOLS = [['adres', 'Adres', 'l'], ['buurt', 'Buurt', 'l'], ['corporatie', 'Corporatie', 'l'], ['prijsEind', 'Vraagprijs'], ['m2', 'm²'], ['ppm2', '€/m²'], ['prijsVerschilPct', 'Prijswijziging'], ['buiten', 'Buiten', 'l'], ['eerstGezien', 'Online sinds'], ['offline', 'Weg op'], ['dagenTotBod', 'Dagen tot bod'], ['uitkomst', 'Uitkomst', 'l']];
+const ACOLS = [['adres', 'Adres', 'l'], ['buurt', 'Buurt', 'l'], ['corporatie', 'Corporatie', 'l'], ['prijsEind', 'Vraagprijs'], ['m2', 'm²'], ['ppm2', '€/m²'], ['prijsVerschilPct', 'Prijswijziging'], ['bouwjaar', 'Bouwjaar'], ['buiten', 'Buiten', 'l'], ['eerstGezien', 'Online sinds'], ['offline', 'Weg op'], ['dagenTotBod', 'Dagen tot bod'], ['uitkomst', 'Uitkomst', 'l']];
+const mkWijz = (r) => { const d = r.prijsStart && r.prijsEind ? r.prijsEind - r.prijsStart : 0; const t = el('td', 'num' + (d < 0 ? ' lo' : d > 0 ? ' hi' : ''), d ? fmtPct(d / r.prijsStart * 100) : ''); if (d) t.append(el('span', 'mkwas', (d < 0 ? '−' : '+') + eur.format(Math.abs(d)) + (r.verlagingen > 1 ? ` · ${r.verlagingen}×` : ''))); return t; };
 const renderArchief = (R) => {
   const zoek = mk.zoek.toLowerCase(), [, keyF] = GROEPEN[mk.groep];
   let rows = R.filter((r) => (!zoek || [r.adres, r.wijk, r.buurt, r.postcode, r.corporatie].join(' ').toLowerCase().includes(zoek))
-    && (mk.uit === 'alle' || (mk.uit === 'actief' ? r.actief : mk.uit === 'verlaagd' ? r.prijsStart && r.prijsEind && r.prijsEind < r.prijsStart : !r.actief)) && (!mkFilterGroep || keyF(r).includes(mkFilterGroep)));
-  const v = (r, k) => k === 'prijsVerschilPct' ? (r.prijsStart && r.prijsEind && r.prijsEind !== r.prijsStart ? (r.prijsEind - r.prijsStart) / r.prijsStart * 100 : '') : k === 'buurt' ? (r.wijk || r.buurt || '') : k === 'prijsEind' ? (r.prijsEind || r.prijs) : k === 'buiten' ? buitenVan(r).join(', ') : r[k];
+    && (mk.uit === 'alle' || (mk.uit === 'actief' ? r.actief : mk.uit === 'verlaagd' ? isVerlaagd(r) : mk.uit === 'mislukt' ? r.terugBeschikbaar > 0 : !r.actief)) && (!mkFilterGroep || keyF(r).includes(mkFilterGroep)));
+  const v = (r, k) => k === 'prijsVerschilPct' ? (r.prijsStart && r.prijsEind && r.prijsEind !== r.prijsStart ? (r.prijsEind - r.prijsStart) / r.prijsStart * 100 : '') : k === 'buurt' ? (r.wijk || r.buurt || '') : k === 'prijsEind' ? prijsVan(r) : k === 'buiten' ? buitenVan(r).join(', ') : k === 'bouwjaar' ? (+r.bouwjaar || '') : r[k];
   rows.sort((a, b) => { const x = v(a, mk.asort), y = v(b, mk.asort); if (x === '' || x == null) return 1; if (y === '' || y == null) return -1; return (typeof x === 'string' ? x.localeCompare(y, 'nl') : x - y) * mk.adir; });
   $('#mkahead').replaceChildren(...ACOLS.map(([k, t, c]) => { const e = el('th', c === 'l' ? '' : 'num', t); if (mk.asort === k) e.append(mk.adir < 0 ? ' ↓' : ' ↑'); e.onclick = () => { mk.adir = mk.asort === k ? -mk.adir : (c === 'l' ? 1 : -1); mk.asort = k; renderArchief(R); }; return e; }));
   const tb = $('#mkabody'); tb.replaceChildren();
   rows.slice(0, mkMax).forEach((r) => {
     const tr = el('tr', r.actief ? '' : 'weg'); const d = el('span', 'cd'); d.style.background = corpColor(r.corporatie); const c = el('td'); c.append(d, r.corporatie);
-    const pr = el('td', 'num', r.prijsEind || r.prijs ? eur.format(r.prijsEind || r.prijs) : '–'); if (r.prijsStart && r.prijsEind && r.prijsStart !== r.prijsEind) pr.append(el('span', 'mkwas', 'was ' + eur.format(r.prijsStart)));
-    const u = el('td'); u.append(el('span', 'mku mku-' + (r.uitkomst || 'actief').replace(/\W+/g, ''), r.actief ? (r.status || 'beschikbaar') : UITK[r.uitkomst] || r.uitkomst));
-    tr.append(el('td', null, r.adres), el('td', 'mkmut', r.wijk || r.buurt || ''), c, pr, el('td', 'num', r.m2 || '–'), el('td', 'num', r.ppm2 ? eur.format(r.ppm2) : '–'), mkWijz(r), el('td', 'mkmut', buitenVan(r).join(', ')),
+    const pr = el('td', 'num', prijsVan(r) ? eur.format(prijsVan(r)) : '–'); if (r.prijsStart && r.prijsEind && r.prijsStart !== r.prijsEind) pr.append(el('span', 'mkwas', 'was ' + eur.format(r.prijsStart)));
+    const u = el('td'); u.append(el('span', 'mku', r.actief ? (r.status || 'beschikbaar') : UITK[r.uitkomst] || r.uitkomst)); if (r.terugBeschikbaar > 0) u.append(' ', el('span', 'mku', 'deal mislukt' + (r.terugBeschikbaar > 1 ? ` ${r.terugBeschikbaar}×` : '')));
+    tr.append(el('td', null, r.adres), el('td', 'mkmut', r.wijk || r.buurt || ''), c, pr, el('td', 'num', r.m2 || '–'), el('td', 'num', r.ppm2 ? eur.format(r.ppm2) : '–'), mkWijz(r), el('td', 'num', +r.bouwjaar || ''), el('td', 'mkmut', buitenVan(r).join(', ')),
       el('td', 'num', nlShort(r.eerstGezien) + (r.voorTracker ? '*' : '')), el('td', 'num', r.actief ? '' : nlShort(r.offline)), el('td', 'num', r.dagenTotBod === '' || r.dagenTotBod == null ? '' : r.dagenTotBod), u);
     tr.onclick = () => { const w = W.find((x) => x.id === r.id); openDetail(w || r); };
     tb.append(tr);
@@ -1652,9 +1956,8 @@ const renderArchief = (R) => {
   mkLaatste = rows;
 };
 let mkMax = 50, mkLaatste = [];
-const mkWijz = (r) => { const d = r.prijsStart && r.prijsEind ? r.prijsEind - r.prijsStart : 0; const t = el('td', 'num' + (d < 0 ? ' lo' : d > 0 ? ' hi' : ''), d ? fmtPct(d / r.prijsStart * 100) : ''); if (d) t.append(el('span', 'mkwas', (d < 0 ? '−' : '+') + eur.format(Math.abs(d)).replace('€', '€ ').replace('€  ', '€ ') + (r.verlagingen > 1 ? ` · ${r.verlagingen}×` : ''))); return t; };
 const mkCsv = () => {
-  const K = ['adres', 'postcode', 'wijk', 'stadsdeel', 'corporatie', 'type', 'kamers', 'm2', 'prijsStart', 'prijsEind', 'prijsVerschil', 'prijsVerschilPct', 'verlagingen', 'verlaagdOp', 'dagenTotVerlaging', 'ppm2', 'buurtWozM2', 'energielabel', 'bouwjaar', 'servicekosten', 'erfpacht', 'buiten', 'voorrangLabel', 'deadline', 'eerstGezien', 'offline', 'bodOp', 'verkochtOp', 'dagenOnline', 'dagenTotBod', 'dagenTotVerkocht', 'bodInVoorrang', 'prijsWijzigingen', 'uitkomst', 'url'];
+  const K = ['adres', 'postcode', 'wijk', 'stadsdeel', 'corporatie', 'type', 'kamers', 'm2', 'prijsStart', 'prijsEind', 'prijsVerschil', 'prijsVerschilPct', 'verlagingen', 'verlaagdOp', 'dagenTotVerlaging', 'ppm2', 'buurtWozM2', 'energielabel', 'bouwjaar', 'servicekosten', 'erfpacht', 'buiten', 'fundering', 'voorrangLabel', 'deadline', 'eerstGezien', 'offline', 'bodOp', 'verkochtOp', 'dagenOnline', 'dagenTotBod', 'dagenTotVerkocht', 'bodInVoorrang', 'terugBeschikbaar', 'uitkomst', 'url'];
   const esc = (v) => { v = Array.isArray(v) ? v.join(' ') : v == null ? '' : String(v); return /[;"\n]/.test(v) ? '"' + v.replace(/"/g, '""') + '"' : v; };
   const csv = '﻿' + [K.join(';'), ...mkLaatste.map((r) => K.map((k) => esc(r[k])).join(';'))].join('\n');
   const a = el('a'); a.href = URL.createObjectURL(new Blob([csv], {type: 'text/csv'})); a.download = `corporatiewoningen-archief-${today}.csv`; a.click();
@@ -1663,6 +1966,8 @@ let mkKlaar = false, mkUit = new Set();
 const mkSetup = () => {
   if (mkKlaar) return; mkKlaar = true;
   const fill = (s, vals) => vals.forEach((v) => { const o = el('option', null, v); o.value = v; s.append(o); });
+  fill($('#mksd'), [...new Set(ARCH.map((r) => r.stadsdeel).filter(Boolean))].sort());
+  fill($('#mktype'), [...new Set(ARCH.map((r) => r.type).filter(Boolean))].sort());
   const corps = [...new Set(ARCH.map((r) => r.corporatie).filter(Boolean))].sort();
   const chips = () => $('#mkcorps').replaceChildren(...corps.map((c) => { const l = el('label', 'mchip'); const i = el('input'); i.type = 'checkbox'; i.checked = !mkUit.has(c);
     i.onchange = () => { if (i.checked) mkUit.delete(c); else mkUit.add(c); mkFilterGroep = ''; renderMarkt(); };
@@ -1670,9 +1975,14 @@ const mkSetup = () => {
   chips();
   $('#mkvj').onchange = (e) => { if (e.target.checked && !profiel) { e.target.checked = false; $('#profmodal').hidden = false; return; }
     mkUit = new Set(e.target.checked ? corps.filter((c) => voorJouCorp(c) === 'nee') : []); chips(); mkFilterGroep = ''; renderMarkt(); };
-  fill($('#mksd'), [...new Set(ARCH.map((r) => r.stadsdeel).filter(Boolean))].sort());
-  $$('#mkgroep button').forEach((b) => b.onclick = () => { mk.groep = b.dataset.g; mk.sort = 'n'; mk.dir = -1; mkFilterGroep = ''; $$('#mkgroep button').forEach((x) => x.setAttribute('aria-pressed', String(x === b))); renderMarkt(); });
-  ['#mkper', '#mksd'].forEach((s) => $(s).onchange = () => { mkFilterGroep = ''; renderMarkt(); });
+  const seg = (id, key, after) => $$('#' + id + ' button').forEach((b) => b.onclick = () => { mk[key] = b.dataset.v; $$('#' + id + ' button').forEach((x) => x.setAttribute('aria-pressed', String(x === b))); after(); });
+  seg('mkgroep', 'groep', () => { mk.sort = ORDE[mk.groep] ? 'naam' : 'n'; mk.dir = -1; mkFilterGroep = ''; renderMarkt(); });
+  seg('mkset', 'set', () => { if (!VSETS[mk.set].some(([k]) => k === mk.sort)) { mk.sort = 'n'; mk.dir = -1; } renderVergelijk(mkRows()); });
+  seg('mkkaartm', 'kaart', () => renderKaart(mkRows()));
+  ['mkper', 'mksd', 'mktype', 'mkkamers', 'mklabel', 'mkbuiten', 'mkerf'].forEach((s) => $('#' + s).onchange = () => { mkFilterGroep = ''; if (s === 'mksd') mkWijk = ''; renderMarkt(); });
+  ['mkpmin', 'mkpmax', 'mkm2min', 'mkm2max'].forEach((s) => $('#' + s).oninput = () => { clearTimeout(window._mkt); window._mkt = setTimeout(() => { mkFilterGroep = ''; renderMarkt(); }, 350); });
+  $('#mkmeer').onclick = () => { const p = $('#mkmeerbox'); p.hidden = !p.hidden; $('#mkmeer').setAttribute('aria-expanded', String(!p.hidden)); };
+  $('#mkwis').onclick = () => { $$('#mkfilters select, #mkfilters input[type=number]').forEach((e) => { e.value = e.tagName === 'SELECT' ? e.options[0].value : ''; }); $('#mkvj').checked = false; mkUit = new Set(); mkWijk = ''; mkFilterGroep = ''; chips(); renderMarkt(); };
   $('#mkzoek').oninput = (e) => { mk.zoek = e.target.value; renderArchief(mkRows()); };
   $('#mkuit').onchange = (e) => { mk.uit = e.target.value; renderArchief(mkRows()); };
   $('#mkameer').onclick = () => { mkMax = 1e6; renderArchief(mkRows()); };

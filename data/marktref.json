@@ -1,0 +1,177 @@
+{
+ "periode": "3e kwartaal 2026",
+ "vorige": "3e kwartaal 2025",
+ "bron": "NVM / MVA kwartaalcijfers (makelaarsvereniging Amsterdam)",
+ "url": "https://mva.nl/informatie/wonen/rapportages",
+ "uitleg": "Mediane verkoopprijzen van woningen die via NVM-makelaars op de vrije markt zijn verkocht. Prijs per m² = transactieprijs gedeeld door het gebruiksoppervlak wonen.",
+ "gebieden": {
+  "Amsterdam": {
+   "app": {
+    "prijs": 562000,
+    "m2": 8714,
+    "n": 2388,
+    "dagen": 35,
+    "boven": 79,
+    "overbod": 6.6
+   },
+   "tot": {
+    "prijs": 584000,
+    "m2": 8525,
+    "n": 2652,
+    "dagen": 36,
+    "boven": 77,
+    "overbod": 6.3
+   },
+   "app_vj": {
+    "m2": 8697
+   }
+  },
+  "Centrum": {
+   "app": {
+    "prijs": 623000,
+    "m2": 9678,
+    "n": 294,
+    "dagen": 39,
+    "boven": 73,
+    "overbod": 5.6
+   },
+   "tot": {
+    "prijs": 696000,
+    "m2": 9577,
+    "n": 316,
+    "dagen": 42,
+    "boven": 70,
+    "overbod": 5.0
+   },
+   "app_vj": {
+    "m2": 9585
+   }
+  },
+  "Noord": {
+   "app": {
+    "prijs": 442000,
+    "m2": 6898,
+    "n": 146,
+    "dagen": 37,
+    "boven": 86,
+    "overbod": 8.8
+   },
+   "tot": {
+    "prijs": 519000,
+    "m2": 6975,
+    "n": 210,
+    "dagen": 39,
+    "boven": 84,
+    "overbod": 8.1
+   },
+   "app_vj": {
+    "m2": 6633
+   }
+  },
+  "Oost": {
+   "app": {
+    "prijs": 617000,
+    "m2": 8796,
+    "n": 342,
+    "dagen": 34,
+    "boven": 84,
+    "overbod": 7.0
+   },
+   "tot": {
+    "prijs": 665000,
+    "m2": 8580,
+    "n": 386,
+    "dagen": 35,
+    "boven": 82,
+    "overbod": 6.5
+   },
+   "app_vj": {
+    "m2": 8885
+   }
+  },
+  "West": {
+   "app": {
+    "prijs": 554000,
+    "m2": 9473,
+    "n": 557,
+    "dagen": 33,
+    "boven": 85,
+    "overbod": 8.8
+   },
+   "tot": {
+    "prijs": 564000,
+    "m2": 9453,
+    "n": 564,
+    "dagen": 33,
+    "boven": 85,
+    "overbod": 8.8
+   },
+   "app_vj": {
+    "m2": 9303
+   }
+  },
+  "Zuid": {
+   "app": {
+    "prijs": 637000,
+    "m2": 9360,
+    "n": 688,
+    "dagen": 35,
+    "boven": 76,
+    "overbod": 5.8
+   },
+   "tot": {
+    "prijs": 674000,
+    "m2": 9344,
+    "n": 706,
+    "dagen": 35,
+    "boven": 75,
+    "overbod": 5.6
+   },
+   "app_vj": {
+    "m2": 9390
+   }
+  },
+  "Nieuw-West": {
+   "app": {
+    "prijs": 495000,
+    "m2": 6386,
+    "n": 210,
+    "dagen": 37,
+    "boven": 77,
+    "overbod": 5.7
+   },
+   "tot": {
+    "prijs": 533000,
+    "m2": 6339,
+    "n": 259,
+    "dagen": 39,
+    "boven": 75,
+    "overbod": 5.2
+   },
+   "app_vj": {
+    "m2": 6565
+   }
+  },
+  "Zuidoost": {
+   "app": {
+    "prijs": 346000,
+    "m2": 4706,
+    "n": 102,
+    "dagen": 45,
+    "boven": 66,
+    "overbod": 4.7
+   },
+   "tot": {
+    "prijs": 370000,
+    "m2": 4777,
+    "n": 121,
+    "dagen": 49,
+    "boven": 68,
+    "overbod": 4.7
+   },
+   "app_vj": {
+    "m2": 4830
+   }
+  }
+ }
+}
