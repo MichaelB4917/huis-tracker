@@ -694,6 +694,7 @@
     <div class="mkkpi" id="mkkpi"></div>
     <div class="mkgrid2">
       <div class="card"><h3>Nieuw aanbod per week</h3><div id="mkweek"></div></div>
+      <div class="card"><h3>Prijsverlagingen</h3><p class="note" id="mkverlnote">Hoeveel lager de vraagprijs werd, bij woningen waarvan de prijs omlaag ging.</p><div id="mkverl"></div></div>
       <div class="card"><h3>Hoe snel gaat een woning onder bod?</h3><p class="note">Aantal dagen tussen online komen en onder bod (of verdwijnen).</p><div id="mksnel"></div></div>
     </div>
     <div class="card">
@@ -704,7 +705,7 @@
     </div>
     <div class="card" id="mkarch">
       <div class="mkhd"><h3>Alle woningen</h3><span class="muted" id="mkatel"></span></div>
-      <div class="mkfilt"><input type="search" id="mkzoek" placeholder="Zoek op adres, buurt of postcode"><select id="mkuit"><option value="alle">Online en weg</option><option value="actief">Nog online</option><option value="weg">Alleen weg</option></select><button class="mini" id="mkcsv">Download als CSV (Excel)</button></div>
+      <div class="mkfilt"><input type="search" id="mkzoek" placeholder="Zoek op adres, buurt of postcode"><select id="mkuit"><option value="alle">Online en weg</option><option value="actief">Nog online</option><option value="weg">Alleen weg</option><option value="verlaagd">Met prijsverlaging</option></select><button class="mini" id="mkcsv">Download als CSV (Excel)</button></div>
       <div class="scroll"><table class="mktbl mkatbl"><thead><tr id="mkahead"></tr></thead><tbody id="mkabody"></tbody></table></div>
       <button class="mini" id="mkameer" hidden></button>
       <p class="note">* stond er al bij de start van de site; doorlooptijd onbekend. Grijze rijen zijn niet meer online.</p>
@@ -1488,6 +1489,7 @@ const loadArch = () => ARCH ? Promise.resolve(ARCH) : fetch('data/archief.json',
   .then((a) => ARCH = a ? Object.values(a) : W.map((w) => Object.assign({}, w, {actief: true, uitkomst: 'actief', ppm2: w.m2 ? Math.round(w.prijs / w.m2) : '', prijsEind: w.prijs, prijsStart: w.prijs, voorTracker: !!w.basis})));
 const q = (a, p) => { if (!a.length) return null; const s = [...a].sort((x, y) => x - y), i = (s.length - 1) * p, lo = Math.floor(i); return s[lo] + (s[Math.ceil(i)] - s[lo]) * (i - lo); };
 const nums = (rows, f) => rows.map(f).filter((v) => typeof v === 'number' && isFinite(v));
+const fmtPct = (v) => v == null || v === '' ? '–' : (v > 0 ? '+' : v < 0 ? '−' : '') + Math.abs(v).toFixed(1).replace('.', ',').replace(',0', '') + '%';
 const pct = (n, d) => d ? Math.round(n / d * 100) + '%' : '–';
 const kNum = (v) => v == null ? '–' : eur.format(Math.round(v / 1000) * 1000);
 const dagTxt = (v) => v == null ? '–' : Math.round(v) + (Math.round(v) === 1 ? ' dag' : ' dagen');
@@ -1549,14 +1551,15 @@ const renderMarkt = () => {
   const weg = R.filter(isWeg), bod = nums(R, (r) => r.dagenTotBod), metDl = R.filter((r) => r.bodInVoorrang !== '' && r.bodInVoorrang != null);
   const dagen = Math.max(1, (Date.now() - new Date(Math.min(...ARCH.map((r) => +new Date((r.eerstGezien || today) + 'T12:00:00'))))) / 864e5);
   const perMnd = nieuw.length / Math.max(dagen, 30) * 30.4, vjMnd = nieuw.filter((r) => voorJou(r) !== 'nee').length / Math.max(dagen, 30) * 30.4;
-  const omlaag = R.filter((r) => r.prijsStart && r.prijsEind && r.prijsEind < r.prijsStart).length;
+  const verl = R.filter((r) => r.prijsStart && r.prijsEind && r.prijsEind < r.prijsStart), omlaag = verl.length;
+  const vPct = q(verl.map((r) => (r.prijsEind - r.prijsStart) / r.prijsStart * 100), .5), vEur = q(verl.map((r) => r.prijsStart - r.prijsEind), .5);
   const K = [
     ['Woningen gezien', String(R.length), `${R.filter((r) => r.actief).length} nog online · ${R.length - R.filter((r) => r.actief).length} weg`],
     ['Nieuw aanbod', nieuw.length ? '± ' + (perMnd < 10 ? perMnd.toFixed(1).replace('.', ',') : Math.round(perMnd)) + ' per maand' : '–', profiel ? `waarvan ± ${vjMnd < 10 ? vjMnd.toFixed(1).replace('.', ',') : Math.round(vjMnd)} met voorrang voor jou` : 'stel je corporatie in voor “voor jou”'],
     ['Vraagprijs (mediaan)', kNum(q(nums(R, (r) => r.prijsEind || r.prijs), .5)), 'per m²: ' + (q(nums(R, (r) => r.ppm2), .5) ? eur.format(Math.round(q(nums(R, (r) => r.ppm2), .5))) : '–')],
     ['Tot onder bod (mediaan)', dagTxt(q(bod, .5)), bod.length ? `gemeten bij ${bod.length} woningen` : 'pas te meten bij nieuwe woningen'],
     ['Weg binnen voorrangsperiode', pct(metDl.filter((r) => r.bodInVoorrang).length, metDl.length), metDl.length ? `van ${metDl.length} woningen met deadline` : 'nog geen woningen met deadline weg'],
-    ['Prijs verlaagd', pct(omlaag, R.length), `${omlaag} van ${R.length} woningen`],
+    ['Prijs verlaagd', pct(omlaag, R.length), omlaag ? `${omlaag} van ${R.length} · meestal ${fmtPct(vPct)} (${eur.format(Math.round(vEur / 1000) * 1000)} lager)` : `0 van ${R.length} woningen`],
   ];
   $('#mkkpi').replaceChildren(...K.map(([l, v, s]) => { const d = el('div', 'mkk'); d.append(el('div', 'lbl', l), el('div', 'val', v), el('div', 'sub', s)); return d; }));
   // Aanbod per week (zonder het bestaande aanbod van de eerste dag)
@@ -1568,6 +1571,12 @@ const renderMarkt = () => {
   const B = [['0–3', 0, 3], ['4–7', 4, 7], ['8–14', 8, 14], ['15–30', 15, 30], ['31–60', 31, 60], ['60+', 61, 1e9]];
   barChart($('#mksnel'), B.map(([l, a, b]) => { const n = bod.filter((v) => v >= a && v <= b).length; return {lbl: l, v: n, tip: `<b>${l} dagen</b><br>${n} woning${n === 1 ? '' : 'en'} (${pct(n, bod.length)})`}; }),
     {aria: 'Dagen tot onder bod', leeg: 'Wordt gevuld zodra nieuwe woningen onder bod gaan of verdwijnen. Woningen die er al stonden voor de start tellen niet mee.'});
+  const VB = [['< 2,5%', 0, 2.5], ['2,5–5%', 2.5, 5], ['5–7,5%', 5, 7.5], ['7,5–10%', 7.5, 10], ['10%+', 10, 1e9]];
+  const vp = verl.map((r) => ({r, p: (r.prijsStart - r.prijsEind) / r.prijsStart * 100}));
+  barChart($('#mkverl'), VB.map(([l, a, b]) => { const hits = vp.filter((x) => x.p >= a && x.p < b); return {lbl: l, v: hits.length, tip: `<b>${l} lager</b><br>${hits.length} woning${hits.length === 1 ? '' : 'en'}` + hits.slice(0, 5).map((x) => `<br>${x.r.adres}: ${eur.format(x.r.prijsStart)} → ${eur.format(x.r.prijsEind)}`).join('') + (hits.length > 5 ? '<br>…' : '')}; }),
+    {aria: 'Prijsverlagingen', leeg: 'Nog geen prijsverlagingen in deze selectie.'});
+  const dv = nums(R, (r) => r.dagenTotVerlaging);
+  $('#mkverlnote').textContent = 'Hoeveel lager de vraagprijs werd, bij woningen waarvan de prijs omlaag ging.' + (dv.length ? ` Eerste verlaging meestal na ${dagTxt(q(dv, .5))} (${dv.length} gemeten).` : '');
   renderVergelijk(R);
   renderArchief(R);
   $('#mkinfo').textContent = `${ARCH.length} woningen in het archief · sinds ${nlShort(ARCH.map((r) => r.eerstGezien).filter(Boolean).sort()[0] || today)}`;
@@ -1575,7 +1584,7 @@ const renderMarkt = () => {
 
 const VCOLS = [
   ['naam', 'Groep', 'l'], ['n', 'Aantal'], ['online', 'Nog online'], ['prijs', 'Vraagprijs'], ['m2', 'm²'], ['ppm2', 'Prijs per m² (spreiding)', 'w'], ['woz', 't.o.v. buurt-WOZ'],
-  ['bod', 'Dagen tot bod'], ['voorr', 'Weg in voorrang'], ['vj', 'Voor jou'], ['buiten', 'Buitenruimte'], ['lbl', 'Label A–C'],
+  ['bod', 'Dagen tot bod'], ['voorr', 'Weg in voorrang'], ['verl', 'Prijs verlaagd'], ['verlPct', 'Verlaging (mediaan)'], ['vj', 'Voor jou'], ['buiten', 'Buitenruimte'], ['lbl', 'Label A–C'],
 ];
 const renderVergelijk = (R) => {
   const [, keyF] = GROEPEN[mk.groep], G = {};
@@ -1586,6 +1595,8 @@ const renderVergelijk = (R) => {
       ppm2: q(p, .5), p25: q(p, .25), p75: q(p, .75), pmin: p.length ? Math.min(...p) : null, pmax: p.length ? Math.max(...p) : null, woz: q(nums(rs, wozDiff), .5),
       bod: q(nums(rs, (r) => r.dagenTotBod), .5), nbod: nums(rs, (r) => r.dagenTotBod).length,
       voorr: dl.length ? dl.filter((r) => r.bodInVoorrang).length / dl.length : null, ndl: dl.length,
+      verl: rs.filter((r) => r.prijsStart && r.prijsEind && r.prijsEind < r.prijsStart).length / rs.length,
+      verlPct: q(rs.filter((r) => r.prijsStart && r.prijsEind && r.prijsEind < r.prijsStart).map((r) => (r.prijsEind - r.prijsStart) / r.prijsStart * 100), .5),
       vj: profiel ? rs.filter((r) => voorJou(r) !== 'nee').length / rs.length : null,
       buiten: (() => { const k = rs.filter((r) => Array.isArray(r.buiten) || r.tuin === 'ja'); return k.length ? k.filter((r) => buitenVan(r).length).length / k.length : null; })(),
       lbl: (() => { const k = rs.filter((r) => r.energielabel); return k.length ? k.filter((r) => /^[ABC]/.test(r.energielabel)).length / k.length : null; })()};
@@ -1609,7 +1620,7 @@ const renderVergelijk = (R) => {
     } else rng.append('–');
     const wz = el('td', 'num', g.woz == null ? '–' : (g.woz > 0 ? '+' : '') + Math.round(g.woz) + '%'); if (g.woz != null) wz.classList.add(g.woz <= -5 ? 'lo' : g.woz >= 5 ? 'hi' : 'mid');
     tr.append(c0, el('td', 'num', g.n), el('td', 'num', g.online), el('td', 'num', kNum(g.prijs)), el('td', 'num', g.m2 == null ? '–' : Math.round(g.m2)), rng, wz,
-      el('td', 'num', g.bod == null ? '–' : Math.round(g.bod) + (g.nbod < 3 ? '*' : '')), el('td', 'num', g.voorr == null ? '–' : fp(g.voorr) + (g.ndl < 3 ? '*' : '')),
+      el('td', 'num', g.bod == null ? '–' : Math.round(g.bod) + (g.nbod < 3 ? '*' : '')), el('td', 'num', g.voorr == null ? '–' : fp(g.voorr) + (g.ndl < 3 ? '*' : '')), el('td', 'num', fp(g.verl)), el('td', 'num', g.verlPct == null ? '–' : fmtPct(g.verlPct)),
       el('td', 'num', fp(g.vj)), el('td', 'num', fp(g.buiten)), el('td', 'num', fp(g.lbl)));
     tr.onclick = () => { mk.zoek = ''; $('#mkzoek').value = ''; mkFilterGroep = g.naam; renderArchief(mkRows()); $('#mkarch').scrollIntoView({behavior: 'smooth', block: 'start'}); };
     tb.append(tr);
@@ -1618,20 +1629,20 @@ const renderVergelijk = (R) => {
 };
 
 let mkFilterGroep = '';
-const ACOLS = [['adres', 'Adres', 'l'], ['buurt', 'Buurt', 'l'], ['corporatie', 'Corporatie', 'l'], ['prijsEind', 'Vraagprijs'], ['m2', 'm²'], ['ppm2', '€/m²'], ['buiten', 'Buiten', 'l'], ['eerstGezien', 'Online sinds'], ['offline', 'Weg op'], ['dagenTotBod', 'Dagen tot bod'], ['uitkomst', 'Uitkomst', 'l']];
+const ACOLS = [['adres', 'Adres', 'l'], ['buurt', 'Buurt', 'l'], ['corporatie', 'Corporatie', 'l'], ['prijsEind', 'Vraagprijs'], ['m2', 'm²'], ['ppm2', '€/m²'], ['prijsVerschilPct', 'Prijswijziging'], ['buiten', 'Buiten', 'l'], ['eerstGezien', 'Online sinds'], ['offline', 'Weg op'], ['dagenTotBod', 'Dagen tot bod'], ['uitkomst', 'Uitkomst', 'l']];
 const renderArchief = (R) => {
   const zoek = mk.zoek.toLowerCase(), [, keyF] = GROEPEN[mk.groep];
   let rows = R.filter((r) => (!zoek || [r.adres, r.wijk, r.buurt, r.postcode, r.corporatie].join(' ').toLowerCase().includes(zoek))
-    && (mk.uit === 'alle' || (mk.uit === 'actief' ? r.actief : !r.actief)) && (!mkFilterGroep || keyF(r).includes(mkFilterGroep)));
-  const v = (r, k) => k === 'buurt' ? (r.wijk || r.buurt || '') : k === 'prijsEind' ? (r.prijsEind || r.prijs) : k === 'buiten' ? buitenVan(r).join(', ') : r[k];
+    && (mk.uit === 'alle' || (mk.uit === 'actief' ? r.actief : mk.uit === 'verlaagd' ? r.prijsStart && r.prijsEind && r.prijsEind < r.prijsStart : !r.actief)) && (!mkFilterGroep || keyF(r).includes(mkFilterGroep)));
+  const v = (r, k) => k === 'prijsVerschilPct' ? (r.prijsStart && r.prijsEind && r.prijsEind !== r.prijsStart ? (r.prijsEind - r.prijsStart) / r.prijsStart * 100 : '') : k === 'buurt' ? (r.wijk || r.buurt || '') : k === 'prijsEind' ? (r.prijsEind || r.prijs) : k === 'buiten' ? buitenVan(r).join(', ') : r[k];
   rows.sort((a, b) => { const x = v(a, mk.asort), y = v(b, mk.asort); if (x === '' || x == null) return 1; if (y === '' || y == null) return -1; return (typeof x === 'string' ? x.localeCompare(y, 'nl') : x - y) * mk.adir; });
   $('#mkahead').replaceChildren(...ACOLS.map(([k, t, c]) => { const e = el('th', c === 'l' ? '' : 'num', t); if (mk.asort === k) e.append(mk.adir < 0 ? ' ↓' : ' ↑'); e.onclick = () => { mk.adir = mk.asort === k ? -mk.adir : (c === 'l' ? 1 : -1); mk.asort = k; renderArchief(R); }; return e; }));
   const tb = $('#mkabody'); tb.replaceChildren();
   rows.slice(0, mkMax).forEach((r) => {
     const tr = el('tr', r.actief ? '' : 'weg'); const d = el('span', 'cd'); d.style.background = corpColor(r.corporatie); const c = el('td'); c.append(d, r.corporatie);
-    const pr = el('td', 'num', r.prijsEind || r.prijs ? eur.format(r.prijsEind || r.prijs) : '–'); if (r.prijsStart && r.prijsEind && r.prijsStart !== r.prijsEind) pr.append(el('span', 'mkwas', (r.prijsEind < r.prijsStart ? '↓ ' : '↑ ') + 'was ' + eur.format(r.prijsStart)));
+    const pr = el('td', 'num', r.prijsEind || r.prijs ? eur.format(r.prijsEind || r.prijs) : '–'); if (r.prijsStart && r.prijsEind && r.prijsStart !== r.prijsEind) pr.append(el('span', 'mkwas', 'was ' + eur.format(r.prijsStart)));
     const u = el('td'); u.append(el('span', 'mku mku-' + (r.uitkomst || 'actief').replace(/\W+/g, ''), r.actief ? (r.status || 'beschikbaar') : UITK[r.uitkomst] || r.uitkomst));
-    tr.append(el('td', null, r.adres), el('td', 'mkmut', r.wijk || r.buurt || ''), c, pr, el('td', 'num', r.m2 || '–'), el('td', 'num', r.ppm2 ? eur.format(r.ppm2) : '–'), el('td', 'mkmut', buitenVan(r).join(', ')),
+    tr.append(el('td', null, r.adres), el('td', 'mkmut', r.wijk || r.buurt || ''), c, pr, el('td', 'num', r.m2 || '–'), el('td', 'num', r.ppm2 ? eur.format(r.ppm2) : '–'), mkWijz(r), el('td', 'mkmut', buitenVan(r).join(', ')),
       el('td', 'num', nlShort(r.eerstGezien) + (r.voorTracker ? '*' : '')), el('td', 'num', r.actief ? '' : nlShort(r.offline)), el('td', 'num', r.dagenTotBod === '' || r.dagenTotBod == null ? '' : r.dagenTotBod), u);
     tr.onclick = () => { const w = W.find((x) => x.id === r.id); openDetail(w || r); };
     tb.append(tr);
@@ -1641,8 +1652,9 @@ const renderArchief = (R) => {
   mkLaatste = rows;
 };
 let mkMax = 50, mkLaatste = [];
+const mkWijz = (r) => { const d = r.prijsStart && r.prijsEind ? r.prijsEind - r.prijsStart : 0; const t = el('td', 'num' + (d < 0 ? ' lo' : d > 0 ? ' hi' : ''), d ? fmtPct(d / r.prijsStart * 100) : ''); if (d) t.append(el('span', 'mkwas', (d < 0 ? '−' : '+') + eur.format(Math.abs(d)).replace('€', '€ ').replace('€  ', '€ ') + (r.verlagingen > 1 ? ` · ${r.verlagingen}×` : ''))); return t; };
 const mkCsv = () => {
-  const K = ['adres', 'postcode', 'wijk', 'stadsdeel', 'corporatie', 'type', 'kamers', 'm2', 'prijsStart', 'prijsEind', 'ppm2', 'buurtWozM2', 'energielabel', 'bouwjaar', 'servicekosten', 'erfpacht', 'buiten', 'voorrangLabel', 'deadline', 'eerstGezien', 'offline', 'bodOp', 'verkochtOp', 'dagenOnline', 'dagenTotBod', 'dagenTotVerkocht', 'bodInVoorrang', 'prijsWijzigingen', 'uitkomst', 'url'];
+  const K = ['adres', 'postcode', 'wijk', 'stadsdeel', 'corporatie', 'type', 'kamers', 'm2', 'prijsStart', 'prijsEind', 'prijsVerschil', 'prijsVerschilPct', 'verlagingen', 'verlaagdOp', 'dagenTotVerlaging', 'ppm2', 'buurtWozM2', 'energielabel', 'bouwjaar', 'servicekosten', 'erfpacht', 'buiten', 'voorrangLabel', 'deadline', 'eerstGezien', 'offline', 'bodOp', 'verkochtOp', 'dagenOnline', 'dagenTotBod', 'dagenTotVerkocht', 'bodInVoorrang', 'prijsWijzigingen', 'uitkomst', 'url'];
   const esc = (v) => { v = Array.isArray(v) ? v.join(' ') : v == null ? '' : String(v); return /[;"\n]/.test(v) ? '"' + v.replace(/"/g, '""') + '"' : v; };
   const csv = '﻿' + [K.join(';'), ...mkLaatste.map((r) => K.map((k) => esc(r[k])).join(';'))].join('\n');
   const a = el('a'); a.href = URL.createObjectURL(new Blob([csv], {type: 'text/csv'})); a.download = `corporatiewoningen-archief-${today}.csv`; a.click();

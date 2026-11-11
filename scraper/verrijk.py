@@ -499,6 +499,14 @@ def archief(W):
         rec["prijsStart"] = prijzen[0] if prijzen else rec.get("prijs", "")
         rec["prijsEind"] = prijzen[-1] if prijzen else rec.get("prijs", "")
         rec["prijsWijzigingen"] = sum(1 for a, b in zip(prijzen, prijzen[1:]) if a != b)
+        pl = [x for x in lg if isinstance(x.get("prijs"), (int, float)) and x["prijs"]]
+        eerste_daling = next((b["d"] for a, b in zip(pl, pl[1:]) if b["prijs"] < a["prijs"]), "")
+        rec["verlagingen"] = sum(1 for a, b in zip(prijzen, prijzen[1:]) if b < a)
+        rec["verlaagdOp"] = eerste_daling
+        rec["dagenTotVerlaging"] = _dagen(start, eerste_daling) if eerste_daling and not rec["voorTracker"] else ""
+        ps, pe = rec["prijsStart"], rec["prijsEind"]
+        rec["prijsVerschil"] = pe - ps if isinstance(ps, (int, float)) and isinstance(pe, (int, float)) and ps and pe else ""
+        rec["prijsVerschilPct"] = round((pe - ps) / ps * 100, 1) if rec["prijsVerschil"] != "" else ""
         rec["terugBeschikbaar"] = sum(1 for a, b in zip(statussen, statussen[1:]) if a.get("status") != "beschikbaar" and b.get("status") == "beschikbaar")
         dl = rec.get("deadline", "")
         rec["bodInVoorrang"] = (bod <= dl) if bod and dl and not rec["voorTracker"] else ""
