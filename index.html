@@ -64,6 +64,7 @@
   .lvgl td.lbest { font-weight: 700; background: color-mix(in srgb, #1a7f4b 10%, transparent); }
   @media (max-width: 600px) { .lvgl th, .lvgl td { min-width: 8rem; padding: 6px; } .lvgl td.lab, .lvgl thead th:first-child { min-width: 6.5rem; max-width: 6.5rem; font-size: 12px; } }
   .scroll:has(> .lvgl) { max-height: none; } .lvgl th, .lvgl td { max-width: 15rem; } .lvgl td:not(.num):not(.lab) { font-size: 13px; }
+  .slimdd .panel { left: 0; right: auto; min-width: 14rem; max-width: calc(100vw - 40px); } @media (max-width: 600px) { .slimdd { position: static; } .slimdd .panel { left: 16px; right: 16px; max-width: none; top: auto; margin-top: 6px; } .slimfilt { position: relative; } } .slimdd .panel h4 { margin: 10px 0 4px; font-size: 12px; text-transform: uppercase; letter-spacing: .04em; color: var(--muted); } .slimdd .panel label.check { display: flex; gap: 6px; align-items: center; padding: 3px 0; font-size: 14px; } .slimdd .panel .cnt { margin-left: auto; color: var(--muted); font-size: 12px; } .slimdd .panel > div { display: flex; gap: 6px; }
   .slimzoek { height: 34px; border: 1px solid var(--line); border-radius: 8px; background: var(--panel); color: var(--fg); padding: 0 10px; font: inherit; font-size: 14px; flex: 1 1 220px; min-width: 0; }
   .slimtbl .star, #lijstTbl .star { margin-right: 4px; }
   .linkbtn { background: none; border: 0; padding: 0; color: var(--link); font: inherit; font-size: 12px; cursor: pointer; }
@@ -1798,7 +1799,7 @@ const marktKeten = (a) => { const w = a.w, ppm = w.prijs / a.m2, r = w.buurtWozM
   if (adj) { ref *= 1 + adj; stap(`→ gecorrigeerd voor label ${a.L0 || 'onbekend'} (${adj > 0 ? '+' : '−'}${String(Math.round(Math.abs(adj) * 1000) / 10).replace('.', ',')}%)`); }
   out[out.length - 1][0] += ' = geschatte marktwaarde'; return out; };
 const pctTxt = (x) => `${Math.round(Math.abs(x) * 100)}% ${x >= 0 ? 'boven' : 'onder'}`;
-const SL = {sort: 'sprong', dir: -1, zoek: '', fav: false, budget: true, voor: false, n: 15, jaren: 3, uit: new Set(), sd: '', wijk: '', open: new Set()};
+const SL = {sort: 'sprong', dir: -1, zoek: '', fav: false, budget: true, voor: false, n: 15, jaren: 3, uit: new Set(), sds: new Set(), wijken: new Set(), dd: '', ddScroll: 0, open: new Set()};
 // Uitleg per woning: hoe de waardesprong is opgebouwd en wat hem het meest bepaalt
 const slimUitleg = (a) => {
   const w = a.w, d = opknapDelen(w), r = w.buurtWozM2 ? sdRatio(w.stadsdeel) : null, adj = (l) => SLIM.labelAdj[l] ?? SLIM.labelAdj[''];
@@ -1845,7 +1846,7 @@ const renderSlim = () => {
   const box = $('#slimbox'); if (!box) return;
   if (!MREF) { box.replaceChildren(el('p', 'muted', 'Laden…')); loadMref().then(renderSlim); return; }
   const all = W.filter((w) => w.status !== 'verkocht o.v.b.').map(analyse).filter(Boolean);
-  let rows = all.filter((a) => (!SL.budget || !heeftBudget() || a.past) && !SL.uit.has(a.w.corporatie) && (!SL.sd || a.w.stadsdeel === SL.sd) && (!SL.wijk || a.w.wijk === SL.wijk) && (!SL.fav || inLijst(a.w)) && (!SL.zoek || [a.w.adres, a.w.postcode, a.w.buurt, a.w.wijk, a.w.stadsdeel, a.w.corporatie].join(' ').toLowerCase().includes(SL.zoek.toLowerCase())));
+  let rows = all.filter((a) => (!SL.budget || !heeftBudget() || a.past) && !SL.uit.has(a.w.corporatie) && (!SL.sds.size || SL.sds.has(a.w.stadsdeel)) && (!SL.wijken.size || SL.wijken.has(a.w.wijk)) && (!SL.fav || inLijst(a.w)) && (!SL.zoek || [a.w.adres, a.w.postcode, a.w.buurt, a.w.wijk, a.w.stadsdeel, a.w.corporatie].join(' ').toLowerCase().includes(SL.zoek.toLowerCase())));
   const f = SLSORT[SL.sort][1]; rows.sort((a, b) => SL.dir * (f(a) - f(b)));
   const kop = el('div', 'slimkop');
   const segS = el('div', 'mkseg'); Object.entries(SLSORT).forEach(([k, [t]]) => { const b = el('button', null, t + (SL.sort === k ? (SL.dir < 0 ? ' ↓' : ' ↑') : '')); b.title = SL.sort === k ? 'Klik nog een keer om de volgorde om te draaien' : ''; b.setAttribute('aria-pressed', String(SL.sort === k)); b.onclick = () => { if (SL.sort === k) SL.dir = -SL.dir; else { SL.sort = k; SL.dir = -1; } renderSlim(); }; segS.append(b); });
@@ -1854,11 +1855,20 @@ const renderSlim = () => {
   const jl = el('label', 'sljaren', 'We wonen er ± '); const js = el('select'); SLJAREN.forEach((j) => { const o = el('option', null, j + ' jaar'); o.value = j; o.selected = SL.jaren === j; js.append(o); }); js.onchange = () => { SL.jaren = +js.value; renderSlim(); }; jl.append(js);
   const corps = [...new Set(all.map((a) => a.w.corporatie).filter(Boolean))].sort();
   const vj = el('label', 'check sw'); const vji = el('input'); vji.type = 'checkbox'; vji.checked = SL.voor; vji.onchange = () => { if (vji.checked && !profiel) { vji.checked = false; $('#profmodal').hidden = false; return; } SL.voor = vji.checked; SL.uit = new Set(SL.voor ? corps.filter((c) => voorJouCorp(c) === 'nee') : []); renderSlim(); }; vj.append(vji, ' Voorrang voor mij');
-  const sel = (label, val, opts, on) => { const l = el('label', 'sljaren', label + ' '); const s2 = el('select'); [['', 'Alle'], ...opts.map((o) => [o, o])].forEach(([v, t]) => { const o = el('option', null, t); o.value = v; o.selected = val === v; s2.append(o); }); s2.onchange = () => on(s2.value); l.append(s2); return l; };
-  const sds = [...new Set(all.map((a) => a.w.stadsdeel).filter(Boolean))].sort(), wijken = [...new Set(all.filter((a) => !SL.sd || a.w.stadsdeel === SL.sd).map((a) => a.w.wijk).filter(Boolean))].sort((x, y) => x.localeCompare(y, 'nl'));
+  // Meerkeuze-dropdowns zoals op de homepage
+  const ddMulti = (key, label, groups, set) => {
+    const d = el('details', 'dd tdd slimdd'); d.open = SL.dd === key; d.ontoggle = () => { if (d.open) { SL.dd = key; $$('details.tdd[open]').forEach((o) => o !== d && (o.open = false)); } else if (SL.dd === key) SL.dd = ''; };
+    d.append(el('summary', null, label + (set.size ? ` (${set.size})` : '') + ' ▾'));
+    const pn = el('div', 'panel'); const kn = el('div'); const alle = el('button', 'mini', 'Alle'), geen = el('button', 'mini', 'Wis');
+    alle.onclick = () => { groups.forEach(([, vs]) => vs.forEach(([v]) => set.add(v))); SL.n = 15; renderSlim(); }; geen.onclick = () => { set.clear(); SL.n = 15; renderSlim(); }; kn.append(alle, geen); pn.append(kn);
+    groups.forEach(([g, vs]) => { if (g) pn.append(el('h4', null, g)); vs.forEach(([v, n]) => { const l = el('label', 'check'); const c = el('input'); c.type = 'checkbox'; c.checked = set.has(v); c.onchange = () => { SL.ddScroll = pn.scrollTop; c.checked ? set.add(v) : set.delete(v); if (key === 'sd') SL.wijken = new Set([...SL.wijken].filter((x) => all.some((a) => a.w.wijk === x && (!SL.sds.size || SL.sds.has(a.w.stadsdeel))))); SL.n = 15; renderSlim(); }; l.append(c, ' ' + v, el('span', 'cnt', String(n))); pn.append(l); }); });
+    d.append(pn); if (d.open) requestAnimationFrame(() => { pn.scrollTop = SL.ddScroll; }); return d; };
+  const telV = (f, lijst) => { const m = {}; lijst.forEach((a) => { const k = f(a); if (k) m[k] = (m[k] || 0) + 1; }); return m; };
+  const sdCnt = telV((a) => a.w.stadsdeel, all), sdList = Object.keys(sdCnt).sort().map((k) => [k, sdCnt[k]]);
+  const wjBron = all.filter((a) => !SL.sds.size || SL.sds.has(a.w.stadsdeel)), wjGroups = [...new Set(wjBron.map((a) => a.w.stadsdeel).filter(Boolean))].sort().map((sd) => { const c = telV((a) => a.w.wijk, wjBron.filter((a) => a.w.stadsdeel === sd)); return [sd, Object.keys(c).sort((x, y) => x.localeCompare(y, 'nl')).map((k) => [k, c[k]])]; });
   const fr = el('div', 'slimfilt'); const fv = el('label', 'check sw'); const fvi = el('input'); fvi.type = 'checkbox'; fvi.checked = SL.fav; fvi.onchange = () => { SL.fav = fvi.checked; SL.n = 15; renderSlim(); }; fv.append(fvi, ` ★ Alleen favorieten (${favs.size})`);
-  fr.append(zk, fv, sel('Stadsdeel', SL.sd, sds, (v) => { SL.sd = v; SL.wijk = ''; SL.n = 15; renderSlim(); }), sel('Wijk', SL.wijk, wijken, (v) => { SL.wijk = v; SL.n = 15; renderSlim(); }), vj, tg('budget', heeftBudget() ? 'Alleen binnen ons budget' : 'Binnen budget (vul eerst Onze situatie in)'));
-  if (SL.uit.size || SL.sd || SL.wijk || SL.fav || SL.zoek) { const wb = el('button', 'mini', 'Wis filters'); wb.onclick = () => { SL.uit = new Set(); SL.voor = false; SL.sd = ''; SL.wijk = ''; SL.fav = false; SL.zoek = ''; renderSlim(); }; fr.append(wb); }
+  fr.append(zk, fv, ddMulti('sd', 'Stadsdeel', [['', sdList]], SL.sds), ddMulti('wijk', 'Wijk', wjGroups, SL.wijken), vj, tg('budget', heeftBudget() ? 'Alleen binnen ons budget' : 'Binnen budget (vul eerst Onze situatie in)'));
+  if (SL.uit.size || SL.sds.size || SL.wijken.size || SL.fav || SL.zoek) { const wb = el('button', 'mini', 'Wis filters'); wb.onclick = () => { SL.uit = new Set(); SL.voor = false; SL.sds = new Set(); SL.wijken = new Set(); SL.fav = false; SL.zoek = ''; renderSlim(); }; fr.append(wb); }
   const cc = el('div', 'mcorps'); corps.forEach((c) => { const l = el('label', 'mchip'); const i = el('input'); i.type = 'checkbox'; i.checked = !SL.uit.has(c); i.onchange = () => { if (i.checked) SL.uit.delete(c); else SL.uit.add(c); renderSlim(); }; const d = el('span', 'cd'); d.style.background = corpColor(c); l.append(i, d, c); cc.append(l); });
   kop.append(segS, jl, fr, cc);
   // Top-lijst
