@@ -323,6 +323,11 @@
   .regcards { display: grid; grid-template-columns: 1fr; gap: 0 12px; } @media (min-width: 1000px) { .regcards { grid-template-columns: 1fr 1fr; } }
   .regcard h3 { margin: 0 0 8px; font-size: 16px; } .regl { margin: 0; } .regl dt { font-weight: 700; margin-top: 12px; } .regl dt:first-child { margin-top: 0; }
   .regl dd { margin: 3px 0 0; line-height: 1.55; font-size: 14px; } .regtbl { margin: 6px 0; font-size: 13px; } .regtbl td { white-space: normal; }
+  .slimfilt { display: flex; flex-wrap: wrap; gap: 8px 16px; align-items: center; width: 100%; } .slimkop .mcorps { width: 100%; display: flex; flex-wrap: wrap; gap: 6px; }
+  .slimhoe { display: block; margin-top: 6px; } .slimuitrow > td { background: var(--tint); white-space: normal; cursor: default; }
+  .slimuit { max-width: 900px; position: sticky; left: 8px; width: calc(min(900px, 100vw - 96px)); white-space: normal; } .slimuit .mkmut { max-width: none; white-space: normal; overflow: visible; } .slimuitrow:hover { background: none; } .slimrekg { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(17rem, 100%), 1fr)); gap: 12px 24px; }
+  .slimrek { width: 100%; border-collapse: collapse; font-size: 13.5px; } .slimrek caption { text-align: left; font-weight: 600; padding-bottom: 4px; } .slimuit .slimrek td { padding: 4px 0; border-bottom: 1px solid var(--line); vertical-align: top; white-space: normal; } .slimuit .slimrek td.num { text-align: right; padding-left: 12px; white-space: nowrap; } .slimrek tr.tot td { font-weight: 600; border-bottom: 0; }
+  .slimres { margin: 12px 0 6px; } .slimwhy { margin: 4px 0 10px; padding-left: 18px; line-height: 1.5; font-size: 14px; }
   .slimlet ul { margin: 0; padding-left: 18px; line-height: 1.5; font-size: 14px; } .slimlet li { margin-bottom: 6px; } .sljaren { font-size: 13px; color: var(--muted); display: inline-flex; align-items: center; } .sljaren select { margin-left: 4px; height: 30px; border: 1px solid var(--line); border-radius: 8px; background: var(--panel); color: var(--fg); font: inherit; }
   .slimgrid { display: grid; grid-template-columns: 1fr; gap: 0 12px; } @media (min-width: 1200px) { .slimgrid { grid-template-columns: 1fr 1fr; } .slimgrid .mktbl th { white-space: normal; } }
   .slimkop { display: flex; flex-wrap: wrap; gap: 8px 18px; align-items: center; margin: 4px 0 10px; }
@@ -1711,6 +1716,7 @@ const SLIM = {
   labelAdj: {'A+': .078, A: .044, B: .024, C: 0, D: -.038, E: -.060, F: -.087, G: -.122, '': -.03},
   staat: {geen: 1, licht: .95, gemiddeld: .88, casco: .80},
   gasM2: {'A+': 12, A: 18, B: 24, C: 30, D: 36, E: 42, F: 48, G: 53, '': 36},
+  grootte: {ref: 70, e: .25}, // kleine woningen hebben een hogere m²-prijs: (m² / 70)^−0,25, dus 35 m² ± +19%, 120 m² ± −13%
   verkoop: .015, // makelaar en notaris bij doorverkoop, ± 1,5% van de waarde
 };
 // Welk label haal je zelf? Binnen de woning (glas in eigen kozijnen, vloer, binnenisolatie, ventilatie, (hybride) warmtepomp) kom je meestal 1–2 stappen omhoog.
@@ -1732,7 +1738,7 @@ const sdRatio = (sd) => { if (!BUURTWOZ || !MREF) return null; const v = Object.
 const marktM2Type = (w) => { const r = w.buurtWozM2 ? sdRatio(w.stadsdeel) : null; return r ? w.buurtWozM2 * r : marktM2Sd(w); };
 const anti = (w) => { const r = (R || []).find((x) => x.corporatie === w.corporatie); return r ? r.antispeculatie || '' : ''; };
 const analyse = (w) => {
-  const m2 = +w.m2, mm = marktM2Type(w); if (!m2 || !mm || !w.prijs) return null;
+  const m2 = +w.m2, mm0 = marktM2Type(w); if (!m2 || !mm0 || !w.prijs) return null; const gf = Math.pow(m2 / SLIM.grootte.ref, -SLIM.grootte.e), mm = mm0 * gf;
   const d = opknapDelen(w), n = d.n, L0 = lblKey(w.energielabel), br = bereikbaar(w), L1 = br.L1;
   const adj = (l) => SLIM.labelAdj[l] ?? SLIM.labelAdj[''];
   const mw0 = m2 * mm * (1 + adj(L0)) * (SLIM.staat[n] ?? .88);               // waarde nu, in huidige staat
@@ -1742,22 +1748,69 @@ const analyse = (w) => {
   const labelWinst = m2 * mm * (adj(L1) - adj(L0));
   const verdWinst = d.duur ? labelWinst + sb + besparing * SL.jaren - d.duur : 0, vk = v * SLIM.verkoop;
   const ml = maandlast(w), huur = +fin.huur || 0;
-  return {w, m2, mm, L0, L1, br, mw0, v, sb, kost, vk, sprong: v - kost - vk, sprongPct: (v - kost - vk) / kost * 100, korting: (1 - w.prijs / mw0) * 100,
+  return {w, m2, mm, mm0, gf, L0, L1, br, mw0, v, sb, kost, vk, sprong: v - kost - vk, sprongPct: (v - kost - vk) / kost * 100, korting: (1 - w.prijs / mw0) * 100,
     besparing, verdWinst, labelWinst, ml, mlNetto: ml - besparing / 12, verschilHuur: huur ? ml - besparing / 12 - huur : null, past: pastBudget(w), en: eigenNodig(w), gebied: vwbGebied(w), anti: anti(w)};
 };
-const SL = {sort: 'sprong', budget: true, voor: false, n: 15, jaren: 3};
+const SL = {sort: 'sprong', budget: true, voor: false, n: 15, jaren: 3, uit: new Set(), sd: '', wijk: '', open: new Set()};
+// Uitleg per woning: hoe de waardesprong is opgebouwd en wat hem het meest bepaalt
+const slimUitleg = (a) => {
+  const w = a.w, d = opknapDelen(w), r = w.buurtWozM2 ? sdRatio(w.stadsdeel) : null, adj = (l) => SLIM.labelAdj[l] ?? SLIM.labelAdj[''];
+  const e = (v) => eur.format(Math.round(v / 100) * 100), pct = (v) => (v >= 0 ? '+' : '−') + Math.abs(Math.round(v * 1000) / 10).toString().replace('.', ',') + '%';
+  const tab = (titel, rijen, tot) => { const t = el('table', 'slimrek'); const c = el('caption', null, titel); t.append(c); const b = el('tbody'); rijen.filter(Boolean).forEach(([k, v, sub]) => { const tr = el('tr'); const td = el('td', null, k); if (sub) td.append(el('div', 'mkmut', sub)); tr.append(td, el('td', 'num', v)); b.append(tr); });
+    const tr = el('tr', 'tot'); tr.append(el('td', null, tot[0]), el('td', 'num', tot[1])); b.append(tr); t.append(b); return t; };
+  const basis = a.m2 * a.mm;
+  const waarde = tab('Waarde na opknappen', [
+    ['Marktprijs per m²', e(a.mm), r ? `buurt ${w.buurt || w.wijk}: WOZ ${eur.format(w.buurtWozM2)}/m² × ${String(Math.round(r * 100) / 100).replace('.', ',')} (verkoopprijs/WOZ in ${w.stadsdeel})` : `geen buurtcijfers: gemiddelde ${isHuis(w) ? 'woning' : 'appartement'} in ${w.stadsdeel || 'Amsterdam'}`],
+    Math.abs(a.gf - 1) > .02 ? ['Correctie voor grootte', pct(a.gf - 1), `kleine woningen kosten meer per m², grote minder (t.o.v. ${SLIM.grootte.ref} m²): ${e(a.mm0)} → ${e(a.mm)}/m²`] : null,
+    ['× ' + a.m2 + ' m²', e(basis)],
+    ['Label ' + (a.L1 || 'onbekend') + (a.L1 !== a.L0 ? ` (nu ${a.L0 || '?'})` : '') + (a.L1 === 'C' ? ', het referentielabel' : ''), (adj(a.L1) >= 0 ? '+ ' : '− ') + e(Math.abs(basis * adj(a.L1))), pct(adj(a.L1)) + ' t.o.v. label C' + (a.br.reden ? '; ' + a.br.reden : '')],
+  ], ['Waarde na opknappen', e(a.v)]);
+  const kosten = tab('Wat het jullie kost', [
+    ['Vraagprijs', e(w.prijs), `${eur.format(Math.round(w.prijs / a.m2))}/m²`],
+    ['Overdrachtsbelasting', e(overdracht(w)), fin.starter && !overdracht(w) ? 'startersvrijstelling' : '2%'],
+    ['Notaris, taxatie, advies', e(+fin.bijkomend || 0)],
+    dubbel() ? ['Dubbele lasten', e(dubbel())] : null,
+    borgtocht(w) ? ['NHG-borgtocht', e(borgtocht(w))] : null,
+    d.afw ? ['Opknappen: ' + (NIVEAU[d.n] || NIVEAU.gemiddeld)[0].toLowerCase(), e(d.afw), `${eur.format((NIVEAU[d.n] || NIVEAU.gemiddeld)[1])}/m² × ${a.m2} m²` + (VG[w.id] && VG[w.id].niveau ? ' (jullie keuze)' : ' (standaardniveau)')] : null,
+    d.duur ? ['Verduurzamen', e(d.duur), `label ${a.L0 || '?'} → ${a.L1 || '?'}`] : null,
+    VG[w.id] && VG[w.id].opknap !== '' && VG[w.id].opknap != null ? ['(Jullie eigen opknapbedrag vervangt de schatting)', e(opknap(w))] : null,
+    a.sb ? ['Subsidie', '− ' + e(a.sb)] : null,
+    ['Verkoopkosten na ± ' + SL.jaren + ' jaar', e(a.vk), '± 1,5% van de waarde'],
+  ], ['Alles-in + verkoop', e(a.kost + a.vk)]);
+  // Waarom: de grootste posten
+  const wy = [], verschil = w.prijs / a.mw0 - 1;
+  wy.push(verschil <= 0 ? `De vraagprijs ligt ± ${Math.round(-verschil * 100)}% onder wat een vergelijkbare woning in deze staat in de buurt opbrengt. Dat is de belangrijkste bron van winst.` : `De vraagprijs ligt ± ${Math.round(verschil * 100)}% boven wat een vergelijkbare woning in deze staat in de buurt opbrengt. Daar haal je met opknappen niet alles van terug.`);
+  const ob = opknap(w); if (ob > .1 * w.prijs) wy.push(`Het opknapbudget (${e(ob)}, ${Math.round(ob / w.prijs * 100)}% van de vraagprijs) drukt de uitkomst flink. Is de woning al (deels) instapklaar, kies dan bij Onze voortgang (details) een lager opknapniveau of vul jullie eigen bedrag in.`);
+  if (a.L0 && a.L1 === a.L0 && 'DEFG'.includes(a.L0)) wy.push(`Het label blijft ${a.L0}: met binnenwerk kom je hier niet hoger. De woning blijft daardoor ${pct(-adj(a.L0)).replace('+', '')} onder een vergelijkbare woning met label C.`);
+  else if (a.L1 !== a.L0) wy.push(`Het betere label (${a.L0} → ${a.L1}) levert ± ${e(a.labelWinst)} op tegen ${e(d.duur)} verduurzamen${a.sb ? ' en ' + e(a.sb) + ' subsidie' : ''}.`);
+  if (!r) wy.push('Er zijn geen WOZ-cijfers voor deze buurt; de site gebruikt het stadsdeelgemiddelde, dus deze uitkomst is minder precies.');
+  else if (w.buurtWozM2 * r > marktM2Sd(w) * 1.15) wy.push(`Dit is een dure buurt binnen ${w.stadsdeel} (± ${Math.round((w.buurtWozM2 * r / marktM2Sd(w) - 1) * 100)}% boven het stadsdeelgemiddelde).`);
+  else if (w.buurtWozM2 * r < marktM2Sd(w) * .85) wy.push(`Dit is een goedkopere buurt binnen ${w.stadsdeel} (± ${Math.round((1 - w.buurtWozM2 * r / marktM2Sd(w)) * 100)}% onder het stadsdeelgemiddelde), dus de waarde na opknappen ligt lager.`);
+  if (overdracht(w) && w.prijs > 555000 && w.prijs <= 615000) wy.push('De 2% overdrachtsbelasting (' + e(overdracht(w)) + ') valt in 2027 waarschijnlijk weg voor starters.');
+  const res = el('p', 'slimres'); res.append(el('b', null, `Waardesprong: ${e(a.v)} − ${e(a.kost + a.vk)} = ${a.sprong >= 0 ? '+' : '−'}${e(Math.abs(a.sprong))}`));
+  const ul = el('ul', 'slimwhy'); wy.forEach((t) => ul.append(el('li', null, t)));
+  const box = el('div', 'slimuit'); const g = el('div', 'slimrekg'); g.append(waarde, kosten); box.append(g, res, el('b', null, 'Waarom?'), ul);
+  const bt = el('button', 'mini', 'Open woning'); bt.onclick = () => openDetail(w); box.append(bt); return box;
+};
 const SLSORT = {sprong: ['Waardesprong (€)', (a) => a.sprong], sprongPct: ['Waardesprong (%)', (a) => a.sprongPct], verd: ['Verduurzamingswinst', (a) => a.verdWinst], ml: ['Laagste maandlast', (a) => -a.mlNetto], sb: ['Meeste subsidiekans', (a) => a.sb + (a.gebied ? 10000 : 0)]};
 const renderSlim = () => {
   const box = $('#slimbox'); if (!box) return;
   if (!MREF) { box.replaceChildren(el('p', 'muted', 'Laden…')); loadMref().then(renderSlim); return; }
   const all = W.filter((w) => w.status !== 'verkocht o.v.b.').map(analyse).filter(Boolean);
-  let rows = all.filter((a) => (!SL.budget || !heeftBudget() || a.past) && (!SL.voor || voorJou(a.w) !== 'nee'));
+  let rows = all.filter((a) => (!SL.budget || !heeftBudget() || a.past) && !SL.uit.has(a.w.corporatie) && (!SL.sd || a.w.stadsdeel === SL.sd) && (!SL.wijk || a.w.wijk === SL.wijk));
   const f = SLSORT[SL.sort][1]; rows.sort((a, b) => f(b) - f(a));
   const kop = el('div', 'slimkop');
   const segS = el('div', 'mkseg'); Object.entries(SLSORT).forEach(([k, [t]]) => { const b = el('button', null, t); b.setAttribute('aria-pressed', String(SL.sort === k)); b.onclick = () => { SL.sort = k; renderSlim(); }; segS.append(b); });
   const tg = (k, t) => { const l = el('label', 'check sw'); const i = el('input'); i.type = 'checkbox'; i.checked = SL[k]; i.onchange = () => { SL[k] = i.checked; renderSlim(); }; l.append(i, ' ' + t); return l; };
   const jl = el('label', 'sljaren', 'We wonen er ± '); const js = el('select'); SLJAREN.forEach((j) => { const o = el('option', null, j + ' jaar'); o.value = j; o.selected = SL.jaren === j; js.append(o); }); js.onchange = () => { SL.jaren = +js.value; renderSlim(); }; jl.append(js);
-  kop.append(segS, jl, tg('budget', heeftBudget() ? 'Alleen binnen ons budget' : 'Binnen budget (vul eerst Onze situatie in)'), tg('voor', 'Alleen waar ik voorrang kan krijgen'));
+  const corps = [...new Set(all.map((a) => a.w.corporatie).filter(Boolean))].sort();
+  const vj = el('label', 'check sw'); const vji = el('input'); vji.type = 'checkbox'; vji.checked = SL.voor; vji.onchange = () => { if (vji.checked && !profiel) { vji.checked = false; $('#profmodal').hidden = false; return; } SL.voor = vji.checked; SL.uit = new Set(SL.voor ? corps.filter((c) => voorJouCorp(c) === 'nee') : []); renderSlim(); }; vj.append(vji, ' Voorrang voor mij');
+  const sel = (label, val, opts, on) => { const l = el('label', 'sljaren', label + ' '); const s2 = el('select'); [['', 'Alle'], ...opts.map((o) => [o, o])].forEach(([v, t]) => { const o = el('option', null, t); o.value = v; o.selected = val === v; s2.append(o); }); s2.onchange = () => on(s2.value); l.append(s2); return l; };
+  const sds = [...new Set(all.map((a) => a.w.stadsdeel).filter(Boolean))].sort(), wijken = [...new Set(all.filter((a) => !SL.sd || a.w.stadsdeel === SL.sd).map((a) => a.w.wijk).filter(Boolean))].sort((x, y) => x.localeCompare(y, 'nl'));
+  const fr = el('div', 'slimfilt'); fr.append(sel('Stadsdeel', SL.sd, sds, (v) => { SL.sd = v; SL.wijk = ''; SL.n = 15; renderSlim(); }), sel('Wijk', SL.wijk, wijken, (v) => { SL.wijk = v; SL.n = 15; renderSlim(); }), vj, tg('budget', heeftBudget() ? 'Alleen binnen ons budget' : 'Binnen budget (vul eerst Onze situatie in)'));
+  if (SL.uit.size || SL.sd || SL.wijk) { const wb = el('button', 'mini', 'Wis filters'); wb.onclick = () => { SL.uit = new Set(); SL.voor = false; SL.sd = ''; SL.wijk = ''; renderSlim(); }; fr.append(wb); }
+  const cc = el('div', 'mcorps'); corps.forEach((c) => { const l = el('label', 'mchip'); const i = el('input'); i.type = 'checkbox'; i.checked = !SL.uit.has(c); i.onchange = () => { if (i.checked) SL.uit.delete(c); else SL.uit.add(c); renderSlim(); }; const d = el('span', 'cd'); d.style.background = corpColor(c); l.append(i, d, c); cc.append(l); });
+  kop.append(segS, jl, fr, cc);
   // Top-lijst
   const tbl = el('table', 'mktbl slimtbl'); const th = el('tr');
   [['Woning'], ['Vraagprijs', 'num'], ['Label', ''], ['Alles-in', 'num', 'kostenKoper'], ['Waarde na opknappen', 'num', 'waardeNa'], ['Waardesprong', 'num', 'waardesprong'], ['Verduurzamingswinst', 'num', 'verduurzamingswinst'], ['Subsidie', 'num', 'subsidie'], ['Maandlast netto', 'num', 'woonlasten'], [heeftBudget() ? 'Eigen geld' : '', 'num']].forEach(([t, c, i]) => { const e = el('th', c || null, t); if (i) e.append(ii(i)); th.append(e); });
@@ -1772,7 +1825,9 @@ const renderSlim = () => {
     const ml = el('td', 'num', '≈ ' + eur.format(Math.round(a.mlNetto / 10) * 10)); if (a.verschilHuur != null) ml.append(el('span', 'mkwas', (a.verschilHuur >= 0 ? '+' : '−') + eur.format(Math.abs(Math.round(a.verschilHuur / 10) * 10)) + ' t.o.v. huur'));
     const eg = el('td', 'num' + (heeftBudget() ? (a.past ? ' lo' : ' hi') : ''), heeftBudget() ? eur.format(a.en) : '');
     tr.append(c0, el('td', 'num', eur.format(a.w.prijs)), lb, el('td', 'num', eur.format(Math.round(a.kost / 1000) * 1000)), el('td', 'num', eur.format(Math.round(a.v / 1000) * 1000)), sp, vw, el('td', 'num', a.sb ? eur.format(a.sb) : '–'), ml, eg);
+    const hb = el('button', 'mini slimhoe', SL.open.has(a.w.id) ? 'Verberg berekening' : 'Hoe komt dit?'); hb.onclick = (ev) => { ev.stopPropagation(); SL.open.has(a.w.id) ? SL.open.delete(a.w.id) : SL.open.add(a.w.id); renderSlim(); }; c0.append(hb);
     tr.onclick = () => openDetail(a.w); tb.append(tr);
+    if (SL.open.has(a.w.id)) { const ur = el('tr', 'slimuitrow'); const td = el('td'); td.colSpan = 10; td.append(slimUitleg(a)); ur.append(td); tb.append(ur); }
   });
   tbl.append(hd, tb); const sc = el('div', 'scroll'); sc.append(tbl);
   const topCard = el('div', 'card'); const h3 = el('h3', null, 'Beste kansen nu'); topCard.append(h3, kop, sc);
@@ -1814,7 +1869,7 @@ const renderSlim = () => {
   const tc = el('div', 'card'); tc.append(el('h3', null, 'Slimme regels voor jullie')); const ul = el('ol', 'slimtips'); tips.forEach(([t, x]) => { const li = el('li'); li.append(el('b', null, t), el('div', null, x)); ul.append(li); }); tc.append(ul);
   // Methode
   const m = el('details', 'card slimmethode'); m.append(el('summary', null, 'Hoe rekent Slim kopen?'));
-  m.append(el('p', null, `Waarde na opknappen = m² × geschatte marktprijs per m² in de buurt (gemiddelde WOZ per m² van de buurt × de verhouding tussen echte verkoopprijzen (NVM/MVA, ${MREF.periode}) en WOZ in dat stadsdeel) × correctie voor het energielabel dat jullie zelf realistisch halen (appartement max. 2 stappen tot C, eengezinswoning max. 3 stappen tot B, vooroorlogs tot C). Waarde nu = hetzelfde met het huidige label en een korting voor de staat (licht −5%, keuken/badkamer −12%, casco −20%). Alles-in = vraagprijs + kosten koper (incl. dubbele lasten en NHG) + opknapbudget − subsidies. Waardesprong = waarde na opknappen − alles-in − verkoopkosten (1,5%). Verduurzamingswinst = waardestijging door het betere label + subsidies + ${SL.jaren} jaar lagere gasrekening − kosten verduurzamen. Maandlast netto = hypotheek + VvE + canon − besparing op gas.`),
+  m.append(el('p', null, `Waarde na opknappen = m² × geschatte marktprijs per m² in de buurt (gemiddelde WOZ per m² van de buurt × de verhouding tussen echte verkoopprijzen (NVM/MVA, ${MREF.periode}) en WOZ in dat stadsdeel) × correctie voor het energielabel dat jullie zelf realistisch halen (appartement max. 2 stappen tot C, eengezinswoning max. 3 stappen tot B, vooroorlogs tot C). Kleine woningen krijgen een hogere m²-prijs en grote een lagere: (m² / 70)^−0,25, dus 35 m² ± +19% en 120 m² ± −13%. Waarde nu = hetzelfde met het huidige label en een korting voor de staat (licht −5%, keuken/badkamer −12%, casco −20%). Alles-in = vraagprijs + kosten koper (incl. dubbele lasten en NHG) + opknapbudget − subsidies. Waardesprong = waarde na opknappen − alles-in − verkoopkosten (1,5%). Verduurzamingswinst = waardestijging door het betere label + subsidies + ${SL.jaren} jaar lagere gasrekening − kosten verduurzamen. Maandlast netto = hypotheek + VvE + canon − besparing op gas.`),
     el('p', 'note', 'Labelpremies: NVM/brainbay 2024 (A +4,4%, B +2,4%, D −3,8%, E −6%, F −8,7%, G −12,2% t.o.v. C). Gas per m²: label G ± € 53, A ± € 15–22 per m² per jaar (100 m², 2026/27), appartement × 0,7. Kluswoning ± 20% onder instapklaar (brainbay 2026). De aannames worden 8 januari en 8 juli opnieuw gecontroleerd. Dit is een vergelijkingshulp, geen taxatie of advies.'));
   { const p = el('p', 'note'); p.append('Bronnen: ', link('NVM: energielabels op de woningmarkt', 'https://www.nvm.nl/media/w3xm2oy0/bijlage-4-energielabels-op-de-woningmarkt-themaonderzoek-bij-nvm-kwartaalcijfers-2024-1.pdf'), ' · ', link('HomeFinance: label G vs A', 'https://www.homefinance.nl/nieuws-blog/2026/een-huis-met-label-g-kost-je-per-maand-fors-meer-dan-een-huis-met-label-a-301972/'), ' · ', link('NHG/brainbay: verduurzamen loont', 'https://solarmagazine.nl/nieuws-zonne-energie/i41514/verduurzaming-woning-levert-bijna-2-keer-zo-veel-op-als-investering'), ' · ', link('Hypotheker: kluswoning', 'https://www.hypotheker.nl/actueel/nieuwsberichten/2026/kluswoning-na-verbouwing-gemiddeld-flink-meer-waard/')); m.append(p); }
   const grid = el('div', 'slimgrid'); grid.append(perLabel, perSd);
