@@ -317,7 +317,7 @@
   .situitleg { margin-top: 12px; } .situitleg summary { cursor: pointer; color: var(--link); font-size: 14px; } .situitleg .mktbl { margin-top: 8px; } .situitleg .mktbl td { white-space: normal; }
   #detail .ssub { font-size: 12px; margin: -2px 0 2px; text-align: right; }
   #detail .dkans { margin-top: 12px; } #detail .dkans summary { cursor: pointer; font-size: 14px; font-weight: 600; } #detail .dkans ul { margin: 8px 0 0; padding-left: 18px; display: grid; gap: 7px; font-size: 13.5px; } #detail .dkans li .muted { font-size: 12.5px; }
-  .regcard.regwide { grid-column: 1 / -1; }
+  .regcard.regwide { grid-column: 1 / -1; } .reg2027 .regtbl td { vertical-align: top; } .reg2027 { border-left: 4px solid var(--accent); }
   .regcards { display: grid; grid-template-columns: 1fr; gap: 0 12px; } @media (min-width: 1000px) { .regcards { grid-template-columns: 1fr 1fr; } }
   .regcard h3 { margin: 0 0 8px; font-size: 16px; } .regl { margin: 0; } .regl dt { font-weight: 700; margin-top: 12px; } .regl dt:first-child { margin-top: 0; }
   .regl dd { margin: 3px 0 0; line-height: 1.55; font-size: 14px; } .regtbl { margin: 6px 0; font-size: 13px; } .regtbl td { white-space: normal; }
@@ -825,6 +825,24 @@
     <div class="mkop"><h2>Subsidies &amp; regelingen</h2><span class="muted">stand november 2026</span></div>
     <p class="muted mkintro">Alles wat er voor jullie te halen valt bij het kopen en verbouwen in Amsterdam: Rijk, gemeente en leningen. Let op de volgorde: bij de <b>gemeentelijke</b> subsidies vraag je aan <b>vóór</b> je begint; bij <b>ISDE</b> juist <b>ná</b> uitvoering. Bedragen en voorwaarden veranderen: check de officiële regeling vóór je iets aanvraagt (gemeente: 14020, Energieloket). Bij elke woning staat in de detailweergave welke regelingen daar kunnen gelden.</p>
     <div class="regcards">
+      <div class="card regcard regwide reg2027">
+        <h3>Wat verandert er per 2027?</h3>
+        <p class="note" style="margin:0 0 8px">Een deel is al besloten, een deel staat nog in het Belastingplan of in een conceptregeling. Begin januari 2027 zoekt de site opnieuw uit wat definitief is en past deze pagina en de berekeningen aan.</p>
+        <div class="scroll"><table class="mktbl regtbl"><thead><tr><th>Regeling</th><th>Nu (2026)</th><th>Vanaf 1 januari 2027</th><th>Status</th><th>Wat betekent het voor jullie</th></tr></thead><tbody>
+          <tr><td>Startersvrijstelling overdrachtsbelasting</td><td>t/m € 555.000</td><td><b>t/m € 615.000</b></td><td>Belastingplan 2027</td><td>Gunstig: woningen tot € 615.000 zonder 2% overdrachtsbelasting. De datum bij de notaris telt.</td></tr>
+          <tr><td>NHG-grens</td><td>€ 470.000</td><td><b>€ 500.000</b> (€ 530.000 met verduurzaming)</td><td>Aangekondigd door NHG</td><td>Meer woningen met NHG (lagere rente). Bij een eengezinswoning met label E–G standaard € 20.000 verduurzamingsbudget.</td></tr>
+          <tr><td>ISDE: HR++-glas</td><td>€ 25 per m²</td><td>€ 30 per m²</td><td>Voorgenomen (RVO)</td><td>Iets meer voor nieuw glas in bestaande kozijnen.</td></tr>
+          <tr><td>ISDE: triple/vacuümglas</td><td>€ 111 per m²</td><td>€ 55 per m²</td><td>Voorgenomen (RVO)</td><td>Flink minder: triple glas eerder kopen (vóór 31 december 2026 gekocht = bedragen 2026).</td></tr>
+          <tr><td>ISDE: (hybride) lucht-water warmtepomp</td><td>€ 1.025 + € 225/kW</td><td>€ 1.025 + € 120/kW (+ € 200 slim, € 250 A+++)</td><td>Voorgenomen (RVO)</td><td>Bij 8 kW ± € 800 minder. Kopen vóór 2027 telt als 2026.</td></tr>
+          <tr><td>Salderen zonnepanelen</td><td>Salderen mag</td><td><b>Stopt</b>; terugleververgoeding van je leverancier</td><td>Besloten</td><td>Zonnepanelen leveren minder op; zelf verbruiken (of thuisbatterij) wordt belangrijker.</td></tr>
+          <tr><td>Hypotheekrenteaftrek</td><td>max. 37,56%</td><td>max. 38,16%</td><td>Belastingplan 2027</td><td>Iets meer aftrek.</td></tr>
+          <tr><td>Amsterdam: hybride warmtepomp</td><td colspan="2">Loopt t/m 31 december 2027 (of tot budget op)</td><td>Besloten</td><td>Alleen eengezinswoning; aanvragen vóór installatie.</td></tr>
+          <tr><td>Amsterdam: Extra Isolatie Subsidie</td><td colspan="2">Loopt t/m 30 juni 2028</td><td>Besloten</td><td>Nog ruim tijd, maar budget is eindig.</td></tr>
+          <tr><td>Amsterdam: VvE-plan (50%) en rookkanaal</td><td colspan="2">Stoppen eind 2026</td><td>Besloten</td><td>Alleen relevant als jullie VvE er nu al mee bezig is.</td></tr>
+          <tr><td>Amsterdam: woningverbetering Noord / Nieuw-West</td><td colspan="2">Noord t/m 2032, Nieuw-West t/m september 2030</td><td>Besloten</td><td>Blijft voorlopig bestaan.</td></tr>
+        </tbody></table></div>
+        <p class="note">Bronnen: <a href="https://www.rvo.nl/subsidies-financiering/isde/isde-wat-wijzigt-er-2027" target="_blank" rel="noopener">RVO: ISDE 2027</a> · <a href="https://www.harmsbakx.nl/artikelen/hypotheek/startersvrijstelling-2027-woningwaardegrens-omhoog-naar-615-000-euro" target="_blank" rel="noopener">startersvrijstelling 2027</a> · <a href="https://www.ikbenfrits.nl/blog/prinsjesdag-2026-dit-verandert-er-in-2027-voor-kopers-en-huizenbezitters/" target="_blank" rel="noopener">Prinsjesdag 2026</a> · <a href="https://www.banken.nl/nieuws/27495/nhg-grens-stijgt-naar-500000-verduurzaming-bij-slecht-energielabel-wordt-standaard" target="_blank" rel="noopener">NHG 2027</a> · <a href="https://www.zonneplan.nl/salderingsregeling" target="_blank" rel="noopener">salderen</a></p>
+      </div>
       <div class="card regcard">
         <h3>Bij het kopen</h3>
         <dl class="regl">
