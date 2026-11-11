@@ -1837,7 +1837,7 @@ let mkMap = null, mkLayer = null;
 const KAART = {ppm2: ['Prijs per m² (mediaan)', (rs) => q(nums(rs, (r) => r.ppm2), .5), (v) => eur.format(Math.round(v))], n: ['Aantal woningen', (rs) => rs.length, (v) => String(v)],
   markt: ['T.o.v. vrije markt', (rs) => q(nums(rs, marktDiff), .5), fmtPct, true], bod: ['Dagen tot bod (mediaan)', (rs) => q(nums(rs, (r) => r.dagenTotBod), .5), (v) => dagTxt(v)],
   verl: ['Prijs verlaagd', (rs) => rs.filter(isVerlaagd).length / rs.length * 100, (v) => Math.round(v) + '%'], lasten: ['Woonlasten (mediaan)', (rs) => q(nums(rs, woonlast), .5), (v) => eur.format(Math.round(v / 10) * 10) + ' p/m']};
-const SEQ = ['#dbe7f7', '#a9c6ec', '#6f9fdc', '#3a74c4', '#1d4f94'], DIV = {lo: ['#1a7f4b', '#7cc19a'], mid: '#d9dde3', hi: ['#e3a07f', '#b4441f']};
+const SEQ = ['#dbe7f7', '#a9c6ec', '#6f9fdc', '#3a74c4', '#1d4f94'], DIV = {lo: ['#1a7f4b', '#7cc19a'], mid: '#b9c0ca', hi: ['#e3a07f', '#b4441f']};
 const renderKaart = (R) => {
   const box = $('#mkkaart'), leg = $('#mkkaartleg');
   if (!WIJKEN || typeof L === 'undefined') { box.replaceChildren(el('p', 'muted mkleeg', 'De wijkgrenzen worden bij de volgende dagelijkse update opgehaald.')); leg.replaceChildren(); return; }
@@ -1855,7 +1855,7 @@ const renderKaart = (R) => {
   WIJKEN.forEach((w) => {
     const rs = per[w.naam] || [], v = rs.length ? f(rs) : null, c = kleur(v);
     const latlngs = w.polys.map((p) => p.map((ring) => ring.map(([x, y]) => [y, x])));
-    const pg = L.polygon(latlngs, {weight: mkWijk === w.naam ? 2.5 : .6, color: mkWijk === w.naam ? '#111' : '#8a94a3', fillColor: c || '#000', fillOpacity: c ? .72 : .03}).addTo(mkLayer);
+    const pg = L.polygon(latlngs, {weight: mkWijk === w.naam ? 2.5 : .6, color: mkWijk === w.naam ? '#111' : '#8a94a3', fillColor: c || '#000', fillOpacity: c ? .72 : 0}).addTo(mkLayer);
     pg.bindTooltip(`<b>${w.naam}</b>${w.stadsdeel ? ' · ' + w.stadsdeel : ''}<br>` + (rs.length ? `${naam}: ${v == null ? '–' : fmt(v)}<br>${rs.length} woning${rs.length === 1 ? '' : 'en'}` : 'geen woningen in de selectie'), {sticky: true});
     if (rs.length) pg.on('click', () => { mkWijk = mkWijk === w.naam ? '' : w.naam; renderMarkt(); });
   });
