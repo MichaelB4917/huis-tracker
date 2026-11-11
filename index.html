@@ -902,8 +902,11 @@ const CORPS = ['Lieven de Key', 'Alliantie', 'Stadgenoot', 'Rochdale', 'Ymere', 
 let voorMode = false;
 let profiel = null; try { profiel = JSON.parse(store.get('profiel') || 'null'); } catch (e) {}
 // Maandlasten: aannames instelbaar in de detailweergave (bewaard in browser en gedeelde lijst)
-let fin = {rente: 4.0, jaren: 30, eigen: 0, huur: '', maxHyp: '', starter: false, bijkomend: 5000}; try { fin = Object.assign(fin, JSON.parse(store.get('fin') || '{}')); } catch (e) {}
-const hypotheek = (w) => { const L = Math.max(0, Math.min((w.prijs || 0) - Math.max(0, (+fin.eigen || 0) - kk(w) - opknap(w)), fin.maxHyp ? +fin.maxHyp : Infinity)), r = (+fin.rente || 0) / 1200, n = (+fin.jaren || 30) * 12; return r ? L * r / (1 - Math.pow(1 + r, -n)) : L / n; };
+let fin = {rente: 4.0, jaren: 30, eigen: 0, huur: '', maxHyp: '', starter: false, bijkomend: 5000, bouwdepot: true}; try { fin = Object.assign(fin, JSON.parse(store.get('fin') || '{}')); } catch (e) {}
+// Verbouwing via bouwdepot: de bank leent tot de getaxeerde marktwaarde ná verbouwing (aanname: opknapbudget verhoogt de waarde 1-op-1)
+const teLenen = (w) => (w.prijs || 0) + (fin.bouwdepot ? opknap(w) : 0);
+const leenBedrag = (w) => Math.max(0, Math.min(teLenen(w) - Math.max(0, (+fin.eigen || 0) - kk(w) - (fin.bouwdepot ? 0 : opknap(w))), fin.maxHyp ? +fin.maxHyp : Infinity));
+const hypotheek = (w) => { const L = leenBedrag(w), r = (+fin.rente || 0) / 1200, n = (+fin.jaren || 30) * 12; return r ? L * r / (1 - Math.pow(1 + r, -n)) : L / n; };
 const vve = (w) => typeof w.servicekosten === 'number' ? w.servicekosten : 0;
 const maandlast = (w) => Math.round(hypotheek(w) + vve(w));
 // Kosten koper en opknappen (indicatie). Overdrachtsbelasting 2026: 2% bij eigen bewoning, 0% met startersvrijstelling (18-35 jaar, eenmalig, marktwaarde t/m € 555.000)
@@ -914,7 +917,7 @@ const opknapM2 = (w) => OPK[(w.energielabel || '')[0]] ?? 450;
 const opknap = (w) => VG[w.id] && VG[w.id].opknap !== '' && VG[w.id].opknap != null ? +VG[w.id].opknap : Math.round(w.m2 * opknapM2(w) / 1000) * 1000;
 const totaal = (w) => w.prijs + kk(w) + opknap(w);
 // Past in budget: maximaal te lenen = min(max hypotheek, vraagprijs); de rest (incl. kosten koper en opknappen) uit eigen geld
-const lening = (w) => Math.min(fin.maxHyp ? +fin.maxHyp : w.prijs, w.prijs);
+const lening = (w) => Math.min(fin.maxHyp ? +fin.maxHyp : teLenen(w), teLenen(w));
 const eigenNodig = (w) => Math.max(0, totaal(w) - lening(w));
 const pastBudget = (w) => !fin.maxHyp || (+fin.eigen || 0) >= eigenNodig(w);
 // Vergelijking met de buurt: gemiddelde WOZ-waarde per m² (schatting), dus géén verkoopprijzen
@@ -1319,20 +1322,22 @@ const openDetail = (w) => {
   calc.append(inp('rente', 'Hypotheekrente', '0.05', '%'), inp('jaren', 'Looptijd', '1', 'jaar'), inp('eigen', 'Eigen geld', '1000', '€'), inp('huur', 'Huidige huur', '10', '€ p/m'),
     inp('maxHyp', 'Max. hypotheek', '1000', '€', 'maxHyp'), inp('bijkomend', 'Notaris, taxatie, advies', '500', '€', 'kostenKoper'));
   const stl = el('label', 'check'); stl.style.gridColumn = '1 / -1'; const stc = el('input'); stc.type = 'checkbox'; stc.checked = !!fin.starter; stc.onchange = () => { fin.starter = stc.checked; store.set('fin', JSON.stringify(fin)); upd(); changed(); render(); }; stl.append(stc, ' Startersvrijstelling (18–35 jaar, eerste keer; geen overdrachtsbelasting t/m € 555.000)', ii('overdracht')); calc.append(stl);
+  const bdl = el('label', 'check'); bdl.style.gridColumn = '1 / -1'; const bdc = el('input'); bdc.type = 'checkbox'; bdc.checked = !!fin.bouwdepot; bdc.onchange = () => { fin.bouwdepot = bdc.checked; store.set('fin', JSON.stringify(fin)); upd(); changed(); render(); }; bdl.append(bdc, ' Verbouwing meefinancieren (bouwdepot, op basis van taxatie ná verbouwing)', ii('bouwdepot')); calc.append(bdl);
   const sum = el('div', 'sum');
   const upd = () => {
     const hy = Math.round(hypotheek(wp)), tot = maandlast(wp);
     const rij = (l, val, cls, info) => { const d = el('div', 'srow' + (cls ? ' ' + cls : '')); const s = el('span', null, l); if (info) s.append(ii(info)); d.append(s, el('b', null, val)); return d; };
     const rows = [el('div', 'sh', 'Per maand'), rij('Hypotheek (annuïteit, bruto)', eur.format(hy))];
+    rows[1].querySelector('span').append(el('span', 'muted', ' · lening ' + eur.format(Math.round(leenBedrag(wp)))));
     if (vve(w)) rows.push(rij('VvE', eur2.format(vve(w)), '', 'vve'));
     rows.push(rij('Totaal per maand', '≈ ' + eur.format(tot), 'tot'));
     if (fin.huur) { const dif = tot - fin.huur; rows.push(el('div', 'muted', (dif >= 0 ? eur.format(dif) + ' meer' : eur.format(-dif) + ' minder') + ' dan je huidige huur')); }
-    rows.push(el('div', 'sh', 'Eenmalig'), rij('Vraagprijs', eur.format(prijs)), rij('Overdrachtsbelasting', eur.format(overdracht(wp)), '', 'overdracht'), rij('Notaris, taxatie, advies', eur.format(+fin.bijkomend || 0), '', 'kostenKoper'), rij('Opknappen (schatting)', eur.format(opknap(wp)), '', 'opknap'), rij('Totaal', '≈ ' + eur.format(totaal(wp)), 'tot'));
+    rows.push(el('div', 'sh', 'Eenmalig'), rij('Vraagprijs', eur.format(prijs)), rij('Overdrachtsbelasting', eur.format(overdracht(wp)), '', 'overdracht'), rij('Notaris, taxatie, advies', eur.format(+fin.bijkomend || 0), '', 'kostenKoper'), rij('Opknappen (schatting)' + (fin.bouwdepot ? ', via bouwdepot' : ''), eur.format(opknap(wp)), '', 'opknap'), rij('Totaal', '≈ ' + eur.format(totaal(wp)), 'tot'));
     if (fin.maxHyp) { const en = eigenNodig(wp); const ok = pastBudget(wp); const d = el('div', null, 'Eigen geld nodig: ' + eur.format(en) + (ok ? ' · past in jullie budget' : ' · ' + eur.format(en - (+fin.eigen || 0)) + ' tekort')); d.style.color = ok ? 'var(--ok)' : 'var(--bad)'; d.style.fontWeight = 600; rows.push(d); }
     sum.replaceChildren(...rows);
   };
   upd();
-  const notes = ['Bruto, dus zonder hypotheekrenteaftrek. Kosten koper en opknappen kun je niet meefinancieren in de hypotheek; die gaan van je eigen geld af.'];
+  const notes = ['Bruto, dus zonder hypotheekrenteaftrek. Kosten koper kun je niet meefinancieren; die komen uit eigen geld. ' + (fin.bouwdepot ? 'De verbouwing is meegefinancierd via een bouwdepot (bank leent tot de getaxeerde waarde ná verbouwing); of dat lukt hangt af van de taxatie en je inkomen.' : 'De verbouwing betaal je hier uit eigen geld.')];
   if (w.erfpacht && !/afgekocht|eigen grond/i.test(w.erfpacht)) notes.push('Let op: erfpacht is mogelijk niet afgekocht; de canon komt hier nog bij.');
   if (!vve(w) && w.type && !/woning$|huis/i.test(w.type)) notes.push('VvE-bijdrage onbekend.');
   B.append(dsec('Kosten & maandlasten', null, sum, el('details', 'dcalc'), el('p', 'note', notes.join(' '))));
@@ -1593,10 +1598,11 @@ const INFO = {
   fundering: ['Fundering', 'Indicatie per postcode (Klimaateffectatlas / KCAF): welk deel van de panden van vóór 1970 is en hoe kwetsbaar de bodem is. Veel oude panden op houten palen = kans op funderingsherstel, vaak tienduizenden euro’s per woning via de VvE. Zegt iets over het gebied, niet over deze woning: vraag bij interesse naar funderingsonderzoek.'],
   woonlasten: ['Woonlasten per maand', 'Bruto maandlast van de hypotheek (annuïteit, met de rente, looptijd en het eigen geld dat je bij Maandlasten instelt) plus de VvE-bijdrage. Zonder hypotheekrenteaftrek, energie, verzekeringen en eventuele erfpachtcanon.'],
   overdracht: ['Overdrachtsbelasting', '2% van de koopsom als je er zelf gaat wonen. Startersvrijstelling: 0% als je 18–35 jaar bent, nog niet eerder gebruikmaakte van de vrijstelling en de woning maximaal € 555.000 kost (2026). Niet mee te financieren.'],
-  kostenKoper: ['Kosten koper', 'Overdrachtsbelasting plus notaris, taxatie en hypotheekadvies (samen vaak € 5.000–8.000). Deze kosten kun je niet meefinancieren: ze komen uit eigen geld.'],
-  opknap: ['Opknapbudget', 'Grove schatting per m² op basis van het energielabel (beter label = minder werk). Pas aan bij Onze voortgang zodra je de woning hebt gezien. Kan niet in de hypotheek, behalve het energiebespaarbudget.'],
+  kostenKoper: ['Kosten koper', 'Overdrachtsbelasting plus notaris, taxatie en hypotheekadvies (samen vaak € 5.000–8.000). Deze kosten kun je niet meefinancieren: ze komen uit eigen geld. De verbouwing kan wél mee, via een bouwdepot.'],
+  opknap: ['Opknapbudget', 'Grove schatting per m² op basis van het energielabel (beter label = minder werk). Pas aan bij Onze voortgang zodra je de woning hebt gezien. Staat “Verbouwing meefinancieren” aan, dan zit dit bedrag in de hypotheek (via een bouwdepot); anders komt het uit eigen geld.'],
+  bouwdepot: ['Bouwdepot', 'Bij aankoop mag je de verbouwing meefinancieren: de bank leent tot 100% van de getaxeerde marktwaarde ná verbouwing (taxateur rekent met je verbouwingsspecificatie). Voor energiebesparende maatregelen (isolatie, HR++-glas, warmtepomp, zonnepanelen) mag het tot 106%, plus extra leenruimte afhankelijk van het energielabel (tot € 20.000 bij label E–G). Het geld staat in een bouwdepot en wordt uitbetaald op facturen, meestal binnen 18–24 maanden. Voorwaarde blijft dat je inkomen de maandlasten toelaat; de site rekent ermee dat de verbouwing de waarde 1-op-1 verhoogt, de taxatie bepaalt het echt.'],
   maxHyp: ['Max. hypotheek', 'Hoeveel je maximaal kunt lenen. Hangt af van inkomen, rente en energielabel; laat dit uitrekenen door een bank of adviseur. Vul je het in, dan rekent de site uit hoeveel eigen geld je nodig hebt en of een woning past.'],
-  budget: ['Past in budget', 'Woning past als je eigen geld genoeg is voor: vraagprijs minus wat je maximaal kunt lenen, plus kosten koper en opknapbudget. Stel je max. hypotheek en eigen geld in bij Maandlasten in een detailweergave.'],
+  budget: ['Past in budget', 'Woning past als je eigen geld genoeg is voor wat je niet kunt lenen: de kosten koper, het deel boven je max. hypotheek, en het opknapbudget als je dat niet via een bouwdepot meefinanciert. Stel max. hypotheek en eigen geld in bij Kosten & maandlasten in een detailweergave.'],
   zelfbewoning: ['Zelfbewoningsplicht', 'Je moet er zelf (blijven) wonen, vaak minimaal een aantal jaar. Verhuren of leeg laten staan mag niet; bij overtreding kan een flinke boete volgen.'],
   antispeculatie: ['Anti-speculatiebeding', 'Verkoop je binnen een bepaalde periode, dan moet je (een deel van) de winst aan de corporatie afdragen of mag je niet verkopen. Bedoeld om snelle doorverkoop met winst te voorkomen.'],
   opkoop: ['Opkoopbescherming', 'Amsterdamse regel: woningen met een WOZ-waarde tot € 637.000 (2026) mag je de eerste 4 jaar niet verhuren, behalve met vergunning (bijv. aan familie). Boete tot € 21.750.'],
