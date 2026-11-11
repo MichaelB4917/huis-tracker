@@ -348,6 +348,7 @@
   .slimhoe { display: block; margin-top: 6px; } .slimuitrow > td { background: var(--tint); white-space: normal; cursor: default; }
   .slimuit { max-width: 900px; position: sticky; left: 8px; width: calc(min(900px, 100vw - 96px)); white-space: normal; } .slimuit .mkmut { max-width: none; white-space: normal; overflow: visible; } .slimuitrow:hover { background: none; } .slimrekg { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(17rem, 100%), 1fr)); gap: 12px 24px; }
   .slimrek { width: 100%; border-collapse: collapse; font-size: 13.5px; } .slimrek caption { text-align: left; font-weight: 600; padding-bottom: 4px; } .slimuit .slimrek td { padding: 4px 0; border-bottom: 1px solid var(--line); vertical-align: top; white-space: normal; } .slimuit .slimrek td.num { text-align: right; padding-left: 12px; white-space: nowrap; } .slimrek tr.tot td { font-weight: 600; border-bottom: 0; }
+  .slimketen { margin: 4px 0 2px; padding-left: 20px; font-size: 13px; color: var(--muted); }
   .slimres { margin: 12px 0 6px; } .slimwhy { margin: 4px 0 10px; padding-left: 18px; line-height: 1.5; font-size: 14px; }
   .slimlet ul { margin: 0; padding-left: 18px; line-height: 1.5; font-size: 14px; } .slimlet li { margin-bottom: 6px; } .sljaren { font-size: 13px; color: var(--muted); display: inline-flex; align-items: center; } .sljaren select { margin-left: 4px; height: 30px; border: 1px solid var(--line); border-radius: 8px; background: var(--panel); color: var(--fg); font: inherit; }
   .slimgrid { display: grid; grid-template-columns: 1fr; gap: 0 12px; } @media (min-width: 1200px) { .slimgrid { grid-template-columns: 1fr 1fr; } .slimgrid .mktbl th { white-space: normal; } }
@@ -1628,6 +1629,9 @@ const openDetail = (w) => {
     const d = (m2p / g.app.m2 - 1) * 100; mk1.replaceChildren('Vrije markt ', w.stadsdeel, ': appartementen verkochten voor ', el('b', null, eur.format(g.app.m2) + ' per m²'), ` (mediaan, ${MREF.periode}); ${g.app.boven}% ging boven de vraagprijs weg. Deze woning: ${eur.format(m2p)} per m², `, el('b', null, Math.abs(Math.round(d)) + '% ' + (d < 0 ? 'onder' : 'boven')), ' de markt.', ii('markt')); });
   if (bd != null) { const p = el('p', 'dline'); p.append('Buurt ', el('b', null, w.buurt || '—'), ': gemiddelde WOZ ≈ ', el('b', null, eur.format(w.buurtWozM2) + ' per m²'), ` (WOZ ${w.buurtWozJaar || ''}). Deze woning: `, buurtNode(w), '.', ii('buurtWoz')); ctx.append(p); }
   else ctx.append(el('p', 'note', 'Nog geen buurtwaarde bekend (wordt bij de dagelijkse update opgehaald).'));
+  { const mp = el('p', 'dline'); ctx.append(mp); loadMref().then(() => { const a = analyse(w); if (!a) { mp.remove(); return; } const x = w.prijs / a.mw0 - 1;
+    mp.append('Geschatte marktwaarde nu ≈ ', el('b', null, eur.format(Math.round(a.mw0 / 1000) * 1000)), ' (buurt omgerekend naar verkoopprijzen, gecorrigeerd voor grootte en label ' + (a.L0 || 'onbekend') + '). Vraagprijs: ', el('b', x <= -.05 ? 'lo' : x >= .05 ? 'hi' : null, pctTxt(x)), ' marktwaarde.', ii('marktwaarde'));
+    const ol = el('ol', 'slimketen'); marktKeten(a).forEach(([t, y]) => ol.append(el('li', null, `${pctTxt(y)}: ${t}`))); mp.append(el('div', 'muted', 'Vraagprijs per m² vergeleken met:'), ol); }); }
   const hl = el('ul', 'hist'); hl.append(el('li', 'muted', 'Laden…'));
   ctx.append(el('h4', null, 'Prijs- en statusverloop'), hl);
   B.append(dsec('Prijs in context', null, ctx));
@@ -1748,7 +1752,6 @@ const renderSituatie = () => {
 // - Gasverbruik per m² per jaar naar label (100 m², stookseizoen 2026/27: G ± € 53/m², A ± € 15–22/m²; tussen-labels geïnterpoleerd); appartement × 0,7.
 const SLIM = {
   labelAdj: {'A+': .078, A: .044, B: .024, C: 0, D: -.038, E: -.060, F: -.087, G: -.122, '': -.03},
-  staat: {geen: 1, licht: .95, gemiddeld: .88, casco: .80},
   gasM2: {'A+': 12, A: 18, B: 24, C: 30, D: 36, E: 42, F: 48, G: 53, '': 36},
   grootte: {ref: 70, e: .25}, // kleine woningen hebben een hogere m²-prijs: (m² / 70)^−0,25, dus 35 m² ± +19%, 120 m² ± −13%
   verkoop: .015, // makelaar en notaris bij doorverkoop, ± 1,5% van de waarde
@@ -1775,8 +1778,8 @@ const analyse = (w) => {
   const m2 = +w.m2, mm0 = marktM2Type(w); if (!m2 || !mm0 || !w.prijs) return null; const gf = Math.pow(m2 / SLIM.grootte.ref, -SLIM.grootte.e), mm = mm0 * gf;
   const d = opknapDelen(w), n = d.n, L0 = lblKey(w.energielabel), br = bereikbaar(w), L1 = br.L1;
   const adj = (l) => SLIM.labelAdj[l] ?? SLIM.labelAdj[''];
-  const mw0 = m2 * mm * (1 + adj(L0)) * (SLIM.staat[n] ?? .88);               // waarde nu, in huidige staat
-  const v = m2 * mm * (1 + adj(L1)) * (n === 'geen' ? (SLIM.staat.geen) : 1); // waarde na opknappen
+  const mw0 = m2 * mm * (1 + adj(L0));                                        // marktwaarde nu: deze buurt, deze grootte, dit label (staat: zie opknapkosten)
+  const v = m2 * mm * (1 + adj(L1));                                          // waarde na opknappen
   const sb = subsidie(w), kost = w.prijs + kk(w) + opknap(w) - sb;
   const gasF = isHuis(w) ? 1 : .7, besparing = Math.max(0, (SLIM.gasM2[L0] ?? 36) - (SLIM.gasM2[L1] ?? 36)) * m2 * gasF;
   const labelWinst = m2 * mm * (adj(L1) - adj(L0));
@@ -1785,6 +1788,16 @@ const analyse = (w) => {
   return {w, m2, mm, mm0, gf, L0, L1, br, mw0, v, sb, kost, vk, sprong: v - kost - vk, sprongPct: (v - kost - vk) / kost * 100, korting: (1 - w.prijs / mw0) * 100,
     besparing, verdWinst, labelWinst, ml, mlNetto: ml - besparing / 12, verschilHuur: huur ? ml - besparing / 12 - huur : null, past: pastBudget(w), en: eigenNodig(w), gebied: vwbGebied(w), anti: anti(w)};
 };
+// Van 'boven/onder buurt (WOZ)' naar 'boven/onder geschatte marktwaarde': elke correctie apart, zodat beide getallen te volgen zijn
+const marktKeten = (a) => { const w = a.w, ppm = w.prijs / a.m2, r = w.buurtWozM2 ? sdRatio(w.stadsdeel) : null, out = [], adj = SLIM.labelAdj[a.L0] ?? SLIM.labelAdj[''], sdm = marktM2Sd(w);
+  let ref; const stap = (t) => out.push([t, ppm / ref - 1]);
+  if (sdm && r) { ref = sdm; stap(`gemiddelde verkoopprijs heel ${w.stadsdeel} (${eur.format(Math.round(sdm))}/m²)`); }
+  if (r) { ref = w.buurtWozM2; stap(`gemiddelde WOZ in ${w.buurt || 'de buurt'} (${eur.format(w.buurtWozM2)}/m²)`); ref *= r; stap(`→ omgerekend naar verkoopprijzen (× ${String(Math.round(r * 100) / 100).replace('.', ',')}, verhouding verkoopprijs/WOZ in ${w.stadsdeel})`); }
+  else { ref = a.mm0; stap(`gemiddelde verkoopprijs in ${w.stadsdeel || 'Amsterdam'} (${eur.format(Math.round(a.mm0))}/m²; geen buurtcijfers)`); }
+  if (Math.abs(a.gf - 1) > .005) { ref *= a.gf; stap(`→ gecorrigeerd voor grootte (${a.m2} m², ${a.gf > 1 ? '+' : '−'}${Math.round(Math.abs(a.gf - 1) * 100)}% per m²)`); }
+  if (adj) { ref *= 1 + adj; stap(`→ gecorrigeerd voor label ${a.L0 || 'onbekend'} (${adj > 0 ? '+' : '−'}${String(Math.round(Math.abs(adj) * 1000) / 10).replace('.', ',')}%)`); }
+  out[out.length - 1][0] += ' = geschatte marktwaarde'; return out; };
+const pctTxt = (x) => `${Math.round(Math.abs(x) * 100)}% ${x >= 0 ? 'boven' : 'onder'}`;
 const SL = {sort: 'sprong', dir: -1, zoek: '', fav: false, budget: true, voor: false, n: 15, jaren: 3, uit: new Set(), sd: '', wijk: '', open: new Set()};
 // Uitleg per woning: hoe de waardesprong is opgebouwd en wat hem het meest bepaalt
 const slimUitleg = (a) => {
@@ -1812,8 +1825,9 @@ const slimUitleg = (a) => {
     ['Verkoopkosten na ± ' + SL.jaren + ' jaar', e(a.vk), '± 1,5% van de waarde'],
   ], ['Alles-in + verkoop', e(a.kost + a.vk)]);
   // Waarom: de grootste posten
-  const wy = [], verschil = w.prijs / a.mw0 - 1;
-  wy.push(verschil <= 0 ? `De vraagprijs ligt ± ${Math.round(-verschil * 100)}% onder wat een vergelijkbare woning in deze staat in de buurt opbrengt. Dat is de belangrijkste bron van winst.` : `De vraagprijs ligt ± ${Math.round(verschil * 100)}% boven wat een vergelijkbare woning in deze staat in de buurt opbrengt. Daar haal je met opknappen niet alles van terug.`);
+  const wy = [], verschil = w.prijs / a.mw0 - 1, keten = marktKeten(a);
+  { const li = el('div'); li.append(`De vraagprijs ligt ± ${pctTxt(verschil)} de geschatte marktwaarde van deze woning zoals hij nu is (${e(a.mw0)}, met dit label, zonder opknappen). ` + (verschil <= 0 ? 'Dat is de belangrijkste bron van winst.' : 'Dat haal je met opknappen niet terug.') + ' Zo hangen de verschillende vergelijkingen samen (de vraagprijs per m² telkens vergeleken met):');
+    const ol = el('ol', 'slimketen'); keten.forEach(([t, x]) => ol.append(el('li', null, `${pctTxt(x)}: ${t}`))); li.append(ol); wy.push(li); }
   const ob = opknap(w); if (ob > .1 * w.prijs) wy.push(`Het opknapbudget (${e(ob)}, ${Math.round(ob / w.prijs * 100)}% van de vraagprijs) drukt de uitkomst flink. Is de woning al (deels) instapklaar, kies dan bij Onze voortgang (details) een lager opknapniveau of vul jullie eigen bedrag in.`);
   if (a.L0 && a.L1 === a.L0 && 'DEFG'.includes(a.L0)) wy.push(`Het label blijft ${a.L0}: met binnenwerk kom je hier niet hoger. De woning blijft daardoor ${pct(-adj(a.L0)).replace('+', '')} onder een vergelijkbare woning met label C.`);
   else if (a.L1 !== a.L0) wy.push(`Het betere label (${a.L0} → ${a.L1}) levert ± ${e(a.labelWinst)} op tegen ${e(d.duur)} verduurzamen${a.sb ? ' en ' + e(a.sb) + ' subsidie' : ''}.`);
@@ -1822,7 +1836,7 @@ const slimUitleg = (a) => {
   else if (w.buurtWozM2 * r < marktM2Sd(w) * .85) wy.push(`Dit is een goedkopere buurt binnen ${w.stadsdeel} (± ${Math.round((1 - w.buurtWozM2 * r / marktM2Sd(w)) * 100)}% onder het stadsdeelgemiddelde), dus de waarde na opknappen ligt lager.`);
   if (overdracht(w) && w.prijs > 555000 && w.prijs <= 615000) wy.push('De 2% overdrachtsbelasting (' + e(overdracht(w)) + ') valt in 2027 waarschijnlijk weg voor starters.');
   const res = el('p', 'slimres'); res.append(el('b', null, `Waardesprong: ${e(a.v)} − ${e(a.kost + a.vk)} = ${a.sprong >= 0 ? '+' : '−'}${e(Math.abs(a.sprong))}`));
-  const ul = el('ul', 'slimwhy'); wy.forEach((t) => ul.append(el('li', null, t)));
+  const ul = el('ul', 'slimwhy'); wy.forEach((t) => { const li = el('li'); li.append(t); ul.append(li); });
   const box = el('div', 'slimuit'); const g = el('div', 'slimrekg'); g.append(waarde, kosten); box.append(g, res, el('b', null, 'Waarom?'), ul);
   const bt = el('button', 'mini', 'Open woning'); bt.onclick = () => openDetail(w); box.append(bt); return box;
 };
@@ -1906,7 +1920,7 @@ const renderSlim = () => {
   const tc = el('div', 'card'); tc.append(el('h3', null, 'Slimme regels voor jullie')); const ul = el('ol', 'slimtips'); tips.forEach(([t, x]) => { const li = el('li'); li.append(el('b', null, t), el('div', null, x)); ul.append(li); }); tc.append(ul);
   // Methode
   const m = el('details', 'card slimmethode'); m.append(el('summary', null, 'Hoe rekent Slim kopen?'));
-  m.append(el('p', null, `Waarde na opknappen = m² × geschatte marktprijs per m² in de buurt (gemiddelde WOZ per m² van de buurt × de verhouding tussen echte verkoopprijzen (NVM/MVA, ${MREF.periode}) en WOZ in dat stadsdeel) × correctie voor het energielabel dat jullie zelf realistisch halen (appartement max. 2 stappen tot C, eengezinswoning max. 3 stappen tot B, vooroorlogs tot C). Kleine woningen krijgen een hogere m²-prijs en grote een lagere: (m² / 70)^−0,25, dus 35 m² ± +19% en 120 m² ± −13%. Waarde nu = hetzelfde met het huidige label en een korting voor de staat (licht −5%, keuken/badkamer −12%, casco −20%). Alles-in = vraagprijs + kosten koper (incl. dubbele lasten en NHG) + opknapbudget − subsidies. Waardesprong = waarde na opknappen − alles-in − verkoopkosten (1,5%). Verduurzamingswinst = waardestijging door het betere label + subsidies + ${SL.jaren} jaar lagere gasrekening − kosten verduurzamen. Maandlast netto = hypotheek + VvE + canon − besparing op gas.`),
+  m.append(el('p', null, `Waarde na opknappen = m² × geschatte marktprijs per m² in de buurt (gemiddelde WOZ per m² van de buurt × de verhouding tussen echte verkoopprijzen (NVM/MVA, ${MREF.periode}) en WOZ in dat stadsdeel) × correctie voor het energielabel dat jullie zelf realistisch halen (appartement max. 2 stappen tot C, eengezinswoning max. 3 stappen tot B, vooroorlogs tot C). Kleine woningen krijgen een hogere m²-prijs en grote een lagere: (m² / 70)^−0,25, dus 35 m² ± +19% en 120 m² ± −13%. Marktwaarde nu = hetzelfde met het huidige label (de staat zit in de opknapkosten, niet nog een keer in de waarde). Bij elke woning laat “Hoe komt dit?” stap voor stap zien hoe je van “x% boven/onder buurt” (WOZ, op de woningpagina) naar de geschatte marktwaarde komt. Alles-in = vraagprijs + kosten koper (incl. dubbele lasten en NHG) + opknapbudget − subsidies. Waardesprong = waarde na opknappen − alles-in − verkoopkosten (1,5%). Verduurzamingswinst = waardestijging door het betere label + subsidies + ${SL.jaren} jaar lagere gasrekening − kosten verduurzamen. Maandlast netto = hypotheek + VvE + canon − besparing op gas.`),
     el('p', 'note', 'Labelpremies: NVM/brainbay 2024 (A +4,4%, B +2,4%, D −3,8%, E −6%, F −8,7%, G −12,2% t.o.v. C). Gas per m²: label G ± € 53, A ± € 15–22 per m² per jaar (100 m², 2026/27), appartement × 0,7. Kluswoning ± 20% onder instapklaar (brainbay 2026). De aannames worden 8 januari en 8 juli opnieuw gecontroleerd. Dit is een vergelijkingshulp, geen taxatie of advies.'));
   { const p = el('p', 'note'); p.append('Bronnen: ', link('NVM: energielabels op de woningmarkt', 'https://www.nvm.nl/media/w3xm2oy0/bijlage-4-energielabels-op-de-woningmarkt-themaonderzoek-bij-nvm-kwartaalcijfers-2024-1.pdf'), ' · ', link('HomeFinance: label G vs A', 'https://www.homefinance.nl/nieuws-blog/2026/een-huis-met-label-g-kost-je-per-maand-fors-meer-dan-een-huis-met-label-a-301972/'), ' · ', link('NHG/brainbay: verduurzamen loont', 'https://solarmagazine.nl/nieuws-zonne-energie/i41514/verduurzaming-woning-levert-bijna-2-keer-zo-veel-op-als-investering'), ' · ', link('Hypotheker: kluswoning', 'https://www.hypotheker.nl/actueel/nieuwsberichten/2026/kluswoning-na-verbouwing-gemiddeld-flink-meer-waard/')); m.append(p); }
   const grid = el('div', 'slimgrid'); grid.append(perLabel, perSd);
@@ -2216,6 +2230,7 @@ const INFO = {
   fundering: ['Fundering', 'Indicatie per postcode (Klimaateffectatlas / KCAF): welk deel van de panden van vóór 1970 is en hoe kwetsbaar de bodem is. Veel oude panden op houten palen = kans op funderingsherstel, vaak tienduizenden euro’s per woning via de VvE. Zegt iets over het gebied, niet over deze woning: vraag bij interesse naar funderingsonderzoek.'],
   woonlasten: ['Woonlasten per maand', 'Bruto maandlast van de hypotheek (annuïteit, met de rente, looptijd en het eigen geld dat je bij Maandlasten instelt) plus de VvE-bijdrage. Zonder hypotheekrenteaftrek, energie, verzekeringen en eventuele erfpachtcanon.'],
   overdracht: ['Overdrachtsbelasting', '2% van de koopsom als je er zelf gaat wonen. Startersvrijstelling: 0% als je 18–35 jaar bent, nog niet eerder gebruikmaakte van de vrijstelling en de woning maximaal € 555.000 kost (2026). Niet mee te financieren.'],
+  marktwaarde: ['Geschatte marktwaarde', 'Wat deze woning zoals hij nu is ongeveer zou opbrengen. Start bij de gemiddelde WOZ-waarde per m² van de buurt, rekent die om naar echte verkoopprijzen (WOZ loopt achter), corrigeert voor grootte (kleine woningen kosten meer per m²) en energielabel. “x% boven buurt” erboven vergelijkt alleen met de ruwe WOZ; daarom kunnen die twee getallen flink verschillen. De staat van de woning zit niet in deze waarde maar in de opknapkosten. Een schatting, geen taxatie.'],
   ltv106: ['106%: verbouwing meefinancieren', 'Je mag maximaal 100% lenen van de getaxeerde waarde ná verbouwing. Daarbovenop mag tot 6% extra, maar alleen voor energiebesparende maatregelen (isolatie, glas, ventilatie, warmtepomp) en nooit meer dan die maatregelen kosten. Dus: geen verduurzaming = geen 106%. Bij label A/B en bij een C-appartement (binnenwerk levert geen beter label) rekent de site geen verduurzaming, dus blijft het 100%. Daarnaast blijft je inkomen (en eventueel de NHG-grens) een grens: de laagste van de drie bepaalt wat je leent. De rest (kosten koper, en wat boven de grens uitkomt) komt uit eigen geld.'],
   eigenGeld: ['Eigen geld nodig', 'Alles-in (vraagprijs + kosten koper + opknappen) min wat jullie voor deze woning kunnen lenen. Groen/✓ = jullie eigen geld is genoeg. De lening per woning hangt af van inkomen of ingevuld maximum, energielabel, bouwdepot en de waarde ná verbouwing. Subsidies tellen hier niet mee: die krijg je pas achteraf.'],
   kostenKoper: ['Kosten koper', 'Overdrachtsbelasting plus notaris, taxatie en hypotheekadvies (samen vaak € 5.000–8.000). Deze kosten kun je niet meefinancieren: ze komen uit eigen geld. De verbouwing kan wél mee, via een bouwdepot.'],
