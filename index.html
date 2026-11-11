@@ -1051,17 +1051,24 @@ const CORPS = ['Lieven de Key', 'Alliantie', 'Stadgenoot', 'Rochdale', 'Ymere', 
 let voorMode = false;
 let profiel = null; try { profiel = JSON.parse(store.get('profiel') || 'null'); } catch (e) {}
 // Maandlasten: aannames instelbaar in de detailweergave (bewaard in browser en gedeelde lijst)
-let fin = {rente: 4.0, jaren: 30, eigen: 0, huur: '', maxHyp: '', starter: false, bijkomend: 5000, bouwdepot: true, niveau: 'gemiddeld', subsidies: true, budgetMode: 'zelf', inkomen1: '', inkomen2: '', studie: '', rentevast: 10, waarde: 'gemiddeld'}; try { fin = Object.assign(fin, JSON.parse(store.get('fin') || '{}')); } catch (e) {}
+let fin = {rente: 4.0, jaren: 30, eigen: 0, huur: '', maxHyp: '', starter: false, bijkomend: 5000, bouwdepot: true, niveau: 'gemiddeld', subsidies: true, nhg: false, budgetMode: 'zelf', inkomen1: '', inkomen2: '', studie: '', rentevast: 10, waarde: 'gemiddeld'}; try { fin = Object.assign(fin, JSON.parse(store.get('fin') || '{}')); } catch (e) {}
 // Verbouwing via bouwdepot: de bank leent tot de getaxeerde marktwaarde ná verbouwing (aanname: opknapbudget verhoogt de waarde 1-op-1)
 const teLenen = (w) => (w.prijs || 0) + (fin.bouwdepot ? opknap(w) : 0);
 const leenBedrag = (w) => Math.max(0, Math.min(teLenen(w) - Math.max(0, (+fin.eigen || 0) - kk(w) - (fin.bouwdepot ? 0 : opknap(w))), maxHypVoor(w)));
 const hypotheek = (w) => { const L = leenBedrag(w), r = (+fin.rente || 0) / 1200, n = (+fin.jaren || 30) * 12; return r ? L * r / (1 - Math.pow(1 + r, -n)) : L / n; };
 const vve = (w) => typeof w.servicekosten === 'number' ? w.servicekosten : 0;
-const maandlast = (w) => Math.round(hypotheek(w) + vve(w));
+// Erfpachtcanon (€ per jaar): per woning in te vullen bij Onze voortgang (of in de proefberekening)
+const canonJaar = (w) => { const c = w.canon ?? (VG[w.id] || {}).canon; return +c || 0; };
+const erfpachtOnzeker = (w) => !w.erfpacht || !/afgekocht|eigen grond/i.test(w.erfpacht);
+// NHG: grens 2026 € 470.000, vanaf 2027 € 500.000; + max. 6% voor energiebesparende maatregelen; 0,4% borgtochtprovisie
+const NHG_GRENS = () => today >= '2027-01-01' ? 500000 : 470000;
+const nhgMax = (w) => NHG_GRENS() + (fin.bouwdepot && niveauVan(w) !== 'geen' ? Math.min(NHG_GRENS() * .06, opknapDelen(w).duur) : 0);
+const borgtocht = (w) => fin.nhg ? Math.round(Math.min(teLenen(w), nhgMax(w)) * .004) : 0;
+const maandlast = (w) => Math.round(hypotheek(w) + vve(w) + canonJaar(w) / 12);
 // Kosten koper en opknappen (indicatie). Overdrachtsbelasting 2026: 2% bij eigen bewoning, 0% met startersvrijstelling (18-35 jaar, eenmalig, marktwaarde t/m € 555.000)
 const overdracht = (w) => fin.starter && w.prijs <= 555000 ? 0 : Math.round(w.prijs * 0.02);
 const dubbel = () => Math.round((+fin.huur || 0) * (fin.dubbel === '' || fin.dubbel == null ? 2 : +fin.dubbel));
-const kk = (w) => overdracht(w) + (+fin.bijkomend || 0) + dubbel();
+const kk = (w) => overdracht(w) + (+fin.bijkomend || 0) + dubbel() + borgtocht(w);
 // Opknapkosten (indicatie 2026, incl. btw): afwerking per m² naar niveau + verduurzamen naar energielabel.
 // Afwerking: licht € 200–350/m² (schilderen, vloeren), gemiddeld € 500–900/m² (keuken of badkamer, leidingwerk), casco € 1.200–2.000/m² (alles nieuw).
 // Verduurzamen (eigen deel; gevel/dak van een appartement gaat meestal via de VvE): o.b.v. Milieu Centraal-prijzen 2026, o.a. HR++-glas € 4.400–7.000, hybride warmtepomp € 6.200, dakisolatie € 6.000–10.000.
@@ -1108,8 +1115,8 @@ const toetsrente = () => (+fin.rentevast || 10) < 10 ? Math.max(5, +fin.rente ||
 const woonquote = (ink, r) => { let q; if (ink <= WQ[0][0]) q = WQ[0][1]; else if (ink >= WQ[WQ.length - 1][0]) q = WQ[WQ.length - 1][1]; else { const i = WQ.findIndex(([x]) => x >= ink); const [x0, y0] = WQ[i - 1], [x1, y1] = WQ[i]; q = y0 + (y1 - y0) * (ink - x0) / (x1 - x0); } return Math.max(15, q + (r - 4) * 1.1) / 100; };
 const STUDIEF = (r) => r <= 4 ? 1.2 : r <= 4.5 ? 1.25 : 1.3;   // bruteringsfactor studieschuld (Nibud 2026)
 const toetsinkomen = () => (+fin.inkomen1 || 0) + (+fin.inkomen2 || 0);   // tweede inkomen telt sinds 2023 voor 100%
-const inkomenLening = () => { const ink = toetsinkomen(); if (!ink) return 0; const r = toetsrente(), m = r / 1200, n = 360;
-  const ruimte = ink * woonquote(ink, r) / 12 - (+fin.studie || 0) * STUDIEF(r) + (!(+fin.inkomen2) && ink > 30000 ? 17000 * woonquote(ink, r) / 12 : 0);
+const inkomenLening = (canonMnd = 0) => { const ink = toetsinkomen(); if (!ink) return 0; const r = toetsrente(), m = r / 1200, n = 360;
+  const ruimte = ink * woonquote(ink, r) / 12 - (+fin.studie || 0) * STUDIEF(r) - canonMnd + (!(+fin.inkomen2) && ink > 30000 ? 17000 * woonquote(ink, r) / 12 : 0);
   return Math.max(0, Math.round(ruimte * (1 - Math.pow(1 + m, -n)) / m / 1000) * 1000); };
 // Extra leenruimte per energielabel (Nibud 2026): standaard + voor verduurzamende maatregelen (alleen als je die doet)
 const LBL_STD = {A: 10000, B: 10000, C: 5000, D: 5000, E: 0, F: 0, G: 0}, LBL_VERD = {A: 10000, B: 10000, C: 15000, D: 15000, E: 20000, F: 20000, G: 20000};
@@ -1120,9 +1127,9 @@ const labelExtra = (w) => { const l = labelPlus(w.energielabel), d = opknapDelen
 const WAARDE = {'1op1': [1, 1, 'Voorzichtig: 1-op-1'], gemiddeld: [1, 1.6, 'Gemiddeld: verduurzamen 1,6×'], ruim: [1.25, 1.9, 'Ruim: verduurzamen 1,9×, rest 1,25×']};
 const waardeNa = (w) => { const d = opknapDelen(w), [fa, fv] = WAARDE[fin.waarde] || WAARDE.gemiddeld; return Math.round(((w.prijs || 0) + (fin.bouwdepot ? d.afw * fa + d.duur * fv : 0)) / 1000) * 1000; };
 const berekendMax = (w) => { const e = labelExtra(w), wn = waardeNa(w), ltv = wn + Math.min(wn * .06, opknapDelen(w).duur);
-  const ink = inkomenLening() + e.std + e.verd; return {ink, ltv, max: Math.min(ink, ltv), e, wn}; };
+  const basis = inkomenLening(canonJaar(w) / 12), ink = basis + e.std + e.verd, nhg = fin.nhg ? nhgMax(w) : Infinity; return {basis, ink, ltv, nhg, max: Math.min(ink, ltv, nhg), e, wn}; };
 const heeftBudget = () => fin.budgetMode === 'inkomen' ? !!toetsinkomen() : !!(+fin.maxHyp);
-const maxHypVoor = (w) => !heeftBudget() ? Infinity : fin.budgetMode === 'inkomen' ? berekendMax(w).max : +fin.maxHyp;
+const maxHypVoor = (w) => !heeftBudget() ? (fin.nhg ? nhgMax(w) : Infinity) : fin.budgetMode === 'inkomen' ? berekendMax(w).max : Math.min(+fin.maxHyp, fin.nhg ? nhgMax(w) : Infinity);
 // Past in budget: maximaal te lenen = min(max hypotheek, vraagprijs); de rest (incl. kosten koper en opknappen) uit eigen geld
 const lening = (w) => Math.min(maxHypVoor(w), teLenen(w));
 const eigenNodig = (w) => Math.max(0, totaal(w) - lening(w));
@@ -1521,7 +1528,7 @@ const openDetail = (w) => {
   const vbox = el('div', 'calc');
   const sl = el('label', null, 'Status'); const se = el('select'); VSTATUS.forEach((o) => { const op = el('option', null, o || '—'); op.value = o; op.selected = (vg.status || '') === o; se.append(op); }); se.onchange = () => setVG('status', se.value); sl.append(se);
   const fld = (k, label, type, ph) => { const l = el('label', null, label); const i = el('input'); i.type = type; i.value = vg[k] ?? ''; if (ph) i.placeholder = ph; i.onchange = () => setVG(k, type === 'number' ? (i.value === '' ? '' : +i.value) : i.value); l.append(i); return l; };
-  vbox.append(sl, fld('bezichtiging', 'Bezichtiging', 'date'), fld('bod', 'Ons bod (€)', 'number'), fld('opknap', 'Opknapbudget (€)', 'number', 'schatting: ' + eur.format(opknapDelen(w).tot)));
+  vbox.append(sl, fld('bezichtiging', 'Bezichtiging', 'date'), fld('bod', 'Ons bod (€)', 'number'), fld('canon', 'Erfpachtcanon (€/jaar)', 'number', erfpachtOnzeker(w) ? 'invullen!' : 'afgekocht'), fld('opknap', 'Opknapbudget (€)', 'number', 'schatting: ' + eur.format(opknapDelen(w).tot)));
   { const l = el('label', null, 'Opknapniveau'); l.append(ii('opknap')); const se2 = el('select'); [['', 'Standaard (' + NIVEAU[fin.niveau || 'gemiddeld'][0].toLowerCase() + ')'], ...Object.entries(NIVEAU).map(([k, [t]]) => [k, t])].forEach(([k, t]) => { const o = el('option', null, t); o.value = k; o.selected = (vg.niveau || '') === k; se2.append(o); }); se2.onchange = () => setVG('niveau', se2.value); l.append(se2); vbox.append(l); }
   const nl = el('label', 'dnotes', 'Notities'); const ta = el('textarea'); ta.rows = 3; ta.value = vg.notitie || ''; ta.placeholder = 'Bijv. indruk bezichtiging, vragen voor de makelaar, VvE-stukken…'; ta.onchange = () => setVG('notitie', ta.value); nl.append(ta);
   B.append(dsec('Onze voortgang', null, vbox, nl, el('p', 'note', lijstId ? 'Wordt gedeeld via jullie lijst.' : 'Staat alleen in deze browser. Maak een lijst om dit met je partner te delen.')));
@@ -1540,19 +1547,21 @@ const openDetail = (w) => {
     const rows = [el('div', 'sh', 'Per maand'), rij('Hypotheek (annuïteit, bruto)', eur.format(hy))];
     rows[1].querySelector('span').append(el('span', 'muted', ' · lening ' + eur.format(Math.round(leenBedrag(wp)))));
     if (vve(w)) rows.push(rij('VvE', eur2.format(vve(w)), '', 'vve'));
+    if (canonJaar(wp)) rows.push(rij('Erfpachtcanon', eur.format(Math.round(canonJaar(wp) / 12)), '', 'canon'));
     rows.push(rij('Totaal per maand', '≈ ' + eur.format(tot), 'tot'));
     if (fin.huur) { const dif = tot - fin.huur; rows.push(el('div', 'muted', (dif >= 0 ? eur.format(dif) + ' meer' : eur.format(-dif) + ' minder') + ' dan je huidige huur')); }
-    rows.push(el('div', 'sh', 'Eenmalig'), rij('Vraagprijs', eur.format(prijs)), rij('Overdrachtsbelasting', eur.format(overdracht(wp)), '', 'overdracht'), rij('Notaris, taxatie, advies', eur.format(+fin.bijkomend || 0), '', 'kostenKoper'), ...(dubbel() ? [rij(`Dubbele lasten (huur × ${fin.dubbel === '' || fin.dubbel == null ? 2 : fin.dubbel} mnd)`, eur.format(dubbel()), '', 'dubbel')] : []), rij('Opknappen' + (VG[w.id] && VG[w.id].opknap !== '' && VG[w.id].opknap != null ? ' (jullie bedrag)' : ' (schatting)') + (fin.bouwdepot ? ', via bouwdepot' : ''), eur.format(opknap(wp)), '', 'opknap'), ...(VG[w.id] && VG[w.id].opknap !== '' && VG[w.id].opknap != null ? [] : [(() => { const d = opknapDelen(wp); return el('div', 'muted ssub', `${NIVEAU[d.n][0]}: ${eur.format(d.afw)} · verduurzamen (label ${w.energielabel || '?'}): ${eur.format(d.duur)}`); })()]), rij('Totaal', '≈ ' + eur.format(totaal(wp)), 'tot'));
+    rows.push(el('div', 'sh', 'Eenmalig'), rij('Vraagprijs', eur.format(prijs)), rij('Overdrachtsbelasting', eur.format(overdracht(wp)), '', 'overdracht'), rij('Notaris, taxatie, advies', eur.format(+fin.bijkomend || 0), '', 'kostenKoper'), ...(borgtocht(wp) ? [rij('NHG-borgtochtprovisie (0,4%)', eur.format(borgtocht(wp)), '', 'nhg')] : []), ...(dubbel() ? [rij(`Dubbele lasten (huur × ${fin.dubbel === '' || fin.dubbel == null ? 2 : fin.dubbel} mnd)`, eur.format(dubbel()), '', 'dubbel')] : []), rij('Opknappen' + (VG[w.id] && VG[w.id].opknap !== '' && VG[w.id].opknap != null ? ' (jullie bedrag)' : ' (schatting)') + (fin.bouwdepot ? ', via bouwdepot' : ''), eur.format(opknap(wp)), '', 'opknap'), ...(VG[w.id] && VG[w.id].opknap !== '' && VG[w.id].opknap != null ? [] : [(() => { const d = opknapDelen(wp); return el('div', 'muted ssub', `${NIVEAU[d.n][0]}: ${eur.format(d.afw)} · verduurzamen (label ${w.energielabel || '?'}): ${eur.format(d.duur)}`); })()]), rij('Totaal', '≈ ' + eur.format(totaal(wp)), 'tot'));
     { const sb = subsidie(wp); if (sb) rows.push(rij('Subsidies (schatting, achteraf)', '− ' + eur.format(sb), '', 'subsidie'), rij('Na subsidies', '≈ ' + eur.format(totaal(wp) - sb))); }
-    if (heeftBudget()) { if (fin.budgetMode === 'inkomen') { const b = berekendMax(wp); rows.push(el('div', 'sh', 'Hypotheek uit inkomen'), rij('Op inkomen (Nibud)', eur.format(inkomenLening())), ...(b.e.std ? [rij('+ label ' + (w.energielabel || ''), eur.format(b.e.std), '', 'energielabel')] : []), ...(b.e.verd ? [rij('+ verduurzamen', eur.format(b.e.verd), '', 'bouwdepot')] : []), rij('Waarde ná verbouwing (schatting)', eur.format(b.wn), '', 'waardeNa'), rij('Max. hypotheek deze woning', eur.format(b.max), 'tot')); }
+    if (heeftBudget()) { if (fin.budgetMode === 'inkomen') { const b = berekendMax(wp); rows.push(el('div', 'sh', 'Hypotheek uit inkomen'), rij('Op inkomen (Nibud)' + (canonJaar(wp) ? ', na erfpachtcanon' : ''), eur.format(b.basis)), ...(b.e.std ? [rij('+ label ' + (w.energielabel || ''), eur.format(b.e.std), '', 'energielabel')] : []), ...(b.e.verd ? [rij('+ verduurzamen', eur.format(b.e.verd), '', 'bouwdepot')] : []), rij('Waarde ná verbouwing (schatting)', eur.format(b.wn), '', 'waardeNa'), ...(fin.nhg ? [rij('NHG-grens', eur.format(Math.round(b.nhg)), '', 'nhg')] : []), rij('Max. hypotheek deze woning', eur.format(b.max), 'tot')); }
       const en = eigenNodig(wp); const ok = pastBudget(wp); const d = el('div', null, 'Eigen geld nodig: ' + eur.format(en) + (ok ? ' · past in jullie budget' : ' · ' + eur.format(en - (+fin.eigen || 0)) + ' tekort')); d.style.color = ok ? 'var(--ok)' : 'var(--bad)'; d.style.fontWeight = 600; rows.push(d); }
     sum.replaceChildren(...rows);
   };
   upd();
   const notes = ['Bruto, dus zonder hypotheekrenteaftrek. Kosten koper kun je niet meefinancieren; die komen uit eigen geld. ' + (fin.bouwdepot ? 'De verbouwing is meegefinancierd via een bouwdepot (bank leent tot de getaxeerde waarde ná verbouwing); of dat lukt hangt af van de taxatie en je inkomen.' : 'De verbouwing betaal je hier uit eigen geld.')];
-  if (w.erfpacht && !/afgekocht|eigen grond/i.test(w.erfpacht)) notes.push('Let op: erfpacht is mogelijk niet afgekocht; de canon komt hier nog bij.');
+  if (erfpachtOnzeker(w) && !canonJaar(w)) notes.push(w.erfpacht ? 'Let op: erfpacht is mogelijk niet afgekocht. Vul de jaarlijkse canon in bij Onze voortgang: die telt mee in de maandlasten en verlaagt wat je kunt lenen.' : 'Erfpacht onbekend; check de advertentie.');
+  { const m = String(w.erfpacht || '').match(/t\/m \d{1,2}-\d{1,2}-(\d{4})/); if (m && +m[1] < +today.slice(0, 4) + (+fin.jaren || 30)) notes.push(`De afkoop van de erfpacht loopt in ${m[1]} af, binnen de looptijd van je hypotheek: sommige banken rekenen dan nu al met een toekomstige canon.`); }
   if (!vve(w) && w.type && !/woning$|huis/i.test(w.type)) notes.push('VvE-bijdrage onbekend.');
-  if (leenBedrag(wp) && leenBedrag(wp) <= 470000) notes.push('Lening onder € 470.000: NHG mogelijk (vaak lagere rente).');
+  if (!fin.nhg && leenBedrag(wp) && leenBedrag(wp) <= NHG_GRENS()) notes.push(`Lening onder ${eur.format(NHG_GRENS())}: NHG mogelijk (vaak lagere rente). Zet NHG aan bij Onze situatie.`);
   const kans = el('details', 'dkans'); { const K = subsidieKansen(wp); kans.append(el('summary', null, `Subsidies en regelingen voor deze woning (${K.length})`)); const ul = el('ul'); K.forEach(([n, b, t]) => { const li = el('li'); li.append(el('b', null, n), ' · ' + b, el('div', 'muted', t)); ul.append(li); }); kans.append(ul); if (vwbGebied(w)) kans.open = true; }
   const regl = el('p', 'note'); { const a = link('Subsidies & regelingen →', '#regelingen'); a.removeAttribute('target'); a.onclick = (e) => { e.preventDefault(); closeDetail(); showTab('regelingen'); scrollTo(0, 0); }; regl.append(a); }
   B.append(dsec('Kosten & maandlasten', null, sum, kans, el('details', 'dcalc'), el('p', 'note', notes.join(' ')), regl));
@@ -1623,7 +1632,7 @@ const renderSituatie = () => {
   Object.entries(NIVEAU).forEach(([k, [t, m]]) => { const o = el('option', null, t + (m ? ` (± ${eur.format(m)}/m²)` : '')); o.value = k; o.selected = (fin.niveau || 'gemiddeld') === k; ns.append(o); });
   ns.onchange = () => { fin.niveau = ns.value; save(); }; nl.append(ns); g.append(nl);
   const chk = (k, txt, info) => { const l = el('label', 'check sw'); const i = el('input'); i.type = 'checkbox'; i.checked = !!fin[k]; i.onchange = () => { fin[k] = i.checked; save(); }; const sp = el('span', null, txt); if (info) sp.append(ii(info)); l.append(i, sp); return l; };
-  const ch = el('div', 'sitchk'); ch.append(chk('starter', 'Startersvrijstelling (18–35, eerste keer)', 'overdracht'), chk('bouwdepot', 'Verbouwing meefinancieren (bouwdepot)', 'bouwdepot'), chk('subsidies', 'Subsidies meerekenen', 'subsidie'));
+  const ch = el('div', 'sitchk'); ch.append(chk('starter', 'Startersvrijstelling (18–35, eerste keer)', 'overdracht'), chk('bouwdepot', 'Verbouwing meefinancieren (bouwdepot)', 'bouwdepot'), chk('subsidies', 'Subsidies meerekenen', 'subsidie'), chk('nhg', 'Met NHG', 'nhg'));
   { const a = link('Alle subsidies & regelingen →', '#regelingen'); a.removeAttribute('target'); a.onclick = (e) => { e.preventDefault(); showTab('regelingen'); scrollTo(0, 0); }; ch.append(a); }
   const sum = el('div', 'sitsum');
   sumUpd = () => {
@@ -1652,22 +1661,22 @@ const renderSituatie = () => {
   { const p = el('p', 'note'); p.append('Bronnen: ', link('Nibud-advies hypotheeknormen 2026', 'https://zoek.officielebekendmakingen.nl/blg-1221422.pdf'), ' · ', link('woonquotes 2026 (Rekenmachinepro)', 'https://rekenmachinepro.nl/hypotheek/maximale-hypotheek-berekenen/'), ' · ', link('NHG/brainbay: verduurzamen ± 2× terug', 'https://solarmagazine.nl/nieuws-zonne-energie/i41514/verduurzaming-woning-levert-bijna-2-keer-zo-veel-op-als-investering'), ' · ', link('Hypotheker: kluswoning na verbouwing', 'https://www.hypotheker.nl/actueel/nieuwsberichten/2026/kluswoning-na-verbouwing-gemiddeld-flink-meer-waard/')); hu.append(p); }
   // Proefberekening: zelf een woning invullen en zien wat de site uitrekent
   const pr = el('details', 'situitleg proef'); pr.append(el('summary', null, 'Proefberekening: reken een woning door'));
-  const P = Object.assign({prijs: 375000, m2: 60, label: 'E', type: 'Portiekwoning', niveau: '', vve: 150}, (() => { try { return JSON.parse(store.get('proef') || '{}'); } catch (e) { return {}; } })());
+  const P = Object.assign({prijs: 375000, m2: 60, label: 'E', type: 'Portiekwoning', niveau: '', vve: 150, canon: 0}, (() => { try { return JSON.parse(store.get('proef') || '{}'); } catch (e) { return {}; } })());
   const pg = el('div', 'sitgrid'), pout = el('div', 'proefuit');
   const pnum = (k, label, step) => { const l = el('label', null, label); const i = el('input'); i.type = 'number'; i.min = 0; i.step = step; i.value = P[k]; i.oninput = () => { P[k] = +i.value || 0; pcalc(); }; l.append(i); return l; };
   const psel = (k, label, opts) => { const l = el('label', null, label); const se = el('select'); opts.forEach(([v, t]) => { const o = el('option', null, t); o.value = v; o.selected = P[k] === v; se.append(o); }); se.onchange = () => { P[k] = se.value; pcalc(); }; l.append(se); return l; };
   pg.append(pnum('prijs', 'Vraagprijs (€)', 5000), pnum('m2', 'Woonoppervlak (m²)', 1), psel('label', 'Energielabel', ['A++', 'A+', 'A', 'B', 'C', 'D', 'E', 'F', 'G', ''].map((x) => [x, x || 'onbekend'])),
-    psel('type', 'Type', [['Portiekwoning', 'Appartement'], ['Eengezinswoning', 'Eengezinswoning']]), psel('niveau', 'Opknapniveau', [['', 'Standaard (' + NIVEAU[fin.niveau || 'gemiddeld'][0].toLowerCase() + ')'], ...Object.entries(NIVEAU).map(([k, [t]]) => [k, t])]), pnum('vve', 'VvE (€ p/m)', 10));
+    psel('type', 'Type', [['Portiekwoning', 'Appartement'], ['Eengezinswoning', 'Eengezinswoning']]), psel('niveau', 'Opknapniveau', [['', 'Standaard (' + NIVEAU[fin.niveau || 'gemiddeld'][0].toLowerCase() + ')'], ...Object.entries(NIVEAU).map(([k, [t]]) => [k, t])]), pnum('vve', 'VvE (€ p/m)', 10), pnum('canon', 'Erfpachtcanon (€/jaar)', 100));
   const pcalc = () => {
     try { store.set('proef', JSON.stringify(P)); } catch (e) {}
-    const w = {id: '__proef', prijs: P.prijs, m2: P.m2, energielabel: P.label, type: P.type, servicekosten: P.type === 'Eengezinswoning' ? '' : P.vve, adres: 'proef', stadsdeel: ''};
+    const w = {id: '__proef', prijs: P.prijs, m2: P.m2, energielabel: P.label, type: P.type, servicekosten: P.type === 'Eengezinswoning' ? '' : P.vve, canon: +P.canon || 0, erfpacht: +P.canon ? 'canon' : 'Eigen grond', adres: 'proef', stadsdeel: ''};
     const had = VG.__proef; VG.__proef = P.niveau ? {niveau: P.niveau} : undefined;
     const d = opknapDelen(w), sb = subsidie(w), tot = totaal(w), ml = maandlast(w), L = leenBedrag(w), en = eigenNodig(w), ok = pastBudget(w);
     const rows = [['Opknappen: ' + NIVEAU[d.n][0].toLowerCase(), eur.format(d.afw)], ['Verduurzamen (label ' + (P.label || '?') + ')', eur.format(d.duur)], ['Kosten koper (incl. dubbele lasten)', eur.format(kk(w))], ['Totaal (koop + kosten + opknappen)', eur.format(tot), 'tot']];
     if (sb) rows.push(['Subsidies, achteraf (schatting)', '− ' + eur.format(sb)]);
-    if (fin.budgetMode === 'inkomen' && toetsinkomen()) { const b = berekendMax(w); rows.push(['Op inkomen (Nibud)', eur.format(inkomenLening())], ['+ extra voor label ' + (P.label || 'onbekend'), eur.format(b.e.std)], ['+ extra voor verduurzamen', eur.format(b.e.verd)], ['Waarde ná verbouwing (' + WAARDE[fin.waarde || 'gemiddeld'][2].split(':')[0].toLowerCase() + ')', eur.format(b.wn)], ['Grens: waarde + max. 6% verduurzamen', eur.format(Math.round(b.ltv))], ['Max. hypotheek voor deze woning', eur.format(b.max), 'tot']); }
+    if (fin.budgetMode === 'inkomen' && toetsinkomen()) { const b = berekendMax(w); rows.push(['Op inkomen (Nibud)' + (+P.canon ? ', na erfpachtcanon' : ''), eur.format(b.basis)], ['+ extra voor label ' + (P.label || 'onbekend'), eur.format(b.e.std)], ['+ extra voor verduurzamen', eur.format(b.e.verd)], ['Waarde ná verbouwing (' + WAARDE[fin.waarde || 'gemiddeld'][2].split(':')[0].toLowerCase() + ')', eur.format(b.wn)], ['Grens: waarde + max. 6% verduurzamen', eur.format(Math.round(b.ltv))], ...(fin.nhg ? [['Grens: NHG' + (b.nhg > NHG_GRENS() ? ' + 6% verduurzamen' : ''), eur.format(Math.round(b.nhg))]] : []), ['Max. hypotheek voor deze woning', eur.format(b.max), 'tot']); }
     else if (+fin.maxHyp) rows.push(['Max. hypotheek (zelf ingevuld)', eur.format(+fin.maxHyp), 'tot']);
-    rows.push(['Lening nodig', eur.format(L)], ['Maandlast (hypotheek + VvE, bruto)', '≈ ' + eur.format(ml) + ' p/m'], ['Eigen geld nodig', eur.format(en) + (heeftBudget() ? (ok ? ' · past' : ' · ' + eur.format(en - (+fin.eigen || 0)) + ' tekort') : ''), ok || !heeftBudget() ? 'tot' : 'tot bad']);
+    rows.push(['Lening nodig', eur.format(L)], ['Maandlast (hypotheek + VvE' + (+P.canon ? ' + canon' : '') + ', bruto)', '≈ ' + eur.format(ml) + ' p/m'], ['Eigen geld nodig', eur.format(en) + (heeftBudget() ? (ok ? ' · past' : ' · ' + eur.format(en - (+fin.eigen || 0)) + ' tekort') : ''), ok || !heeftBudget() ? 'tot' : 'tot bad']);
     if (had === undefined) delete VG.__proef; else VG.__proef = had;
     pout.replaceChildren(...rows.map(([a, b, c]) => { const r = el('div', 'srow' + (c ? ' ' + c : '')); r.append(el('span', null, a), el('b', null, b)); return r; }));
   };
@@ -1896,6 +1905,8 @@ const INFO = {
   toetsrente: ['Rentevaste periode', 'Kies je minder dan 10 jaar rentevast, dan rekent de bank met minimaal 5% rente (toetsrente), ook als je werkelijke rente lager is. Bij 10 jaar of langer telt je werkelijke rente.'],
   waardeNa: ['Waarde ná verbouwing', 'De bank leent maximaal de getaxeerde marktwaarde ná verbouwing (+6% voor verduurzamen). Verduurzamen verhoogt de waarde gemiddeld met 1,6 tot 2 keer de kosten (NHG/brainbay, 15.000 woningen); keuken en badkamer leveren meestal ongeveer op wat ze kosten. Kies “voorzichtig” als je niet wilt rekenen op meer dan 1-op-1. De taxateur bepaalt het echte bedrag.'],
   dubbel: ['Dubbele lasten', 'De maanden dat je zowel huur als hypotheek betaalt: de opzegtermijn van je huur (meestal 1 maand) plus de tijd dat je verbouwt voordat je verhuist. Standaard 2 maanden; bij een flinke verbouwing eerder 3–6. Dit betaal je uit eigen geld en telt mee in “eigen geld nodig”. Tip: de rente over het bouwdepot wordt tijdens de verbouwing meestal (deels) verrekend.'],
+  nhg: ['Nationale Hypotheek Garantie', 'Met NHG mag je lening niet hoger zijn dan de NHG-grens: € 470.000 in 2026, € 500.000 vanaf 2027, plus maximaal 6% voor energiebesparende maatregelen. Je betaalt eenmalig 0,4% borgtochtprovisie (uit eigen geld), maar krijgt meestal 0,3–0,6% lagere rente: pas dan ook de rente aan. Bij gedwongen verkoop met verlies kan een restschuld worden kwijtgescholden.'],
+  canon: ['Erfpachtcanon', 'Als de erfpacht niet (eeuwigdurend) is afgekocht, betaal je jaarlijks canon aan de gemeente. Banken tellen die mee als woonlast: hij verlaagt hoeveel je kunt lenen (± € 18.000 minder lening per € 1.000 canon per jaar bij 4% rente) en komt bij je maandlasten. Het bedrag staat in de advertentie of het erfpachtbesluit.'],
   maxHyp: ['Max. hypotheek', 'Hoeveel jullie maximaal kunnen lenen. Hangt af van inkomen, rente en energielabel; laat dit uitrekenen door een bank of adviseur. Vul je het in bij Onze situatie (Favorieten), dan rekent de site overal uit hoeveel eigen geld je nodig hebt en of een woning past. Leeg laten = alleen totale kosten zien.'],
   budget: ['Past in budget', 'Woning past als jullie eigen geld genoeg is voor wat je niet kunt lenen: de kosten koper, het deel boven je max. hypotheek, en het opknapbudget als je dat niet via een bouwdepot meefinanciert. Stel dit in bij Onze situatie op de Favorieten-pagina.'],
   zelfbewoning: ['Zelfbewoningsplicht', 'Je moet er zelf (blijven) wonen, vaak minimaal een aantal jaar. Verhuren of leeg laten staan mag niet; bij overtreding kan een flinke boete volgen.'],
