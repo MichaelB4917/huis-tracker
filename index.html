@@ -1307,7 +1307,7 @@ const render = () => {
     const sub = el('div', 'sub'); sub.append([w.postcode, [w.stadsdeel, w.wijk].filter(Boolean).join(', ')].filter(Boolean).join(' · ') + ' · ', d, w.corporatie);
     const facts = el('div', 'r-facts');
     const lbl = el('span', 'elabel' + (w.energielabel ? ' l-' + w.energielabel[0] : ' l-none'), w.energielabel || '?'); lbl.title = w.energielabel ? 'Energielabel ' + w.energielabel : 'Energielabel onbekend';
-    facts.append(lbl, el('span', null, [w.m2 ? w.m2 + ' m²' : '', w.kamers ? w.kamers + (w.kamers === 1 ? ' kamer' : ' kamers') : '', w.type || ''].filter(Boolean).join(' · ')));
+    facts.append(lbl, el('span', null, [w.m2 ? w.m2 + ' m²' : '', w.kamers ? w.kamers + (w.kamers === 1 ? ' kamer' : ' kamers') : '', w.type || '', (() => { const b = buitenVan(w); return b.length ? b.map((x, i) => i ? x : x[0].toUpperCase() + x.slice(1)).join(' + ') : ''; })()].filter(Boolean).join(' · ')));
     const extra = [w.servicekosten !== '' && w.servicekosten != null ? 'VvE ' + eur.format(w.servicekosten) + ' p/m' : '', w.erfpacht ? (/t\/m \d\d-\d\d-(\d{4})/.test(w.erfpacht) ? 'Erfpacht afgekocht t/m ' + w.erfpacht.match(/(\d{4})$/)[1] : w.erfpacht) : ''].filter(Boolean).join(' · ');
     const fx = el('div', 'r-extra', extra);
     main.append(top, sub, facts); if (extra) main.append(fx);
@@ -1317,7 +1317,7 @@ const render = () => {
     if (fin.maxHyp && !pastBudget(w)) bad.append(badge('t-neutral', 'boven budget'));
     bad.append(badge(v.cls, v.text === 'ja' ? 'voorrang' : v.text === 'checken' ? 'voorrang checken' : v.text.startsWith('tot') ? 'voorrang ' + v.text : v.text), badge(statusTone(w.status), w.status));
     const ppm = el('div', 'r-ppm', eur.format(Math.round(w.prijs / w.m2)) + ' per m²'); const bn = buurtNode(w); if (bn) ppm.append(' · ', bn);
-    const ml = el('div', 'r-ppm', '≈ ' + eur.format(maandlast(w)) + ' p/m' + (subsidie(w) ? ' · ± ' + eur.format(subsidie(w)) + ' subsidie' : '') + ' · online ' + onlineSinds(w)); ml.title = 'Bruto hypotheek' + (vve(w) ? ' + VvE' : '') + ' bij ' + fin.rente + '% en ' + fin.jaren + ' jaar. Aanpassen in de details.';
+    const ml = el('div', 'r-ppm', '≈ ' + eur.format(maandlast(w)) + ' p/m · online ' + onlineSinds(w)); ml.title = 'Bruto hypotheek' + (vve(w) ? ' + VvE' : '') + ' bij ' + fin.rente + '% en ' + fin.jaren + ' jaar. Aanpassen in de details.';
     side.append(el('div', 'r-prijs', eur.format(w.prijs)), ppm, ml, bad);
     r.addEventListener('click', (e) => { if (!e.target.closest('a, button')) openDetail(w); });
     { const ph = () => { const d = el('div', 'r-foto nofoto'); d.setAttribute('aria-hidden', 'true'); return d; };
