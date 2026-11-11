@@ -308,6 +308,14 @@
   #detail .dcalc { margin-top: 12px; } #detail .dcalc summary { cursor: pointer; font-size: 13.5px; color: var(--link); margin-bottom: 8px; }
   #detail .dbron { margin-top: 18px; }
   @media (max-width: 560px) { #detail .dkort { grid-template-columns: 1fr 1fr; } }
+  #onzesit { margin-bottom: 14px; } #onzesit h2 { font-size: 18px; margin: 0; }
+  .sitgrid { display: grid; grid-template-columns: repeat(auto-fill, minmax(11rem, 1fr)); gap: 10px 14px; margin: 10px 0; }
+  .sitgrid label { font-size: 12.5px; color: var(--muted); display: flex; flex-wrap: wrap; align-items: center; } .sitgrid input, .sitgrid select { width: 100%; margin-top: 4px; height: 36px; border: 1px solid var(--line); border-radius: 8px; background: var(--panel); color: var(--fg); padding: 0 9px; font: inherit; font-size: 14px; }
+  .sitgrid .span2 { grid-column: span 2; } @media (max-width: 400px) { .sitgrid .span2 { grid-column: auto; } }
+  .sitchk { display: flex; flex-wrap: wrap; gap: 6px 22px; } .sitchk .check.sw { gap: 10px; }
+  .sitsum { margin-top: 12px; padding: 10px 12px; border-radius: 10px; background: var(--tint); font-size: 14px; line-height: 1.5; }
+  .situitleg { margin-top: 12px; } .situitleg summary { cursor: pointer; color: var(--link); font-size: 14px; } .situitleg .mktbl { margin-top: 8px; } .situitleg .mktbl td { white-space: normal; }
+  #detail .ssub { font-size: 12px; margin: -2px 0 2px; text-align: right; }
   /* Uitleg-i */
   .ii, .ii-demo { display: inline-grid; place-items: center; width: 16px; height: 16px; border-radius: 50%; border: 1px solid currentColor; background: none; color: var(--muted); font: italic 700 10.5px/1 Georgia, serif; padding: 0; margin: 0 0 0 4px; cursor: help; vertical-align: 1px; opacity: .75; flex: none; text-transform: none; letter-spacing: 0; }
   .ii:hover, .ii:focus-visible { opacity: 1; color: var(--brand); }
@@ -688,6 +696,7 @@
           </div></div>
         </div>
         <div class="card" id="lijstoverzicht" hidden></div>
+        <div class="card" id="onzesit" hidden></div>
         <div class="stats" id="stats"></div>
         <div class="card" id="kaartblok">
           <div id="map"></div>
@@ -885,7 +894,7 @@ mq.addEventListener('change', applyTheme); applyTheme();
 // Tabs
 let lijstTab = false;
 const showTab = (n) => { const pg = n === 'lijst' ? 'woningen' : n; const was = lijstTab; lijstTab = n === 'lijst'; document.body.classList.toggle('lijstmode', lijstTab);
-  document.body.dataset.pg = pg; $$('[data-page]').forEach((s) => s.hidden = s.dataset.page !== pg); $('[data-page-bar]').hidden = pg !== 'woningen'; $('#lijstoverzicht').hidden = !lijstTab; $('#syncpanel').hidden = !lijstTab;
+  document.body.dataset.pg = pg; $$('[data-page]').forEach((s) => s.hidden = s.dataset.page !== pg); $('[data-page-bar]').hidden = pg !== 'woningen'; $('#lijstoverzicht').hidden = !lijstTab; $('#onzesit').hidden = !lijstTab; if (lijstTab) renderSituatie(); $('#syncpanel').hidden = !lijstTab;
   if (was !== lijstTab && W.length) { render(); if (lijstTab) fitLijst(); }
   if (pg === 'markt' && W.length) renderMarkt();
   if (pg === 'woningen' && map) setTimeout(() => map.invalidateSize(), 50); $$('[data-tab]').forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.tab === n))); dockSoon(); };
@@ -902,7 +911,7 @@ const CORPS = ['Lieven de Key', 'Alliantie', 'Stadgenoot', 'Rochdale', 'Ymere', 
 let voorMode = false;
 let profiel = null; try { profiel = JSON.parse(store.get('profiel') || 'null'); } catch (e) {}
 // Maandlasten: aannames instelbaar in de detailweergave (bewaard in browser en gedeelde lijst)
-let fin = {rente: 4.0, jaren: 30, eigen: 0, huur: '', maxHyp: '', starter: false, bijkomend: 5000, bouwdepot: true}; try { fin = Object.assign(fin, JSON.parse(store.get('fin') || '{}')); } catch (e) {}
+let fin = {rente: 4.0, jaren: 30, eigen: 0, huur: '', maxHyp: '', starter: false, bijkomend: 5000, bouwdepot: true, niveau: 'gemiddeld'}; try { fin = Object.assign(fin, JSON.parse(store.get('fin') || '{}')); } catch (e) {}
 // Verbouwing via bouwdepot: de bank leent tot de getaxeerde marktwaarde ná verbouwing (aanname: opknapbudget verhoogt de waarde 1-op-1)
 const teLenen = (w) => (w.prijs || 0) + (fin.bouwdepot ? opknap(w) : 0);
 const leenBedrag = (w) => Math.max(0, Math.min(teLenen(w) - Math.max(0, (+fin.eigen || 0) - kk(w) - (fin.bouwdepot ? 0 : opknap(w))), fin.maxHyp ? +fin.maxHyp : Infinity));
@@ -912,9 +921,17 @@ const maandlast = (w) => Math.round(hypotheek(w) + vve(w));
 // Kosten koper en opknappen (indicatie). Overdrachtsbelasting 2026: 2% bij eigen bewoning, 0% met startersvrijstelling (18-35 jaar, eenmalig, marktwaarde t/m € 555.000)
 const overdracht = (w) => fin.starter && w.prijs <= 555000 ? 0 : Math.round(w.prijs * 0.02);
 const kk = (w) => overdracht(w) + (+fin.bijkomend || 0);
-const OPK = {A: 100, B: 150, C: 300, D: 450, E: 600, F: 700, G: 800};
-const opknapM2 = (w) => OPK[(w.energielabel || '')[0]] ?? 450;
-const opknap = (w) => VG[w.id] && VG[w.id].opknap !== '' && VG[w.id].opknap != null ? +VG[w.id].opknap : Math.round(w.m2 * opknapM2(w) / 1000) * 1000;
+// Opknapkosten (indicatie 2026, incl. btw): afwerking per m² naar niveau + verduurzamen naar energielabel.
+// Afwerking: licht € 200–350/m² (schilderen, vloeren), gemiddeld € 500–900/m² (keuken of badkamer, leidingwerk), casco € 1.200–2.000/m² (alles nieuw).
+// Verduurzamen (eigen deel; gevel/dak van een appartement gaat meestal via de VvE): o.b.v. Milieu Centraal-prijzen 2026, o.a. HR++-glas € 4.400–7.000, hybride warmtepomp € 6.200, dakisolatie € 6.000–10.000.
+const NIVEAU = {geen: ['Niets doen', 0], licht: ['Licht opknappen', 275], gemiddeld: ['Keuken/badkamer nieuw', 700], casco: ['Casco, alles nieuw', 1500]};
+const DUUR = {A: 0, B: 0, C: 3000, D: 6000, E: 10000, F: 16000, G: 16000};
+const isHuis = (w) => /woning$|huis|eengezins|maisonnette/i.test(w.type || '') && !/portiek|galerij|appartement|bovenwoning|benedenwoning/i.test(w.type || '');
+const niveauVan = (w) => (VG[w.id] && VG[w.id].niveau) || fin.niveau || 'gemiddeld';
+const opknapDelen = (w) => { const n = niveauVan(w), l = (w.energielabel || '')[0]; const afw = Math.round((w.m2 || 0) * (NIVEAU[n] || NIVEAU.gemiddeld)[1] / 500) * 500;
+  const duur = n === 'geen' ? 0 : (l ? DUUR[l] ?? 6000 : 6000) + (isHuis(w) && 'EFG'.includes(l || 'x') ? 8000 : 0); return {n, afw, duur, tot: Math.round((afw + duur) / 1000) * 1000}; };
+const opknapM2 = (w) => w.m2 ? opknapDelen(w).tot / w.m2 : 0;
+const opknap = (w) => VG[w.id] && VG[w.id].opknap !== '' && VG[w.id].opknap != null ? +VG[w.id].opknap : opknapDelen(w).tot;
 const totaal = (w) => w.prijs + kk(w) + opknap(w);
 // Past in budget: maximaal te lenen = min(max hypotheek, vraagprijs); de rest (incl. kosten koper en opknappen) uit eigen geld
 const lening = (w) => Math.min(fin.maxHyp ? +fin.maxHyp : teLenen(w), teLenen(w));
@@ -1312,7 +1329,8 @@ const openDetail = (w) => {
   const vbox = el('div', 'calc');
   const sl = el('label', null, 'Status'); const se = el('select'); VSTATUS.forEach((o) => { const op = el('option', null, o || '—'); op.value = o; op.selected = (vg.status || '') === o; se.append(op); }); se.onchange = () => setVG('status', se.value); sl.append(se);
   const fld = (k, label, type, ph) => { const l = el('label', null, label); const i = el('input'); i.type = type; i.value = vg[k] ?? ''; if (ph) i.placeholder = ph; i.onchange = () => setVG(k, type === 'number' ? (i.value === '' ? '' : +i.value) : i.value); l.append(i); return l; };
-  vbox.append(sl, fld('bezichtiging', 'Bezichtiging', 'date'), fld('bod', 'Ons bod (€)', 'number'), fld('opknap', 'Opknapbudget (€)', 'number', 'schatting: ' + eur.format(Math.round((w.m2 || 0) * opknapM2(w) / 1000) * 1000)));
+  vbox.append(sl, fld('bezichtiging', 'Bezichtiging', 'date'), fld('bod', 'Ons bod (€)', 'number'), fld('opknap', 'Opknapbudget (€)', 'number', 'schatting: ' + eur.format(opknapDelen(w).tot)));
+  { const l = el('label', null, 'Opknapniveau'); l.append(ii('opknap')); const se2 = el('select'); [['', 'Standaard (' + NIVEAU[fin.niveau || 'gemiddeld'][0].toLowerCase() + ')'], ...Object.entries(NIVEAU).map(([k, [t]]) => [k, t])].forEach(([k, t]) => { const o = el('option', null, t); o.value = k; o.selected = (vg.niveau || '') === k; se2.append(o); }); se2.onchange = () => setVG('niveau', se2.value); l.append(se2); vbox.append(l); }
   const nl = el('label', 'dnotes', 'Notities'); const ta = el('textarea'); ta.rows = 3; ta.value = vg.notitie || ''; ta.placeholder = 'Bijv. indruk bezichtiging, vragen voor de makelaar, VvE-stukken…'; ta.onchange = () => setVG('notitie', ta.value); nl.append(ta);
   B.append(dsec('Onze voortgang', null, vbox, nl, el('p', 'note', lijstId ? 'Wordt gedeeld via jullie lijst.' : 'Staat alleen in deze browser. Maak een lijst om dit met je partner te delen.')));
   // 5. Kosten & maandlasten
@@ -1332,7 +1350,7 @@ const openDetail = (w) => {
     if (vve(w)) rows.push(rij('VvE', eur2.format(vve(w)), '', 'vve'));
     rows.push(rij('Totaal per maand', '≈ ' + eur.format(tot), 'tot'));
     if (fin.huur) { const dif = tot - fin.huur; rows.push(el('div', 'muted', (dif >= 0 ? eur.format(dif) + ' meer' : eur.format(-dif) + ' minder') + ' dan je huidige huur')); }
-    rows.push(el('div', 'sh', 'Eenmalig'), rij('Vraagprijs', eur.format(prijs)), rij('Overdrachtsbelasting', eur.format(overdracht(wp)), '', 'overdracht'), rij('Notaris, taxatie, advies', eur.format(+fin.bijkomend || 0), '', 'kostenKoper'), rij('Opknappen (schatting)' + (fin.bouwdepot ? ', via bouwdepot' : ''), eur.format(opknap(wp)), '', 'opknap'), rij('Totaal', '≈ ' + eur.format(totaal(wp)), 'tot'));
+    rows.push(el('div', 'sh', 'Eenmalig'), rij('Vraagprijs', eur.format(prijs)), rij('Overdrachtsbelasting', eur.format(overdracht(wp)), '', 'overdracht'), rij('Notaris, taxatie, advies', eur.format(+fin.bijkomend || 0), '', 'kostenKoper'), rij('Opknappen' + (VG[w.id] && VG[w.id].opknap !== '' && VG[w.id].opknap != null ? ' (jullie bedrag)' : ' (schatting)') + (fin.bouwdepot ? ', via bouwdepot' : ''), eur.format(opknap(wp)), '', 'opknap'), ...(VG[w.id] && VG[w.id].opknap !== '' && VG[w.id].opknap != null ? [] : [(() => { const d = opknapDelen(wp); return el('div', 'muted ssub', `${NIVEAU[d.n][0]}: ${eur.format(d.afw)} · verduurzamen (label ${w.energielabel || '?'}): ${eur.format(d.duur)}`); })()]), rij('Totaal', '≈ ' + eur.format(totaal(wp)), 'tot'));
     if (fin.maxHyp) { const en = eigenNodig(wp); const ok = pastBudget(wp); const d = el('div', null, 'Eigen geld nodig: ' + eur.format(en) + (ok ? ' · past in jullie budget' : ' · ' + eur.format(en - (+fin.eigen || 0)) + ' tekort')); d.style.color = ok ? 'var(--ok)' : 'var(--bad)'; d.style.fontWeight = 600; rows.push(d); }
     sum.replaceChildren(...rows);
   };
@@ -1388,6 +1406,40 @@ const verkoopTempo = () => loadHist().then((H) => {
   const ks = Object.keys(per);
   box.replaceChildren(el('h4', null, 'Tijd tot verkocht o.v.b. of offline'), ...(ks.length ? ks.sort().map((c) => el('div', null, c + ': gemiddeld ' + Math.round(per[c].reduce((a, b) => a + b, 0) / per[c].length) + ' dagen (' + per[c].length + ' woningen)')) : [el('p', 'note', 'Wordt bijgehouden sinds 9 november 2026. Zodra woningen verkocht worden, verschijnt hier per corporatie hoe snel dat gaat.')]));
 });
+
+// Onze situatie (Favorieten): budget en aannames, gedeeld via de lijst en gebruikt op de hele site
+const renderSituatie = () => {
+  const box = $('#onzesit'); if (!box) return;
+  let sumUpd = () => {};
+  const save = () => { store.set('fin', JSON.stringify(fin)); changed(); sumUpd(); clearTimeout(window._rt); window._rt = setTimeout(() => { render(); sumUpd(); }, 400); };
+  const h = el('div', 'mkhd'); h.append(el('h2', null, 'Onze situatie'));
+  const intro = el('p', 'note', 'Vul in wat jullie kunnen lenen en meebrengen. De site gebruikt dit overal: maandlasten, eigen geld nodig, “past in budget” en Marktinzicht. Laat max. hypotheek leeg als je alleen wil zien wat een woning in totaal kost. ' + (lijstId ? 'Wordt gedeeld via jullie lijst.' : 'Staat in deze browser; maak een lijst om het te delen.'));
+  const g = el('div', 'sitgrid');
+  const num = (k, label, step, ph, info) => { const l = el('label', null, label); if (info) l.append(ii(info)); const i = el('input'); i.type = 'number'; i.min = 0; i.step = step; i.value = fin[k] ?? ''; i.placeholder = ph || ''; i.oninput = () => { fin[k] = i.value === '' ? '' : +i.value; save(); }; l.append(i); return l; };
+  g.append(num('maxHyp', 'Max. hypotheek (€)', 1000, 'leeg = geen budgetcheck', 'maxHyp'), num('eigen', 'Eigen geld (€)', 1000, '0'), num('rente', 'Hypotheekrente (%)', 0.05), num('jaren', 'Looptijd (jaar)', 1), num('huur', 'Huidige huur (€ p/m)', 10, 'bijv. 750'), num('bijkomend', 'Notaris, taxatie, advies (€)', 500, '', 'kostenKoper'));
+  const nl = el('label', 'span2', 'Standaard opknapniveau'); nl.append(ii('opknap')); const ns = el('select');
+  Object.entries(NIVEAU).forEach(([k, [t, m]]) => { const o = el('option', null, t + (m ? ` (± ${eur.format(m)}/m²)` : '')); o.value = k; o.selected = (fin.niveau || 'gemiddeld') === k; ns.append(o); });
+  ns.onchange = () => { fin.niveau = ns.value; save(); }; nl.append(ns); g.append(nl);
+  const chk = (k, txt, info) => { const l = el('label', 'check sw'); const i = el('input'); i.type = 'checkbox'; i.checked = !!fin[k]; i.onchange = () => { fin[k] = i.checked; save(); }; const sp = el('span', null, txt); if (info) sp.append(ii(info)); l.append(i, sp); return l; };
+  const ch = el('div', 'sitchk'); ch.append(chk('starter', 'Startersvrijstelling (18–35, eerste keer)', 'overdracht'), chk('bouwdepot', 'Verbouwing meefinancieren (bouwdepot)', 'bouwdepot'));
+  const sum = el('div', 'sitsum');
+  sumUpd = () => {
+    const mh = +fin.maxHyp || 0, eg = +fin.eigen || 0, kosten = +fin.bijkomend || 0;
+    if (!mh) { sum.replaceChildren(el('b', null, 'Geen budget ingevuld.'), ' Bij elke woning zie je wat hij in totaal kost (vraagprijs + kosten koper + opknappen) en de maandlasten; niets wordt als “boven budget” gemarkeerd.'); return; }
+    const ob = fin.starter ? 0 : .02, ruimte = Math.round(((mh + eg - kosten) / (1 + ob)) / 5000) * 5000;
+    const open = W.filter((w) => w.status !== 'verkocht o.v.b.'), past = open.filter(pastBudget).length;
+    sum.replaceChildren(el('b', null, `± ${eur.format(ruimte)} voor woning${fin.bouwdepot ? ' + verbouwing' : ''}`), ` (max. hypotheek ${eur.format(mh)} + eigen geld ${eur.format(eg)}, min kosten koper). ` + (fin.bouwdepot ? 'De verbouwing zit in de lening (bouwdepot), mits de taxatie dat toelaat.' : 'De verbouwing betalen jullie uit eigen geld, dus de ruimte voor de vraagprijs is kleiner.') + ` Nu passen ${past} van de ${open.length} woningen.`);
+  };
+  sumUpd();
+  const uit = el('details', 'situitleg'); uit.append(el('summary', null, 'Hoe schat de site opknapkosten?'));
+  const tabel = (kop, rijen) => { const t = el('table', 'mktbl'); const th = el('tr'); kop.forEach((k, i) => th.append(el('th', i === 1 ? 'num' : null, k))); const hd = el('thead'); hd.append(th); const tb = el('tbody'); rijen.forEach((r) => { const tr = el('tr'); r.forEach((c, i) => tr.append(el('td', i === 1 ? 'num' : null, c))); tb.append(tr); }); t.append(hd, tb); const sc = el('div', 'scroll'); sc.append(t); return sc; };
+  const t1 = tabel(['Opknapniveau', 'Per m² (indicatie)', 'Wat zit erin'], [['Licht opknappen', '€ 200–350', 'schilderen, stucwerk, nieuwe vloeren'], ['Keuken/badkamer vernieuwen', '€ 500–900', 'nieuwe keuken (± € 10–20k) en/of badkamer (± € 10–18k), deels leidingwerk en elektra'], ['Casco / alles nieuw', '€ 1.200–2.000', 'alles nieuw: indeling, leidingen, elektra, keuken, badkamer, afwerking']]);
+  const t2 = tabel(['Energielabel', 'Verduurzamen (eigen deel)', 'Typisch'], [['A of B', '€ 0', 'niets nodig'], ['C', '± € 3.000', 'kleine verbeteringen, ventilatie'], ['D', '± € 6.000', 'HR++-glas in bestaande kozijnen (€ 4.400–7.000)'], ['E', '± € 10.000', 'HR++-glas + vloerisolatie of ventilatie'], ['F of G', '± € 16.000', 'glas, vloer, hybride warmtepomp (± € 6.200)'], ['Eengezinswoning E–G', '+ € 8.000', 'dakisolatie (€ 6.000–10.000)'], ['Label onbekend', '± € 6.000', 'gemiddelde aanname']]);
+  const bronnen = el('p', 'note'); bronnen.append('De schatting = woonoppervlak × bedrag per m² van het gekozen niveau (middenwaarde) + verduurzamen op basis van het label. Prijzen 2026, incl. btw en arbeid; Amsterdam zit vaak aan de bovenkant. Bij een appartement gaan gevel- en dakisolatie meestal via de VvE (dan in de VvE-bijdrage of een eenmalige heffing). Het echte bedrag hangt af van de staat van de woning: vraag na de bezichtiging offertes en vul het bedrag in bij Onze voortgang. Bronnen: ',
+    link('Rekenmachinepro: verbouwkosten per m²', 'https://rekenmachinepro.nl/bouw/verbouwkosten-per-m2/'), ', ', link('Clean-invoice: verbouwingskosten 2026', 'https://www.clean-invoice.com/nl/guides/verbouwingskosten-overzicht'), ', ', link('Milieu Centraal (via NN): kosten verduurzamen 2026', 'https://www.nn.nl/Financien/huis-verduurzamen-wat-kost-dat.htm'), '.');
+  uit.append(t1, t2, bronnen);
+  box.replaceChildren(h, intro, g, ch, sum, uit);
+};
 
 // Tabblad Onze lijst: overzicht en beheer
 const renderLijst = (rows) => {
@@ -1599,10 +1651,10 @@ const INFO = {
   woonlasten: ['Woonlasten per maand', 'Bruto maandlast van de hypotheek (annuïteit, met de rente, looptijd en het eigen geld dat je bij Maandlasten instelt) plus de VvE-bijdrage. Zonder hypotheekrenteaftrek, energie, verzekeringen en eventuele erfpachtcanon.'],
   overdracht: ['Overdrachtsbelasting', '2% van de koopsom als je er zelf gaat wonen. Startersvrijstelling: 0% als je 18–35 jaar bent, nog niet eerder gebruikmaakte van de vrijstelling en de woning maximaal € 555.000 kost (2026). Niet mee te financieren.'],
   kostenKoper: ['Kosten koper', 'Overdrachtsbelasting plus notaris, taxatie en hypotheekadvies (samen vaak € 5.000–8.000). Deze kosten kun je niet meefinancieren: ze komen uit eigen geld. De verbouwing kan wél mee, via een bouwdepot.'],
-  opknap: ['Opknapbudget', 'Grove schatting per m² op basis van het energielabel (beter label = minder werk). Pas aan bij Onze voortgang zodra je de woning hebt gezien. Staat “Verbouwing meefinancieren” aan, dan zit dit bedrag in de hypotheek (via een bouwdepot); anders komt het uit eigen geld.'],
+  opknap: ['Opknapbudget', 'Schatting = woonoppervlak × bedrag per m² voor het opknapniveau (licht ± € 275, keuken/badkamer ± € 700, casco ± € 1.500 per m²) + verduurzamen op basis van het energielabel (€ 0 bij A/B tot ± € 16.000 bij F/G). Prijzen 2026 incl. btw. Kies het standaardniveau bij Onze situatie (Favorieten), per woning bij Onze voortgang, of vul na een bezichtiging je eigen bedrag in.'],
   bouwdepot: ['Bouwdepot', 'Bij aankoop mag je de verbouwing meefinancieren: de bank leent tot 100% van de getaxeerde marktwaarde ná verbouwing (taxateur rekent met je verbouwingsspecificatie). Voor energiebesparende maatregelen (isolatie, HR++-glas, warmtepomp, zonnepanelen) mag het tot 106%, plus extra leenruimte afhankelijk van het energielabel (tot € 20.000 bij label E–G). Het geld staat in een bouwdepot en wordt uitbetaald op facturen, meestal binnen 18–24 maanden. Voorwaarde blijft dat je inkomen de maandlasten toelaat; de site rekent ermee dat de verbouwing de waarde 1-op-1 verhoogt, de taxatie bepaalt het echt.'],
-  maxHyp: ['Max. hypotheek', 'Hoeveel je maximaal kunt lenen. Hangt af van inkomen, rente en energielabel; laat dit uitrekenen door een bank of adviseur. Vul je het in, dan rekent de site uit hoeveel eigen geld je nodig hebt en of een woning past.'],
-  budget: ['Past in budget', 'Woning past als je eigen geld genoeg is voor wat je niet kunt lenen: de kosten koper, het deel boven je max. hypotheek, en het opknapbudget als je dat niet via een bouwdepot meefinanciert. Stel max. hypotheek en eigen geld in bij Kosten & maandlasten in een detailweergave.'],
+  maxHyp: ['Max. hypotheek', 'Hoeveel jullie maximaal kunnen lenen. Hangt af van inkomen, rente en energielabel; laat dit uitrekenen door een bank of adviseur. Vul je het in bij Onze situatie (Favorieten), dan rekent de site overal uit hoeveel eigen geld je nodig hebt en of een woning past. Leeg laten = alleen totale kosten zien.'],
+  budget: ['Past in budget', 'Woning past als jullie eigen geld genoeg is voor wat je niet kunt lenen: de kosten koper, het deel boven je max. hypotheek, en het opknapbudget als je dat niet via een bouwdepot meefinanciert. Stel dit in bij Onze situatie op de Favorieten-pagina.'],
   zelfbewoning: ['Zelfbewoningsplicht', 'Je moet er zelf (blijven) wonen, vaak minimaal een aantal jaar. Verhuren of leeg laten staan mag niet; bij overtreding kan een flinke boete volgen.'],
   antispeculatie: ['Anti-speculatiebeding', 'Verkoop je binnen een bepaalde periode, dan moet je (een deel van) de winst aan de corporatie afdragen of mag je niet verkopen. Bedoeld om snelle doorverkoop met winst te voorkomen.'],
   opkoop: ['Opkoopbescherming', 'Amsterdamse regel: woningen met een WOZ-waarde tot € 637.000 (2026) mag je de eerste 4 jaar niet verhuren, behalve met vergunning (bijv. aan familie). Boete tot € 21.750.'],
