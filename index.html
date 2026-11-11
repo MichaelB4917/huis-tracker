@@ -323,6 +323,13 @@
   .regcards { display: grid; grid-template-columns: 1fr; gap: 0 12px; } @media (min-width: 1000px) { .regcards { grid-template-columns: 1fr 1fr; } }
   .regcard h3 { margin: 0 0 8px; font-size: 16px; } .regl { margin: 0; } .regl dt { font-weight: 700; margin-top: 12px; } .regl dt:first-child { margin-top: 0; }
   .regl dd { margin: 3px 0 0; line-height: 1.55; font-size: 14px; } .regtbl { margin: 6px 0; font-size: 13px; } .regtbl td { white-space: normal; }
+  .slimgrid { display: grid; grid-template-columns: 1fr; gap: 0 12px; } @media (min-width: 1200px) { .slimgrid { grid-template-columns: 1fr 1fr; } .slimgrid .mktbl th { white-space: normal; } }
+  .slimkop { display: flex; flex-wrap: wrap; gap: 8px 18px; align-items: center; margin: 4px 0 10px; }
+  .slimtbl td { vertical-align: top; } .slimtbl tbody tr { cursor: pointer; } .slimtbl td b { font-weight: 600; }
+  .slimnr { display: inline-grid; place-items: center; width: 20px; height: 20px; border-radius: 50%; background: var(--soft); border: 1px solid var(--line); font-size: 11px; margin-right: 7px; color: var(--muted); }
+  .slimtag { display: inline-block; margin-top: 3px; font-size: 11px; padding: 1px 7px; border-radius: 999px; background: color-mix(in srgb, var(--ok) 14%, transparent); color: var(--ok); font-weight: 600; }
+  .slimtips { margin: 4px 0 0; padding-left: 20px; display: grid; gap: 10px; line-height: 1.5; font-size: 14px; } .slimtips b { display: block; }
+  .slimmethode summary { cursor: pointer; font-weight: 600; } .slimmethode p { line-height: 1.55; font-size: 14px; }
   /* Uitleg-i */
   .ii, .ii-demo { display: inline-grid; place-items: center; width: 16px; height: 16px; border-radius: 50%; border: 1px solid currentColor; background: none; color: var(--muted); font: italic 700 10.5px/1 Georgia, serif; padding: 0; margin: 0 0 0 4px; cursor: help; vertical-align: 1px; opacity: .75; flex: none; text-transform: none; letter-spacing: 0; }
   .ii:hover, .ii:focus-visible { opacity: 1; color: var(--brand); }
@@ -611,6 +618,7 @@
     <button data-tab="woningen" aria-pressed="true"><span class="nl-lang">Koopwoningen</span><span class="nl-kort">Woningen</span></button>
     <button data-tab="lijst" aria-pressed="false">Favorieten <span id="lijstn" class="navn"></span></button>
     <button data-tab="markt" aria-pressed="false">Marktinzicht</button>
+    <button data-tab="slim" aria-pressed="false">Slim kopen</button>
     <button data-tab="meldingen" aria-pressed="false">Meldingen <span id="meldn" class="navn"></span></button>
   </nav>
   <div class="navmenu" id="navmenu" role="menu" hidden>
@@ -823,6 +831,12 @@
     <div id="mfeed"></div>
   </section>
 
+  <section data-page="slim" hidden>
+    <div class="mkop"><h2>Slim kopen</h2><span class="muted">de woning als investering</span></div>
+    <p class="muted mkintro">Welke woningen leveren het meeste op, gerekend met jullie situatie (Onze situatie): korting t.o.v. de markt, waarde na opknappen, subsidies, verduurzamen en maandlasten. Een vergelijkingshulp, geen taxatie: klik op een <span class="ii-demo">i</span> voor uitleg en onderaan voor de rekenmethode.</p>
+    <div id="slimbox"></div>
+  </section>
+
   <section data-page="regelingen" hidden>
     <div class="mkop"><h2>Subsidies &amp; regelingen</h2><span class="muted">stand november 2026</span></div>
     <p class="muted mkintro">Alles wat er voor jullie te halen valt bij het kopen en verbouwen in Amsterdam: Rijk, gemeente en leningen. Let op de volgorde: bij de <b>gemeentelijke</b> subsidies vraag je aan <b>vóór</b> je begint; bij <b>ISDE</b> juist <b>ná</b> uitvoering. Bedragen en voorwaarden veranderen: check de officiële regeling vóór je iets aanvraagt (gemeente: 14020, Energieloket). Bij elke woning staat in de detailweergave welke regelingen daar kunnen gelden.</p>
@@ -1031,6 +1045,7 @@ const showTab = (n) => { const pg = n === 'lijst' ? 'woningen' : n; const was = 
   document.body.dataset.pg = pg; $$('[data-page]').forEach((s) => s.hidden = s.dataset.page !== pg); $('[data-page-bar]').hidden = pg !== 'woningen'; $('#lijstoverzicht').hidden = !lijstTab; $('#onzesit').hidden = !lijstTab; if (lijstTab) renderSituatie(); $('#syncpanel').hidden = !lijstTab;
   if (was !== lijstTab && W.length) { render(); if (lijstTab) fitLijst(); }
   if (pg === 'markt' && W.length) renderMarkt();
+  if (pg === 'slim' && W.length) renderSlim();
   if (pg === 'woningen' && map) setTimeout(() => map.invalidateSize(), 50); $$('[data-tab]').forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.tab === n))); $('#navmore').classList.toggle('on', ['regels', 'regelingen', 'bronnen'].includes(n)); navMenu(false); setTimeout(() => { const ab = $('.nav button[aria-pressed="true"]'), nv = $('.nav'); if (ab && nv.scrollWidth > nv.clientWidth) { const r1 = ab.getBoundingClientRect(), r2 = nv.getBoundingClientRect(); nv.scrollTo({left: nv.scrollLeft + (r1.left + r1.width / 2) - (r2.left + r2.width / 2), behavior: 'instant'}); } }, 60); dockSoon(); };
 const navMenu = (open) => { const m = $('#navmenu'), b = $('#navmore'); if (!m) return; m.hidden = !open; b.setAttribute('aria-expanded', String(open));
   if (open) { const r = b.getBoundingClientRect(), w = Math.min(320, innerWidth - 24); m.style.width = w + 'px'; m.style.left = Math.max(12, Math.min(r.right - w, innerWidth - w - 12)) + 'px'; m.style.top = r.bottom + 6 + 'px'; } };
@@ -1479,7 +1494,7 @@ let detailW = null;
 const BP_TXT = {'Voor 1906': '19e-eeuwse bouw: hoge plafonds, vaak houten paalfundering en weinig isolatie.', '1906–1944': 'Vooroorlogs (Amsterdamse School): solide, karakteristiek, houten palen, isolatie vaak beperkt.',
   '1945–1969': 'Wederopbouw/tuinsteden: portiekflat, vaak al gerenoveerd; asbest mogelijk.', '1970–1991': 'Stadsvernieuwing/hoogbouw: betonnen palen, isolatie matig; asbest mogelijk (tot 1993).',
   '1992–2005': 'Na Bouwbesluit 1992: eerste isolatie-eisen, meestal label B–C.', '2006 of later': 'Moderne bouw met strenge energie-eisen, meestal label A.'};
-const loadMref = () => MREF ? Promise.resolve(MREF) : getJson('marktref.json').then((m) => MREF = m);
+const loadMref = () => MREF && BUURTWOZ ? Promise.resolve(MREF) : Promise.all([MREF ? MREF : getJson('marktref.json'), getJson('buurten.json')]).then(([m, b]) => { MREF = m; BUURTWOZ = b || {}; return MREF; });
 const dsec = (titel, info, ...kids) => { const s = el('section', 'dsec'); const h = el('h3', null, titel); if (info) h.append(ii(info)); s.append(h, ...kids.filter(Boolean)); return s; };
 const kvI = (l, v, info) => { const d = kvItem(l, v); if (d && info) d.firstChild.append(ii(info)); return d; };
 const openDetail = (w) => {
@@ -1684,6 +1699,106 @@ const renderSituatie = () => {
   pcalc(); const pnote = el('p', 'note', 'Rekent met jullie instellingen hierboven (inkomen of max. hypotheek, eigen geld, rente, bouwdepot, subsidies, dubbele lasten). Handig om te zien wat een ander label of opknapniveau doet. Wordt niet gedeeld.');
   pr.append(pg, pout, pnote);
   box.replaceChildren(h, intro, seg, g, ch, sum, pr, hu, uit);
+};
+
+// ---------- Slim kopen: de woning als investering ----------
+// Aannames (worden 8 januari en 8 juli herzien door de geplande taak 'Subsidies & regelingen controleren'):
+// - Waarde per label t.o.v. label C (NVM/brainbay, Q1 2024, gecorrigeerd voor woningkenmerken): A +4,4%, B +2,4%, D −3,8%, E −6,0%, F −8,7%, G −12,2%; A+ en beter +7,8%.
+// - Staat: een opknapper is minder waard dan een vergelijkbare instapklare woning (brainbay 2026: kluswoning ± € 100.000 / ± 20% goedkoper).
+// - Gasverbruik per m² per jaar naar label (100 m², stookseizoen 2026/27: G ± € 53/m², A ± € 15–22/m²; tussen-labels geïnterpoleerd); appartement × 0,7.
+const SLIM = {
+  labelAdj: {'A+': .078, A: .044, B: .024, C: 0, D: -.038, E: -.060, F: -.087, G: -.122, '': -.03},
+  staat: {geen: 1, licht: .95, gemiddeld: .88, casco: .80},
+  gasM2: {'A+': 12, A: 18, B: 24, C: 30, D: 36, E: 42, F: 48, G: 53, '': 36},
+  doelLabel: 'B', jaren: 10,
+};
+const lblKey = (l) => /^A\+/.test(l || '') ? 'A+' : (l || '')[0] || '';
+const marktM2Sd = (w) => { if (!MREF || !MREF.gebieden) return null; const g = MREF.gebieden[w.stadsdeel] || MREF.gebieden.Amsterdam; return isHuis(w) ? g.tot.m2 : g.app.m2; };
+// Buurtniveau: WOZ per m² van de buurt × (marktprijs / mediane buurt-WOZ) in het stadsdeel. Zo telt mee dat de ene buurt goedkoper is dan de andere.
+let BUURTWOZ = null;
+const SDLETTER = {A: 'Centrum', E: 'West', F: 'Nieuw-West', K: 'Zuid', M: 'Oost', N: 'Noord', T: 'Zuidoost'};
+const sdRatio = (sd) => { if (!BUURTWOZ || !MREF) return null; const v = Object.entries(BUURTWOZ).filter(([k, b]) => b && b.wozM2 && /^[A-Z]{2}\d\d$/.test(k) && SDLETTER[k[0]] === sd).map(([, b]) => b.wozM2); const g = MREF.gebieden[sd]; return v.length && g ? g.app.m2 / q(v, .5) : null; };
+const marktM2Type = (w) => { const r = w.buurtWozM2 ? sdRatio(w.stadsdeel) : null; return r ? w.buurtWozM2 * r : marktM2Sd(w); };
+const anti = (w) => { const r = (R || []).find((x) => x.corporatie === w.corporatie); return r ? r.antispeculatie || '' : ''; };
+const analyse = (w) => {
+  const m2 = +w.m2, mm = marktM2Type(w); if (!m2 || !mm || !w.prijs) return null;
+  const d = opknapDelen(w), n = d.n, L0 = lblKey(w.energielabel), L1 = d.duur > 0 && n !== 'geen' ? SLIM.doelLabel : L0;
+  const adj = (l) => SLIM.labelAdj[l] ?? SLIM.labelAdj[''];
+  const mw0 = m2 * mm * (1 + adj(L0)) * (SLIM.staat[n] ?? .88);               // waarde nu, in huidige staat
+  const v = m2 * mm * (1 + adj(L1)) * (n === 'geen' ? (SLIM.staat.geen) : 1); // waarde na opknappen
+  const sb = subsidie(w), kost = w.prijs + kk(w) + opknap(w) - sb;
+  const gasF = isHuis(w) ? 1 : .7, besparing = Math.max(0, (SLIM.gasM2[L0] ?? 36) - (SLIM.gasM2[L1] ?? 36)) * m2 * gasF;
+  const labelWinst = m2 * mm * (adj(L1) - adj(L0));
+  const verdWinst = d.duur ? labelWinst + sb + besparing * SLIM.jaren - d.duur : 0;
+  const ml = maandlast(w), huur = +fin.huur || 0;
+  return {w, m2, mm, L0, L1, mw0, v, sb, kost, sprong: v - kost, sprongPct: (v - kost) / kost * 100, korting: (1 - w.prijs / mw0) * 100,
+    besparing, verdWinst, labelWinst, ml, mlNetto: ml - besparing / 12, verschilHuur: huur ? ml - besparing / 12 - huur : null, past: pastBudget(w), en: eigenNodig(w), gebied: vwbGebied(w), anti: anti(w)};
+};
+const SL = {sort: 'sprong', budget: true, voor: false, n: 15};
+const SLSORT = {sprong: ['Waardesprong (€)', (a) => a.sprong], sprongPct: ['Waardesprong (%)', (a) => a.sprongPct], verd: ['Verduurzamingswinst', (a) => a.verdWinst], ml: ['Laagste maandlast', (a) => -a.mlNetto], sb: ['Meeste subsidiekans', (a) => a.sb + (a.gebied ? 10000 : 0)]};
+const renderSlim = () => {
+  const box = $('#slimbox'); if (!box) return;
+  if (!MREF) { box.replaceChildren(el('p', 'muted', 'Laden…')); loadMref().then(renderSlim); return; }
+  const all = W.filter((w) => w.status !== 'verkocht o.v.b.').map(analyse).filter(Boolean);
+  let rows = all.filter((a) => (!SL.budget || !heeftBudget() || a.past) && (!SL.voor || voorJou(a.w) !== 'nee'));
+  const f = SLSORT[SL.sort][1]; rows.sort((a, b) => f(b) - f(a));
+  const kop = el('div', 'slimkop');
+  const segS = el('div', 'mkseg'); Object.entries(SLSORT).forEach(([k, [t]]) => { const b = el('button', null, t); b.setAttribute('aria-pressed', String(SL.sort === k)); b.onclick = () => { SL.sort = k; renderSlim(); }; segS.append(b); });
+  const tg = (k, t) => { const l = el('label', 'check sw'); const i = el('input'); i.type = 'checkbox'; i.checked = SL[k]; i.onchange = () => { SL[k] = i.checked; renderSlim(); }; l.append(i, ' ' + t); return l; };
+  kop.append(segS, tg('budget', heeftBudget() ? 'Alleen binnen ons budget' : 'Binnen budget (vul eerst Onze situatie in)'), tg('voor', 'Alleen waar ik voorrang kan krijgen'));
+  // Top-lijst
+  const tbl = el('table', 'mktbl slimtbl'); const th = el('tr');
+  [['Woning'], ['Vraagprijs', 'num'], ['Label', ''], ['Alles-in', 'num', 'kostenKoper'], ['Waarde na opknappen', 'num', 'waardeNa'], ['Waardesprong', 'num', 'waardesprong'], ['Verduurzamingswinst', 'num', 'verduurzamingswinst'], ['Subsidie', 'num', 'subsidie'], ['Maandlast netto', 'num', 'woonlasten'], [heeftBudget() ? 'Eigen geld' : '', 'num']].forEach(([t, c, i]) => { const e = el('th', c || null, t); if (i) e.append(ii(i)); th.append(e); });
+  const hd = el('thead'); hd.append(th); const tb = el('tbody');
+  rows.slice(0, SL.n).forEach((a, i) => {
+    const tr = el('tr'); const c0 = el('td'); const d = el('span', 'cd'); d.style.background = corpColor(a.w.corporatie);
+    c0.append(el('span', 'slimnr', String(i + 1)), el('b', null, a.w.adres)); const sub = el('div', 'mkmut'); sub.append(d, `${a.w.corporatie} · ${a.w.wijk || a.w.stadsdeel} · ${a.m2} m²`); c0.append(sub);
+    if (a.gebied) c0.append(el('span', 'slimtag', '50%-subsidiegebied'));
+    const lb = el('td'); lb.append(el('span', 'elabel sm l-' + (a.L0 || 'none'), a.L0 || '?'), a.L1 !== a.L0 ? ' → ' + a.L1 : '');
+    const sp = el('td', 'num ' + (a.sprong >= 0 ? 'lo' : 'hi'), (a.sprong >= 0 ? '+' : '−') + eur.format(Math.abs(Math.round(a.sprong / 1000) * 1000))); sp.append(el('span', 'mkwas', fmtPct(a.sprongPct)));
+    const vw = el('td', 'num' + (a.verdWinst > 0 ? ' lo' : a.verdWinst < 0 ? ' hi' : ''), a.verdWinst ? (a.verdWinst > 0 ? '+' : '−') + eur.format(Math.abs(Math.round(a.verdWinst / 1000) * 1000)) : '–');
+    const ml = el('td', 'num', '≈ ' + eur.format(Math.round(a.mlNetto / 10) * 10)); if (a.verschilHuur != null) ml.append(el('span', 'mkwas', (a.verschilHuur >= 0 ? '+' : '−') + eur.format(Math.abs(Math.round(a.verschilHuur / 10) * 10)) + ' t.o.v. huur'));
+    const eg = el('td', 'num' + (heeftBudget() ? (a.past ? ' lo' : ' hi') : ''), heeftBudget() ? eur.format(a.en) : '');
+    tr.append(c0, el('td', 'num', eur.format(a.w.prijs)), lb, el('td', 'num', eur.format(Math.round(a.kost / 1000) * 1000)), el('td', 'num', eur.format(Math.round(a.v / 1000) * 1000)), sp, vw, el('td', 'num', a.sb ? eur.format(a.sb) : '–'), ml, eg);
+    tr.onclick = () => openDetail(a.w); tb.append(tr);
+  });
+  tbl.append(hd, tb); const sc = el('div', 'scroll'); sc.append(tbl);
+  const topCard = el('div', 'card'); const h3 = el('h3', null, 'Beste kansen nu'); topCard.append(h3, kop, sc);
+  topCard.append(el('p', 'note', rows.length ? `${Math.min(SL.n, rows.length)} van ${rows.length} woningen. Waardesprong = geschatte waarde na opknappen − alles-in (vraagprijs + kosten koper + opknappen − subsidie). Klik voor details.` : 'Geen woningen binnen deze selectie.'));
+  if (rows.length > SL.n) { const b = el('button', 'mini', 'Toon meer'); b.onclick = () => { SL.n += 15; renderSlim(); }; topCard.append(b); }
+  // Waar zit de winst: per label en per stadsdeel
+  const groep = (key, ord) => { const G = {}; all.forEach((a) => { const k = key(a); if (k) (G[k] ||= []).push(a); }); return (ord || Object.keys(G).sort()).filter((k) => G[k]).map((k) => [k, G[k]]); };
+  const gtab = (titel, info, lijst, cols) => { const c = el('div', 'card'); const h = el('h3', null, titel); if (info) h.append(ii(info)); const t = el('table', 'mktbl'); const r0 = el('tr'); cols.forEach(([n], i) => r0.append(el('th', i ? 'num' : null, n))); const hd2 = el('thead'); hd2.append(r0); const b2 = el('tbody');
+    lijst.forEach(([k, as]) => { const r = el('tr'); cols.forEach(([, fn], i) => r.append(el('td', i ? 'num' : null, i ? fn(as) : k + ` (${as.length})`))); b2.append(r); }); t.append(hd2, b2); const s2 = el('div', 'scroll'); s2.append(t); c.append(h, s2); return c; };
+  const med = (as, f) => q(as.map(f).filter((x) => isFinite(x)), .5);
+  const eurK = (v) => v == null ? '–' : (v >= 0 ? '+' : '−') + eur.format(Math.abs(Math.round(v / 1000) * 1000));
+  const lblG = (a) => !a.L0 ? 'Onbekend' : /A|B/.test(a.L0) ? 'A of B' : /C|D/.test(a.L0) ? 'C of D' : 'E, F of G';
+  const perLabel = gtab('Waar zit de winst: per label', 'verduurzamingswinst', groep(lblG, ['A of B', 'C of D', 'E, F of G', 'Onbekend']), [['Label'], ['Waardesprong', (as) => eurK(med(as, (a) => a.sprong))], ['Verduurzamingswinst', (as) => eurK(med(as, (a) => a.verdWinst))], ['Subsidie', (as) => eur.format(Math.round(med(as, (a) => a.sb) || 0))], ['Besparing energie/jaar', (as) => eur.format(Math.round((med(as, (a) => a.besparing) || 0) / 10) * 10)]]);
+  const perSd = gtab('Waar zit de winst: per stadsdeel', 'markt', groep((a) => a.w.stadsdeel), [['Stadsdeel'], ['Vraagprijs t.o.v. waarde nu', (as) => fmtPct(-med(as, (a) => a.korting))], ['Waardesprong', (as) => eurK(med(as, (a) => a.sprong))], ['Waardesprong %', (as) => fmtPct(med(as, (a) => a.sprongPct))], ['In 50%-gebied', (as) => as.filter((a) => a.gebied).length + '']]);
+  // Slimme regels voor jullie: gegenereerd uit de data en de regels
+  const tips = [];
+  const st26 = 555000, st27 = 615000, tussen = all.filter((a) => a.w.prijs > st26 && a.w.prijs <= st27);
+  if (tussen.length) tips.push(['Startersvrijstelling: wacht met de overdracht tot 2027', `${tussen.length} woning${tussen.length === 1 ? ' kost' : 'en kosten'} tussen € 555.000 en € 615.000. Zijn jullie (een van jullie) 18–35 en kopen jullie voor het eerst: in 2026 betaal je daarover 2% overdrachtsbelasting (€ 11.000–12.300), vanaf 1 januari 2027 waarschijnlijk 0% (Belastingplan). De datum bij de notaris telt, niet die van het bod.`]);
+  const lp = groep(lblG, ['A of B', 'C of D', 'E, F of G']).map(([k, as]) => [k, med(as, (a) => a.verdWinst)]).filter(([, v]) => v != null).sort((a, b) => b[1] - a[1]);
+  if (lp.length > 1) tips.push(['Verduurzamen loont het meest bij label ' + lp[0][0], `Mediane verduurzamingswinst: ${lp.map(([k, v]) => k + ' ' + eurK(v)).join(' · ')} (waardestijging door een beter label + subsidie + ${SLIM.jaren} jaar lagere energierekening − kosten). Een slecht label is dus vaak geen reden om af te haken, maar juist een kans, zolang de verbouwing in het bouwdepot past.`]);
+  const huis = all.filter((a) => isHuis(a.w) && 'EFG'.includes(a.L0) && a.w.prijs <= 666000);
+  tips.push(['Eengezinswoning met label E–G onder € 666.000 = meeste subsidie', `Daar stapelen ISDE, de Amsterdamse Extra Isolatie Subsidie (€ 2.500) en de hybride-warmtepompsubsidie (€ 2.500) tot ± € 8.600. Bij een appartement is het ± € 300–2.000, omdat gevel en dak via de VvE gaan. ` + (huis.length ? `Nu ${huis.length} zulke woning${huis.length === 1 ? '' : 'en'} in de lijst.` : 'Er staat er nu geen in de lijst; het filter Type of een melding helpt om ze niet te missen.')]);
+  const geb = all.filter((a) => a.gebied); if (geb.length) tips.push(['Grootste hefboom: de 50%-buurten', `${geb.length} woningen liggen in buurten waar Amsterdam 50% van een grote verduurzaming betaalt (tot € 11.660 per appartement via de VvE, € 13.765 per eengezinswoning). Vraag bij de bezichtiging of de VvE al een plan heeft: dan krijg je een betere woning voor een deel van de prijs.`]);
+  if (fin.nhg) { const net = all.filter((a) => { const l = Math.min(teLenen(a.w), Infinity); return l > NHG_GRENS() && l <= NHG_GRENS() * 1.08; }); if (net.length) tips.push(['Net boven de NHG-grens', `${net.length} woningen vragen een lening net boven ${eur.format(NHG_GRENS())}. Met wat meer eigen geld, minder verbouwen in het depot of de 6%-verduurzamingsruimte blijf je onder NHG (lagere rente).`]); }
+  else tips.push(['NHG kan duizenden euro’s schelen', `Leningen t/m ${eur.format(NHG_GRENS())} (+6% verduurzamen) kunnen met NHG: meestal 0,3–0,6% lagere rente, bij € 400.000 ± € 100–200 per maand. Zet NHG aan bij Onze situatie om te zien welke woningen dan passen.`]);
+  const erf = all.filter((a) => { const m = String(a.w.erfpacht || '').match(/t\/m \d{1,2}-\d{1,2}-(\d{4})/); return m && +m[1] < 2050; });
+  if (erf.length) tips.push(['Let op aflopende erfpacht', `${erf.length} woningen hebben erfpacht die vóór 2050 afloopt. Daarna betaal je canon (of koop je opnieuw af); banken en kopers rekenen dat nu al in de waarde. Vergelijk dus niet alleen de vraagprijs.`]);
+  const oud = all.filter((a) => +a.w.bouwjaar && +a.w.bouwjaar < 1970 && /80-100|60-80/.test(a.w.fundering || '')); if (oud.length) tips.push(['Fundering checken bij oude panden', `${oud.length} woningen zijn van vóór 1970 in een postcode met veel oude funderingen. Vraag naar funderingsonderzoek en het VvE-reservefonds: herstel kan tienduizenden euro’s per woning kosten en zit niet in deze berekening.`]);
+  tips.push(['Triple glas en warmtepomp: vóór 2027 kopen', 'De ISDE voor triple glas daalt van € 111 naar € 55 per m² en voor een lucht-water warmtepomp van € 225 naar € 120 per kW. Wat je vóór 31 december 2026 koopt, valt nog onder 2026.']);
+  tips.push(['Het is een woning, geen flip', 'Corporaties leggen zelfbewoning en een anti-speculatiebeding vast (2–3 jaar, Eigen Haard: 36 maanden meerwaarde afdragen). De waardesprong is dus vermogen op lange termijn, niet iets om snel te verzilveren. Zie Voorrangsregels.']);
+  const tc = el('div', 'card'); tc.append(el('h3', null, 'Slimme regels voor jullie')); const ul = el('ol', 'slimtips'); tips.forEach(([t, x]) => { const li = el('li'); li.append(el('b', null, t), el('div', null, x)); ul.append(li); }); tc.append(ul);
+  // Methode
+  const m = el('details', 'card slimmethode'); m.append(el('summary', null, 'Hoe rekent Slim kopen?'));
+  m.append(el('p', null, `Waarde na opknappen = m² × geschatte marktprijs per m² in de buurt (gemiddelde WOZ per m² van de buurt × de verhouding tussen echte verkoopprijzen (NVM/MVA, ${MREF.periode}) en WOZ in dat stadsdeel) × correctie voor het energielabel na verduurzamen (label ${SLIM.doelLabel}). Waarde nu = hetzelfde met het huidige label en een korting voor de staat (licht −5%, keuken/badkamer −12%, casco −20%). Alles-in = vraagprijs + kosten koper (incl. dubbele lasten en NHG) + opknapbudget − subsidies. Verduurzamingswinst = waardestijging door het betere label + subsidies + ${SLIM.jaren} jaar lagere gasrekening − kosten verduurzamen. Maandlast netto = hypotheek + VvE + canon − besparing op gas.`),
+    el('p', 'note', 'Labelpremies: NVM/brainbay 2024 (A +4,4%, B +2,4%, D −3,8%, E −6%, F −8,7%, G −12,2% t.o.v. C). Gas per m²: label G ± € 53, A ± € 15–22 per m² per jaar (100 m², 2026/27), appartement × 0,7. Kluswoning ± 20% onder instapklaar (brainbay 2026). De aannames worden 8 januari en 8 juli opnieuw gecontroleerd. Dit is een vergelijkingshulp, geen taxatie of advies.'));
+  { const p = el('p', 'note'); p.append('Bronnen: ', link('NVM: energielabels op de woningmarkt', 'https://www.nvm.nl/media/w3xm2oy0/bijlage-4-energielabels-op-de-woningmarkt-themaonderzoek-bij-nvm-kwartaalcijfers-2024-1.pdf'), ' · ', link('HomeFinance: label G vs A', 'https://www.homefinance.nl/nieuws-blog/2026/een-huis-met-label-g-kost-je-per-maand-fors-meer-dan-een-huis-met-label-a-301972/'), ' · ', link('NHG/brainbay: verduurzamen loont', 'https://solarmagazine.nl/nieuws-zonne-energie/i41514/verduurzaming-woning-levert-bijna-2-keer-zo-veel-op-als-investering'), ' · ', link('Hypotheker: kluswoning', 'https://www.hypotheker.nl/actueel/nieuwsberichten/2026/kluswoning-na-verbouwing-gemiddeld-flink-meer-waard/')); m.append(p); }
+  const grid = el('div', 'slimgrid'); grid.append(perLabel, perSd);
+  box.replaceChildren(topCard, tc, grid, m);
 };
 
 // Tabblad Onze lijst: overzicht en beheer
@@ -1907,6 +2022,8 @@ const INFO = {
   dubbel: ['Dubbele lasten', 'De maanden dat je zowel huur als hypotheek betaalt: de opzegtermijn van je huur (meestal 1 maand) plus de tijd dat je verbouwt voordat je verhuist. Standaard 2 maanden; bij een flinke verbouwing eerder 3–6. Dit betaal je uit eigen geld en telt mee in “eigen geld nodig”. Tip: de rente over het bouwdepot wordt tijdens de verbouwing meestal (deels) verrekend.'],
   nhg: ['Nationale Hypotheek Garantie', 'Met NHG mag je lening niet hoger zijn dan de NHG-grens: € 470.000 in 2026, € 500.000 vanaf 2027, plus maximaal 6% voor energiebesparende maatregelen. Je betaalt eenmalig 0,4% borgtochtprovisie (uit eigen geld), maar krijgt meestal 0,3–0,6% lagere rente: pas dan ook de rente aan. Bij gedwongen verkoop met verlies kan een restschuld worden kwijtgescholden.'],
   canon: ['Erfpachtcanon', 'Als de erfpacht niet (eeuwigdurend) is afgekocht, betaal je jaarlijks canon aan de gemeente. Banken tellen die mee als woonlast: hij verlaagt hoeveel je kunt lenen (± € 18.000 minder lening per € 1.000 canon per jaar bij 4% rente) en komt bij je maandlasten. Het bedrag staat in de advertentie of het erfpachtbesluit.'],
+  waardesprong: ['Waardesprong', 'Geschatte waarde na opknappen min alles wat je erin stopt (vraagprijs, kosten koper, opknapbudget, min subsidie). Positief = je koopt (met verbouwing) onder de marktwaarde. Bij corporatiewoningen is dat vaak zo, omdat ze met voorrang voor de vraagprijs worden verkocht. Let op het anti-speculatiebeding: het is vermogen op lange termijn.'],
+  verduurzamingswinst: ['Verduurzamingswinst', 'Wat verduurzamen netto oplevert: waardestijging door een beter energielabel (label B na verbouwing) + subsidies + 10 jaar lagere gasrekening − de kosten van verduurzamen. Positief = verduurzamen verdient zichzelf terug (vaak bij label E–G).'],
   maxHyp: ['Max. hypotheek', 'Hoeveel jullie maximaal kunnen lenen. Hangt af van inkomen, rente en energielabel; laat dit uitrekenen door een bank of adviseur. Vul je het in bij Onze situatie (Favorieten), dan rekent de site overal uit hoeveel eigen geld je nodig hebt en of een woning past. Leeg laten = alleen totale kosten zien.'],
   budget: ['Past in budget', 'Woning past als jullie eigen geld genoeg is voor wat je niet kunt lenen: de kosten koper, het deel boven je max. hypotheek, en het opknapbudget als je dat niet via een bouwdepot meefinanciert. Stel dit in bij Onze situatie op de Favorieten-pagina.'],
   zelfbewoning: ['Zelfbewoningsplicht', 'Je moet er zelf (blijven) wonen, vaak minimaal een aantal jaar. Verhuren of leeg laten staan mag niet; bij overtreding kan een flinke boete volgen.'],
@@ -2309,7 +2426,7 @@ Promise.all(['woningen', 'regels', 'bronnen', 'meta'].map((n) => fetch('data/' +
     loadShared().then(() => { profLabel(); renderStatic(); render(); if (!profiel) openProf(); });
     const openSync = (e) => { e.stopPropagation(); $$('details.tdd').forEach((o) => o.open = false); showTab('lijst'); history.replaceState(null, '', '#lijst'); $('#syncpanel').scrollIntoView({block: 'start'}); };
     $('#syncopen').onclick = openSync; $('#syncopen2').onclick = openSync; $('#syncclose').onclick = () => $('#syncpanel').hidden = true;
-    const h = location.hash.slice(1); if (['regels', 'bronnen', 'lijst', 'meldingen', 'markt', 'regelingen'].includes(h)) showTab(h);
+    const h = location.hash.slice(1); if (['regels', 'bronnen', 'lijst', 'meldingen', 'markt', 'regelingen', 'slim'].includes(h)) showTab(h);
   });
 </script>
 </body>
