@@ -316,6 +316,8 @@
   .sitsum { margin-top: 12px; padding: 10px 12px; border-radius: 10px; background: var(--tint); font-size: 14px; line-height: 1.5; }
   .situitleg { margin-top: 12px; } .situitleg summary { cursor: pointer; color: var(--link); font-size: 14px; } .situitleg .mktbl { margin-top: 8px; } .situitleg .mktbl td { white-space: normal; }
   #detail .ssub { font-size: 12px; margin: -2px 0 2px; text-align: right; }
+  #detail .dkans { margin-top: 12px; } #detail .dkans summary { cursor: pointer; font-size: 14px; font-weight: 600; } #detail .dkans ul { margin: 8px 0 0; padding-left: 18px; display: grid; gap: 7px; font-size: 13.5px; } #detail .dkans li .muted { font-size: 12.5px; }
+  .regcard.regwide { grid-column: 1 / -1; }
   .regcards { display: grid; grid-template-columns: 1fr; gap: 0 12px; } @media (min-width: 1000px) { .regcards { grid-template-columns: 1fr 1fr; } }
   .regcard h3 { margin: 0 0 8px; font-size: 16px; } .regl { margin: 0; } .regl dt { font-weight: 700; margin-top: 12px; } .regl dt:first-child { margin-top: 0; }
   .regl dd { margin: 3px 0 0; line-height: 1.55; font-size: 14px; } .regtbl { margin: 6px 0; font-size: 13px; } .regtbl td { white-space: normal; }
@@ -677,6 +679,7 @@
           <div class="subchecks"><label class="check"><input type="checkbox" class="f bsub" data-f="buitenBalkon"> Balkon</label><label class="check"><input type="checkbox" class="f bsub" data-f="buitenTerras"> Terras</label><label class="check"><input type="checkbox" class="f bsub" data-f="buitenTuin"> Tuin</label></div>
           <label class="check sw"><input type="checkbox" class="f" data-f="goedLabel"> <span>Energielabel A–C <span data-ii="energielabel"></span></span></label>
           <label class="check sw"><input type="checkbox" class="f" data-f="erfpachtAfgekocht"> <span>Erfpacht afgekocht <span data-ii="erfpacht"></span></span></label>
+          <label class="check sw"><input type="checkbox" class="f" data-f="vwb"> <span>Buurt met verduurzamingssubsidie <span data-ii="vwb"></span></span></label>
           <label class="check sw"><input type="checkbox" class="f" data-f="budget"> <span>Past in ons budget <span data-ii="budget"></span></span></label>
           <h4>Onze voortgang</h4>
           <label class="check sw"><input type="checkbox" class="f" data-f="metVoortgang"> Alleen met voortgang</label>
@@ -820,7 +823,7 @@
 
   <section data-page="regelingen" hidden>
     <div class="mkop"><h2>Subsidies &amp; regelingen</h2><span class="muted">stand november 2026</span></div>
-    <p class="muted mkintro">Wat er voor jullie te halen valt bij het kopen en verbouwen in Amsterdam. Bedragen en voorwaarden veranderen regelmatig: check altijd de officiële site vóór je iets aanvraagt, en laat de financiering door een hypotheekadviseur doorrekenen. De site rekent een grove schatting van de subsidies mee in de kosten (zie onderaan).</p>
+    <p class="muted mkintro">Alles wat er voor jullie te halen valt bij het kopen en verbouwen in Amsterdam: Rijk, gemeente en leningen. Let op de volgorde: bij de <b>gemeentelijke</b> subsidies vraag je aan <b>vóór</b> je begint; bij <b>ISDE</b> juist <b>ná</b> uitvoering. Bedragen en voorwaarden veranderen: check de officiële regeling vóór je iets aanvraagt (gemeente: 14020, Energieloket). Bij elke woning staat in de detailweergave welke regelingen daar kunnen gelden.</p>
     <div class="regcards">
       <div class="card regcard">
         <h3>Bij het kopen</h3>
@@ -828,7 +831,7 @@
           <dt>Startersvrijstelling overdrachtsbelasting</dt>
           <dd>Geen 2% overdrachtsbelasting als je 18–35 jaar bent, er zelf gaat wonen, de vrijstelling nog niet eerder gebruikte en de woning t/m <b>€ 555.000</b> kost (2026). Bij een hogere prijs betaal je 2% over het hele bedrag. Aan te zetten bij Onze situatie.</dd>
           <dt>Nationale Hypotheek Garantie (NHG)</dt>
-          <dd>Voor leningen t/m <b>€ 470.000</b> (2026), of € 498.200 met energiebesparende maatregelen. Eenmalig 0,4% borgtochtprovisie; meestal een lagere rente en een vangnet bij gedwongen verkoop. Vanaf 1 januari 2027 wordt de grens € 500.000. <a href="https://www.nhg.nl" target="_blank" rel="noopener">NHG</a></dd>
+          <dd>Voor leningen t/m <b>€ 470.000</b> (2026), of € 498.200 met energiebesparende maatregelen. Eenmalig 0,4% borgtochtprovisie; meestal een lagere rente en een vangnet bij gedwongen verkoop. Vanaf 1 januari 2027: grens € 500.000, en bij een eengezinswoning met label E–G standaard € 20.000 verduurzamingsbudget. <a href="https://www.banken.nl/nieuws/27495/nhg-grens-stijgt-naar-500000-verduurzaming-bij-slecht-energielabel-wordt-standaard" target="_blank" rel="noopener">Banken.nl</a></dd>
           <dt>Verbouwing meefinancieren (bouwdepot)</dt>
           <dd>Lenen tot 100% van de getaxeerde waarde ná verbouwing, tot 106% voor energiebesparende maatregelen. Het geld staat in een bouwdepot en wordt op facturen uitbetaald (meestal 18–24 maanden). Je inkomen blijft de grens.</dd>
           <dt>Extra leenruimte voor verduurzamen (per label)</dt>
@@ -838,10 +841,36 @@
         </dl>
       </div>
       <div class="card regcard">
-        <h3>Verduurzamen</h3>
+        <h3>Gemeente Amsterdam</h3>
+        <p class="note" style="margin:0 0 6px">Uit de Subsidieregeling duurzame Amsterdamse gebouwen. <a href="https://lokaleregelgeving.overheid.nl/CVDR641449/26" target="_blank" rel="noopener">Officiële tekst</a> · <a href="https://duurzaamwonen.amsterdam/subsidies-en-leningen" target="_blank" rel="noopener">overzicht Duurzaam Wonen Amsterdam</a></p>
         <dl class="regl">
-          <dt>ISDE (Rijk)</dt>
-          <dd>Subsidie voor eigenaar-bewoners. Eerst laten uitvoeren (door een vakbedrijf), daarna binnen 24 maanden aanvragen; kan t/m 2030. Bij twee of meer isolatiemaatregelen (binnen 24 maanden) verdubbelt het bedrag. Per m² bij één maatregel:
+          <dt>Gratis energieadvies</dt>
+          <dd>Via de gemeente (Duurzaam Wonen Amsterdam, 14020). Nodig voor de Extra Isolatie Subsidie, en handig als plan voor de verbouwing.</dd>
+          <dt>Extra Isolatie Subsidie (EISA)</dt>
+          <dd>Tot <b>€ 2.500</b> per woning (+ € 250 bij biobased isolatie) voor vloer-, dak-, gevel- en spouwisolatie en glas; ventilatie telt mee als je ook isoleert. Voor eigenaar-bewoners van een <b>eengezinswoning</b>; bij een <b>appartement</b> vraagt de VvE het aan (€ 2.500 per woning). Voorwaarden: WOZ t/m € 666.000, label D–G of minstens twee slecht geïsoleerde delen, energieadvies (max. 5 jaar oud) of labelrapport vanaf 2024. Aanvragen t/m 30 juni 2028, klaar vóór 31 oktober 2028; 70% voorschot.</dd>
+          <dt>Hybride warmtepomp</dt>
+          <dd><b>€ 2.500</b> per eengezinswoning (niet voor appartementen), WOZ t/m € 666.000. Aanvragen <b>vóór</b> de installatie, met een offerte van max. 2 maanden oud; 1 januari 2026 – 31 december 2027 of tot het budget (€ 2,5 mln) op is. Te combineren met ISDE. <a href="https://zoek.officielebekendmakingen.nl/gmb-2025-507455.pdf" target="_blank" rel="noopener">Gemeenteblad</a></dd>
+          <dt>Verduurzamende woningverbetering Noord en Nieuw-West</dt>
+          <dd>Grote regeling in aangewezen buurten: <b>50% van de kosten</b>, tot <b>€ 11.660</b> per koopappartement (via de VvE) of <b>€ 13.765</b> per eengezinswoning, + € 500 biobased. Eisen: achterstallig onderhoud weg, minstens 3 labelstappen of label B, en werkende ventilatie. Noord: o.a. Banne, Bloemenbuurt, Blauwe Zand, IJplein, Molenwijk, Plan van Gool, Terrasdorp, Tuindorp Nieuwendam/Oostzaan, Van der Pekbuurt, Vogelbuurt, Werengouw en Markengouw (aanvragen t/m 1 december 2032). Nieuw-West: o.a. Osdorp, Slotermeer, Geuzenveld, Overtoomse Veld en De Aker-buurten (aanvragen t/m 30 september 2030).</dd>
+          <dt>Verduurzamende woningverbetering Zuidoost</dt>
+          <dd>Voor VvE's in aangewezen buurten (o.a. Venserpolder, Gein, Reigersbos, Holendrecht, G-, K-, D-, F- en H-buurt): 50% tot € 9.400 per koopwoning.</dd>
+          <dt>Plan maken met je VvE</dt>
+          <dd>50% van de kosten (tot € 6.000 per woning) voor onderzoek en ontwerp van een verduurzamingsplan voor VvE's in aangewezen buurten. Aanvragen t/m 31 december 2026.</dd>
+          <dt>Collectieve warmte (VvE)</dt>
+          <dd>Tot € 5.300 per woning als een VvE van het gas af gaat via een warmtenet of collectief systeem. Aanvragen t/m 31 december 2027.</dd>
+          <dt>Rookkanaal houtkachel verwijderen</dt>
+          <dd>€ 1.500 per woning (pilot, klein budget), t/m 2026.</dd>
+          <dt>Groene daken en tuinen</dt>
+          <dd>Amsterdam had in 2024 een regeling voor groene daken (50% tot € 50.000) en tuinen (€ 15 per m², minimaal 10 m²). Of er nu budget is, wisselt per jaar: navragen bij de gemeente. <a href="https://www.nhnieuws.nl/nieuws/335067/subsidie-voor-groene-daken-amsterdam" target="_blank" rel="noopener">NH Nieuws</a></dd>
+          <dt>Monument</dt>
+          <dd>Advies verduurzamen monumenten via het Restauratiefonds (tot € 1.000).</dd>
+        </dl>
+      </div>
+      <div class="card regcard">
+        <h3>Rijk (ISDE en VvE)</h3>
+        <dl class="regl">
+          <dt>ISDE</dt>
+          <dd>Voor eigenaar-bewoners, ook van een appartement (voor je eigen ramen, vloer, warmtepomp). Eerst laten uitvoeren door een vakbedrijf, daarna binnen 24 maanden aanvragen; kan t/m 2030. Bij twee of meer isolatiemaatregelen (binnen 24 maanden) verdubbelt het bedrag. Per m² bij één maatregel:
             <div class="scroll"><table class="mktbl regtbl"><thead><tr><th>Maatregel</th><th class="num">Per m²</th><th class="num">Min.–max. m²</th></tr></thead><tbody>
               <tr><td>Gevelisolatie</td><td class="num">€ 20,25</td><td class="num">10–170</td></tr>
               <tr><td>Dakisolatie</td><td class="num">€ 16,25</td><td class="num">20–200</td></tr>
@@ -851,34 +880,33 @@
               <tr><td>Triple glas (met nieuwe kozijnen)</td><td class="num">€ 111</td><td class="num">3–45</td></tr>
             </tbody></table></div>
             Plus € 400 voor zuinige ventilatie (alleen samen met isolatie). Warmtepomp (lucht-water): € 1.025 + € 200 + € 225 per kW. Biobased isolatie krijgt een toeslag. <a href="https://www.rvo.nl/subsidies-financiering/isde/woningeigenaren" target="_blank" rel="noopener">RVO</a> · <a href="https://trustoo.nl/expert-blogs/energielabel-adviseur/subsidieoverzicht-2026/" target="_blank" rel="noopener">bedragen 2026</a></dd>
-          <dt>Extra isolatiesubsidie Amsterdam</dt>
-          <dd>Tot <b>€ 2.500</b> per woning (+ € 250 bij biobased materiaal) voor isolatie en ventilatie. Voor eigenaar-bewoners en VvE's, bij label D–G of minstens twee slecht geïsoleerde delen, en een WOZ-waarde t/m € 666.000. Je hebt eerst een (gratis) energieadvies van de gemeente nodig. Loopt t/m 30 juni 2028. <a href="https://solarmagazine.nl/nieuws-zonne-energie/i42649/amsterdam-breidt-subsidie-voor-isolatie-woningen-uit" target="_blank" rel="noopener">Solarmagazine</a></dd>
-          <dt>Energiebespaarlening (Warmtefonds)</dt>
-          <dd>Lening van € 1.000 tot € 29.000 voor verduurzamen, los van je hypotheek. <b>0% rente</b> bij een huishoudinkomen t/m € 60.000, anders ± 3,7–4,3% (2026). Looptijd 7–20 jaar, boetevrij aflossen. Er is ook een aparte lening voor VvE's. <a href="https://www.warmtefonds.nl" target="_blank" rel="noopener">Warmtefonds</a></dd>
+          <dt>SVVE (VvE's)</dt>
+          <dd>Rijkssubsidie voor VvE's: voor verduurzamingsadvies en voor maatregelen aan het gebouw (gevel, dak, glas, installaties). De VvE vraagt aan. <a href="https://www.rvo.nl/subsidies-financiering/svve/verduurzamingsmaatregelen" target="_blank" rel="noopener">RVO: SVVE</a></dd>
           <dt>Lager btw-tarief</dt>
-          <dd>Arbeid voor isolatie bij woningen ouder dan 2 jaar: 9% btw in plaats van 21% (materiaal blijft 21%). Zit al in de meeste offertes verwerkt.</dd>
+          <dd>Arbeid voor isolatie bij woningen ouder dan 2 jaar: 9% btw (materiaal 21%). Zonnepanelen: 0% btw.</dd>
         </dl>
       </div>
       <div class="card regcard">
-        <h3>Appartement &amp; VvE</h3>
+        <h3>Leningen</h3>
         <dl class="regl">
-          <dt>Wat gaat via de VvE</dt>
-          <dd>Gevel, dak, kozijnen in de buitengevel en de fundering zijn meestal van de VvE. Subsidies daarvoor vraagt de VvE aan, niet jij: de Rijksregeling SVVE en de Amsterdamse isolatiesubsidie gelden ook voor VvE's. Vraag bij een bezichtiging naar het meerjarenonderhoudsplan (MJOP) en geplande verduurzaming. <a href="https://www.rvo.nl/subsidies-financiering/svve/verduurzamingsmaatregelen" target="_blank" rel="noopener">RVO: SVVE</a></dd>
+          <dt>Energiebespaarlening (Warmtefonds)</dt>
+          <dd>€ 1.000 tot € 29.000 voor verduurzamen, los van je hypotheek. <b>0% rente</b> bij een huishoudinkomen t/m € 60.000, anders ± 3,7–4,3% (2026). Looptijd 7–20 jaar, boetevrij aflossen. <a href="https://www.actuelerentestanden.nl/rente-ontwikkeling/warmtefonds-rente" target="_blank" rel="noopener">Rentes 2026</a></dd>
+          <dt>VvE-lening (Warmtefonds)</dt>
+          <dd>Voor de VvE als geheel, ook voor onderhoud; tot € 50.000 per woning. <a href="https://solarmagazine.nl/nieuws-zonne-energie/i44873/vve-lening-warmtefonds-breidt-uit-naar-onderhoud-leenlimiet-omhoog-naar-50-000-euro-per-woning" target="_blank" rel="noopener">Solarmagazine</a></dd>
           <dt>Funderingsherstel</dt>
           <dd>Gaat via de VvE en kan per woning tienduizenden euro's kosten. Er bestaan speciale leningen (Fonds Duurzaam Funderingsherstel); vraag of er onderzoek is gedaan en of er geld voor gereserveerd is.</dd>
         </dl>
       </div>
-      <div class="card regcard">
+      <div class="card regcard regwide">
         <h3>Hoe de site dit meerekent</h3>
-        <p style="margin:0 0 8px">Staat “Subsidies meerekenen” aan (Onze situatie), dan trekt de site bij elke woning een grove schatting af van de opknapkosten. Alleen voor verduurzamen, en alleen als je opknapniveau niet “niets doen” is:</p>
-        <div class="scroll"><table class="mktbl regtbl"><thead><tr><th>Label</th><th class="num">Schatting</th><th>Opbouw</th></tr></thead><tbody>
-          <tr><td>A, B of C</td><td class="num">€ 0</td><td>weinig te verduurzamen</td></tr>
-          <tr><td>D</td><td class="num">± € 2.800</td><td>Amsterdam € 2.500 + ISDE glas (± 12 m² × € 25)</td></tr>
-          <tr><td>E</td><td class="num">± € 3.700</td><td>Amsterdam € 2.500 + ISDE glas en vloer (verdubbeld)</td></tr>
-          <tr><td>F of G</td><td class="num">± € 4.500</td><td>als E, plus ISDE ventilatie / warmtepomp-deel</td></tr>
-          <tr><td>Eengezinswoning E–G</td><td class="num">+ € 1.600</td><td>ISDE dakisolatie (± 50 m², verdubbeld)</td></tr>
+        <p style="margin:0 0 8px">Staat “Subsidies meerekenen” aan (Onze situatie), dan trekt de site per woning een grove schatting af van de opknapkosten. Alleen wat je zelf kunt aanvragen, alleen voor verduurzamen, en niet als je opknapniveau “niets doen” is. VvE-regelingen en de buurtregelingen hangen af van je VvE en zitten er dus níét in; die zie je wel als kans in de detailweergave.</p>
+        <div class="scroll"><table class="mktbl regtbl"><thead><tr><th>Label</th><th class="num">Appartement</th><th class="num">Eengezinswoning</th><th>Opbouw</th></tr></thead><tbody>
+          <tr><td>A, B of C</td><td class="num">€ 0</td><td class="num">€ 0</td><td>weinig te verduurzamen</td></tr>
+          <tr><td>D</td><td class="num">± € 300</td><td class="num">± € 2.800</td><td>ISDE glas; huis + Extra Isolatie Subsidie € 2.500</td></tr>
+          <tr><td>E</td><td class="num">± € 1.200</td><td class="num">± € 5.300</td><td>ISDE glas en vloer (verdubbeld); huis + EISA € 2.500 + ISDE dak € 1.600</td></tr>
+          <tr><td>F of G</td><td class="num">± € 2.000</td><td class="num">± € 8.600</td><td>als E, plus ventilatie/warmtepomp; huis + hybride warmtepomp € 2.500</td></tr>
         </tbody></table></div>
-        <p class="note">De Amsterdamse subsidie telt alleen mee bij een vraagprijs t/m € 666.000 (als benadering van de WOZ-grens). Subsidies krijg je achteraf: ze verlagen de totale kosten, maar niet het eigen geld dat je bij de koop nodig hebt.</p>
+        <p class="note">De gemeentelijke subsidies tellen alleen mee bij een vraagprijs t/m € 666.000 (als benadering van de WOZ-grens). Subsidies krijg je meestal achteraf: ze verlagen de totale kosten, maar niet het eigen geld dat je bij de koop nodig hebt.</p>
       </div>
     </div>
   </section>
@@ -1024,8 +1052,31 @@ const opknapDelen = (w) => { const n = niveauVan(w), l = (w.energielabel || '')[
   const duur = n === 'geen' ? 0 : (l ? DUUR[l] ?? 6000 : 6000) + (isHuis(w) && 'EFG'.includes(l || 'x') ? 8000 : 0); return {n, afw, duur, tot: Math.round((afw + duur) / 1000) * 1000}; };
 const opknapM2 = (w) => w.m2 ? opknapDelen(w).tot / w.m2 : 0;
 // Subsidies (grove schatting, achteraf uitbetaald): Amsterdam extra isolatiesubsidie (label D–G, WOZ t/m € 666.000) + ISDE
+// Wat je zelf kunt aanvragen: ISDE (ook appartement) + bij een eengezinswoning Extra Isolatie Subsidie (€ 2.500) en hybride warmtepomp (€ 2.500, F/G)
 const subsidie = (w) => { if (!fin.subsidies || niveauVan(w) === 'geen') return 0; const l = (w.energielabel || '')[0]; if (!l || !'DEFG'.includes(l)) return 0;
-  const ams = (w.prijsEind || w.prijs || 0) <= 666000 ? 2500 : 0, isde = l === 'D' ? 300 : l === 'E' ? 1200 : 2000; return Math.round((ams + isde + (isHuis(w) ? 1600 : 0)) / 100) * 100; };
+  const huis = isHuis(w), wozOk = (w.prijsEind || w.prijs || 0) <= 666000;
+  let t = l === 'D' ? 300 : l === 'E' ? 1200 : 2000;
+  if (huis) { if (wozOk) t += 2500; if (l !== 'D') t += 1600; if ('FG'.includes(l) && wozOk) t += 2500; }
+  return Math.round(t / 100) * 100; };
+// Buurten met de Amsterdamse regeling 'Verduurzamende woningverbetering' (Subsidieregeling duurzame Amsterdamse gebouwen, bijlagen II en V)
+const nB = (x) => String(x || '').toLowerCase().replace(/ e\.o\./, '').replace(/[^a-z0-9]/g, '');
+const VWB = {
+  'Noord': ['Banne-Noordoost', 'Banne-Noordwest', 'Banne-Zuidoost', 'Banne-Zuidwest', 'Blauwe Zand', 'Bloemenbuurt-Noord', 'Bloemenbuurt-Zuid', 'Buikslotermeerplein', 'De Kleine Wereld', 'Elzenhagen-Zuid', 'IJplein e.o.', 'Loenermark', 'Markengouw-Midden', 'Markengouw-Zuid', 'Molenwijk', 'NDSM terrein', 'Plan van Gool', 'Terrasdorp', 'Tuindorp Nieuwendam-Oost', 'Tuindorp Nieuwendam-West', 'Tuindorp Oostzaan-Oost', 'Tuindorp Oostzaan-West', 'Van der Pekbuurt', 'Vliegenbos', 'Vogelbuurt-Noord', 'Vogelbuurt-Zuid', 'Werengouw-Midden', 'Werengouw-Zuid'],
+  'Nieuw-West': ['Arondeusbuurt', 'Bakemabuurt', 'Bedrijvencentrum Osdorp', 'Belgiëplein e.o.', 'Botteskerkbuurt', 'Calandlaan/Lelylaan', 'Confuciusbuurt', 'Coronelbuurt', 'Delflandpleinbuurt-Oost', 'Dichtersbuurt', 'Dijkgraafpleinbuurt', 'Dobbebuurt', 'Dudokbuurt', 'Eendrachtspark', 'Emanuel van Meterenbuurt', 'Jacob Geelbuurt', 'Jan de Louterbuurt', 'Johan Jongkindbuurt', 'Lodewijk van Deysselbuurt', 'Louis Chrispijnbuurt', 'Louis Couperusbuurt', 'Meer en Oever', 'Meerwaldtbuurt', 'Middelveldsche Akerpolder', 'Nieuwe Meer', 'Noordoever Sloterplas', 'Ookmeer', 'Oostoever Sloterplas', 'Osdorpplein e.o.', 'Osdorp-Zuidoost', 'Overtoomse Veld-Noord', 'Reimerswaal', 'Riekerhaven', 'Ruys de Beerenbrouckbuurt', 'Sloterdijk Stationskwartier', 'Sloterpark', 'Staalmanbuurt', 'Van Tijenbuurt', 'Wegener Sleeswijkbuurt', 'Wildeman', 'Zuidwestkwadrant-Noord', 'Zuidwestkwadrant-Zuid'],
+  'Zuidoost': ['Venserpolder-Oost', 'Kantershof', 'Bijlmermuseum-Zuid', 'De Kameleon e.o.', 'Amsterdamse Poort', 'L-buurt', 'Kelbergen', 'Reigersbos 3', 'Reigersbos 2', 'K-buurt-Zuidoost', 'G-buurt-Oost', 'Gein 2', 'Rechte H-buurt', 'K-buurt-Zuidwest', 'Reigersbos 1', 'Hakfort/Huigenbos', 'Bijlmermuseum-Noord', 'Gein 4', 'D-buurt', 'Kortvoort', 'Reigersbos 4', 'Vogeltjeswei', 'Hoptille', 'G-buurt-West', 'Gein 1', 'G-buurt-Noord', 'Holendrecht-Zuid', 'F-buurt', 'Holendrecht-West', 'Amstel III deel A/B-Zuid', 'Venserpolder-West']};
+const vwbGebied = (w) => { const b = nB(w.buurt), k = nB(w.wijk); for (const [g, l] of Object.entries(VWB)) if (l.some((x) => nB(x) === b || nB(x) === k)) return g; return ''; };
+// Alle regelingen die bij deze woning kunnen gelden
+const subsidieKansen = (w) => {
+  const l = (w.energielabel || '')[0] || '', huis = isHuis(w), wozOk = (w.prijsEind || w.prijs || 0) <= 666000, slecht = !l || 'DEFG'.includes(l), g = vwbGebied(w), out = [];
+  if (g === 'Noord' || g === 'Nieuw-West') out.push(['Verduurzamende woningverbetering ' + g, huis ? '50% van de kosten, tot € 13.765 (eengezinswoning)' : '50% van de kosten, tot € 11.660 per woning, via de VvE', 'Deze buurt is aangewezen. Eisen: 3 labelstappen of label B, ventilatie, geen achterstallig onderhoud.']);
+  if (g === 'Zuidoost') out.push(['Verduurzamende woningverbetering Zuidoost', '50% tot € 9.400 per woning, via de VvE', 'Deze buurt is aangewezen.']);
+  if (slecht && wozOk) out.push(['Extra Isolatie Subsidie Amsterdam', huis ? 'tot € 2.500 (+ € 250 biobased)' : 'tot € 2.500 per woning, via de VvE', (l ? 'Label ' + l + '. ' : 'Label onbekend: telt als je twee slecht geïsoleerde delen hebt. ') + 'Eerst gratis energieadvies, aanvragen vóór de start.']);
+  if (huis && wozOk) out.push(['Hybride warmtepomp Amsterdam', '€ 2.500', 'Eengezinswoning, aanvragen vóór installatie, t/m 2027.']);
+  if (slecht || huis) out.push(['ISDE (Rijk)', 'per m² isolatie/glas, ventilatie € 400, warmtepomp', 'Achteraf aanvragen; dubbel bij twee isolatiemaatregelen. Geldt ook voor je eigen ramen en vloer in een appartement.']);
+  if (!huis) out.push(['SVVE en VvE-lening (Rijk/Warmtefonds)', 'voor de VvE', 'Voor gevel, dak en installaties van het gebouw.']);
+  out.push(['Energiebespaarlening (Warmtefonds)', '€ 1.000–29.000', '0% rente bij huishoudinkomen t/m € 60.000.']);
+  return out;
+};
 const opknap = (w) => VG[w.id] && VG[w.id].opknap !== '' && VG[w.id].opknap != null ? +VG[w.id].opknap : opknapDelen(w).tot;
 const totaal = (w) => w.prijs + kk(w) + opknap(w);
 // Past in budget: maximaal te lenen = min(max hypotheek, vraagprijs); de rest (incl. kosten koper en opknappen) uit eigen geld
@@ -1124,6 +1175,7 @@ const visible = () => {
     { const want = [['balkon', f.buitenBalkon], ['terras', f.buitenTerras], ['tuin', f.buitenTuin]].filter((x) => x[1]).map((x) => x[0]); if (want.length && !want.some((b) => buitenVan(w).includes(b))) return false; }
     if (f.goedLabel && !['A++++', 'A+++', 'A++', 'A+', 'A', 'B', 'C'].includes(w.energielabel)) return false;
     if (f.erfpachtAfgekocht && !/afgekocht|eigen grond/i.test(w.erfpacht || '')) return false;
+    if (f.vwb && !vwbGebied(w)) return false;
     if (f.budget && !pastBudget(w)) return false;
     const vs = (VG[w.id] || {}).status || '';
     if (f.metVoortgang && !vs) return false;
@@ -1173,7 +1225,7 @@ const buurtTree = () => {
 const markActive = () => {
   const f = filters();
   const n = {prijs: ['maxPrijs', 'maxPpm', 'minM2', 'minKamers'].filter((k) => f[k]).length,
-    meer: ['voorrangActief', 'nieuw', 'verbergBod', 'buiten', 'goedLabel', 'erfpachtAfgekocht'].filter((k) => f[k]).length + (f.verbergVerkocht ? 0 : 1)};
+    meer: ['voorrangActief', 'nieuw', 'verbergBod', 'buiten', 'goedLabel', 'erfpachtAfgekocht', 'vwb'].filter((k) => f[k]).length + (f.verbergVerkocht ? 0 : 1)};
   for (const k of ['corporatie', 'type']) n[k] = sel[k] ? sel[k].size : 0;
   n.stadsdeel = sel.buurt ? new Set([...sel.buurt].map((k) => k.split('|')[0])).size : 0;
   $('#voorbtn').setAttribute('aria-pressed', String(voorMode));
@@ -1456,8 +1508,9 @@ const openDetail = (w) => {
   if (w.erfpacht && !/afgekocht|eigen grond/i.test(w.erfpacht)) notes.push('Let op: erfpacht is mogelijk niet afgekocht; de canon komt hier nog bij.');
   if (!vve(w) && w.type && !/woning$|huis/i.test(w.type)) notes.push('VvE-bijdrage onbekend.');
   if (leenBedrag(wp) && leenBedrag(wp) <= 470000) notes.push('Lening onder € 470.000: NHG mogelijk (vaak lagere rente).');
+  const kans = el('details', 'dkans'); { const K = subsidieKansen(wp); kans.append(el('summary', null, `Subsidies en regelingen voor deze woning (${K.length})`)); const ul = el('ul'); K.forEach(([n, b, t]) => { const li = el('li'); li.append(el('b', null, n), ' · ' + b, el('div', 'muted', t)); ul.append(li); }); kans.append(ul); if (vwbGebied(w)) kans.open = true; }
   const regl = el('p', 'note'); { const a = link('Subsidies & regelingen →', '#regelingen'); a.removeAttribute('target'); a.onclick = (e) => { e.preventDefault(); closeDetail(); showTab('regelingen'); scrollTo(0, 0); }; regl.append(a); }
-  B.append(dsec('Kosten & maandlasten', null, sum, el('details', 'dcalc'), el('p', 'note', notes.join(' ')), regl));
+  B.append(dsec('Kosten & maandlasten', null, sum, kans, el('details', 'dcalc'), el('p', 'note', notes.join(' ')), regl));
   { const dt = B.querySelector('.dcalc'); dt.append(el('summary', null, 'Aannames aanpassen (rente, eigen geld, max. hypotheek…)'), calc); if (!fin.maxHyp) dt.open = false; }
   // 6. Prijs in context: markt, buurt, historie
   const ctx = el('div');
@@ -1753,7 +1806,8 @@ const INFO = {
   kostenKoper: ['Kosten koper', 'Overdrachtsbelasting plus notaris, taxatie en hypotheekadvies (samen vaak € 5.000–8.000). Deze kosten kun je niet meefinancieren: ze komen uit eigen geld. De verbouwing kan wél mee, via een bouwdepot.'],
   opknap: ['Opknapbudget', 'Schatting = woonoppervlak × bedrag per m² voor het opknapniveau (licht ± € 275, keuken/badkamer ± € 700, casco ± € 1.500 per m²) + verduurzamen op basis van het energielabel (€ 0 bij A/B tot ± € 16.000 bij F/G). Prijzen 2026 incl. btw. Kies het standaardniveau bij Onze situatie (Favorieten), per woning bij Onze voortgang, of vul na een bezichtiging je eigen bedrag in.'],
   bouwdepot: ['Bouwdepot', 'Bij aankoop mag je de verbouwing meefinancieren: de bank leent tot 100% van de getaxeerde marktwaarde ná verbouwing (taxateur rekent met je verbouwingsspecificatie). Voor energiebesparende maatregelen (isolatie, HR++-glas, warmtepomp, zonnepanelen) mag het tot 106%, plus extra leenruimte afhankelijk van het energielabel (tot € 20.000 bij label E–G). Het geld staat in een bouwdepot en wordt uitbetaald op facturen, meestal binnen 18–24 maanden. Voorwaarde blijft dat je inkomen de maandlasten toelaat; de site rekent ermee dat de verbouwing de waarde 1-op-1 verhoogt, de taxatie bepaalt het echt.'],
-  subsidie: ['Subsidies', 'Grove schatting van wat je terugkrijgt voor verduurzamen: de Amsterdamse extra isolatiesubsidie (tot € 2.500 bij label D–G en WOZ t/m € 666.000) plus ISDE van het Rijk (per m² isolatie/glas, verdubbeld bij twee maatregelen). Wordt achteraf uitbetaald, dus niet van je eigen geld bij de koop afgetrokken. Alle regelingen en voorwaarden: zie Subsidies & regelingen.'],
+  subsidie: ['Subsidies', 'Grove schatting van wat jullie zelf terugkrijgen voor verduurzamen: ISDE van het Rijk (ook bij een appartement), en bij een eengezinswoning de Amsterdamse Extra Isolatie Subsidie (€ 2.500) en de subsidie voor een hybride warmtepomp (€ 2.500). Regelingen via de VvE en buurtregelingen zitten er niet in; die staan per woning onder “Subsidies en regelingen voor deze woning”. Meestal achteraf uitbetaald.'],
+  vwb: ['Buurt met verduurzamingssubsidie', 'Woningen in buurten waar Amsterdam de regeling “Verduurzamende woningverbetering” heeft (delen van Noord, Nieuw-West en Zuidoost). Daar betaalt de gemeente 50% van een flinke verduurzaming, tot € 11.660 per appartement (via de VvE) of € 13.765 per eengezinswoning. Interessant bij een woning die toch opgeknapt moet worden: vraag de VvE of er al een plan is.'],
   maxHyp: ['Max. hypotheek', 'Hoeveel jullie maximaal kunnen lenen. Hangt af van inkomen, rente en energielabel; laat dit uitrekenen door een bank of adviseur. Vul je het in bij Onze situatie (Favorieten), dan rekent de site overal uit hoeveel eigen geld je nodig hebt en of een woning past. Leeg laten = alleen totale kosten zien.'],
   budget: ['Past in budget', 'Woning past als jullie eigen geld genoeg is voor wat je niet kunt lenen: de kosten koper, het deel boven je max. hypotheek, en het opknapbudget als je dat niet via een bouwdepot meefinanciert. Stel dit in bij Onze situatie op de Favorieten-pagina.'],
   zelfbewoning: ['Zelfbewoningsplicht', 'Je moet er zelf (blijven) wonen, vaak minimaal een aantal jaar. Verhuren of leeg laten staan mag niet; bij overtreding kan een flinke boete volgen.'],
