@@ -1157,11 +1157,16 @@
   "adres": "Ploegstraat 179",
   "corporatie": "Stadgenoot",
   "eerstGezien": "2026-11-08",
-  "offline": "",
+  "offline": "2026-11-11",
   "log": [
    {
     "d": "2026-11-09",
     "status": "beschikbaar",
+    "prijs": 375000
+   },
+   {
+    "d": "2026-11-11",
+    "status": "offline",
     "prijs": 375000
    }
   ]
