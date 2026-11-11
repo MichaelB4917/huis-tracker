@@ -764,6 +764,11 @@
     "d": "2026-11-09",
     "status": "onder bod",
     "prijs": 480000
+   },
+   {
+    "d": "2026-11-11",
+    "status": "verkocht o.v.b.",
+    "prijs": 480000
    }
   ]
  },
@@ -802,6 +807,11 @@
    {
     "d": "2026-11-09",
     "status": "beschikbaar",
+    "prijs": 350000
+   },
+   {
+    "d": "2026-11-11",
+    "status": "onder bod",
     "prijs": 350000
    }
   ]
@@ -881,6 +891,11 @@
     "d": "2026-11-09",
     "status": "onder bod",
     "prijs": 325000
+   },
+   {
+    "d": "2026-11-11",
+    "status": "beschikbaar",
+    "prijs": 325000
    }
   ]
  },
@@ -914,11 +929,16 @@
   "adres": "Vasco da Gamastraat 40-H",
   "corporatie": "Lieven de Key",
   "eerstGezien": "2026-11-08",
-  "offline": "",
+  "offline": "2026-11-11",
   "log": [
    {
     "d": "2026-11-09",
     "status": "beschikbaar",
+    "prijs": 450000
+   },
+   {
+    "d": "2026-11-11",
+    "status": "offline",
     "prijs": 450000
    }
   ]
@@ -945,6 +965,11 @@
    {
     "d": "2026-11-09",
     "status": "onder bod",
+    "prijs": 375000
+   },
+   {
+    "d": "2026-11-11",
+    "status": "verkocht o.v.b.",
     "prijs": 375000
    }
   ]
@@ -1120,6 +1145,11 @@
     "d": "2026-11-09",
     "status": "beschikbaar",
     "prijs": 425000
+   },
+   {
+    "d": "2026-11-11",
+    "status": "verkocht o.v.b.",
+    "prijs": 425000
    }
   ]
  },
@@ -1145,6 +1175,11 @@
    {
     "d": "2026-11-09",
     "status": "beschikbaar",
+    "prijs": 435000
+   },
+   {
+    "d": "2026-11-11",
+    "status": "verkocht o.v.b.",
     "prijs": 435000
    }
   ]

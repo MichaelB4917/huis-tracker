@@ -1,31 +1,29 @@
 {
- "bijgewerkt": "2026-11-11T06:35+00:00",
- "nieuw": [
-  "rd-7835f21c",
-  "rd-eb5e7cfa"
- ],
+ "bijgewerkt": "2026-11-11T12:20+00:00",
+ "nieuw": [],
  "fouten": [],
  "verrijking": [
-  "stadgenoot-status: 0 status gewijzigd, 1 offline",
+  "stadgenoot-status: 2 status gewijzigd, 0 offline",
   "stadgenoot-status: klaar in 18s",
   "funda: 0 woningen na 21 dagen offline gezet (status onbekend)",
   "funda: klaar in 0s",
-  "historie: 156 woningen, 2 offline",
+  "historie: 156 woningen, 3 offline",
   "historie: klaar in 0s",
-  "buurt-WOZ: 518 Amsterdamse buurten met CBS-code",
-  "buurt-WOZ: 3 woningen nieuw aan buurt gekoppeld, 154 met buurtwaarde",
-  "buurt-WOZ: klaar in 2s",
+  "buurt-WOZ: 0 woningen nieuw aan buurt gekoppeld, 153 met buurtwaarde",
+  "buurt-WOZ: klaar in 0s",
   "stadgenoot: 0 detailpagina's gelezen",
   "stadgenoot: klaar in 0s",
-  "foto's: 2 gevonden, 150 van 154 woningen met foto",
-  "fotos: klaar in 2s",
-  "buitenruimte: 2 advertenties gelezen · balkon 113, terras 9, tuin 27, geen 12",
-  "buitenruimte: klaar in 2s",
+  "foto's: 0 gevonden, 149 van 153 woningen met foto",
+  "fotos: klaar in 0s",
+  "buitenruimte: 0 advertenties gelezen · balkon 113, terras 9, tuin 26, geen 12",
+  "buitenruimte: klaar in 0s",
   "energielabel: geen EP_ONLINE_KEY ingesteld, overgeslagen",
   "energielabel: klaar in 0s",
-  "fundering: 3 postcodes opgezocht",
-  "fundering: klaar in 6s",
-  "archief: 156 woningen, 2 niet meer online",
-  "archief: klaar in 0s"
+  "fundering: 0 postcodes opgezocht",
+  "fundering: klaar in 0s",
+  "archief: 156 woningen, 3 niet meer online",
+  "archief: klaar in 0s",
+  "wijkgrenzen: 110 wijken opgehaald",
+  "wijkgrenzen: klaar in 2s"
  ]
 }
