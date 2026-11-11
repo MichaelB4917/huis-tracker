@@ -323,6 +323,7 @@
   .regcards { display: grid; grid-template-columns: 1fr; gap: 0 12px; } @media (min-width: 1000px) { .regcards { grid-template-columns: 1fr 1fr; } }
   .regcard h3 { margin: 0 0 8px; font-size: 16px; } .regl { margin: 0; } .regl dt { font-weight: 700; margin-top: 12px; } .regl dt:first-child { margin-top: 0; }
   .regl dd { margin: 3px 0 0; line-height: 1.55; font-size: 14px; } .regtbl { margin: 6px 0; font-size: 13px; } .regtbl td { white-space: normal; }
+  .slimlet ul { margin: 0; padding-left: 18px; line-height: 1.5; font-size: 14px; } .slimlet li { margin-bottom: 6px; } .sljaren { font-size: 13px; color: var(--muted); display: inline-flex; align-items: center; } .sljaren select { margin-left: 4px; height: 30px; border: 1px solid var(--line); border-radius: 8px; background: var(--panel); color: var(--fg); font: inherit; }
   .slimgrid { display: grid; grid-template-columns: 1fr; gap: 0 12px; } @media (min-width: 1200px) { .slimgrid { grid-template-columns: 1fr 1fr; } .slimgrid .mktbl th { white-space: normal; } }
   .slimkop { display: flex; flex-wrap: wrap; gap: 8px 18px; align-items: center; margin: 4px 0 10px; }
   .slimtbl td { vertical-align: top; } .slimtbl tbody tr { cursor: pointer; } .slimtbl td b { font-weight: 600; }
@@ -1710,8 +1711,18 @@ const SLIM = {
   labelAdj: {'A+': .078, A: .044, B: .024, C: 0, D: -.038, E: -.060, F: -.087, G: -.122, '': -.03},
   staat: {geen: 1, licht: .95, gemiddeld: .88, casco: .80},
   gasM2: {'A+': 12, A: 18, B: 24, C: 30, D: 36, E: 42, F: 48, G: 53, '': 36},
-  doelLabel: 'B', jaren: 10,
+  verkoop: .015, // makelaar en notaris bij doorverkoop, ± 1,5% van de waarde
 };
+// Welk label haal je zelf? Binnen de woning (glas in eigen kozijnen, vloer, binnenisolatie, ventilatie, (hybride) warmtepomp) kom je meestal 1–2 stappen omhoog.
+// Gevel, dak en kozijnen in de buitengevel zijn bij een appartement van de VvE, en in beschermd stadsgezicht (grote delen van Amsterdam binnen de ring) mag de buitenkant niet zomaar veranderen.
+const LORDE = ['G', 'F', 'E', 'D', 'C', 'B', 'A', 'A+'];
+const bereikbaar = (w) => { const L0 = lblKey(w.energielabel), d = opknapDelen(w), i = LORDE.indexOf(L0); if (i < 0 || !d.duur || d.n === 'geen') return {L1: L0, stappen: 0, reden: ''};
+  const huis = isHuis(w), oud = +w.bouwjaar && +w.bouwjaar < 1945;
+  const max = huis ? 3 : 2, plafond = LORDE.indexOf(huis && !oud ? 'B' : 'C'), j = Math.max(i, Math.min(i + max, plafond));
+  const reden = huis ? (oud ? 'vooroorlogse eengezinswoning: massieve muren zonder spouw, gevel vaak beschermd, dus binnenisolatie, dak, vloer, glas en warmtepomp; max. ± label C' : 'eengezinswoning: dak, vloer, glas en warmtepomp zelf te doen; max. ± 3 stappen')
+    : 'appartement: alleen binnenwerk (glas in eigen kozijnen, vloer, ventilatie, warmtepomp); gevel en dak gaan via de VvE, dus max. ± 2 stappen tot label C';
+  return {L1: LORDE[j], stappen: j - i, reden}; };
+const SLJAREN = [2, 3, 5];
 const lblKey = (l) => /^A\+/.test(l || '') ? 'A+' : (l || '')[0] || '';
 const marktM2Sd = (w) => { if (!MREF || !MREF.gebieden) return null; const g = MREF.gebieden[w.stadsdeel] || MREF.gebieden.Amsterdam; return isHuis(w) ? g.tot.m2 : g.app.m2; };
 // Buurtniveau: WOZ per m² van de buurt × (marktprijs / mediane buurt-WOZ) in het stadsdeel. Zo telt mee dat de ene buurt goedkoper is dan de andere.
@@ -1722,19 +1733,19 @@ const marktM2Type = (w) => { const r = w.buurtWozM2 ? sdRatio(w.stadsdeel) : nul
 const anti = (w) => { const r = (R || []).find((x) => x.corporatie === w.corporatie); return r ? r.antispeculatie || '' : ''; };
 const analyse = (w) => {
   const m2 = +w.m2, mm = marktM2Type(w); if (!m2 || !mm || !w.prijs) return null;
-  const d = opknapDelen(w), n = d.n, L0 = lblKey(w.energielabel), L1 = d.duur > 0 && n !== 'geen' ? SLIM.doelLabel : L0;
+  const d = opknapDelen(w), n = d.n, L0 = lblKey(w.energielabel), br = bereikbaar(w), L1 = br.L1;
   const adj = (l) => SLIM.labelAdj[l] ?? SLIM.labelAdj[''];
   const mw0 = m2 * mm * (1 + adj(L0)) * (SLIM.staat[n] ?? .88);               // waarde nu, in huidige staat
   const v = m2 * mm * (1 + adj(L1)) * (n === 'geen' ? (SLIM.staat.geen) : 1); // waarde na opknappen
   const sb = subsidie(w), kost = w.prijs + kk(w) + opknap(w) - sb;
   const gasF = isHuis(w) ? 1 : .7, besparing = Math.max(0, (SLIM.gasM2[L0] ?? 36) - (SLIM.gasM2[L1] ?? 36)) * m2 * gasF;
   const labelWinst = m2 * mm * (adj(L1) - adj(L0));
-  const verdWinst = d.duur ? labelWinst + sb + besparing * SLIM.jaren - d.duur : 0;
+  const verdWinst = d.duur ? labelWinst + sb + besparing * SL.jaren - d.duur : 0, vk = v * SLIM.verkoop;
   const ml = maandlast(w), huur = +fin.huur || 0;
-  return {w, m2, mm, L0, L1, mw0, v, sb, kost, sprong: v - kost, sprongPct: (v - kost) / kost * 100, korting: (1 - w.prijs / mw0) * 100,
+  return {w, m2, mm, L0, L1, br, mw0, v, sb, kost, vk, sprong: v - kost - vk, sprongPct: (v - kost - vk) / kost * 100, korting: (1 - w.prijs / mw0) * 100,
     besparing, verdWinst, labelWinst, ml, mlNetto: ml - besparing / 12, verschilHuur: huur ? ml - besparing / 12 - huur : null, past: pastBudget(w), en: eigenNodig(w), gebied: vwbGebied(w), anti: anti(w)};
 };
-const SL = {sort: 'sprong', budget: true, voor: false, n: 15};
+const SL = {sort: 'sprong', budget: true, voor: false, n: 15, jaren: 3};
 const SLSORT = {sprong: ['Waardesprong (€)', (a) => a.sprong], sprongPct: ['Waardesprong (%)', (a) => a.sprongPct], verd: ['Verduurzamingswinst', (a) => a.verdWinst], ml: ['Laagste maandlast', (a) => -a.mlNetto], sb: ['Meeste subsidiekans', (a) => a.sb + (a.gebied ? 10000 : 0)]};
 const renderSlim = () => {
   const box = $('#slimbox'); if (!box) return;
@@ -1745,7 +1756,8 @@ const renderSlim = () => {
   const kop = el('div', 'slimkop');
   const segS = el('div', 'mkseg'); Object.entries(SLSORT).forEach(([k, [t]]) => { const b = el('button', null, t); b.setAttribute('aria-pressed', String(SL.sort === k)); b.onclick = () => { SL.sort = k; renderSlim(); }; segS.append(b); });
   const tg = (k, t) => { const l = el('label', 'check sw'); const i = el('input'); i.type = 'checkbox'; i.checked = SL[k]; i.onchange = () => { SL[k] = i.checked; renderSlim(); }; l.append(i, ' ' + t); return l; };
-  kop.append(segS, tg('budget', heeftBudget() ? 'Alleen binnen ons budget' : 'Binnen budget (vul eerst Onze situatie in)'), tg('voor', 'Alleen waar ik voorrang kan krijgen'));
+  const jl = el('label', 'sljaren', 'We wonen er ± '); const js = el('select'); SLJAREN.forEach((j) => { const o = el('option', null, j + ' jaar'); o.value = j; o.selected = SL.jaren === j; js.append(o); }); js.onchange = () => { SL.jaren = +js.value; renderSlim(); }; jl.append(js);
+  kop.append(segS, jl, tg('budget', heeftBudget() ? 'Alleen binnen ons budget' : 'Binnen budget (vul eerst Onze situatie in)'), tg('voor', 'Alleen waar ik voorrang kan krijgen'));
   // Top-lijst
   const tbl = el('table', 'mktbl slimtbl'); const th = el('tr');
   [['Woning'], ['Vraagprijs', 'num'], ['Label', ''], ['Alles-in', 'num', 'kostenKoper'], ['Waarde na opknappen', 'num', 'waardeNa'], ['Waardesprong', 'num', 'waardesprong'], ['Verduurzamingswinst', 'num', 'verduurzamingswinst'], ['Subsidie', 'num', 'subsidie'], ['Maandlast netto', 'num', 'woonlasten'], [heeftBudget() ? 'Eigen geld' : '', 'num']].forEach(([t, c, i]) => { const e = el('th', c || null, t); if (i) e.append(ii(i)); th.append(e); });
@@ -1754,7 +1766,7 @@ const renderSlim = () => {
     const tr = el('tr'); const c0 = el('td'); const d = el('span', 'cd'); d.style.background = corpColor(a.w.corporatie);
     c0.append(el('span', 'slimnr', String(i + 1)), el('b', null, a.w.adres)); const sub = el('div', 'mkmut'); sub.append(d, `${a.w.corporatie} · ${a.w.wijk || a.w.stadsdeel} · ${a.m2} m²`); c0.append(sub);
     if (a.gebied) c0.append(el('span', 'slimtag', '50%-subsidiegebied'));
-    const lb = el('td'); lb.append(el('span', 'elabel sm l-' + (a.L0 || 'none'), a.L0 || '?'), a.L1 !== a.L0 ? ' → ' + a.L1 : '');
+    const lb = el('td'); lb.append(el('span', 'elabel sm l-' + (a.L0 || 'none'), a.L0 || '?'), a.L1 !== a.L0 ? ' → ' + a.L1 : ''); if (a.br.reden) lb.title = 'Zelf haalbaar: ' + a.br.reden;
     const sp = el('td', 'num ' + (a.sprong >= 0 ? 'lo' : 'hi'), (a.sprong >= 0 ? '+' : '−') + eur.format(Math.abs(Math.round(a.sprong / 1000) * 1000))); sp.append(el('span', 'mkwas', fmtPct(a.sprongPct)));
     const vw = el('td', 'num' + (a.verdWinst > 0 ? ' lo' : a.verdWinst < 0 ? ' hi' : ''), a.verdWinst ? (a.verdWinst > 0 ? '+' : '−') + eur.format(Math.abs(Math.round(a.verdWinst / 1000) * 1000)) : '–');
     const ml = el('td', 'num', '≈ ' + eur.format(Math.round(a.mlNetto / 10) * 10)); if (a.verschilHuur != null) ml.append(el('span', 'mkwas', (a.verschilHuur >= 0 ? '+' : '−') + eur.format(Math.abs(Math.round(a.verschilHuur / 10) * 10)) + ' t.o.v. huur'));
@@ -1764,7 +1776,7 @@ const renderSlim = () => {
   });
   tbl.append(hd, tb); const sc = el('div', 'scroll'); sc.append(tbl);
   const topCard = el('div', 'card'); const h3 = el('h3', null, 'Beste kansen nu'); topCard.append(h3, kop, sc);
-  topCard.append(el('p', 'note', rows.length ? `${Math.min(SL.n, rows.length)} van ${rows.length} woningen. Waardesprong = geschatte waarde na opknappen − alles-in (vraagprijs + kosten koper + opknappen − subsidie). Klik voor details.` : 'Geen woningen binnen deze selectie.'));
+  topCard.append(el('p', 'note', rows.length ? `${Math.min(SL.n, rows.length)} van ${rows.length} woningen. Waardesprong = geschatte waarde na opknappen − alles-in (vraagprijs + kosten koper + opknappen − subsidie) − verkoopkosten (± 1,5%), dus wat er netto overblijft als jullie na ± ${SL.jaren} jaar verkopen (zonder marktstijging). Label → wat jullie zelf realistisch halen. Klik voor details.` : 'Geen woningen binnen deze selectie.'));
   if (rows.length > SL.n) { const b = el('button', 'mini', 'Toon meer'); b.onclick = () => { SL.n += 15; renderSlim(); }; topCard.append(b); }
   // Waar zit de winst: per label en per stadsdeel
   const groep = (key, ord) => { const G = {}; all.forEach((a) => { const k = key(a); if (k) (G[k] ||= []).push(a); }); return (ord || Object.keys(G).sort()).filter((k) => G[k]).map((k) => [k, G[k]]); };
@@ -1780,7 +1792,7 @@ const renderSlim = () => {
   const st26 = 555000, st27 = 615000, tussen = all.filter((a) => a.w.prijs > st26 && a.w.prijs <= st27);
   if (tussen.length) tips.push(['Startersvrijstelling: wacht met de overdracht tot 2027', `${tussen.length} woning${tussen.length === 1 ? ' kost' : 'en kosten'} tussen € 555.000 en € 615.000. Zijn jullie (een van jullie) 18–35 en kopen jullie voor het eerst: in 2026 betaal je daarover 2% overdrachtsbelasting (€ 11.000–12.300), vanaf 1 januari 2027 waarschijnlijk 0% (Belastingplan). De datum bij de notaris telt, niet die van het bod.`]);
   const lp = groep(lblG, ['A of B', 'C of D', 'E, F of G']).map(([k, as]) => [k, med(as, (a) => a.verdWinst)]).filter(([, v]) => v != null).sort((a, b) => b[1] - a[1]);
-  if (lp.length > 1) tips.push(['Verduurzamen loont het meest bij label ' + lp[0][0], `Mediane verduurzamingswinst: ${lp.map(([k, v]) => k + ' ' + eurK(v)).join(' · ')} (waardestijging door een beter label + subsidie + ${SLIM.jaren} jaar lagere energierekening − kosten). Een slecht label is dus vaak geen reden om af te haken, maar juist een kans, zolang de verbouwing in het bouwdepot past.`]);
+  if (lp.length > 1) tips.push(['Verduurzamen loont het meest bij label ' + lp[0][0], `Mediane verduurzamingswinst: ${lp.map(([k, v]) => k + ' ' + eurK(v)).join(' · ')} (waardestijging door het haalbare betere label + subsidie + ${SL.jaren} jaar lagere energierekening − kosten). Bij een appartement haal je zelf meestal maar 1–2 stappen; de grote sprong komt pas als de VvE gevel en dak aanpakt.`]);
   const huis = all.filter((a) => isHuis(a.w) && 'EFG'.includes(a.L0) && a.w.prijs <= 666000);
   tips.push(['Eengezinswoning met label E–G onder € 666.000 = meeste subsidie', `Daar stapelen ISDE, de Amsterdamse Extra Isolatie Subsidie (€ 2.500) en de hybride-warmtepompsubsidie (€ 2.500) tot ± € 8.600. Bij een appartement is het ± € 300–2.000, omdat gevel en dak via de VvE gaan. ` + (huis.length ? `Nu ${huis.length} zulke woning${huis.length === 1 ? '' : 'en'} in de lijst.` : 'Er staat er nu geen in de lijst; het filter Type of een melding helpt om ze niet te missen.')]);
   const geb = all.filter((a) => a.gebied); if (geb.length) tips.push(['Grootste hefboom: de 50%-buurten', `${geb.length} woningen liggen in buurten waar Amsterdam 50% van een grote verduurzaming betaalt (tot € 11.660 per appartement via de VvE, € 13.765 per eengezinswoning). Vraag bij de bezichtiging of de VvE al een plan heeft: dan krijg je een betere woning voor een deel van de prijs.`]);
@@ -1791,14 +1803,22 @@ const renderSlim = () => {
   const oud = all.filter((a) => +a.w.bouwjaar && +a.w.bouwjaar < 1970 && /80-100|60-80/.test(a.w.fundering || '')); if (oud.length) tips.push(['Fundering checken bij oude panden', `${oud.length} woningen zijn van vóór 1970 in een postcode met veel oude funderingen. Vraag naar funderingsonderzoek en het VvE-reservefonds: herstel kan tienduizenden euro’s per woning kosten en zit niet in deze berekening.`]);
   tips.push(['Triple glas en warmtepomp: vóór 2027 kopen', 'De ISDE voor triple glas daalt van € 111 naar € 55 per m² en voor een lucht-water warmtepomp van € 225 naar € 120 per kW. Wat je vóór 31 december 2026 koopt, valt nog onder 2026.']);
   tips.push(['Het is een woning, geen flip', 'Corporaties leggen zelfbewoning en een anti-speculatiebeding vast (2–3 jaar, Eigen Haard: 36 maanden meerwaarde afdragen). De waardesprong is dus vermogen op lange termijn, niet iets om snel te verzilveren. Zie Voorrangsregels.']);
+  const wc = el('div', 'card slimlet'); wc.append(el('h3', null, 'Let op bij deze cijfers')); const wl = el('ul');
+  [['Niet elk label is haalbaar.', 'Zelf kun je alleen binnenwerk doen: glas in eigen kozijnen, vloerisolatie, binnenisolatie, ventilatie en een (hybride) warmtepomp. Dat is meestal 1–2 labelstappen. Van G naar B lukt bij een appartement nooit alleen.'],
+   ['Gevel, dak en buitenkozijnen zijn van de VvE.', 'Bij een appartement beslist de VvE daarover (meerderheid in de vergadering, geld uit het reservefonds of een heffing). Vraag het meerjarenonderhoudsplan en of er een verduurzamingsplan is.'],
+   ['Beschermd stadsgezicht en monumenten.', 'Binnen de ring en in delen van Oud-Zuid, Oud-West en Noord (tuindorpen) mag je de buitenkant niet zomaar veranderen: geen buitengevelisolatie, kozijnen in het oorspronkelijke model, vaak een omgevingsvergunning. Dan blijft het bij binnenisolatie.'],
+   ['Kort wonen = verkoopkosten tellen zwaar.', `Bij ± ${SL.jaren} jaar wonen gaat er bij verkoop ± 1,5% af (makelaar, notaris) en betaal je bij de volgende woning opnieuw kosten koper. Marktstijging is niet meegerekend. Het anti-speculatiebeding van de corporatie kan de eerste jaren een deel van de winst afromen.`],
+   ['Een schatting, geen taxatie.', 'De waarde komt uit de WOZ van de buurt en marktcijfers van het stadsdeel; per woning kan dat tienduizenden euro’s schelen. Fundering, asbest en achterstallig VvE-onderhoud zitten er niet in.'],
+   ['Energiebesparing hangt af van de gasprijs en jullie verbruik.', 'Gerekend met prijzen 2026/27; bij een warmtepomp stijgt de stroomrekening deels mee.']]
+    .forEach(([b, t]) => { const li = el('li'); li.append(el('b', null, b + ' '), t); wl.append(li); }); wc.append(wl);
   const tc = el('div', 'card'); tc.append(el('h3', null, 'Slimme regels voor jullie')); const ul = el('ol', 'slimtips'); tips.forEach(([t, x]) => { const li = el('li'); li.append(el('b', null, t), el('div', null, x)); ul.append(li); }); tc.append(ul);
   // Methode
   const m = el('details', 'card slimmethode'); m.append(el('summary', null, 'Hoe rekent Slim kopen?'));
-  m.append(el('p', null, `Waarde na opknappen = m² × geschatte marktprijs per m² in de buurt (gemiddelde WOZ per m² van de buurt × de verhouding tussen echte verkoopprijzen (NVM/MVA, ${MREF.periode}) en WOZ in dat stadsdeel) × correctie voor het energielabel na verduurzamen (label ${SLIM.doelLabel}). Waarde nu = hetzelfde met het huidige label en een korting voor de staat (licht −5%, keuken/badkamer −12%, casco −20%). Alles-in = vraagprijs + kosten koper (incl. dubbele lasten en NHG) + opknapbudget − subsidies. Verduurzamingswinst = waardestijging door het betere label + subsidies + ${SLIM.jaren} jaar lagere gasrekening − kosten verduurzamen. Maandlast netto = hypotheek + VvE + canon − besparing op gas.`),
+  m.append(el('p', null, `Waarde na opknappen = m² × geschatte marktprijs per m² in de buurt (gemiddelde WOZ per m² van de buurt × de verhouding tussen echte verkoopprijzen (NVM/MVA, ${MREF.periode}) en WOZ in dat stadsdeel) × correctie voor het energielabel dat jullie zelf realistisch halen (appartement max. 2 stappen tot C, eengezinswoning max. 3 stappen tot B, vooroorlogs tot C). Waarde nu = hetzelfde met het huidige label en een korting voor de staat (licht −5%, keuken/badkamer −12%, casco −20%). Alles-in = vraagprijs + kosten koper (incl. dubbele lasten en NHG) + opknapbudget − subsidies. Waardesprong = waarde na opknappen − alles-in − verkoopkosten (1,5%). Verduurzamingswinst = waardestijging door het betere label + subsidies + ${SL.jaren} jaar lagere gasrekening − kosten verduurzamen. Maandlast netto = hypotheek + VvE + canon − besparing op gas.`),
     el('p', 'note', 'Labelpremies: NVM/brainbay 2024 (A +4,4%, B +2,4%, D −3,8%, E −6%, F −8,7%, G −12,2% t.o.v. C). Gas per m²: label G ± € 53, A ± € 15–22 per m² per jaar (100 m², 2026/27), appartement × 0,7. Kluswoning ± 20% onder instapklaar (brainbay 2026). De aannames worden 8 januari en 8 juli opnieuw gecontroleerd. Dit is een vergelijkingshulp, geen taxatie of advies.'));
   { const p = el('p', 'note'); p.append('Bronnen: ', link('NVM: energielabels op de woningmarkt', 'https://www.nvm.nl/media/w3xm2oy0/bijlage-4-energielabels-op-de-woningmarkt-themaonderzoek-bij-nvm-kwartaalcijfers-2024-1.pdf'), ' · ', link('HomeFinance: label G vs A', 'https://www.homefinance.nl/nieuws-blog/2026/een-huis-met-label-g-kost-je-per-maand-fors-meer-dan-een-huis-met-label-a-301972/'), ' · ', link('NHG/brainbay: verduurzamen loont', 'https://solarmagazine.nl/nieuws-zonne-energie/i41514/verduurzaming-woning-levert-bijna-2-keer-zo-veel-op-als-investering'), ' · ', link('Hypotheker: kluswoning', 'https://www.hypotheker.nl/actueel/nieuwsberichten/2026/kluswoning-na-verbouwing-gemiddeld-flink-meer-waard/')); m.append(p); }
   const grid = el('div', 'slimgrid'); grid.append(perLabel, perSd);
-  box.replaceChildren(topCard, tc, grid, m);
+  box.replaceChildren(topCard, wc, tc, grid, m);
 };
 
 // Tabblad Onze lijst: overzicht en beheer
@@ -2022,8 +2042,8 @@ const INFO = {
   dubbel: ['Dubbele lasten', 'De maanden dat je zowel huur als hypotheek betaalt: de opzegtermijn van je huur (meestal 1 maand) plus de tijd dat je verbouwt voordat je verhuist. Standaard 2 maanden; bij een flinke verbouwing eerder 3–6. Dit betaal je uit eigen geld en telt mee in “eigen geld nodig”. Tip: de rente over het bouwdepot wordt tijdens de verbouwing meestal (deels) verrekend.'],
   nhg: ['Nationale Hypotheek Garantie', 'Met NHG mag je lening niet hoger zijn dan de NHG-grens: € 470.000 in 2026, € 500.000 vanaf 2027, plus maximaal 6% voor energiebesparende maatregelen. Je betaalt eenmalig 0,4% borgtochtprovisie (uit eigen geld), maar krijgt meestal 0,3–0,6% lagere rente: pas dan ook de rente aan. Bij gedwongen verkoop met verlies kan een restschuld worden kwijtgescholden.'],
   canon: ['Erfpachtcanon', 'Als de erfpacht niet (eeuwigdurend) is afgekocht, betaal je jaarlijks canon aan de gemeente. Banken tellen die mee als woonlast: hij verlaagt hoeveel je kunt lenen (± € 18.000 minder lening per € 1.000 canon per jaar bij 4% rente) en komt bij je maandlasten. Het bedrag staat in de advertentie of het erfpachtbesluit.'],
-  waardesprong: ['Waardesprong', 'Geschatte waarde na opknappen min alles wat je erin stopt (vraagprijs, kosten koper, opknapbudget, min subsidie). Positief = je koopt (met verbouwing) onder de marktwaarde. Bij corporatiewoningen is dat vaak zo, omdat ze met voorrang voor de vraagprijs worden verkocht. Let op het anti-speculatiebeding: het is vermogen op lange termijn.'],
-  verduurzamingswinst: ['Verduurzamingswinst', 'Wat verduurzamen netto oplevert: waardestijging door een beter energielabel (label B na verbouwing) + subsidies + 10 jaar lagere gasrekening − de kosten van verduurzamen. Positief = verduurzamen verdient zichzelf terug (vaak bij label E–G).'],
+  waardesprong: ['Waardesprong', 'Geschatte waarde na opknappen min alles wat je erin stopt (vraagprijs, kosten koper, opknapbudget, min subsidie). Positief = je koopt (met verbouwing) onder de marktwaarde. Bij corporatiewoningen is dat vaak zo, omdat ze met voorrang voor de vraagprijs worden verkocht. Verkoopkosten (± 1,5%) zijn er al af. Let op het anti-speculatiebeding.'],
+  verduurzamingswinst: ['Verduurzamingswinst', 'Wat verduurzamen netto oplevert: waardestijging door het label dat je zelf realistisch haalt (appartement ± 2 stappen, eengezinswoning ± 3) + subsidies + lagere gasrekening over de jaren dat jullie er wonen − de kosten van verduurzamen. Positief = verduurzamen verdient zichzelf terug.'],
   maxHyp: ['Max. hypotheek', 'Hoeveel jullie maximaal kunnen lenen. Hangt af van inkomen, rente en energielabel; laat dit uitrekenen door een bank of adviseur. Vul je het in bij Onze situatie (Favorieten), dan rekent de site overal uit hoeveel eigen geld je nodig hebt en of een woning past. Leeg laten = alleen totale kosten zien.'],
   budget: ['Past in budget', 'Woning past als jullie eigen geld genoeg is voor wat je niet kunt lenen: de kosten koper, het deel boven je max. hypotheek, en het opknapbudget als je dat niet via een bouwdepot meefinanciert. Stel dit in bij Onze situatie op de Favorieten-pagina.'],
   zelfbewoning: ['Zelfbewoningsplicht', 'Je moet er zelf (blijven) wonen, vaak minimaal een aantal jaar. Verhuren of leeg laten staan mag niet; bij overtreding kan een flinke boete volgen.'],
