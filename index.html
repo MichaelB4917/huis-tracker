@@ -291,6 +291,7 @@
   .mkintro { margin: -4px 0 12px; max-width: 900px; line-height: 1.5; }
   .mkfilt { display: flex; flex-wrap: wrap; gap: 10px 16px; align-items: center; margin-bottom: 12px; }
   .mkfilt label:not(.check) { display: flex; gap: 6px; align-items: center; font-size: 14px; color: var(--muted); }
+  .mkfilt label.mchip { color: var(--fg); font-size: 13px; display: inline-flex; } #mkcorps { width: 100%; }
   .mkfilt select, .mkfilt input[type=search] { height: 34px; border: 1px solid var(--line); border-radius: 8px; background: var(--panel); color: var(--fg); padding: 0 8px; font: inherit; font-size: 14px; }
   .mkfilt input[type=search] { flex: 1 1 220px; }
   .mkkpi { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 10px; margin-bottom: 12px; }
@@ -686,9 +687,9 @@
     <p class="muted mkintro">Alle corporatiewoningen die de site ooit zag, ook als ze inmiddels weg zijn. Het gaat om vraagprijzen; echte verkoopprijzen publiceren corporaties niet. Doorlooptijden meet de site alleen bij woningen die na de start (8 november 2026) binnenkwamen. Woningen die alleen via Funda binnenkomen (Ymere) kan de site niet volgen: die gaan na 3 weken uit de lijst en tellen niet mee voor doorlooptijden. Hoe langer de site draait, hoe betrouwbaarder de cijfers.</p>
     <div class="mkfilt">
       <label>Periode <select id="mkper"><option value="alle">Alles</option><option value="365">Laatste 12 maanden</option><option value="91">Laatste 3 maanden</option><option value="30">Laatste 30 dagen</option></select></label>
-      <label>Corporatie <select id="mkcorp"><option value="">Alle</option></select></label>
       <label>Stadsdeel <select id="mksd"><option value="">Alle</option></select></label>
       <label class="check sw"><input type="checkbox" id="mkvj"> Alleen waar ik voorrang kan krijgen</label>
+      <div class="mcorps" id="mkcorps"></div>
     </div>
     <div class="mkkpi" id="mkkpi"></div>
     <div class="mkgrid2">
@@ -1373,11 +1374,14 @@ const evItem = (e) => { const byW = W.find((w) => w.id === e.id); const li = el(
 const dagNaam = (d) => { const t = localDate(new Date().toISOString()), y = localDate(new Date(Date.now() - 864e5).toISOString());
   return d === t ? 'Vandaag' : d === y ? 'Gisteren' : new Date(d + 'T12:00:00').toLocaleDateString('nl-NL', {weekday: 'long', day: 'numeric', month: 'long'}); };
 let mPrefs = {voormij: false, uit: []}; try { mPrefs = {...mPrefs, ...JSON.parse(store.get('mprefs') || '{}')}; } catch (e) {}
-const mFilter = (e) => { if (mPrefs.uit.includes(e.corp)) return false; if (mPrefs.voormij) { const w = W.find((x) => x.id === e.id); if (!w || voorJou(w) === 'nee') return false; } return true; };
+const mFilter = (e) => !mPrefs.uit.includes(e.corp);
 const renderMeldingen = (H) => {
   H = H || HIST || {};
-  const mv = $('#mvoormij'); mv.checked = mPrefs.voormij; mv.onchange = () => { mPrefs.voormij = mv.checked; store.set('mprefs', JSON.stringify(mPrefs)); renderMeldingen(); };
   const corps = [...new Set(W.map((w) => w.corporatie))].sort();
+  // Voorrang-schakelaar zet de corporatie-vinkjes; daarna zelf bij te stellen; uit = alles weer aan
+  const mv = $('#mvoormij'); mv.checked = mPrefs.voormij;
+  mv.onchange = () => { if (mv.checked && !profiel) { mv.checked = false; $('#profmodal').hidden = false; return; }
+    mPrefs.voormij = mv.checked; mPrefs.uit = mv.checked ? corps.filter((c) => voorJouCorp(c) === 'nee') : []; store.set('mprefs', JSON.stringify(mPrefs)); renderMeldingen(); };
   $('#mcorps').replaceChildren(...corps.map((c) => { const l = el('label', 'mchip'); const i = el('input'); i.type = 'checkbox'; i.checked = !mPrefs.uit.includes(c);
     i.onchange = () => { mPrefs.uit = i.checked ? mPrefs.uit.filter((x) => x !== c) : [...mPrefs.uit, c]; store.set('mprefs', JSON.stringify(mPrefs)); renderMeldingen(); };
     const d = el('span', 'cd'); d.style.background = corpColor(c); l.append(i, d, c); return l; }));
@@ -1504,10 +1508,10 @@ const GROEPEN = {
 const ORDE = {grootte: ['< 40 m²', '40–59 m²', '60–79 m²', '80–99 m²', '100 m² of meer'], prijs: ['< € 300k', '€ 300–400k', '€ 400–500k', '€ 500–600k', '€ 600k of meer'], label: ['A of beter', 'B', 'C', 'D', 'E, F of G'], kamers: ['1 kamer', '2 kamers', '3 kamers', '4 kamers', '5+ kamers']};
 
 const mkRows = () => {
-  const per = $('#mkper').value, corp = $('#mkcorp').value, sd = $('#mksd').value, vj = $('#mkvj').checked;
+  const per = $('#mkper').value, sd = $('#mksd').value;
   const van = per === 'alle' ? '' : new Date(Date.now() - (+per) * 864e5).toISOString().slice(0, 10);
   return ARCH.filter((r) => (!van || (r.eerstGezien || '') >= van || (r.actief && r.voorTracker))
-    && (!corp || r.corporatie === corp) && (!sd || r.stadsdeel === sd) && (!vj || voorJou(r) !== 'nee'));
+    && !mkUit.has(r.corporatie) && (!sd || r.stadsdeel === sd));
 };
 
 const tip = (() => { let t; return { show(e, html) { if (!t) { t = el('div', 'mktip'); document.body.append(t); } t.innerHTML = html; t.hidden = false; const x = Math.min(e.clientX + 14, innerWidth - t.offsetWidth - 8); t.style.left = x + 'px'; t.style.top = (e.clientY - t.offsetHeight - 10 < 0 ? e.clientY + 16 : e.clientY - t.offsetHeight - 10) + 'px'; }, hide() { if (t) t.hidden = true; } }; })();
@@ -1643,14 +1647,20 @@ const mkCsv = () => {
   const csv = '﻿' + [K.join(';'), ...mkLaatste.map((r) => K.map((k) => esc(r[k])).join(';'))].join('\n');
   const a = el('a'); a.href = URL.createObjectURL(new Blob([csv], {type: 'text/csv'})); a.download = `corporatiewoningen-archief-${today}.csv`; a.click();
 };
-let mkKlaar = false;
+let mkKlaar = false, mkUit = new Set();
 const mkSetup = () => {
   if (mkKlaar) return; mkKlaar = true;
   const fill = (s, vals) => vals.forEach((v) => { const o = el('option', null, v); o.value = v; s.append(o); });
-  fill($('#mkcorp'), [...new Set(ARCH.map((r) => r.corporatie).filter(Boolean))].sort());
+  const corps = [...new Set(ARCH.map((r) => r.corporatie).filter(Boolean))].sort();
+  const chips = () => $('#mkcorps').replaceChildren(...corps.map((c) => { const l = el('label', 'mchip'); const i = el('input'); i.type = 'checkbox'; i.checked = !mkUit.has(c);
+    i.onchange = () => { if (i.checked) mkUit.delete(c); else mkUit.add(c); mkFilterGroep = ''; renderMarkt(); };
+    const d = el('span', 'cd'); d.style.background = corpColor(c); l.append(i, d, c); return l; }));
+  chips();
+  $('#mkvj').onchange = (e) => { if (e.target.checked && !profiel) { e.target.checked = false; $('#profmodal').hidden = false; return; }
+    mkUit = new Set(e.target.checked ? corps.filter((c) => voorJouCorp(c) === 'nee') : []); chips(); mkFilterGroep = ''; renderMarkt(); };
   fill($('#mksd'), [...new Set(ARCH.map((r) => r.stadsdeel).filter(Boolean))].sort());
   $$('#mkgroep button').forEach((b) => b.onclick = () => { mk.groep = b.dataset.g; mk.sort = 'n'; mk.dir = -1; mkFilterGroep = ''; $$('#mkgroep button').forEach((x) => x.setAttribute('aria-pressed', String(x === b))); renderMarkt(); });
-  ['#mkper', '#mkcorp', '#mksd', '#mkvj'].forEach((s) => $(s).onchange = () => { mkFilterGroep = ''; renderMarkt(); });
+  ['#mkper', '#mksd'].forEach((s) => $(s).onchange = () => { mkFilterGroep = ''; renderMarkt(); });
   $('#mkzoek').oninput = (e) => { mk.zoek = e.target.value; renderArchief(mkRows()); };
   $('#mkuit').onchange = (e) => { mk.uit = e.target.value; renderArchief(mkRows()); };
   $('#mkameer').onclick = () => { mkMax = 1e6; renderArchief(mkRows()); };
