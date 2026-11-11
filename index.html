@@ -561,8 +561,10 @@
   .themes button .ico-i { width: 15px; height: 15px; vertical-align: -2px; }
   .nav .navn:empty, .nav #tabdot:empty { display: none; }
   .nl-kort { display: none; } @media (max-width: 760px) { .nl-lang { display: none; } .nl-kort { display: inline; } }
-  .navmorebtn .chev { width: 12px; height: 12px; margin-left: 2px; opacity: .7; transition: transform .15s; } .navmorebtn[aria-expanded="true"] .chev { transform: rotate(180deg); }
-  .nav .navmorebtn.on { background: var(--tint); color: var(--brand); opacity: 1; }
+  .navmorebtn { position: relative; width: 36px; height: 36px; display: grid; place-items: center; border-radius: 999px; border: 1px solid var(--line); background: var(--soft); color: var(--fg); cursor: pointer; padding: 0; flex: none; }
+  .navmorebtn svg { width: 19px; height: 19px; } .navmorebtn:hover, .navmorebtn[aria-expanded="true"] { background: var(--tint); }
+  .navmorebtn.on { background: var(--tint); color: var(--brand); border-color: color-mix(in srgb, var(--brand) 35%, var(--line)); }
+  .navmorebtn #tabdot { position: absolute; top: 3px; right: 3px; } @media (max-width: 760px) { .navmorebtn { width: 32px; height: 32px; } }
   .navmenu { position: fixed; z-index: 3500; background: var(--panel); border: 1px solid var(--line); border-radius: 12px; box-shadow: 0 10px 32px rgb(0 0 0 / .16); padding: 6px; display: grid; gap: 2px; }
   .navmenu[hidden] { display: none; }
   .navmenu button { text-align: left; background: none; border: 0; border-radius: 8px; padding: 9px 11px; cursor: pointer; color: var(--fg); font: inherit; display: grid; gap: 2px; }
@@ -579,7 +581,8 @@
   @media (max-width: 1400px) and (min-width: 761px) { .profbtn .plbl { display: none; } }
   @media (max-width: 760px) {
     .topr { order: 2; width: 100%; margin-left: 0; justify-content: space-between; }
-    .profbtn { max-width: calc(100% - 130px); }
+    .profbtn { max-width: calc(100% - 130px); } .topr .themes { margin-left: auto; }
+    .topbar .in { position: relative; } .topr .navmorebtn { position: absolute; top: 11px; right: 14px; }
     .nav { order: 3; }
   }
   .mfilt { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 20px; background: var(--panel); border: 1px solid var(--line); border-radius: var(--r); padding: 10px 16px; margin-bottom: 14px; }
@@ -605,7 +608,6 @@
     <button data-tab="lijst" aria-pressed="false">Favorieten <span id="lijstn" class="navn"></span></button>
     <button data-tab="markt" aria-pressed="false">Marktinzicht</button>
     <button data-tab="meldingen" aria-pressed="false">Meldingen <span id="meldn" class="navn"></span></button>
-    <button class="navmorebtn" id="navmore" aria-haspopup="true" aria-expanded="false">Info <span id="tabdot"></span><svg class="chev" viewBox="0 0 12 12" aria-hidden="true"><path d="M3 4.5l3 3 3-3" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
   </nav>
   <div class="navmenu" id="navmenu" role="menu" hidden>
     <button data-tab="regels" role="menuitem"><b>Voorrangsregels</b><span>Wie krijgt voorrang en wat zijn de voorwaarden</span></button>
@@ -617,6 +619,7 @@
     <div class="themes" aria-label="Thema">
       <button data-theme-btn="light" title="Licht" aria-label="Licht"><svg class='ico-i' viewBox='0 0 24 24' aria-hidden='true'><circle cx='12' cy='12' r='4.2' fill='none' stroke='currentColor' stroke-width='1.8'/><path d='M12 2.5v2.5M12 19v2.5M2.5 12H5M19 12h2.5M5.3 5.3l1.8 1.8M16.9 16.9l1.8 1.8M5.3 18.7l1.8-1.8M16.9 7.1l1.8-1.8' stroke='currentColor' stroke-width='1.8' stroke-linecap='round'/></svg></button><button data-theme-btn="dark" title="Donker" aria-label="Donker"><svg class='ico-i' viewBox='0 0 24 24' aria-hidden='true'><path d='M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5z' fill='none' stroke='currentColor' stroke-width='1.8' stroke-linejoin='round'/></svg></button><button data-theme-btn="system" title="Zoals je apparaat" aria-label="Systeem">Auto</button>
     </div>
+    <button class="navmorebtn" id="navmore" aria-haspopup="true" aria-expanded="false" aria-label="Menu" title="Voorrangsregels, subsidies & regelingen, bronnen"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg><span id="tabdot"></span></button>
   </div>
 </div></header>
 <div class="searchbar" data-page-bar><div class="in">
@@ -980,13 +983,13 @@ const showTab = (n) => { const pg = n === 'lijst' ? 'woningen' : n; const was = 
   document.body.dataset.pg = pg; $$('[data-page]').forEach((s) => s.hidden = s.dataset.page !== pg); $('[data-page-bar]').hidden = pg !== 'woningen'; $('#lijstoverzicht').hidden = !lijstTab; $('#onzesit').hidden = !lijstTab; if (lijstTab) renderSituatie(); $('#syncpanel').hidden = !lijstTab;
   if (was !== lijstTab && W.length) { render(); if (lijstTab) fitLijst(); }
   if (pg === 'markt' && W.length) renderMarkt();
-  if (pg === 'woningen' && map) setTimeout(() => map.invalidateSize(), 50); $$('[data-tab]').forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.tab === n))); $('#navmore').classList.toggle('on', ['regels', 'regelingen', 'bronnen'].includes(n)); navMenu(false); setTimeout(() => { const ab = $('.nav button[aria-pressed="true"]') || $('#navmore.on'), nv = $('.nav'); if (ab && nv.scrollWidth > nv.clientWidth) { const r1 = ab.getBoundingClientRect(), r2 = nv.getBoundingClientRect(); nv.scrollTo({left: nv.scrollLeft + (r1.left + r1.width / 2) - (r2.left + r2.width / 2), behavior: 'instant'}); } }, 60); dockSoon(); };
+  if (pg === 'woningen' && map) setTimeout(() => map.invalidateSize(), 50); $$('[data-tab]').forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.tab === n))); $('#navmore').classList.toggle('on', ['regels', 'regelingen', 'bronnen'].includes(n)); navMenu(false); setTimeout(() => { const ab = $('.nav button[aria-pressed="true"]'), nv = $('.nav'); if (ab && nv.scrollWidth > nv.clientWidth) { const r1 = ab.getBoundingClientRect(), r2 = nv.getBoundingClientRect(); nv.scrollTo({left: nv.scrollLeft + (r1.left + r1.width / 2) - (r2.left + r2.width / 2), behavior: 'instant'}); } }, 60); dockSoon(); };
 const navMenu = (open) => { const m = $('#navmenu'), b = $('#navmore'); if (!m) return; m.hidden = !open; b.setAttribute('aria-expanded', String(open));
-  if (open) { const r = b.getBoundingClientRect(), w = Math.min(320, innerWidth - 24); m.style.width = w + 'px'; m.style.left = Math.max(12, Math.min(r.left, innerWidth - w - 12)) + 'px'; m.style.top = r.bottom + 6 + 'px'; } };
+  if (open) { const r = b.getBoundingClientRect(), w = Math.min(320, innerWidth - 24); m.style.width = w + 'px'; m.style.left = Math.max(12, Math.min(r.right - w, innerWidth - w - 12)) + 'px'; m.style.top = r.bottom + 6 + 'px'; } };
 $('#navmore').onclick = (e) => { e.stopPropagation(); navMenu($('#navmenu').hidden); };
 document.addEventListener('click', (e) => { if (!e.target.closest('#navmenu, #navmore')) navMenu(false); });
 document.addEventListener('keydown', (e) => { if (e.key === 'Escape') navMenu(false); });
-addEventListener('resize', () => navMenu(false)); $('.nav').addEventListener('scroll', () => { if (!$('#navmenu').hidden) navMenu(true); });
+addEventListener('resize', () => navMenu(false)); 
 $$('[data-tab]').forEach((b) => b.onclick = () => { showTab(b.dataset.tab); history.replaceState(null, '', b.dataset.tab === 'woningen' ? location.pathname + location.search : '#' + b.dataset.tab); scrollTo(0, 0); });
 const inLijst = (w) => favs.has(w.id) || !!(VG[w.id] && VG[w.id].status);
 const fitLijst = () => { if (!map) return; const pts = W.filter((w) => inLijst(w) && w.lat && w.lon).map((w) => [w.lat, w.lon]); if (pts.length) setTimeout(() => { map.invalidateSize(); map.fitBounds(pts, {padding: [30, 30], maxZoom: 14}); }, 80); };
