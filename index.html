@@ -1317,7 +1317,7 @@ const render = () => {
     if (fin.maxHyp && !pastBudget(w)) bad.append(badge('t-neutral', 'boven budget'));
     bad.append(badge(v.cls, v.text === 'ja' ? 'voorrang' : v.text === 'checken' ? 'voorrang checken' : v.text.startsWith('tot') ? 'voorrang ' + v.text : v.text), badge(statusTone(w.status), w.status));
     const ppm = el('div', 'r-ppm', eur.format(Math.round(w.prijs / w.m2)) + ' per m²'); const bn = buurtNode(w); if (bn) ppm.append(' · ', bn);
-    const ml = el('div', 'r-ppm', '≈ ' + eur.format(maandlast(w)) + ' p/m · online ' + onlineSinds(w)); ml.title = 'Bruto hypotheek' + (vve(w) ? ' + VvE' : '') + ' bij ' + fin.rente + '% en ' + fin.jaren + ' jaar. Aanpassen in de details.';
+    const ml = el('div', 'r-ppm', '≈ ' + eur.format(maandlast(w)) + ' p/m' + (subsidie(w) ? ' · ± ' + eur.format(subsidie(w)) + ' subsidie' : '') + ' · online ' + onlineSinds(w)); ml.title = 'Bruto hypotheek' + (vve(w) ? ' + VvE' : '') + ' bij ' + fin.rente + '% en ' + fin.jaren + ' jaar. Aanpassen in de details.';
     side.append(el('div', 'r-prijs', eur.format(w.prijs)), ppm, ml, bad);
     r.addEventListener('click', (e) => { if (!e.target.closest('a, button')) openDetail(w); });
     { const ph = () => { const d = el('div', 'r-foto nofoto'); d.setAttribute('aria-hidden', 'true'); return d; };
@@ -1402,8 +1402,9 @@ const openDetail = (w) => {
   const lblNode = w.energielabel ? el('span', 'elabel l-' + w.energielabel[0], w.energielabel) : 'onbekend';
   const ppmTile = tegel('Per m²', m2p ? eur.format(m2p) : '–', '', 'ppm2');
   kort.append(tegel('Vraagprijs', eur.format(prijs), was, null, was ? 'verl' : ''), ppmTile, tegel('Woonlasten', '≈ ' + eur.format(maandlast(Object.assign({}, w, {prijs}))) + ' p/m', 'hypotheek + VvE', 'woonlasten'),
-    tegel('Oppervlak', (w.m2 || '–') + ' m²', [w.kamers ? w.kamers + ' kamers' : '', w.type].filter(Boolean).join(' · ')), tegel('Energielabel', lblNode, w.labelBron ? w.labelBron : '', 'energielabel'),
-    tegel('Buitenruimte', buitenVan(w).join(', ') || (Array.isArray(w.buiten) ? 'geen genoemd' : 'onbekend'), '', 'buitenruimte'));
+    tegel('Oppervlak', (w.m2 || '–') + ' m²', [w.kamers ? w.kamers + (w.kamers == 1 ? ' kamer' : ' kamers') : '', buitenVan(w).join(', ') || (Array.isArray(w.buiten) ? 'geen buitenruimte' : '')].filter(Boolean).join(' · ')),
+    tegel('Energielabel', lblNode, (() => { const sb = subsidie(Object.assign({}, w, {prijs})); return sb ? `± ${eur.format(sb)} subsidie` : (w.labelBron || ''); })(), 'energielabel', subsidie(Object.assign({}, w, {prijs})) ? 'verl' : ''),
+    (() => { const wp2 = Object.assign({}, w, {prijs}), sb = subsidie(wp2); return tegel('Totaal incl. kosten', '≈ ' + eur.format(totaal(wp2)), sb ? `na subsidies ≈ ${eur.format(totaal(wp2) - sb)}` : 'koop + kosten + opknappen', 'kostenKoper', sb ? 'verl' : ''); })());
   B.append(kort);
   const bd = buurtDiff(w), ppmSub = ppmTile.children[2];
   if (bd != null) ppmSub.append(buurtNode(w));
