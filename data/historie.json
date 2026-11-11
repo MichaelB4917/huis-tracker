@@ -261,6 +261,11 @@
     "d": "2026-11-09",
     "status": "beschikbaar",
     "prijs": 415000
+   },
+   {
+    "d": "2026-11-11",
+    "status": "beschikbaar",
+    "prijs": 400000
    }
   ]
  },
@@ -305,6 +310,11 @@
     "d": "2026-11-09",
     "status": "beschikbaar",
     "prijs": 535000
+   },
+   {
+    "d": "2026-11-11",
+    "status": "beschikbaar",
+    "prijs": 490000
    }
   ]
  },
@@ -465,6 +475,11 @@
    {
     "d": "2026-11-09",
     "status": "beschikbaar",
+    "prijs": 410000
+   },
+   {
+    "d": "2026-11-11",
+    "status": "verkocht o.v.b.",
     "prijs": 410000
    }
   ]
@@ -1068,11 +1083,16 @@
   "adres": "Kouterstraat 4",
   "corporatie": "Stadgenoot",
   "eerstGezien": "2026-11-08",
-  "offline": "",
+  "offline": "2026-11-11",
   "log": [
    {
     "d": "2026-11-09",
     "status": "beschikbaar",
+    "prijs": 525000
+   },
+   {
+    "d": "2026-11-11",
+    "status": "offline",
     "prijs": 525000
    }
   ]
@@ -1341,11 +1361,16 @@
   "adres": "Haardstee 28",
   "corporatie": "Eigen Haard",
   "eerstGezien": "2026-11-09",
-  "offline": "",
+  "offline": "2026-11-11",
   "log": [
    {
     "d": "2026-11-09",
     "status": "beschikbaar",
+    "prijs": 370000
+   },
+   {
+    "d": "2026-11-11",
+    "status": "offline",
     "prijs": 370000
    }
   ]
@@ -1711,6 +1736,11 @@
     "d": "2026-11-09",
     "status": "onder bod",
     "prijs": 450000
+   },
+   {
+    "d": "2026-11-11",
+    "status": "verkocht o.v.b.",
+    "prijs": 450000
    }
   ]
  },
@@ -1945,6 +1975,11 @@
     "d": "2026-11-09",
     "status": "onder bod",
     "prijs": 330000
+   },
+   {
+    "d": "2026-11-11",
+    "status": "verkocht o.v.b.",
+    "prijs": 330000
    }
   ]
  },
@@ -2010,6 +2045,45 @@
     "d": "2026-11-10",
     "status": "beschikbaar",
     "prijs": 600000
+   }
+  ]
+ },
+ "rd-eb5e7cfa": {
+  "adres": "Grubbehoeve 714",
+  "corporatie": "Rochdale",
+  "eerstGezien": "2026-11-11",
+  "offline": "",
+  "log": [
+   {
+    "d": "2026-11-11",
+    "status": "beschikbaar",
+    "prijs": 275000
+   }
+  ]
+ },
+ "rd-7835f21c": {
+  "adres": "Wethouder De Vriesplantsoen 20",
+  "corporatie": "Rochdale",
+  "eerstGezien": "2026-11-11",
+  "offline": "",
+  "log": [
+   {
+    "d": "2026-11-11",
+    "status": "beschikbaar",
+    "prijs": 315000
+   }
+  ]
+ },
+ "fd-44678003": {
+  "adres": "Spaarndammerstraat 10 E",
+  "corporatie": "Ymere",
+  "eerstGezien": "2026-11-11",
+  "offline": "",
+  "log": [
+   {
+    "d": "2026-11-11",
+    "status": "beschikbaar",
+    "prijs": 450000
    }
   ]
  }
