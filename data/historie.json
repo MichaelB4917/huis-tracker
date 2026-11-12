@@ -196,6 +196,11 @@
     "d": "2026-11-09",
     "status": "beschikbaar",
     "prijs": 450000
+   },
+   {
+    "d": "2026-11-12",
+    "status": "verkocht o.v.b.",
+    "prijs": 450000
    }
   ]
  },
@@ -234,6 +239,11 @@
    {
     "d": "2026-11-09",
     "status": "beschikbaar",
+    "prijs": 550000
+   },
+   {
+    "d": "2026-11-12",
+    "status": "verkocht o.v.b.",
     "prijs": 550000
    }
   ]
@@ -2168,6 +2178,45 @@
     "d": "2026-11-12",
     "status": "beschikbaar",
     "prijs": 330000
+   }
+  ]
+ },
+ "rietwijkerstraat-45-2": {
+  "adres": "Rietwijkerstraat 45-2",
+  "corporatie": "Alliantie",
+  "eerstGezien": "2026-11-12",
+  "offline": "",
+  "log": [
+   {
+    "d": "2026-11-12",
+    "status": "beschikbaar",
+    "prijs": 425000
+   }
+  ]
+ },
+ "van-tuyll-van-serooskerkenweg-26": {
+  "adres": "Van Tuyll van Serooskerkenweg 26",
+  "corporatie": "Alliantie",
+  "eerstGezien": "2026-11-12",
+  "offline": "",
+  "log": [
+   {
+    "d": "2026-11-12",
+    "status": "beschikbaar",
+    "prijs": 645000
+   }
+  ]
+ },
+ "weteringschans-13-e": {
+  "adres": "Weteringschans 13-E",
+  "corporatie": "Alliantie",
+  "eerstGezien": "2026-11-12",
+  "offline": "",
+  "log": [
+   {
+    "d": "2026-11-12",
+    "status": "beschikbaar",
+    "prijs": 400000
    }
   ]
  }
