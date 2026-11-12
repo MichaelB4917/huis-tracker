@@ -1349,11 +1349,16 @@
   "adres": "Camperstraat 70",
   "corporatie": "Eigen Haard",
   "eerstGezien": "2026-11-09",
-  "offline": "",
+  "offline": "2026-11-12",
   "log": [
    {
     "d": "2026-11-09",
     "status": "beschikbaar",
+    "prijs": 585000
+   },
+   {
+    "d": "2026-11-12",
+    "status": "offline",
     "prijs": 585000
    }
   ]
@@ -2124,6 +2129,45 @@
     "d": "2026-11-11",
     "status": "beschikbaar",
     "prijs": 450000
+   }
+  ]
+ },
+ "admiraal-de-ruijterweg-495": {
+  "adres": "Admiraal de Ruijterweg 495",
+  "corporatie": "Alliantie",
+  "eerstGezien": "2026-11-12",
+  "offline": "",
+  "log": [
+   {
+    "d": "2026-11-12",
+    "status": "beschikbaar",
+    "prijs": 495000
+   }
+  ]
+ },
+ "johannes-van-der-waalsstraat-4-2": {
+  "adres": "Johannes van der Waalsstraat 4-2",
+  "corporatie": "Alliantie",
+  "eerstGezien": "2026-11-12",
+  "offline": "",
+  "log": [
+   {
+    "d": "2026-11-12",
+    "status": "beschikbaar",
+    "prijs": 500000
+   }
+  ]
+ },
+ "klaas-katerstraat-63": {
+  "adres": "Klaas Katerstraat 63",
+  "corporatie": "Alliantie",
+  "eerstGezien": "2026-11-12",
+  "offline": "",
+  "log": [
+   {
+    "d": "2026-11-12",
+    "status": "beschikbaar",
+    "prijs": 330000
    }
   ]
  }
