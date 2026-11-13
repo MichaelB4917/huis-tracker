@@ -591,6 +591,7 @@
   .mdag ul, .mwarn ul { list-style: none; margin: 0; padding: 8px 16px 12px; display: grid; gap: 7px; }
   .mdag li, .mwarn li { display: flex; align-items: baseline; gap: 8px; font-size: 14px; flex-wrap: wrap; }
   .mdag li .wat { min-width: 7.5rem; } .mdag li a, .mwarn li a { font-weight: 700; }
+  .mdag li .mwijk { color: var(--muted); }
   .mdag li .meta, .mwarn li .meta { color: var(--muted); font-size: 12.5px; }
   .mdag .leeg { padding: 10px 16px 12px; color: var(--muted); font-size: 14px; }
   .mwarn { background: color-mix(in srgb, var(--warn) 8%, var(--panel)); border: 1px solid color-mix(in srgb, var(--warn) 40%, var(--line)); border-radius: var(--r); margin-bottom: 14px; }
@@ -2106,7 +2107,8 @@ const EVORDER = ['nieuw', 'prijs omlaag', 'weer beschikbaar', 'onder bod', 'verk
 const evItem = (e) => { const byW = W.find((w) => w.id === e.id); const li = el('li'); const wat = el('span', 'wat'); wat.append(badge(EVTONE[e.t] || 't-neutral', e.t));
   const a = el('a', null, e.naam); if (byW) { a.href = '#'; a.onclick = (x) => { x.preventDefault(); openDetail(byW); }; }
   const d = el('span', 'cd'); d.style.background = corpColor(e.corp); const m = el('span', 'meta'); m.append(d, e.corp);
-  li.append(wat, a, el('span', null, e.txt), m); return li; };
+  const t = el('span'); const wk = byW && (byW.wijk || byW.buurt || byW.stadsdeel); if (wk) t.append(el('span', 'mwijk', wk), ' · '); t.append(e.txt);
+  li.append(wat, a, t, m); return li; };
 
 const dagNaam = (d) => { const t = localDate(new Date().toISOString()), y = localDate(new Date(Date.now() - 864e5).toISOString());
   return d === t ? 'Vandaag' : d === y ? 'Gisteren' : new Date(d + 'T12:00:00').toLocaleDateString('nl-NL', {weekday: 'long', day: 'numeric', month: 'long'}); };
@@ -2129,7 +2131,7 @@ const renderMeldingen = (H) => {
   const dl = W.filter((w) => w.status === 'beschikbaar' && w.deadline && w.deadline >= vandaag && w.deadline <= over3 && voorJou(w) !== 'nee' && !mPrefs.uit.includes(w.corporatie)).sort((a, b) => a.deadline.localeCompare(b.deadline));
   if (dl.length) { const box = el('div', 'mwarn'); const bt = el('b'); bt.innerHTML = "<svg class='ico-i' viewBox='0 0 24 24' aria-hidden='true'><circle cx='12' cy='13' r='8' fill='none' stroke='currentColor' stroke-width='1.8'/><path d='M12 9v4l2.5 2M9 2.5h6' fill='none' stroke='currentColor' stroke-width='1.8' stroke-linecap='round'/></svg> Voorrang verloopt binnenkort"; box.append(bt); const ul = el('ul');
     dl.forEach((w) => { const li = el('li'); const a = el('a', null, w.adres); a.href = '#'; a.onclick = (x) => { x.preventDefault(); openDetail(w); };
-      li.append(badge('t-warn', 'tot ' + nlShort(w.deadline)), a, el('span', null, eur.format(w.prijs)), el('span', 'meta', w.corporatie)); ul.append(li); });
+      li.append(badge('t-warn', 'tot ' + nlShort(w.deadline)), a, el('span', null, (w.wijk || w.buurt || w.stadsdeel ? (w.wijk || w.buurt || w.stadsdeel) + ' · ' : '') + eur.format(w.prijs)), el('span', 'meta', w.corporatie)); ul.append(li); });
     box.append(ul); $('#mdeadline').replaceChildren(box); } else $('#mdeadline').replaceChildren();
   // feed per dag, laatste 30 dagen
   const van = localDate(new Date(Date.now() - 30 * 864e5).toISOString());
