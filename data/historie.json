@@ -1033,6 +1033,11 @@
     "d": "2026-11-09",
     "status": "beschikbaar",
     "prijs": 500000
+   },
+   {
+    "d": "2026-11-13",
+    "status": "verkocht o.v.b.",
+    "prijs": 500000
    }
   ]
  },
@@ -1492,6 +1497,11 @@
     "d": "2026-11-09",
     "status": "beschikbaar",
     "prijs": 375000
+   },
+   {
+    "d": "2026-11-13",
+    "status": "verkocht o.v.b.",
+    "prijs": 375000
    }
   ]
  },
@@ -1673,6 +1683,11 @@
    {
     "d": "2026-11-09",
     "status": "beschikbaar",
+    "prijs": 399000
+   },
+   {
+    "d": "2026-11-13",
+    "status": "verkocht o.v.b.",
     "prijs": 399000
    }
   ]
@@ -2217,6 +2232,71 @@
     "d": "2026-11-12",
     "status": "beschikbaar",
     "prijs": 400000
+   }
+  ]
+ },
+ "pieter-calandlaan-151": {
+  "adres": "Pieter Calandlaan 151",
+  "corporatie": "Alliantie",
+  "eerstGezien": "2026-11-13",
+  "offline": "",
+  "log": [
+   {
+    "d": "2026-11-13",
+    "status": "beschikbaar",
+    "prijs": 450000
+   }
+  ]
+ },
+ "riouwstraat-109-a": {
+  "adres": "Riouwstraat 109-A",
+  "corporatie": "Alliantie",
+  "eerstGezien": "2026-11-13",
+  "offline": "",
+  "log": [
+   {
+    "d": "2026-11-13",
+    "status": "beschikbaar",
+    "prijs": 375000
+   }
+  ]
+ },
+ "eh-73201-amsterdam-noord-ponserstraat-22": {
+  "adres": "Ponserstraat 22",
+  "corporatie": "Eigen Haard",
+  "eerstGezien": "2026-11-13",
+  "offline": "",
+  "log": [
+   {
+    "d": "2026-11-13",
+    "status": "beschikbaar",
+    "prijs": 450000
+   }
+  ]
+ },
+ "sg-bos-en-lommerplantsoen-5-t-amsterdam": {
+  "adres": "Bos en Lommerplantsoen 5-T",
+  "corporatie": "Stadgenoot",
+  "eerstGezien": "2026-11-13",
+  "offline": "",
+  "log": [
+   {
+    "d": "2026-11-13",
+    "status": "beschikbaar",
+    "prijs": 250000
+   }
+  ]
+ },
+ "sg-voorthuizenstraat-107-amsterdam": {
+  "adres": "Voorthuizenstraat 107",
+  "corporatie": "Stadgenoot",
+  "eerstGezien": "2026-11-13",
+  "offline": "",
+  "log": [
+   {
+    "d": "2026-11-13",
+    "status": "beschikbaar",
+    "prijs": 300000
    }
   ]
  }
