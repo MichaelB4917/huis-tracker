@@ -183,6 +183,11 @@
     "d": "2026-11-09",
     "status": "beschikbaar",
     "prijs": 330000
+   },
+   {
+    "d": "2026-11-13",
+    "status": "verkocht o.v.b.",
+    "prijs": 330000
    }
   ]
  },
@@ -962,6 +967,11 @@
    {
     "d": "2026-11-09",
     "status": "beschikbaar",
+    "prijs": 525000
+   },
+   {
+    "d": "2026-11-13",
+    "status": "onder bod",
     "prijs": 525000
    }
   ]
