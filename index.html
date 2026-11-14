@@ -1562,7 +1562,7 @@ const openDetail = (w) => {
   if (dMap) { dMap.remove(); dMap = null; }
   if (w.lat && w.lon && window.L) { const mm = el('div', 'dminimap'); mm.title = 'Openen in Google Maps'; B.append(mm);
     mm.onclick = () => window.open('https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent(w.adres + ', ' + (w.plaats || 'Amsterdam')), '_blank', 'noopener');
-    setTimeout(() => { if (!mm.isConnected) return; dMap = L.map(mm, {zoomControl: false, attributionControl: false, dragging: false, scrollWheelZoom: false, doubleClickZoom: false, touchZoom: false, boxZoom: false, keyboard: false, tap: false}).setView([w.lat, w.lon], 13);
+    setTimeout(() => { if (!mm.isConnected) return; dMap = L.map(mm, {zoomControl: false, attributionControl: false, dragging: false, scrollWheelZoom: false, doubleClickZoom: false, touchZoom: false, boxZoom: false, keyboard: false, tap: false}).setView([w.lat, w.lon], 12);
       L.tileLayer('https://service.pdok.nl/brt/achtergrondkaart/wmts/v2_0/grijs/EPSG:3857/{z}/{x}/{y}.png', {maxZoom: 19}).addTo(dMap);
       L.circleMarker([w.lat, w.lon], {radius: 8, color: '#fff', weight: 2, fillColor: corpColor(w.corporatie), fillOpacity: 1, interactive: false}).addTo(dMap); }, 30); }
   // 2. In het kort: de belangrijkste cijfers
