@@ -861,11 +861,16 @@
   "adres": "Nova Zemblastraat 249",
   "corporatie": "Lieven de Key",
   "eerstGezien": "2026-11-08",
-  "offline": "",
+  "offline": "2026-11-14",
   "log": [
    {
     "d": "2026-11-09",
     "status": "verkocht o.v.b.",
+    "prijs": 365000
+   },
+   {
+    "d": "2026-11-14",
+    "status": "offline",
     "prijs": 365000
    }
   ]
@@ -892,6 +897,11 @@
    {
     "d": "2026-11-09",
     "status": "beschikbaar",
+    "prijs": 440000
+   },
+   {
+    "d": "2026-11-14",
+    "status": "onder bod",
     "prijs": 440000
    }
   ]
