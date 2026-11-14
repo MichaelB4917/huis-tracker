@@ -339,6 +339,7 @@
   .sitchk { display: flex; flex-wrap: wrap; gap: 6px 22px; } .sitchk .check.sw { gap: 10px; }
   .sitsum { margin-top: 12px; padding: 10px 12px; border-radius: 10px; background: var(--tint); font-size: 14px; line-height: 1.5; }
   .situitleg { margin-top: 12px; } .situitleg summary { cursor: pointer; color: var(--link); font-size: 14px; } .situitleg .mktbl { margin-top: 8px; } .situitleg .mktbl td { white-space: normal; }
+  .dminimap { height: 110px; margin: 12px 0 4px; border-radius: 10px; overflow: hidden; border: 1px solid var(--line); cursor: pointer; z-index: 0; } @media (min-width: 700px) { .dminimap { height: 140px; } }
   #detail .ssub { font-size: 12px; margin: -2px 0 2px; text-align: right; }
   #detail .dkans { margin-top: 12px; } #detail .dkans summary { cursor: pointer; font-size: 14px; font-weight: 600; } #detail .dkans ul { margin: 8px 0 0; padding-left: 18px; display: grid; gap: 7px; font-size: 13.5px; } #detail .dkans li .muted { font-size: 12.5px; }
   .regcard.regwide { grid-column: 1 / -1; } .reg2027 .regtbl td { vertical-align: top; } .reg2027 { border-left: 4px solid var(--accent); }
@@ -1540,6 +1541,7 @@ const BP_TXT = {'Voor 1906': '19e-eeuwse bouw: hoge plafonds, vaak houten paalfu
 const loadMref = () => MREF && BUURTWOZ ? Promise.resolve(MREF) : Promise.all([MREF ? MREF : getJson('marktref.json'), getJson('buurten.json')]).then(([m, b]) => { MREF = m; BUURTWOZ = b || {}; return MREF; });
 const dsec = (titel, info, ...kids) => { const s = el('section', 'dsec'); const h = el('h3', null, titel); if (info) h.append(ii(info)); s.append(h, ...kids.filter(Boolean)); return s; };
 const kvI = (l, v, info) => { const d = kvItem(l, v); if (d && info) d.firstChild.append(ii(info)); return d; };
+let dMap = null;
 const openDetail = (w) => {
   detailW = w; markSeen(w.id);
   const B = $('#dbody'); B.replaceChildren();
@@ -1556,6 +1558,13 @@ const openDetail = (w) => {
   const fav = el('button', 'mini', favs.has(w.id) ? '★ Favoriet' : '☆ Favoriet maken'); fav.onclick = () => { favs.has(w.id) ? favs.delete(w.id) : favs.add(w.id); fav.textContent = favs.has(w.id) ? '★ Favoriet' : '☆ Favoriet maken'; changed(); render(); };
   const links = el('div', 'links'); links.append(link('Advertentie openen →', w.url), fav, link('Google Maps', 'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent(w.adres + ', ' + (w.plaats || 'Amsterdam'))), link('WOZ-waarde opzoeken', 'https://www.wozwaardeloket.nl/'));
   B.append(h, sub, bads, links);
+  // Klein kaartje: waar ligt de woning (vooral handig op de telefoon)
+  if (dMap) { dMap.remove(); dMap = null; }
+  if (w.lat && w.lon && window.L) { const mm = el('div', 'dminimap'); mm.title = 'Openen in Google Maps'; B.append(mm);
+    mm.onclick = () => window.open('https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent(w.adres + ', ' + (w.plaats || 'Amsterdam')), '_blank', 'noopener');
+    setTimeout(() => { if (!mm.isConnected) return; dMap = L.map(mm, {zoomControl: false, attributionControl: false, dragging: false, scrollWheelZoom: false, doubleClickZoom: false, touchZoom: false, boxZoom: false, keyboard: false, tap: false}).setView([w.lat, w.lon], 13);
+      L.tileLayer('https://service.pdok.nl/brt/achtergrondkaart/wmts/v2_0/grijs/EPSG:3857/{z}/{x}/{y}.png', {maxZoom: 19}).addTo(dMap);
+      L.circleMarker([w.lat, w.lon], {radius: 8, color: '#fff', weight: 2, fillColor: corpColor(w.corporatie), fillOpacity: 1, interactive: false}).addTo(dMap); }, 30); }
   // 2. In het kort: de belangrijkste cijfers
   const kort = el('div', 'dkort');
   const tegel = (lbl, val, subTxt, info, cls) => { const t = el('div', 'dk' + (cls ? ' ' + cls : '')); const l = el('div', 'lbl', lbl); if (info) l.append(ii(info)); t.append(l, el('div', 'val'), el('div', 'sub')); t.children[1].append(val); if (subTxt) t.children[2].append(subTxt); return t; };
@@ -1660,7 +1669,7 @@ const openDetail = (w) => {
   const bron = el('p', 'note dbron'); bron.append(`Online sinds ${onlineSinds(w)} · bron: ${w.bron || '—'}`); B.append(bron);
   $('#detail').hidden = false; $('#detail .box').scrollTop = 0;
 };
-const closeDetail = () => { $('#detail').hidden = true; detailW = null; };
+const closeDetail = () => { $('#detail').hidden = true; detailW = null; if (dMap) { dMap.remove(); dMap = null; } };
 $('#dclose').onclick = closeDetail;
 $('#detail').addEventListener('click', (e) => { if (e.target.id === 'detail') closeDetail(); });
 document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && !$('#detail').hidden) closeDetail(); });
