@@ -1620,11 +1620,16 @@
   "adres": "Renkumhof 15",
   "corporatie": "Eigen Haard",
   "eerstGezien": "2026-11-09",
-  "offline": "",
+  "offline": "2026-11-15",
   "log": [
    {
     "d": "2026-11-09",
     "status": "verkocht o.v.b.",
+    "prijs": 325000
+   },
+   {
+    "d": "2026-11-15",
+    "status": "offline",
     "prijs": 325000
    }
   ]
