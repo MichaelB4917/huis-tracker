@@ -990,7 +990,7 @@
   "adres": "Ward Bingleystraat 15-H",
   "corporatie": "Lieven de Key",
   "eerstGezien": "2026-11-08",
-  "offline": "",
+  "offline": "2026-11-16",
   "log": [
    {
     "d": "2026-11-09",
@@ -1000,6 +1000,11 @@
    {
     "d": "2026-11-11",
     "status": "verkocht o.v.b.",
+    "prijs": 375000
+   },
+   {
+    "d": "2026-11-16",
+    "status": "offline",
     "prijs": 375000
    }
   ]
