@@ -2329,5 +2329,44 @@
     "prijs": 300000
    }
   ]
+ },
+ "olof-palmeplein-102": {
+  "adres": "Olof Palmeplein 102",
+  "corporatie": "Alliantie",
+  "eerstGezien": "2026-11-16",
+  "offline": "",
+  "log": [
+   {
+    "d": "2026-11-16",
+    "status": "beschikbaar",
+    "prijs": 375000
+   }
+  ]
+ },
+ "olof-palmeplein-132": {
+  "adres": "Olof Palmeplein 132",
+  "corporatie": "Alliantie",
+  "eerstGezien": "2026-11-16",
+  "offline": "",
+  "log": [
+   {
+    "d": "2026-11-16",
+    "status": "beschikbaar",
+    "prijs": 335000
+   }
+  ]
+ },
+ "van-ostadestraat-119-1": {
+  "adres": "Van Ostadestraat 119-1",
+  "corporatie": "Alliantie",
+  "eerstGezien": "2026-11-16",
+  "offline": "",
+  "log": [
+   {
+    "d": "2026-11-16",
+    "status": "beschikbaar",
+    "prijs": 400000
+   }
+  ]
  }
 }
