@@ -753,6 +753,11 @@
     "d": "2026-11-09",
     "status": "onder bod",
     "prijs": 310000
+   },
+   {
+    "d": "2026-11-17",
+    "status": "verkocht o.v.b.",
+    "prijs": 310000
    }
   ]
  },
@@ -1304,6 +1309,11 @@
     "d": "2026-11-09",
     "status": "beschikbaar",
     "prijs": 625000
+   },
+   {
+    "d": "2026-11-17",
+    "status": "beschikbaar",
+    "prijs": 595000
    }
   ]
  },
@@ -1389,7 +1399,7 @@
   "adres": "Camperstraat 70",
   "corporatie": "Eigen Haard",
   "eerstGezien": "2026-11-09",
-  "offline": "2026-11-12",
+  "offline": "",
   "log": [
    {
     "d": "2026-11-09",
@@ -1400,6 +1410,11 @@
     "d": "2026-11-12",
     "status": "offline",
     "prijs": 585000
+   },
+   {
+    "d": "2026-11-17",
+    "status": "weer online: beschikbaar",
+    "prijs": 550000
    }
   ]
  },
@@ -1439,6 +1454,11 @@
     "d": "2026-11-09",
     "status": "beschikbaar",
     "prijs": 399000
+   },
+   {
+    "d": "2026-11-17",
+    "status": "beschikbaar",
+    "prijs": 379000
    }
   ]
  },
@@ -1446,7 +1466,7 @@
   "adres": "Haardstee 28",
   "corporatie": "Eigen Haard",
   "eerstGezien": "2026-11-09",
-  "offline": "2026-11-11",
+  "offline": "",
   "log": [
    {
     "d": "2026-11-09",
@@ -1457,6 +1477,11 @@
     "d": "2026-11-11",
     "status": "offline",
     "prijs": 370000
+   },
+   {
+    "d": "2026-11-17",
+    "status": "weer online: beschikbaar",
+    "prijs": 350000
    }
   ]
  },
@@ -1509,6 +1534,11 @@
     "d": "2026-11-09",
     "status": "beschikbaar",
     "prijs": 600000
+   },
+   {
+    "d": "2026-11-17",
+    "status": "beschikbaar",
+    "prijs": 565000
    }
   ]
  },
