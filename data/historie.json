@@ -1415,6 +1415,11 @@
     "d": "2026-11-17",
     "status": "weer online: beschikbaar",
     "prijs": 550000
+   },
+   {
+    "d": "2026-11-17",
+    "status": "beschikbaar",
+    "prijs": 550000
    }
   ]
  },
@@ -1481,6 +1486,11 @@
    {
     "d": "2026-11-17",
     "status": "weer online: beschikbaar",
+    "prijs": 350000
+   },
+   {
+    "d": "2026-11-17",
+    "status": "beschikbaar",
     "prijs": 350000
    }
   ]
