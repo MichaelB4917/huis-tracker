@@ -2418,5 +2418,31 @@
     "prijs": 400000
    }
   ]
+ },
+ "sg-granidastraat-24-h-amsterdam": {
+  "adres": "Granidastraat 24-H",
+  "corporatie": "Stadgenoot",
+  "eerstGezien": "2026-11-18",
+  "offline": "",
+  "log": [
+   {
+    "d": "2026-11-18",
+    "status": "beschikbaar",
+    "prijs": 375000
+   }
+  ]
+ },
+ "sg-lederambachtstraat-92-amsterdam": {
+  "adres": "Lederambachtstraat 92",
+  "corporatie": "Stadgenoot",
+  "eerstGezien": "2026-11-18",
+  "offline": "",
+  "log": [
+   {
+    "d": "2026-11-18",
+    "status": "beschikbaar",
+    "prijs": 325000
+   }
+  ]
  }
 }
