@@ -649,6 +649,11 @@
     "d": "2026-11-09",
     "status": "onder bod",
     "prijs": 385000
+   },
+   {
+    "d": "2026-11-19",
+    "status": "verkocht o.v.b.",
+    "prijs": 385000
    }
   ]
  },
@@ -796,11 +801,16 @@
   "adres": "Le Mairekade 125",
   "corporatie": "Lieven de Key",
   "eerstGezien": "2026-11-08",
-  "offline": "",
+  "offline": "2026-11-19",
   "log": [
    {
     "d": "2026-11-09",
     "status": "verkocht o.v.b.",
+    "prijs": 425000
+   },
+   {
+    "d": "2026-11-19",
+    "status": "offline",
     "prijs": 425000
    }
   ]
@@ -832,6 +842,11 @@
    {
     "d": "2026-11-11",
     "status": "onder bod",
+    "prijs": 350000
+   },
+   {
+    "d": "2026-11-19",
+    "status": "verkocht o.v.b.",
     "prijs": 350000
    }
   ]
@@ -1116,6 +1131,11 @@
    {
     "d": "2026-11-09",
     "status": "beschikbaar",
+    "prijs": 300000
+   },
+   {
+    "d": "2026-11-19",
+    "status": "verkocht o.v.b.",
     "prijs": 300000
    }
   ]
@@ -1847,6 +1867,11 @@
     "d": "2026-11-09",
     "status": "onder bod",
     "prijs": 425000
+   },
+   {
+    "d": "2026-11-19",
+    "status": "verkocht o.v.b.",
+    "prijs": 425000
    }
   ]
  },
@@ -1872,6 +1897,11 @@
    {
     "d": "2026-11-09",
     "status": "onder bod",
+    "prijs": 400000
+   },
+   {
+    "d": "2026-11-19",
+    "status": "verkocht o.v.b.",
     "prijs": 400000
    }
   ]
@@ -1963,11 +1993,16 @@
   "adres": "Kikkenstein 2326",
   "corporatie": "Rochdale",
   "eerstGezien": "2026-11-09",
-  "offline": "",
+  "offline": "2026-11-19",
   "log": [
    {
     "d": "2026-11-09",
     "status": "verkocht o.v.b.",
+    "prijs": 290000
+   },
+   {
+    "d": "2026-11-19",
+    "status": "offline",
     "prijs": 290000
    }
   ]
@@ -1995,6 +2030,11 @@
     "d": "2026-11-09",
     "status": "onder bod",
     "prijs": 350000
+   },
+   {
+    "d": "2026-11-19",
+    "status": "verkocht o.v.b.",
+    "prijs": 350000
    }
   ]
  },
@@ -2021,6 +2061,11 @@
     "d": "2026-11-09",
     "status": "onder bod",
     "prijs": 295000
+   },
+   {
+    "d": "2026-11-19",
+    "status": "verkocht o.v.b.",
+    "prijs": 295000
    }
   ]
  },
@@ -2028,11 +2073,16 @@
   "adres": "Reitzstraat 147",
   "corporatie": "Rochdale",
   "eerstGezien": "2026-11-09",
-  "offline": "",
+  "offline": "2026-11-19",
   "log": [
    {
     "d": "2026-11-09",
     "status": "verkocht o.v.b.",
+    "prijs": 450000
+   },
+   {
+    "d": "2026-11-19",
+    "status": "offline",
     "prijs": 450000
    }
   ]
@@ -2442,6 +2492,32 @@
     "d": "2026-11-18",
     "status": "beschikbaar",
     "prijs": 325000
+   }
+  ]
+ },
+ "eh-73495-amsterdam-noord-schoorlstraat-140": {
+  "adres": "Schoorlstraat 140",
+  "corporatie": "Eigen Haard",
+  "eerstGezien": "2026-11-19",
+  "offline": "",
+  "log": [
+   {
+    "d": "2026-11-19",
+    "status": "beschikbaar",
+    "prijs": 325000
+   }
+  ]
+ },
+ "rd-de122980": {
+  "adres": "Dudok de Withof 44",
+  "corporatie": "Rochdale",
+  "eerstGezien": "2026-11-19",
+  "offline": "",
+  "log": [
+   {
+    "d": "2026-11-19",
+    "status": "beschikbaar",
+    "prijs": 425000
    }
   ]
  }
