@@ -2556,5 +2556,18 @@
     "prijs": 380000
    }
   ]
+ },
+ "sg-overveenstraat-18-amsterdam": {
+  "adres": "Overveenstraat 18",
+  "corporatie": "Stadgenoot",
+  "eerstGezien": "2026-11-21",
+  "offline": "",
+  "log": [
+   {
+    "d": "2026-11-21",
+    "status": "beschikbaar",
+    "prijs": 325000
+   }
+  ]
  }
 }
