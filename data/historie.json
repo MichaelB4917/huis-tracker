@@ -1481,6 +1481,11 @@
     "d": "2026-11-09",
     "status": "beschikbaar",
     "prijs": 400000
+   },
+   {
+    "d": "2026-11-21",
+    "status": "verkocht o.v.b.",
+    "prijs": 400000
    }
   ]
  },
@@ -2536,6 +2541,19 @@
     "d": "2026-11-20",
     "status": "beschikbaar",
     "prijs": 475000
+   }
+  ]
+ },
+ "eh-73297-amsterdam-noord-bramzeil-105": {
+  "adres": "Bramzeil 105",
+  "corporatie": "Eigen Haard",
+  "eerstGezien": "2026-11-21",
+  "offline": "",
+  "log": [
+   {
+    "d": "2026-11-21",
+    "status": "beschikbaar",
+    "prijs": 380000
    }
   ]
  }
