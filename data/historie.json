@@ -2569,5 +2569,18 @@
     "prijs": 325000
    }
   ]
+ },
+ "nova-zemblastraat-13-f-1013rj": {
+  "adres": "Nova Zemblastraat 13-F",
+  "corporatie": "Lieven de Key",
+  "eerstGezien": "2026-11-22",
+  "offline": "",
+  "log": [
+   {
+    "d": "2026-11-22",
+    "status": "beschikbaar",
+    "prijs": 440000
+   }
+  ]
  }
 }
