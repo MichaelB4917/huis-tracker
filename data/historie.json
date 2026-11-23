@@ -250,6 +250,11 @@
     "d": "2026-11-12",
     "status": "verkocht o.v.b.",
     "prijs": 550000
+   },
+   {
+    "d": "2026-11-23",
+    "status": "beschikbaar",
+    "prijs": 550000
    }
   ]
  },
@@ -311,6 +316,11 @@
    {
     "d": "2026-11-09",
     "status": "beschikbaar",
+    "prijs": 450000
+   },
+   {
+    "d": "2026-11-23",
+    "status": "verkocht o.v.b.",
     "prijs": 450000
    }
   ]
@@ -376,11 +386,16 @@
   "adres": "Laan der Hesperiden 14-2",
   "corporatie": "Alliantie",
   "eerstGezien": "2026-11-08",
-  "offline": "",
+  "offline": "2026-11-23",
   "log": [
    {
     "d": "2026-11-09",
     "status": "verkocht o.v.b.",
+    "prijs": 485000
+   },
+   {
+    "d": "2026-11-23",
+    "status": "offline",
     "prijs": 485000
    }
   ]
@@ -539,6 +554,11 @@
    {
     "d": "2026-11-10",
     "status": "beschikbaar",
+    "prijs": 375000
+   },
+   {
+    "d": "2026-11-23",
+    "status": "verkocht o.v.b.",
     "prijs": 375000
    }
   ]
@@ -2332,6 +2352,11 @@
    {
     "d": "2026-11-12",
     "status": "beschikbaar",
+    "prijs": 330000
+   },
+   {
+    "d": "2026-11-23",
+    "status": "verkocht o.v.b.",
     "prijs": 330000
    }
   ]
