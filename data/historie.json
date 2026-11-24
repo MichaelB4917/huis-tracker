@@ -255,6 +255,11 @@
     "d": "2026-11-23",
     "status": "beschikbaar",
     "prijs": 550000
+   },
+   {
+    "d": "2026-11-24",
+    "status": "verkocht o.v.b.",
+    "prijs": 550000
    }
   ]
  },
@@ -655,6 +660,11 @@
    {
     "d": "2026-11-09",
     "status": "beschikbaar",
+    "prijs": 500000
+   },
+   {
+    "d": "2026-11-24",
+    "status": "verkocht o.v.b.",
     "prijs": 500000
    }
   ]
@@ -1640,6 +1650,11 @@
     "d": "2026-11-09",
     "status": "beschikbaar",
     "prijs": 355000
+   },
+   {
+    "d": "2026-11-24",
+    "status": "verkocht o.v.b.",
+    "prijs": 355000
    }
   ]
  },
@@ -2327,6 +2342,11 @@
     "d": "2026-11-12",
     "status": "beschikbaar",
     "prijs": 495000
+   },
+   {
+    "d": "2026-11-24",
+    "status": "verkocht o.v.b.",
+    "prijs": 495000
    }
   ]
  },
@@ -2371,6 +2391,11 @@
     "d": "2026-11-12",
     "status": "beschikbaar",
     "prijs": 425000
+   },
+   {
+    "d": "2026-11-24",
+    "status": "verkocht o.v.b.",
+    "prijs": 425000
    }
   ]
  },
@@ -2383,6 +2408,11 @@
    {
     "d": "2026-11-12",
     "status": "beschikbaar",
+    "prijs": 645000
+   },
+   {
+    "d": "2026-11-24",
+    "status": "verkocht o.v.b.",
     "prijs": 645000
    }
   ]
@@ -2605,6 +2635,19 @@
     "d": "2026-11-22",
     "status": "beschikbaar",
     "prijs": 440000
+   }
+  ]
+ },
+ "burgemeester-vening-meineszlaan-7": {
+  "adres": "Burgemeester Vening Meineszlaan 7",
+  "corporatie": "Alliantie",
+  "eerstGezien": "2026-11-24",
+  "offline": "",
+  "log": [
+   {
+    "d": "2026-11-24",
+    "status": "beschikbaar",
+    "prijs": 500000
    }
   ]
  }
