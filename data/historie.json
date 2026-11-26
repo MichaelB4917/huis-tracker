@@ -536,11 +536,16 @@
   "adres": "Sassenheimstraat 92-3",
   "corporatie": "Alliantie",
   "eerstGezien": "2026-11-08",
-  "offline": "",
+  "offline": "2026-11-26",
   "log": [
    {
     "d": "2026-11-09",
     "status": "verkocht o.v.b.",
+    "prijs": 525000
+   },
+   {
+    "d": "2026-11-26",
+    "status": "offline",
     "prijs": 525000
    }
   ]
@@ -2441,6 +2446,11 @@
    {
     "d": "2026-11-12",
     "status": "beschikbaar",
+    "prijs": 400000
+   },
+   {
+    "d": "2026-11-26",
+    "status": "verkocht o.v.b.",
     "prijs": 400000
    }
   ]
