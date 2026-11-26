@@ -2675,5 +2675,44 @@
     "prijs": 500000
    }
   ]
+ },
+ "sg-markengouw-61-amsterdam": {
+  "adres": "Markengouw 61",
+  "corporatie": "Stadgenoot",
+  "eerstGezien": "2026-11-26",
+  "offline": "",
+  "log": [
+   {
+    "d": "2026-11-26",
+    "status": "beschikbaar",
+    "prijs": 350000
+   }
+  ]
+ },
+ "sg-nachtegaalstraat-138-amsterdam": {
+  "adres": "Nachtegaalstraat 138",
+  "corporatie": "Stadgenoot",
+  "eerstGezien": "2026-11-26",
+  "offline": "",
+  "log": [
+   {
+    "d": "2026-11-26",
+    "status": "beschikbaar",
+    "prijs": 375000
+   }
+  ]
+ },
+ "sg-vrolikstraat-116-k-amsterdam": {
+  "adres": "Vrolikstraat 116-K",
+  "corporatie": "Stadgenoot",
+  "eerstGezien": "2026-11-26",
+  "offline": "",
+  "log": [
+   {
+    "d": "2026-11-26",
+    "status": "beschikbaar",
+    "prijs": 250000
+   }
+  ]
  }
 }
