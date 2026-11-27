@@ -1139,11 +1139,16 @@
   "adres": "Balboaplein 18",
   "corporatie": "Stadgenoot",
   "eerstGezien": "2026-11-08",
-  "offline": "",
+  "offline": "2026-11-27",
   "log": [
    {
     "d": "2026-11-09",
     "status": "beschikbaar",
+    "prijs": 740000
+   },
+   {
+    "d": "2026-11-27",
+    "status": "offline",
     "prijs": 740000
    }
   ]
@@ -2737,6 +2742,19 @@
     "d": "2026-11-26",
     "status": "beschikbaar",
     "prijs": 250000
+   }
+  ]
+ },
+ "sg-bos-en-lommerplantsoen-83-k-amsterdam": {
+  "adres": "Bos en Lommerplantsoen 83-K",
+  "corporatie": "Stadgenoot",
+  "eerstGezien": "2026-11-27",
+  "offline": "",
+  "log": [
+   {
+    "d": "2026-11-27",
+    "status": "beschikbaar",
+    "prijs": 275000
    }
   ]
  }
