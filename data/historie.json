@@ -47,11 +47,16 @@
   "adres": "Baarsstraat 35-2",
   "corporatie": "Alliantie",
   "eerstGezien": "2026-11-08",
-  "offline": "",
+  "offline": "2026-11-27",
   "log": [
    {
     "d": "2026-11-09",
     "status": "verkocht o.v.b.",
+    "prijs": 375000
+   },
+   {
+    "d": "2026-11-27",
+    "status": "offline",
     "prijs": 375000
    }
   ]
@@ -239,7 +244,7 @@
   "adres": "Hestiastraat 79-H",
   "corporatie": "Alliantie",
   "eerstGezien": "2026-11-08",
-  "offline": "",
+  "offline": "2026-11-27",
   "log": [
    {
     "d": "2026-11-09",
@@ -260,6 +265,11 @@
     "d": "2026-11-24",
     "status": "verkocht o.v.b.",
     "prijs": 550000
+   },
+   {
+    "d": "2026-11-27",
+    "status": "offline",
+    "prijs": 550000
    }
   ]
  },
@@ -267,11 +277,16 @@
   "adres": "Jacob van Lennepstraat 225",
   "corporatie": "Alliantie",
   "eerstGezien": "2026-11-08",
-  "offline": "",
+  "offline": "2026-11-27",
   "log": [
    {
     "d": "2026-11-09",
     "status": "verkocht o.v.b.",
+    "prijs": 425000
+   },
+   {
+    "d": "2026-11-27",
+    "status": "offline",
     "prijs": 425000
    }
   ]
@@ -996,6 +1011,11 @@
     "d": "2026-11-18",
     "status": "onder bod",
     "prijs": 325000
+   },
+   {
+    "d": "2026-11-27",
+    "status": "verkocht o.v.b.",
+    "prijs": 325000
    }
   ]
  },
@@ -1450,6 +1470,11 @@
    {
     "d": "2026-11-09",
     "status": "beschikbaar",
+    "prijs": 325000
+   },
+   {
+    "d": "2026-11-27",
+    "status": "verkocht o.v.b.",
     "prijs": 325000
    }
   ]
